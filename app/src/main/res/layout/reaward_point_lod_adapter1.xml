@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <HorizontalScrollView
+        android:id="@+id/horizontalScroll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:animateLayoutChanges="true"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:id="@+id/horizontalScroll_linear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:id="@+id/rl_2"
+                android:layout_width="match_parent"
+                android:layout_height="110dp"
+                android:layout_below="@+id/rl_1">
+
+                <RelativeLayout
+                    android:id="@+id/linlay_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="15dp">
+
+                    <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                        android:id="@+id/green_image"
+                        style="@style/fontawesome_style"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_centerInParent="true"
+                        android:layout_marginLeft="5dp"
+                        android:background="@drawable/date" />
+
+                    <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                        android:id="@+id/greenp"
+                        style="@style/Login_title"
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="9dp"
+                        android:layout_marginTop="22dp"
+                        android:gravity="center"
+                        android:text="yy"
+                        android:textColor="#FFFFFF" />
+
+                    <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                        android:id="@+id/greenpoi"
+                        style="@style/Login_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:text="ddd"
+                        android:textColor="#FFFFFF" />
+
+
+                    <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                        android:id="@+id/txtDateReward"
+                        style="@style/Login_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/greenp"
+
+                        android:layout_centerInParent="true"
+                        android:layout_margin="1dp"
+                        android:gravity="center"
+                        android:text="yy"
+                        android:textColor="#000000"
+                        android:textSize="15dp" />
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/relay_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/linlay_image">
+
+                    <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                        android:id="@+id/txtNameReward"
+                        style="@style/Login_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="35dp"
+                        android:text="Green Point"
+
+                        android:textColor="#000000"
+                        android:textSize="15dp" />
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rela_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/relay_image">
+
+
+                    <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                        android:id="@+id/txtActivityReward"
+                        style="@style/Login_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="35dp"
+                        android:text="Brown point"
+                        android:textColor="#000000"
+                        android:textSize="15dp" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rel_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_toRightOf="@+id/rela_image">
+
+                    <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                        android:id="@+id/Water_image"
+                        style="@style/fontawesome_style"
+                        android:layout_width="40dp"
+                        android:layout_height="35dp"
+                        android:layout_centerInParent="true"
+                        android:layout_marginLeft="5dp"
+                        android:background="@drawable/point" />
+
+                    <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                        android:id="@+id/txtPointReward"
+                        style="@style/Login_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_margin="1dp"
+                        android:gravity="center"
+                        android:text="Hello"
+                        android:textColor="#FFFFFF" />
+
+
+                </RelativeLayout>
+
+
+            </RelativeLayout>
+        </LinearLayout>
+    </HorizontalScrollView>
+</RelativeLayout>

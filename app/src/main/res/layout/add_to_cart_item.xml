@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:id="@+id/ll_fa"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="20dp"
+        android:background="#00A745"
+        android:clickable="true">
+
+
+        <com.blueplanet.smartcookieteacher.customcomponents.CustomButton
+            android:id="@+id/txt_BuyCou"
+            style="@style/login_button_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="19dp"
+            android:background="@null"
+            android:text="Buy Coupon"
+            android:textColor="@color/white_solid"
+            android:textColorHint="#000000"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/cart_CouList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/ll_fa"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/border"
+        android:paddingBottom="8dp"
+        android:visibility="visible" />
+
+    <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+        android:id="@+id/tv_no_coupons_left"
+        style="@style/Login_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:gravity="center"
+        android:text="Thank you...You have redeemed all your coupons!"
+        android:textColor="@color/colorAccent"
+        android:textSize="18sp"
+        android:visibility="gone" />
+</RelativeLayout>

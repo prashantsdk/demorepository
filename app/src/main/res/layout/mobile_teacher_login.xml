@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true">
+
+        <RelativeLayout
+            android:id="@+id/relayoutLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:id="@+id/rl_outer_grey_layout"
+                android:layout_width="280dp"
+                android:layout_height="520dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="50dp"
+                android:background="#ECECEC">
+
+                <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                    android:id="@+id/tv_login"
+                    style="@style/Login_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="70dp"
+                    android:text="Teacher Login"
+                    android:textColor="#393939"
+                    android:textSize="28sp" />
+
+                <RelativeLayout
+                    android:id="@+id/gsr"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_login"
+                    android:layout_marginLeft="35dp"
+                    android:layout_marginRight="35dp"
+                    android:background="@drawable/oval_white_background_transparant">
+
+                    <Spinner
+
+                        android:id="@+id/spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="45sp"
+                        android:layout_gravity="center_horizontal"
+                        android:entries="@array/login_type"
+                        android:visibility="visible" />
+                </RelativeLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/ll_username"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_below="@+id/gsr"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/username_selector"
+                    android:orientation="horizontal"
+                    android:visibility="invisible">
+
+                    <ImageView
+                        android:id="@+id/img_userName"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="15dp"
+                        android:background="@drawable/profileone" />
+
+
+                    <com.blueplanet.smartcookieteacher.customcomponents.CustomEditText
+                        android:id="@+id/edt_username"
+                        style="@style/et_username_style"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginTop="5dp"
+                        android:background="@null"
+                        android:drawablePadding="15sp"
+                        android:hint="Email"
+
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingTop="5dp"
+                        android:singleLine="true"
+                        android:textColor="#393939"
+                        android:textColorHint="#393939"
+                        android:textSize="20sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_below="@+id/gsr"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/username_selector"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <Spinner
+                        android:id="@+id/spinnerPhone"
+                        android:layout_width="70dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="7dp"
+                        android:layout_marginLeft="15dp"
+                        android:visibility="visible" />
+
+                    <com.blueplanet.smartcookieteacher.customcomponents.CustomEditText
+                        android:id="@+id/edt_phone"
+                        style="@style/et_username_style"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:background="@null"
+                        android:drawablePadding="15sp"
+                        android:hint="Phone"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:singleLine="true"
+                        android:textColor="#393939"
+                        android:textColorHint="#393939"
+                        android:textSize="15sp"
+                        android:inputType="phone"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_prn"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_below="@+id/gsr"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/username_selector"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+
+                    <com.blueplanet.smartcookieteacher.customcomponents.CustomEditText
+                        android:id="@+id/edt_colgCode"
+                        style="@style/et_username_style"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginTop="5dp"
+                        android:background="@null"
+                        android:drawablePadding="15sp"
+                        android:hint="Institute ID"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingTop="5dp"
+                        android:singleLine="true"
+                        android:textColor="#393939"
+                        android:textColorHint="#393939"
+                        android:textSize="15sp" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_ID"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_below="@+id/ll_username"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/username_selector"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <com.blueplanet.smartcookieteacher.customcomponents.CustomEditText
+                        android:id="@+id/edt_Id"
+                        style="@style/et_username_style"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginTop="5dp"
+                        android:background="@null"
+                        android:drawablePadding="15sp"
+                        android:hint="EmployeeID"
+
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingTop="5dp"
+                        android:singleLine="true"
+                        android:textColor="#393939"
+                        android:textColorHint="#393939"
+                        android:textSize="15sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_below="@+id/ll_ID"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/username_selector"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/img_pass"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="10dp"
+                        android:background="@drawable/passworld" />
+
+
+                    <com.blueplanet.smartcookieteacher.customcomponents.CustomEditText
+                        android:id="@+id/edt_password"
+                        style="@style/et_username_style"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="5dp"
+                        android:background="@null"
+                        android:drawablePadding="15sp"
+                        android:hint="@string/password"
+                        android:inputType="textPassword"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:singleLine="true"
+                        android:textColor="#393939"
+                        android:textColorHint="#393939"
+                        android:textSize="20sp" />
+
+                </LinearLayout>
+
+                <com.blueplanet.smartcookieteacher.customcomponents.CustomButton
+                    android:id="@+id/btn_login"
+                    style="@style/login_button_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_below="@+id/ll_password"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/login_button_selector"
+                    android:gravity="center"
+                    android:text="@string/Login"
+                    android:textColor="#ffffff"
+                    android:textSize="25sp" />
+
+                <CheckBox
+                    android:id="@+id/cb_remember_me"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/btn_login"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:drawablePadding="10dp"
+                    android:text="Remember Me"
+                    android:textColor="@color/black_solid" />
+
+                <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                    android:id="@+id/tv_forgotPassword"
+                    style="@style/Login_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/cb_remember_me"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:clickable="true"
+                    android:text="@string/ForgotPassword"
+                    android:textColor="#000000"
+                    android:textSize="17sp" />
+
+                <LinearLayout
+                    android:id="@+id/tep"
+                    android:layout_width="200dp"
+                    android:layout_height="30dp"
+                    android:layout_below="@+id/tv_forgotPassword"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"
+
+                    android:visibility="visible">
+
+                    <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                        android:id="@+id/txtproduction"
+
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/btnleftcorner"
+                        android:gravity="center"
+                        android:text="Production"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="#ffffff" />
+
+                    <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                        android:id="@+id/txttest"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/btnrightcorner"
+                        android:gravity="center"
+                        android:text="Test"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="#ffffff" />
+                </LinearLayout>
+
+                <com.blueplanet.smartcookieteacher.customcomponents.CustomButton
+                    android:id="@+id/btnRegis"
+                    style="@style/login_button_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_below="@+id/tep"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/login_button_selector"
+                    android:gravity="center"
+                    android:text="SIGN UP"
+                    android:textColor="#ffffff"
+                    android:textSize="25sp" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_circle_main"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="15dp">
+
+                <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                    android:id="@+id/tv_circle"
+                    style="@style/fontawesome_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/circle_filled"
+                    android:textColor="@color/white_solid"
+                    android:textSize="120dp" />
+
+                <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                    android:id="@+id/tv_user"
+                    style="@style/fontawesome_style"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/ens"
+                    android:textColor="@color/white_solid"
+                    android:textSize="60dp" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/rl_progressBar"
+                android:layout_width="120dp"
+                android:layout_height="70dp"
+                android:layout_centerInParent="true"
+                android:background="#000000"
+                android:visibility="gone">
+
+                <ProgressBar
+                    android:id="@+id/progressbar"
+                    style="@android:style/Widget.ProgressBar.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp" />
+
+                <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                    android:id="@+id/tv_please_wait"
+                    style="@style/Login_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_toRightOf="@+id/progressbar"
+                    android:text="Please wait..."
+                    android:textColor="#ffffff"
+                    android:textSize="18sp" />
+            </RelativeLayout>
+
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>

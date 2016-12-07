@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/logo" />
+
+    <RelativeLayout
+        android:id="@+id/rel_checkPass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_margin="10dp"
+
+        android:elevation="3dp"
+        android:padding="10dp"
+        android:visibility="visible">
+
+        <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+            android:id="@+id/textto"
+            style="@style/et_username_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:text="In order to access Smart Cookie account ,Please Enter Initial Password"
+            android:textColor="#000000"
+            android:textSize="20sp" />
+
+        <com.blueplanet.smartcookieteacher.customcomponents.CustomEditText
+            android:id="@+id/edt_initl_paswrd"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/textto"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/border"
+            android:hint="**********"
+            android:inputType="textPassword"
+            android:textAlignment="center"
+            android:textColorHint="#8BC34A"
+            />
+
+        <com.blueplanet.smartcookieteacher.customcomponents.CustomButton
+            android:id="@+id/btn_ok"
+            android:layout_width="130dp"
+            android:layout_height="60dp"
+            android:layout_below="@+id/edt_initl_paswrd"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/btnleftcorner"
+            android:text="Continue"
+            android:textColor="#ffffff"
+            android:textSize="18sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rel_btnmode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_margin="10dp"
+
+        android:elevation="3dp"
+        android:padding="10dp"
+        android:visibility="gone">
+
+        <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+            android:id="@+id/texttafter"
+            style="@style/et_username_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:text="Please Select App Mode"
+            android:textColor="#000000"
+            android:textSize="20sp" />
+
+        <com.blueplanet.smartcookieteacher.customcomponents.CustomButton
+            android:id="@+id/btn_testi"
+            android:layout_width="150dp"
+            android:layout_height="70dp"
+            android:layout_below="@+id/texttafter"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/btnleftcorner"
+            android:text="T Smart"
+            android:textColor="#ffffff"
+            android:textSize="18sp" />
+
+        <com.blueplanet.smartcookieteacher.customcomponents.CustomButton
+            android:id="@+id/btn_prodctn"
+            android:layout_width="150dp"
+            android:layout_height="70dp"
+            android:layout_below="@+id/btn_testi"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/btnrightcorner"
+            android:text="Smart"
+            android:textColor="#ffffff"
+            android:textSize="18sp" />
+    </RelativeLayout>
+
+</RelativeLayout>

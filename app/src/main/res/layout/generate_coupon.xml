@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/relay3"
+        android:layout_width="match_parent"
+        android:layout_height="300dp">
+
+        <RelativeLayout
+            android:id="@+id/rl_1"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center">
+
+            <RelativeLayout
+                android:id="@+id/ll_username"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_below="@+id/tv_login"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/login_button_selector"
+
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/teacherName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+                    android:text="Student Search"
+                    android:textColor="#FFFFFF"
+                    android:textSize="15dp" />
+
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/txtcoupon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rl_1"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="3dp"
+            android:text="SMART COOKIE COUPON"
+            android:textColor="#4A8B3B"
+            android:textSize="15dp" />
+
+        <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+            android:id="@+id/greenpoint"
+            style="@style/Login_title"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_below="@+id/txtcoupon"
+            android:layout_centerInParent="true"
+            android:layout_margin="1dp"
+            android:background="@drawable/blue_point"
+            android:gravity="center"
+            android:text="A"
+            android:textColor="#FFFFFF"
+            android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/txtmypoint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/greenpoint"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="3dp"
+            android:text="MY POINTS"
+            android:textColor="#000000"
+            android:textSize="15dp" />
+
+        <TextView
+            android:id="@+id/txtgenerate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtmypoint"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="8dp"
+            android:text="Generate Coupon of"
+            android:textColor="#000000"
+            android:textSize="15dp" />
+
+        <LinearLayout
+            android:id="@+id/lay2"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_below="@+id/txtgenerate"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:background="#ECECEC">
+
+            <EditText
+                android:id="@+id/etxtpoints"
+                android:layout_width="200dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:ems="10"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:gravity="center_vertical"
+                android:hint="Select Points"
+                android:inputType="number"
+                android:padding="10dp"
+                android:textColor="#190710"></EditText>
+
+            <ImageView
+                android:id="@+id/imgclearpoints"
+                android:layout_width="20dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:src="@drawable/ic_clear_black_24dp"
+                android:visibility="visible" />
+        </LinearLayout>
+
+        <com.blueplanet.smartcookieteacher.customcomponents.CustomButton
+            android:id="@+id/btn_generate"
+            style="@style/login_button_style"
+            android:layout_width="190dp"
+            android:layout_height="60dp"
+            android:layout_below="@+id/txtgenerate"
+            android:layout_toRightOf="@+id/lay2"
+            android:background="@drawable/generate_coup_selector"
+            android:gravity="center"
+            android:text="Generate"
+            android:textColor="#ffffff"
+            android:textSize="15sp" />
+
+        <com.blueplanet.smartcookieteacher.customcomponents.CustomButton
+            android:id="@+id/btn_recentilygen"
+            style="@style/login_button_style"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/btn_generate"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/login_button_selector"
+            android:gravity="center"
+            android:text="Recently Generated Coupon"
+            android:textColor="#ffffff"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:id="@+id/imgexpand"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/ic_expand_less_white_24dp"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/line1"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_below="@+id/btn_recentilygen"
+            android:layout_marginTop="5dp"
+            android:background="#a9a9a9"
+            android:orientation="horizontal" />
+
+
+    </RelativeLayout>
+
+
+    <ListView
+        android:id="@+id/Iv_CouList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/relay3"
+        android:layout_marginLeft="5dp"
+        android:background="@drawable/border"
+        android:paddingBottom="8dp" />
+</RelativeLayout>

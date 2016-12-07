@@ -1,0 +1,525 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:id="@+id/relayu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/relayout"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/border"
+                android:paddingBottom="10dp">
+
+                <RelativeLayout
+                    android:id="@+id/re_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_centerHorizontal="true">
+
+                    <ImageView
+                        android:id="@+id/iv_studentPhoto"
+                        android:layout_width="90dp"
+                        android:layout_height="90dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="22dp"
+                        android:background="@drawable/logo" />
+                    <com.blueplanet.smartcookieteacher.customcomponents.CustomButton
+                        android:id="@+id/btn_assignPoints"
+                        style="@style/login_button_style"
+                        android:layout_width="120dp"
+                        android:layout_height="40dp"
+                        android:layout_below="@+id/iv_studentPhoto"
+                        android:textSize="15dp"
+
+
+                        android:background="@drawable/login_button_selector"
+                        android:text="Assign Points"
+                        android:textColor="@color/white_solid" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/stdName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/re_1"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
+                    <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                        android:id="@+id/txt_StudentFirstName"
+                        style="@style/Login_title"
+                        android:layout_width="130dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:gravity="right"
+                        android:text="Student Name : "
+                        android:textColor="#190710"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                        android:id="@+id/txt_firstname"
+                        style="@style/Login_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:gravity="left"
+                        android:text=""
+                        android:textColor="#190710"
+                        android:textSize="15sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/firName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/stdName"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
+                    <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                        android:id="@+id/txt_StudentcollageName"
+                        style="@style/Login_title"
+                        android:layout_width="130dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:gravity="right"
+                        android:text="Collage Name : "
+                        android:textColor="#190710"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                        android:id="@+id/txt_colgtname"
+                        style="@style/Login_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:gravity="left"
+                        android:text=""
+                        android:textColor="#190710"
+                        android:textSize="15sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/prn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/firName"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
+                    <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                        android:id="@+id/txt_StudePRN"
+                        style="@style/Login_title"
+                        android:layout_width="130dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:gravity="right"
+                        android:text="Student PRN : "
+                        android:textColor="#190710"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                        android:id="@+id/txt_prn"
+                        style="@style/Login_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:gravity="left"
+                        android:text=""
+                        android:textColor="#190710"
+                        android:textSize="15sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/gender"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/prn"
+
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
+                    <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                        android:id="@+id/txt_stgender"
+                        style="@style/Login_title"
+                        android:layout_width="130dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:gravity="right"
+                        android:text="Gender : "
+                        android:textColor="#190710"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                        android:id="@+id/txt_gender"
+                        style="@style/Login_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:gravity="left"
+                        android:text=""
+                        android:textColor="#190710"
+                        android:textSize="15sp" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/dob"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/gender"
+
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
+                    <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                        android:id="@+id/txt_Dob"
+                        style="@style/Login_title"
+                        android:layout_width="130dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:gravity="right"
+                        android:text="Date Of Birth : "
+                        android:textColor="#190710"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                        android:id="@+id/txt_dob"
+                        style="@style/Login_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:gravity="left"
+                        android:text=""
+                        android:textColor="#190710"
+                        android:textSize="15sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/age"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/dob"
+
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
+                    <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                        android:id="@+id/txt_age"
+                        style="@style/Login_title"
+                        android:layout_width="130dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:gravity="right"
+                        android:text="Age: "
+                        android:textColor="#190710"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                        android:id="@+id/txt_Age"
+                        style="@style/Login_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:gravity="left"
+                        android:text=""
+                        android:textColor="#190710"
+                        android:textSize="15sp" />
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relaylavout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/relayu"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/border"
+                android:paddingBottom="10dp">
+
+                <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                    android:id="@+id/eduction"
+                    style="@style/Login_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="90dp"
+                    android:layout_marginTop="5dp"
+                    android:text="Education"
+                    android:textColor="#190710"
+                    android:textSize="20sp" />
+
+                <LinearLayout
+                    android:id="@+id/className"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/eduction"
+
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
+                    <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                        android:id="@+id/txt_class"
+                        style="@style/Login_title"
+                        android:layout_width="130dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:gravity="right"
+                        android:text="Class Name : "
+                        android:textColor="#190710"
+                        android:textSize="15sp" />
+
+                    <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                        android:id="@+id/txt_className"
+                        style="@style/Login_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:gravity="left"
+                        android:text=""
+                        android:textColor="#190710"
+                        android:textSize="15sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/divi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/className"
+
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
+                    <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                        android:id="@+id/txtDiv"
+                        style="@style/Login_title"
+                        android:layout_width="130dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:gravity="right"
+                        android:text="Division : "
+                        android:textColor="#190710"
+                        android:textSize="15sp" />
+
+                    <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                        android:id="@+id/txt_div"
+                        style="@style/Login_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:gravity="left"
+                        android:text=""
+                        android:textColor="#190710"
+                        android:textSize="15sp" />
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relaylavo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/relaylavout"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/border"
+                android:paddingBottom="10dp">
+
+                <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                    android:id="@+id/educt"
+                    style="@style/Login_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="90dp"
+                    android:layout_marginTop="5dp"
+                    android:text="Extra Info"
+                    android:textColor="#190710"
+                    android:textSize="20sp" />
+
+
+                <LinearLayout
+                    android:id="@+id/hobbies"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/educt"
+
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
+                    <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                        android:id="@+id/txthob"
+                        style="@style/Login_title"
+                        android:layout_width="130dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:gravity="right"
+                        android:text="Hobbies : "
+                        android:textColor="#190710"
+                        android:textSize="15sp" />
+
+                    <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                        android:id="@+id/txt_hobbies"
+                        style="@style/Login_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:gravity="left"
+                        android:text=""
+                        android:textColor="#190710"
+                        android:textSize="15sp" />
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relaylavout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/relaylavo"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/border"
+                android:paddingBottom="10dp">
+
+                <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                    android:id="@+id/contact"
+                    style="@style/Login_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="75dp"
+                    android:layout_marginTop="5dp"
+                    android:text="Contact Information"
+                    android:textColor="#190710"
+                    android:textSize="20sp" />
+
+                <LinearLayout
+                    android:id="@+id/Address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/contact"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
+                    <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                        android:id="@+id/txt_address"
+                        style="@style/Login_title"
+                        android:layout_width="130dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:gravity="right"
+                        android:text=" Address  :     "
+                        android:textColor="#190710"
+                        android:textSize="15sp" />
+
+                    <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                        android:id="@+id/txt_Address"
+                        style="@style/Login_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:gravity="right"
+                        android:text=""
+                        android:textColor="#190710"
+                        android:textSize="15sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/city"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/Address"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
+                    <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                        android:id="@+id/City"
+                        style="@style/Login_title"
+                        android:layout_width="130dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:gravity="right"
+                        android:text="City :  "
+                        android:textColor="#190710"
+                        android:textSize="15sp" />
+
+                    <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                        android:id="@+id/txt_city"
+                        style="@style/Login_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:gravity="left"
+                        android:text=""
+                        android:textColor="#190710"
+                        android:textSize="15sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/country"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/city"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
+                    <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                        android:id="@+id/Country"
+                        style="@style/Login_title"
+                        android:layout_width="130dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:gravity="right"
+                        android:text="Country :  "
+                        android:textColor="#190710"
+                        android:textSize="15sp" />
+
+                    <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                        android:id="@+id/txt_country"
+                        style="@style/Login_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:gravity="left"
+                        android:text=""
+                        android:textColor="#190710"
+                        android:textSize="15sp" />
+                </LinearLayout>
+
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>

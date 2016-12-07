@@ -1,0 +1,25 @@
+package com.blueplanet.smartcookieteacher.ui.customactionbar;
+
+import android.graphics.Bitmap;
+
+public class Employee {
+	private Bitmap bmp;
+	private String name;
+
+	public Employee(Bitmap b, String n) {
+		bmp = b;
+		name = n;
+		
+	}
+
+	public Bitmap getBitmap() {
+		return bmp;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	
+
+}

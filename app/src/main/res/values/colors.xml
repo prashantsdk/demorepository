@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <!-- COLOR Light Green   -->
+    <color name="cl_primary">#545da7</color>
+    <!-- 500  -->
+    <color name="cl_primaryDark">#388E3C</color>
+    <!-- 700  -->
+    <color name="list_background">#303030</color>
+    <color name="list_background_pressed">#992416</color>
+
+    <color name="blue_circle">#203CB7</color>
+    <color name="blue_solid">#0000ff</color>
+    <color name="black_solid">#000000</color>
+    <color name="red_solid">#ff0000</color>
+    <color name="white_solid">#ffffff</color>
+
+    <color name="login_button_color">#203CB9</color>
+    <color name="login_button_pressed_state_color">#000099</color>
+
+    <color name="signup_buttion_color">#04B404</color>
+    <color name="signup_buttion_pressed_color">#2EFE64</color>
+
+    <color name="username_color">#D3D3D3</color>
+    <color name="facebook_color">#3C5A9A</color>
+    <color name="facebook_img_color">#FFFFFF</color>
+    <color name="facebook_color_pressed_state">#003F87</color>
+
+    <color name="google_img_color">#DD4C3B</color>
+    <color name="google_color_pressed_state">#8E2323</color>
+
+    <color name="twitter_img_color">#00ACEC</color>
+    <color name="twitter_color_pressed_state">#008080</color>
+
+    <!--hexagon colors-->
+    <color name="hexagon_green_point_color">#3EBD30</color>
+
+    <!--cupon image-->
+    <color name="feed_item_bg">#CECEF6</color>
+    <color name="feed_item_border">#000000</color>
+    <color name="green">#04B404</color>
+    <color name="cl_White">#FFFFFF</color>
+    <color name="cl_Black">#000000</color>
+
+    <color name="cl_lightbackgrond">#E8F5E9</color>
+    <color name="cl_primary_100">#C8E6C9</color>
+    <color name="cl_green_new">#3DBD2F</color>
+
+    <color name="cl_white_80_transp">#CCFFFFFF</color>
+    <color name="cl_black">#000000</color>
+    <color name="viewfinder_laser">#ffcc0000</color>
+    <color name="viewfinder_mask">#60000000</color>
+
+    <color name="buttongoogle_press">#ad2d1e</color>
+</resources>

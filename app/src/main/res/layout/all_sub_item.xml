@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="240dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/border">
+
+        <RelativeLayout
+            android:id="@+id/rl_main"
+            android:layout_width="match_parent"
+            android:layout_height="40dp">
+
+            <ImageView
+                android:id="@+id/iv_studentPhoto"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/subject" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/iv_studentPhoto">
+
+                <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                    android:id="@+id/txt_studentName"
+                    style="@style/Login_title"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:text="Subject"
+
+
+                    android:textColor="@color/black_solid"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                    android:id="@+id/txt_studentNam"
+                    style="@style/Login_title"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+
+                    android:layout_toRightOf="@+id/txt_studentName"
+                    android:text="gg"
+                    android:textColor="#190710"
+                    android:textSize="15dp" />
+
+
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/line1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/rl_main"
+            android:layout_marginTop="5dp"
+            android:background="#a9a9a9"
+            android:orientation="horizontal" />
+
+
+        <RelativeLayout
+            android:id="@+id/r2_main"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@+id/line1">
+
+            <ImageView
+                android:id="@+id/Division_image"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/division" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/Division_image">
+
+                <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                    android:id="@+id/txt_division"
+                    style="@style/Login_title"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:text="Division"
+
+                    android:textColor="@color/black_solid"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                    android:id="@+id/txt_DivisionName"
+                    style="@style/Login_title"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+
+                    android:layout_toRightOf="@+id/txt_division"
+                    android:text=""
+                    android:textColor="#190710"
+                    android:textSize="15dp" />
+
+
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/line2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/r2_main"
+            android:layout_marginTop="5dp"
+            android:background="#a9a9a9"
+            android:orientation="horizontal" />
+
+        <RelativeLayout
+            android:id="@+id/rl_3"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@+id/line2">
+
+            <ImageView
+                android:id="@+id/iv_BranchPhoto"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/branch" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/iv_BranchPhoto">
+
+                <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                    android:id="@+id/txt_branch"
+                    style="@style/Login_title"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:text="Branch"
+
+                    android:textColor="@color/black_solid"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                    android:id="@+id/txt_branchName"
+                    style="@style/Login_title"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+
+                    android:layout_toRightOf="@+id/txt_branch"
+                    android:text=""
+                    android:textColor="#190710"
+                    android:textSize="15dp" />
+
+
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_progressBar"
+            android:layout_width="120dp"
+            android:layout_height="80dp"
+            android:layout_centerInParent="true"
+            android:background="#000000"
+            android:visibility="gone">
+
+            <ProgressBar
+                android:id="@+id/progressbar"
+                style="@android:style/Widget.ProgressBar.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp" />
+
+            <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                android:id="@+id/tv_please_wait"
+                style="@style/Login_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="10dp"
+                android:layout_toRightOf="@+id/progressbar"
+                android:text="Please wait..."
+                android:textColor="#ffffff"
+                android:textSize="15sp" />
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:id="@+id/line3"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/rl_3"
+            android:layout_marginTop="5dp"
+            android:background="#a9a9a9"
+            android:orientation="horizontal" />
+
+        <RelativeLayout
+            android:id="@+id/rl_4"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@+id/line3">
+
+            <ImageView
+                android:id="@+id/iv_semesterPhoto"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/semester" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/iv_semesterPhoto">
+
+                <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                    android:id="@+id/txt_semester"
+                    style="@style/Login_title"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:text="Semester"
+                    android:textColor="@color/black_solid"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                    android:id="@+id/txt_semesterName"
+                    style="@style/Login_title"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+
+                    android:layout_toRightOf="@+id/txt_semester"
+                    android:text=""
+                    android:textColor="#190710"
+                    android:textSize="15dp" />
+
+
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/line4"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/rl_4"
+            android:layout_marginTop="5dp"
+            android:background="#a9a9a9"
+            android:orientation="horizontal" />
+
+        <RelativeLayout
+            android:id="@+id/rl_5"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@+id/line4">
+
+            <ImageView
+                android:id="@+id/iv_departmentPhoto"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/department" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/iv_departmentPhoto">
+
+                <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                    android:id="@+id/txt_department"
+                    style="@style/Login_title"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:text="Department"
+                    android:textColor="@color/black_solid"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                    android:id="@+id/txt_departmentName"
+                    style="@style/Login_title"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+
+                    android:layout_toRightOf="@+id/txt_department"
+                    android:text=""
+                    android:textColor="#190710"
+                    android:textSize="15dp" />
+
+
+            </RelativeLayout>
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+</RelativeLayout>

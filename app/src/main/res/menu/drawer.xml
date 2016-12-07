@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/my_points"
+            android:checked="false"
+            android:icon="@drawable/ic_action_about"
+            android:title="@string/str_my_points" />
+
+        <item
+            android:id="@+id/student_list"
+            android:checked="false"
+            android:icon="@drawable/ic_action_group"
+            android:title="@string/str_student_list" />
+
+        <item
+            android:id="@+id/reward_point_log"
+            android:checked="false"
+            android:icon="@drawable/ic_action_gamepad"
+            android:title="@string/str_reward_point_log" />
+
+        <item
+            android:id="@+id/my_subject"
+            android:checked="false"
+            android:icon="@drawable/ic_action_about"
+            android:title="@string/str_my_subject" />
+
+
+        <item
+            android:id="@+id/assign_points"
+            android:checked="false"
+            android:icon="@drawable/ic_action_about"
+            android:title="@string/str_assign_points" />
+        <item
+            android:id="@+id/coupon"
+            android:checked="false"
+            android:icon="@drawable/ic_action_about"
+            android:title="@string/str_coupon" />
+        <item
+            android:id="@+id/logout"
+            android:checked="false"
+            android:icon="@drawable/ic_action_help"
+            android:title="@string/str_logout" />
+
+    </group>
+</menu>

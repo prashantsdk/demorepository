@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/LinearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/backgroundimage"
+        android:orientation="vertical" >
+        <ScrollView
+            android:id="@+id/scrollView1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10sp"
+                    >
+
+                    <TextView
+                        android:id="@+id/all_student"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="left|center"
+                        android:paddingLeft="10sp"
+                        android:text="Sync Point"
+                        android:textColor="#ffffff"
+                        android:textSize="20sp" />
+
+                    <Button
+                        android:id="@+id/btnPointSyn"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3"
+
+                        android:background="#CC04B404"
+                        android:textColor="#ffffff"
+                        android:text="Sync" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10sp" >
+
+                    <TextView
+                        android:id="@+id/TextView06"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="left|center"
+                        android:paddingLeft="10sp"
+                        android:text="Sync RewardPoint"
+                        android:textColor="#ffffff"
+                        android:textSize="20sp" />
+
+                    <Button
+                        android:id="@+id/btnRewardSyn"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3"
+                        android:background="#CC04B404"
+                        android:textColor="#ffffff"
+                        android:text="Sync" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10sp" >
+
+                    <TextView
+                        android:id="@+id/TextView05"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="left|center"
+                        android:paddingLeft="10sp"
+                        android:text="Sync StudentList"
+                        android:textColor="#ffffff"
+                        android:textSize="20sp" />
+
+                    <Button
+                        android:id="@+id/btnAllStudent"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3"
+                        android:background="#CC04B404"
+                        android:textColor="#ffffff"
+                        android:text="Sync" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10sp"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/TextView04"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="left|center"
+                        android:paddingLeft="10sp"
+                        android:text="Sync Subject"
+                        android:textColor="#ffffff"
+                        android:textSize="20sp"
+                        android:visibility="visible"/>
+
+                    <Button
+                        android:id="@+id/btnMysubjectSyn"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3"
+                        android:background="#CC04B404"
+                        android:textColor="#ffffff"
+                        android:text="Sync"
+                        android:visibility="visible" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10sp"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/TextView03"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="left|center"
+                        android:paddingLeft="10sp"
+                        android:text="Sync BuyCoup"
+                        android:textColor="#ffffff"
+                        android:textSize="20sp"
+                        android:visibility="visible" />
+
+                    <Button
+                        android:id="@+id/btnBuy"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3"
+                        android:background="#CC04B404"
+                        android:textColor="#ffffff"
+                        android:text="Sync"
+                        android:visibility="visible"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10sp"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/TextView10"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="left|center"
+                        android:paddingLeft="10sp"
+                        android:text="Sync GenerateCoupon"
+                        android:textColor="#ffffff"
+                        android:textSize="20sp"
+                        android:visibility="visible"/>
+
+                    <Button
+                        android:id="@+id/btnSchActivity"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3"
+                        android:background="#CC04B404"
+                        android:text="Sync"
+                        android:textColor="#ffffff"
+                        android:visibility="visible" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

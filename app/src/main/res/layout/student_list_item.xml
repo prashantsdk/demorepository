@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white_solid">
+
+    <RelativeLayout
+        android:id="@+id/rl_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/cl_lightbackgrond"
+      >
+
+        <ImageView
+            android:id="@+id/iv_studentPhoto"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/logo" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/iv_studentPhoto">
+
+            <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                android:id="@+id/txt_studentName"
+                style="@style/Login_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="abc"
+                android:textColor="#190710"
+                android:textSize="15sp" />
+
+
+            <LinearLayout
+                android:id="@+id/ll_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txt_studentName"
+                android:layout_marginTop="7dp"
+                android:orientation="horizontal">
+
+                <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                    style="@style/Login_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Prn No :"
+                    android:textColor="#190710"
+                    android:textSize="15sp" />
+
+                <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                    android:id="@+id/txt_prn"
+                    style="@style/Login_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text=""
+                    android:textColor="#190710"
+                    android:textSize="15sp" />
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_23"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ll_2"
+                android:layout_marginTop="7dp"
+                android:orientation="horizontal">
+
+                <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                    style="@style/Login_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Student Coordinator :"
+                    android:textColor="#190710"
+                    android:textSize="15sp" />
+
+
+            </LinearLayout>
+
+          <!--  <CheckBox
+                android:id="@+id/checkBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:textColor="@color/list_background"
+                android:visibility="visible"
+                android:layout_alignTop="@+id/ll_2"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />-->
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/line1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/rl_main"
+        android:layout_marginTop="5dp"
+        android:background="#a9a9a9"
+        android:orientation="horizontal" />
+</RelativeLayout>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:id="@+id/tep"
+        android:layout_width="400dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/tv_forgotPassword"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal"
+
+        android:visibility="visible">
+
+        <com.blueplanet.smartcookieteacher.customcomponents.CustomButton
+            android:id="@+id/txtmy"
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/btnleftcorner"
+            android:gravity="center"
+            android:text="My Subject"
+            android:textSize="20dp"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#ffffff" />
+
+        <com.blueplanet.smartcookieteacher.customcomponents.CustomButton
+            android:id="@+id/txtall"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/btnrightcorner"
+            android:gravity="center"
+            android:textSize="20dp"
+            android:text="All Subject"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#ffffff" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/lv_subject"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tep"
+        android:layout_marginTop="10dp"
+        android:divider="@null"></ListView>
+</RelativeLayout>

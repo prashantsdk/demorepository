@@ -1,0 +1,167 @@
+package com.blueplanet.smartcookieteacher.ui.customactionbar;
+
+import android.graphics.Bitmap;
+
+public class UserSession {
+
+	private static int id;
+	private static int count;
+	private static String userid;
+	private static String Password;
+	private static String Name;
+	private static String SchoolId;
+	private static String AppMode;
+	private static Bitmap bmp;
+	private static String t_id;
+	
+	private static String teacher_id;
+	private static String t_fullName;
+	private static String Stud_PRN_No;
+	private static String bluepoints;
+	private static String S_PRN;
+	private static String greenpoints;
+	private static String yellowpoints;
+	private static String brownpoints;
+	
+	public static String getGreenpoints() {
+		return greenpoints;
+	}
+
+	public static void setGreenpoints(String greenpoints) {
+		greenpoints = greenpoints;
+	}
+
+	public static String getYellowpoints() {
+		return yellowpoints;
+	}
+
+	public static void setYellowpoints(String yellowpoints) {
+		yellowpoints = yellowpoints;
+	}
+
+	public static String getWaterpoints() {
+		return waterpoints;
+	}
+
+	public static void setWaterpoints(String waterpoints) {
+		waterpoints = waterpoints;
+	}
+
+	public static String getBluepoints() {
+		return bluepoints;
+	}
+
+	private static String waterpoints;
+
+	public static String getStud_PRN_No() {
+		return Stud_PRN_No;
+	}
+
+	public static void setStud_PRN_No(String stud_PRN_No) {
+		Stud_PRN_No = stud_PRN_No;
+	}
+
+	public static String getT_fullName() {
+		return t_fullName;
+	}
+
+	public static void setT_fullName(String t_fullName) {
+		t_fullName = t_fullName;
+	}
+
+	public static String getT_id() {
+		return t_id;
+	}
+
+	public static void setT_id(String t_id) {
+		UserSession.t_id = t_id;
+	}
+	
+	
+	public static String getteacher_id() {
+		return teacher_id;
+	}
+	public static String getBrownpoints() {
+		return brownpoints;
+	}
+	public static void setBrownpoints(String brownpoints) {
+		brownpoints = brownpoints;
+	}
+
+	public static void setteacher_id(String teacher_id) {
+		UserSession.teacher_id = teacher_id;
+	}
+
+	public static int getCount() {
+		return count;
+	}
+
+	public static void setCount(int count) {
+		UserSession.count = count;
+	}
+
+	public static Bitmap getBmp() {
+		return bmp;
+	}
+
+	public static void setBmp(Bitmap bmp) {
+		UserSession.bmp = bmp;
+	}
+
+	public static int getId() {
+		return id;
+	}
+
+	public static void setId(int id) {
+		UserSession.id = id;
+	}
+
+	public static String getUserid() {
+		return userid;
+	}
+
+	public static void setUserid(String userid) {
+		UserSession.userid = userid;
+	}
+
+	public static String getPassword() {
+		return Password;
+	}
+
+	public static void setPassword(String password) {
+		Password = password;
+	}
+
+	public static String getName() {
+		return Name;
+	}
+
+	public static void setName(String name) {
+		Name = name;
+	}
+
+	public static void setschoolId(String sid) {
+
+		UserSession.SchoolId = sid;
+	}
+
+	public static String getschoolId() {
+		// TODO Auto-generated method stub
+		return SchoolId;
+	}
+
+	public static String getAppMode() {
+		return AppMode;
+	}
+
+	public static void setAppMode(String appMode) {
+		AppMode = appMode;
+	}
+	public static void setBluepoints(String bluepoints) {
+		UserSession.bluepoints = bluepoints;
+	}
+	
+	public static String getS_PRN() {
+		return S_PRN;
+	}
+}

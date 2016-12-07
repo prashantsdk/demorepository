@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="nav_items">
+        <item>Menu 1st</item>
+        <item>Menu 2nd</item>
+        <item>Share</item>
+        <item>Rate</item>
+        <item>More Apps</item>
+        <item>About</item>
+    </string-array>
+
+    <string-array name="country_code">
+        <item>+91</item>
+        <item>+1</item>
+    </string-array>
+
+    <string-array name="login_type">
+        <item>Select Login Type</item>
+        <item>Email</item>
+        <item>Mobile-No</item>
+        <item>PRN</item>
+        <item>Social Login</item>
+
+
+    </string-array>
+
+</resources>

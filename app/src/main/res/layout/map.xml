@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="fill_parent"
+android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:background="@color/cl_lightbackgrond">
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="5dp" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <Button
+                    android:id="@+id/btnSelectCatagory_choose_loc"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="2.5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/rewardbuttonshape"
+                    android:drawableRight="@drawable/ic_expand_more_white_24dp"
+                    android:ems="10"
+                    android:paddingLeft="2dp"
+                    android:text="Select Catagory"
+                    android:textColor="#FFFFFF"
+                    android:textSize="12dp" >
+                </Button>
+
+                <Button
+                    android:id="@+id/btndistance_limit_choose_loc"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="2.5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/rewardbuttonshape"
+                    android:drawableRight="@drawable/ic_expand_more_white_24dp"
+                    android:ems="10"
+                    android:paddingLeft="2dp"
+                    android:text="Distance Limit"
+                    android:textColor="#FFFFFF"
+                    android:textSize="12dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+
+                android:background="@color/cl_primary_100"
+                android:orientation="vertical"
+                android:padding="5dp">
+
+                <TextView
+                    android:id="@+id/textView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Choose Location"
+                    android:textColor="#000000"
+                    android:textStyle="bold"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="2dp"
+                    android:layout_height="2dp"
+                    android:background="@android:color/darker_gray"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/atxtcountry_choosesuggetedvendor"
+                        android:layout_width="match_parent"
+                        android:layout_height="25dp"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:layout_marginRight="2.5dp"
+                        android:hint="Select Country"
+                        android:drawableRight="@drawable/ic_expand_more_black_24dp"
+                        android:background="@drawable/etxt_layoutback"
+                        android:textSize="12dp"
+                        android:paddingLeft="5dp"
+                        android:inputType="textPersonName" />
+
+                    <AutoCompleteTextView
+                        android:id="@+id/atxtstate_choosesuggetedvendor"
+                        android:layout_width="match_parent"
+                        android:layout_height="25dp"
+                        android:layout_weight="1"
+                        android:ems="10"
+
+
+                        android:drawableRight="@drawable/ic_expand_more_black_24dp"
+                        android:background="@drawable/etxt_layoutback"
+                        android:layout_marginLeft="2.5dp"
+                        android:textSize="12dp"
+                        android:paddingLeft="5dp"
+                        android:inputType="textPersonName" >
+
+
+                    </AutoCompleteTextView>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp" >
+
+                    <EditText
+                        android:id="@+id/etxtcity_choosesuggetedvendor"
+                        android:layout_width="match_parent"
+                        android:layout_height="25dp"
+                        android:layout_marginRight="2.5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/etxt_layoutback"
+
+                        android:ems="10"
+                        android:inputType="textPersonName"
+                        android:textSize="12dp"
+                        android:paddingLeft="5dp"
+                        />
+
+                    <Button
+                        android:id="@+id/btnviewsponsor"
+                        style="?android:attr/buttonStyleSmall"
+                        android:layout_width="match_parent"
+                        android:layout_height="25dp"
+                        android:layout_weight="2"
+                        android:text="View"
+                        android:textColor="#FFFFFF"
+                        android:textSize="12sp"
+                        android:background="@drawable/rewardbuttonshape"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:background="@drawable/reg_layoutback"
+            android:orientation="vertical"
+            >
+
+            <ListView
+                android:id="@+id/lstchoosevendorlist"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+            </ListView>
+        </LinearLayout>
+
+
+
+</LinearLayout>

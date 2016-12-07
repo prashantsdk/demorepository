@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+
+    android:background="@drawable/border">
+
+
+    <ImageView
+        android:id="@+id/coupon"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="8dp"
+
+
+        />
+
+    <TextView
+        android:id="@+id/Sp_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/coupon"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="1dp"
+        android:text="PIZZA"
+        android:textColor="#5A5A5A"
+        android:textSize="13sp" />
+
+    <TextView
+        android:id="@+id/txtName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Sp_name"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="5dp"
+        android:text="PIZZA"
+        android:textColor="#5A5A5A"
+        android:textSize="13sp" />
+
+
+    <LinearLayout
+        android:id="@+id/layout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtName"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp">
+
+        <TextView
+            android:id="@+id/txtoff"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="30% OFF"
+            android:textColor="#00A745"
+            android:textSize="14dp" />
+
+        <TextView
+            android:id="@+id/txtPoint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="(30% OFF)"
+            android:textColor="#C1310C"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <!-- <TextView
+         android:id="@+id/txtCode"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_below="@+id/layout1"
+         android:layout_centerInParent="true"
+         android:text="Coupon code"
+         android:textColor="#5A5A5A"
+         android:textSize="19sp" />
+
+     <RelativeLayout
+         android:id="@+id/ll_facebook"
+         android:layout_width="80dp"
+         android:layout_height="25dp"
+
+         android:layout_below="@+id/txtCode"
+         android:background="#C1310C"
+         android:clickable="true">
+
+         <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+             android:id="@+id/img_facebook"
+             style="@style/fontawesome_style"
+             android:layout_width="30dp"
+             android:layout_height="wrap_content"
+             android:layout_centerVertical="true"
+             android:layout_marginLeft="5dp"
+             android:background="@drawable/cart"
+
+             android:textColor="@color/facebook_img_color" />
+
+         <TextView
+             android:id="@+id/txt_card"
+             style="@style/Login_title"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_centerVertical="true"
+
+             android:layout_toRightOf="@+id/img_facebook"
+             android:text="Cart"
+             android:textColor="@color/white_solid"
+             android:textColorHint="#000000"
+             android:textSize="16sp" />
+     </RelativeLayout>
+
+     <RelativeLayout
+         android:id="@+id/ll_fa"
+         android:layout_width="80dp"
+         android:layout_height="25dp"
+         android:layout_below="@+id/txtCode"
+         android:layout_marginLeft="2dp"
+         android:layout_toRightOf="@+id/ll_facebook"
+         android:background="#00A745"
+         android:clickable="true">
+
+
+         <TextView
+             android:id="@+id/txt_Buy"
+             style="@style/Login_title"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_centerVertical="true"
+             android:layout_marginLeft="12dp"
+             android:clickable="true"
+             android:text="Buy"
+             android:textColor="@color/white_solid"
+             android:textColorHint="#000000"
+             android:textSize="16sp" />
+     </RelativeLayout>-->
+
+</RelativeLayout>

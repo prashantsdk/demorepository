@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_drawer"
+        android:orderInCategory="3"
+        tools:showAsAction="always"
+        android:icon="@drawable/ic_dehaze_white_24dp"
+        android:title="More">
+
+    </item>
+
+    <item
+        android:id="@+id/action_search_place"
+        android:orderInCategory="2"
+        tools:showAsAction="always"
+        android:icon="@drawable/ic_search_white_24dp"
+        android:title="My Cart"/>
+
+    <item
+        android:id="@+id/action_current_loc"
+        android:orderInCategory="1"
+        tools:showAsAction="always"
+        android:icon="@drawable/ic_my_location_white_24dp"
+        android:title="Refresh"/>
+</menu>

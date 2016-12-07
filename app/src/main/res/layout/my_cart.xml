@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rl_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#A4A4A4">
+
+        <ImageView
+            android:id="@+id/iv_studentPhoto"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/logo" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/iv_studentPhoto">
+
+            <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                android:id="@+id/txt_studentName"
+                style="@style/Login_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Name"
+                android:textColor="#190710"
+                android:textSize="15sp" />
+
+            <LinearLayout
+                android:id="@+id/ll_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txt_studentName"
+                android:layout_marginTop="7dp"
+                android:orientation="horizontal">
+
+                <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                    style="@style/Login_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Prn No :-"
+                    android:textColor="#190710"
+                    android:textSize="15sp" />
+
+                <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                    android:id="@+id/txt_prn"
+                    style="@style/Login_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="gff"
+                    android:textColor="#190710"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                android:id="@+id/txt_couponCode"
+                style="@style/Login_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ll_2"
+                android:text="Coupon Code"
+                android:textColor="#190710"
+                android:textSize="15sp" />
+
+            <RelativeLayout
+                android:id="@+id/ll_card"
+                android:layout_width="80dp"
+                android:layout_height="25dp"
+                android:layout_below="@+id/txt_couponCode"
+                android:layout_marginTop="10dp"
+                android:background="#C1310C"
+                android:clickable="true">
+
+                <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                    android:id="@+id/img_facebook"
+                    style="@style/fontawesome_style"
+                    android:layout_width="30dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5dp"
+                    android:background="@drawable/cart"
+
+                    android:textColor="@color/facebook_img_color" />
+
+                <TextView
+                    android:id="@+id/txt_card"
+                    style="@style/Login_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+
+                    android:layout_toRightOf="@+id/img_facebook"
+                    android:text="Cart"
+                    android:textColor="@color/white_solid"
+                    android:textColorHint="#000000"
+                    android:textSize="16sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/ll_fa"
+                android:layout_width="80dp"
+                android:layout_height="25dp"
+                android:layout_below="@+id/txt_couponCode"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+
+                android:layout_toRightOf="@+id/ll_card"
+                android:background="#00A745"
+                android:clickable="true">
+
+
+                <TextView
+                    android:id="@+id/txt_Buy"
+                    style="@style/Login_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="12dp"
+                    android:clickable="true"
+                    android:text="Buy"
+                    android:textColor="@color/white_solid"
+                    android:textColorHint="#000000"
+                    android:textSize="16sp" />
+            </RelativeLayout>
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/line1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/rl_main"
+        android:layout_marginTop="5dp"
+        android:background="#a9a9a9"
+        android:orientation="horizontal" />
+
+</RelativeLayout>

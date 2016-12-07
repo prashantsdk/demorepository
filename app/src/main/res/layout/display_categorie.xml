@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+        android:id="@+id/txtCatogory"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/cl_primary"
+        android:clickable="true"
+        android:gravity="center_vertical"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:text="Select category"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/txtcat_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent">
+
+        <GridView
+            android:id="@+id/grid"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:horizontalSpacing="5dp"
+            android:minHeight="400dp"
+            android:numColumns="2"
+            android:scrollbars="vertical"
+            android:stretchMode="columnWidth"
+            android:verticalScrollbarPosition="right"
+            android:verticalSpacing="5dp"></GridView>
+
+        <TextView
+            android:id="@+id/txtmessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_margin="20dp"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:text="Oops! There are no coupons for this category."
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:visibility="gone" />
+
+    </RelativeLayout>
+</LinearLayout>

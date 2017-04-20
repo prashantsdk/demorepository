@@ -15,6 +15,7 @@ import com.blueplanet.smartcookieteacher.models.Student;
 import com.blueplanet.smartcookieteacher.models.Teacher;
 import com.blueplanet.smartcookieteacher.notification.IEventListener;
 import com.blueplanet.smartcookieteacher.ui.AssignPointFragment;
+import com.blueplanet.smartcookieteacher.ui.AssignPointFragmentsubject;
 import com.blueplanet.smartcookieteacher.ui.StudentDetailFragment;
 
 /**
@@ -53,7 +54,16 @@ public class StudentProfileFragmentController implements View.OnClickListener, I
 
 
                 break;
+            case R.id.btn_activitywise:
+                _loadFragment(R.id.content_frame, new AssignPointFragment());
 
+
+                break;
+            case R.id.btn_suvbjecwise:
+                _loadFragment(R.id.content_frame, new AssignPointFragmentsubject());
+
+
+                break;
             default:
                 break;
 

@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:id="@+id/rl_outer_grey_layout"
+                android:layout_width="280dp"
+                android:layout_height="350dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="60dp"
+                android:background="#ECECEC">
+
+                <com.example.c1311.smartcookieteacher.customcomponents.CustomTextView
+                    android:id="@+id/tv_login"
+                    style="@style/Login_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="70dp"
+                    android:text="Login"
+                    android:textColor="#393939"
+                    android:textSize="30sp" />
+
+                <LinearLayout
+                    android:id="@+id/ll_username"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_below="@+id/tv_login"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/username_selector"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/img_userName"
+                        android:layout_width="30dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="10dp"
+                        android:background="@drawable/profileone" />
+
+
+                    <com.example.c1311.smartcookieteacher.customcomponents.CustomEditText
+                        android:id="@+id/edt_username"
+                        style="@style/et_username_style"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:background="@null"
+                        android:drawablePadding="15sp"
+                        android:hint="@string/username"
+                        android:inputType="text"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingTop="5dp"
+                        android:text="ask.appsci@coep.ac.in"
+
+                        android:textColor="#393939"
+                        android:textColorHint="#393939"
+                        android:textSize="20sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_below="@+id/ll_username"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/username_selector"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/img_pass"
+                        android:layout_width="30dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="10dp"
+                        android:src="@drawable/passworld" />
+
+
+                    <com.example.c1311.smartcookieteacher.customcomponents.CustomEditText
+                        android:id="@+id/edt_password"
+                        style="@style/et_username_style"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="5dp"
+                        android:background="@null"
+                        android:drawablePadding="15sp"
+                        android:hint="@string/password"
+                        android:inputType="textPassword"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:text="Aparna123"
+                        android:textColor="#393939"
+                        android:textColorHint="#393939"
+                        android:textSize="20sp" />
+
+                </LinearLayout>
+
+                <com.example.c1311.smartcookieteacher.customcomponents.CustomButton
+                    android:id="@+id/btn_login"
+                    style="@style/login_button_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_below="@+id/ll_password"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/login_button_selector"
+                    android:gravity="center"
+                    android:text="@string/Login"
+                    android:textColor="#ffffff"
+                    android:textSize="25sp" />
+
+                <com.example.c1311.smartcookieteacher.customcomponents.CustomTextView
+                    android:id="@+id/tv_forgotPassword"
+                    style="@style/Login_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/btn_login"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/ForgotPassword"
+                    android:textColor="#575757"
+                    android:textSize="17sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_circle_main"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="15dp">
+
+                <com.example.c1311.smartcookieteacher.customcomponents.CustomTextView
+                    android:id="@+id/tv_circle"
+                    style="@style/fontawesome_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/circle_filled"
+                    android:textColor="@color/blue_circle"
+                    android:textSize="120dp" />
+
+                <com.example.c1311.smartcookieteacher.customcomponents.CustomTextView
+                    android:id="@+id/tv_user"
+                    style="@style/fontawesome_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="@string/user"
+                    android:textColor="@color/white_solid"
+                    android:textSize="60dp" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/rl_progressBar"
+                android:layout_width="120dp"
+                android:layout_height="80dp"
+                android:layout_centerInParent="true"
+                android:background="#000000"
+                android:visibility="gone">
+
+                <ProgressBar
+                    android:id="@+id/progressbar"
+                    style="@android:style/Widget.ProgressBar.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp" />
+
+                <com.example.c1311.smartcookieteacher.customcomponents.CustomTextView
+                    android:id="@+id/tv_please_wait"
+                    style="@style/Login_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_toRightOf="@+id/progressbar"
+                    android:text="Please wait..."
+                    android:textColor="#ffffff"
+                    android:textSize="15sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="60dp"
+                android:layout_marginRight="60dp"
+                android:layout_marginTop="430dp">
+
+                <RelativeLayout
+                    android:id="@+id/ll_facebook"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:background="@drawable/facebook_sector"
+                    android:clickable="true">
+
+                    <com.example.c1311.smartcookieteacher.customcomponents.CustomTextView
+                        android:id="@+id/img_facebook"
+                        style="@style/fontawesome_style"
+                        android:layout_width="30dp"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="50dp"
+                        android:text="@string/facebook"
+                        android:textColor="@color/facebook_img_color" />
+
+                    <com.example.c1311.smartcookieteacher.customcomponents.CustomTextView
+                        android:id="@+id/txt_facebook"
+                        style="@style/Login_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@+id/img_facebook"
+                        android:text="Facebook"
+                        android:textColor="@color/white_solid"
+                        android:textColorHint="#000000"
+                        android:textSize="20sp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/ll_google"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_below="@id/ll_facebook"
+                    android:background="@drawable/google_selector"
+                    android:clickable="true">
+
+                    <com.example.c1311.smartcookieteacher.customcomponents.CustomTextView
+                        android:id="@+id/img_google"
+                        style="@style/fontawesome_style"
+                        android:layout_width="30dp"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="50dp"
+                        android:background="@drawable/google"
+                        android:textColor="@color/facebook_img_color" />
+
+                    <com.example.c1311.smartcookieteacher.customcomponents.CustomTextView
+                        android:id="@+id/txt_google"
+                        style="@style/Login_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@+id/img_google"
+                        android:text="Google"
+                        android:textColor="@color/white_solid"
+                        android:textColorHint="#000000"
+                        android:textSize="20sp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/ll_twitter"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_below="@id/ll_google"
+                    android:background="@drawable/twitter_selector"
+                    android:clickable="true">
+
+                    <com.example.c1311.smartcookieteacher.customcomponents.CustomTextView
+                        android:id="@+id/img_twitter"
+                        style="@style/fontawesome_style"
+                        android:layout_width="30dp"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="50dp"
+                        android:text="@string/twitter"
+                        android:textColor="@color/facebook_img_color" />
+
+                    <com.example.c1311.smartcookieteacher.customcomponents.CustomTextView
+                        android:id="@+id/txt_twitter"
+                        style="@style/Login_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@+id/img_twitter"
+                        android:text="Twitter"
+                        android:textColor="@color/white_solid"
+                        android:textColorHint="#000000"
+                        android:textSize="20sp" />
+                </RelativeLayout>
+
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>

@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F8F4F3"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rl_1"
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
+
+        <ImageView
+            android:id="@+id/teacher_img"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="15dp"
+            />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/teacher_img">
+
+            <com.example.c1311.smartcookieteacher.customcomponents.CustomTextView
+                android:id="@+id/text_name"
+                style="@style/TeacherName_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/black_solid"
+                android:textSize="10dp"
+                android:text="Shashikant Ghumbre" />
+
+            <com.example.c1311.smartcookieteacher.customcomponents.CustomTextView
+                android:id="@+id/txt_colgname"
+                style="@style/Login_title"
+                android:layout_marginTop="4dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/text_name"
+                android:layout_marginLeft="10dp"
+                android:text="collage of Engineering,Pune" />
+
+            <LinearLayout
+                android:id="@+id/ll_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txt_colgname"
+                android:layout_marginTop="3dp"
+                android:layout_marginLeft="10dp"
+                android:orientation="horizontal">
+
+                <com.example.c1311.smartcookieteacher.customcomponents.CustomTextView
+                    android:id="@+id/teacher_id"
+                    style="@style/Login_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Teacher ID :"
+                    android:textSize="10sp" />
+
+                <com.example.c1311.smartcookieteacher.customcomponents.CustomTextView
+                    android:id="@+id/txt_teacher_id"
+                    style="@style/Login_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="231456"
+                    android:textSize="10sp" />
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_2"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:layout_below="@+id/rl_1">
+
+        <RelativeLayout
+            android:id="@+id/linlay_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+           >
+
+            <com.example.c1311.smartcookieteacher.customcomponents.CustomTextView
+                android:id="@+id/green_image"
+                style="@style/fontawesome_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="30dp"
+                android:background="@drawable/green_point" />
+
+            <com.example.c1311.smartcookieteacher.customcomponents.CustomTextView
+                android:id="@+id/greenpoint"
+                style="@style/Login_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_margin="1dp"
+                android:gravity="center"
+                android:text="Hello"
+                android:textColor="#000000" />
+
+            <com.example.c1311.smartcookieteacher.customcomponents.CustomTextView
+                android:id="@+id/text_waterpoint"
+                style="@style/Login_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/green_image"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:text="Green Point"
+                android:textColor="#000000" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relay_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/linlay_image"
+           >
+
+            <com.example.c1311.smartcookieteacher.customcomponents.CustomTextView
+                android:id="@+id/blue_image"
+                style="@style/fontawesome_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="30dp"
+                android:background="@drawable/blue_point" />
+
+            <com.example.c1311.smartcookieteacher.customcomponents.CustomTextView
+               android:id="@+id/bluepoint"
+                style="@style/Login_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_margin="1dp"
+                android:gravity="center"
+                android:text="Hello"
+                android:textColor="#000000" />
+
+            <com.example.c1311.smartcookieteacher.customcomponents.CustomTextView
+                android:id="@+id/text_bluepoint"
+                style="@style/Login_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/blue_image"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:text="Blue Point"
+                android:textColor="#000000" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rela_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/relay_image"
+          >
+
+            <com.example.c1311.smartcookieteacher.customcomponents.CustomTextView
+                android:id="@+id/Brown_image"
+                style="@style/fontawesome_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="30dp"
+                android:background="@drawable/brown_point" />
+
+            <com.example.c1311.smartcookieteacher.customcomponents.CustomTextView
+                android:id="@+id/brownpoint"
+                style="@style/Login_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_margin="1dp"
+                android:gravity="center"
+                android:text="Hello"
+                android:textColor="#000000" />
+
+            <com.example.c1311.smartcookieteacher.customcomponents.CustomTextView
+                android:id="@+id/text_brownpoint"
+                style="@style/Login_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/Brown_image"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:text="Brown Point"
+                android:textColor="#000000" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rel_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/rela_image"
+           >
+
+            <com.example.c1311.smartcookieteacher.customcomponents.CustomTextView
+                android:id="@+id/Water_image"
+                style="@style/fontawesome_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="30dp"
+                android:background="@drawable/water_point" />
+
+            <com.example.c1311.smartcookieteacher.customcomponents.CustomTextView
+                android:id="@+id/waterpoint"
+                style="@style/Login_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_margin="1dp"
+                android:gravity="center"
+                android:text="Hello"
+                android:textColor="#000000" />
+
+            <com.example.c1311.smartcookieteacher.customcomponents.CustomTextView
+                android:id="@+id/textwaterpoint"
+                style="@style/Login_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/Water_image"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:text="Brown Point"
+                android:textColor="#000000" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

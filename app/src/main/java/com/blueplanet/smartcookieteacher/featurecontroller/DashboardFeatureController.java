@@ -66,7 +66,15 @@ public class DashboardFeatureController implements IEventListener {
 
         }
     }
+    public void cleaPointList() {
+        if (_teacherDashbordPoint != null ) {
 
+            deletePointFromDB(null);
+            //   _rewardPointLogList.clear();
+            _teacherDashbordPoint = null;
+
+        }
+    }
     public TeacherDashbordPoint getTeacherpoint() {
 
         if(_teacherDashbordPoint == null){
@@ -74,6 +82,8 @@ public class DashboardFeatureController implements IEventListener {
         }
         return _teacherDashbordPoint;
     }
+
+
 
 
     public void savePointIntoDB(TeacherDashbordPoint point) {

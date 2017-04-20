@@ -76,6 +76,8 @@ public class StudentListFragment extends Fragment {
         //   etxtSearch = (AutoCompleteTextView) _view.findViewById(R.id.etxtSearch);
         _etTextSearch = (CustomEditText) _view.findViewById(R.id.etxtSearch);
 
+
+
         _edtCount = (CustomTextView) _view.findViewById(R.id.count);
         _txt_teacherName =(TextView) _view.findViewById(R.id.teacherName);
 

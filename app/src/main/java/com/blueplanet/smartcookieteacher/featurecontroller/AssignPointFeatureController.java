@@ -28,7 +28,25 @@ public class AssignPointFeatureController implements IEventListener {
     private Student _selectedStudent;
     private String _selectedSubject = null;
 
+    public String get_emailID() {
+        return _emailID;
+    }
 
+    public void set_emailID(String _emailID) {
+        this._emailID = _emailID;
+    }
+
+    private String _emailID = null;
+
+    public String get_grade() {
+        return _grade;
+    }
+
+    public void set_grade(String _grade) {
+        this._grade = _grade;
+    }
+
+    private String _grade = null;
 
     private String _seletedSubjectId = null;
 

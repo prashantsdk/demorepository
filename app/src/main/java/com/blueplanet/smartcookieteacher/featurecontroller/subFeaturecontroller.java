@@ -32,8 +32,6 @@ public class subFeaturecontroller implements IEventListener {
     private final String _TAG = this.getClass().getSimpleName();
 
 
-
-
     /**
      * function to get single instance of this class
      *
@@ -91,6 +89,7 @@ public class subFeaturecontroller implements IEventListener {
         eventNotifier.unRegisterListener(this);
 
         ServerResponse serverResponse = (ServerResponse) eventObject;
+
         int errorCode = serverResponse.getErrorCode();
         Object responseObject = serverResponse.getResponseObject();
 
@@ -129,6 +128,7 @@ public class subFeaturecontroller implements IEventListener {
                                 serverResponse);
 
                     } else {
+
 
                         eventNotifierUI =
                                 NotifierFactory.getInstance().getNotifier(

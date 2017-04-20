@@ -172,6 +172,19 @@ public class GenerateCouponFragment extends Fragment {
 
     }
 
+    public void generateCouponSuccessfullyPoint() {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+
+                Toast.makeText(getActivity().getApplicationContext(),
+                        getActivity().getString(R.string.generate_generated_coupon),
+                        Toast.LENGTH_LONG).show();
+            }
+        });
+
+    }
+
     public void refreshListview() {
         getActivity().runOnUiThread(
                 new Runnable() {

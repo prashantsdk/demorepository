@@ -158,4 +158,34 @@ public class EventTypes {
     public static final int EVENT_ACCEPT_REQUEST = 1060;
     public static final int EVENT_UI_ACCEPT_REQUEST = 1061;
     public static final int EVENT_NOT_UI_ACCEPT_REQUEST = 1062;
+
+    public static final int EVENT_GCM_RESPONCE_RECIEVED = 241;
+    public static final int EVENT_UI_GCM_RESPONCE_RECIEVED= 242;
+    public static final int EVENT_UI_NO_GCM_RESPONCE_RECIEVED = 243;
+
+    public static final int SOFT_REWARD = 244;
+    public static final int SOFT_REWARD_UI= 245;
+    public static final int SOFT_REWARD_NOT_UI = 246;
+
+
+    public static final int SOFT_REWARD_PURCHASE= 247;
+    public static final int SOFT_REWARD_UI_PURCHASE= 248;
+    public static final int SOFT_REWARD_NOT_UI_PURCHASE = 249;
+
+
+    public static final int EVENT_STUDENT_WATER_POINTS_PURCHASED_RESPONCE_RECIEVED = 250;
+    public static final int EVENT_UI_STUDENT_WATER_POINTS_PURCHASED_RESPONCE_RECIEVED = 251;
+    public static final int EVENT_UI_NO_STUDENT_WATER_POINTS_PURCHASED_RESPONCE_RECIEVED = 252;
+
+    public static final int EVENT_PROFILE_UPDATE_SUCCESSFULL = 253;
+    public static final int EVENT_PROFILE_UI_SUCCESSFUL = 254;
+    public static final int EVENT_PROFILE_UI_NO_SUCCESSFUL = 255;
+
+    public static final int EVENT_TEACHER_SUBJECT = 256;
+    public static final int EVENT_TEACHER_UI_SUBJECT = 257;
+    public static final int EVENT_TEACHER_NOT_UISUBJECT = 258;
+
+    public static final int EVENT_TEACHER_UPDATE_PROFILE= 259;
+    public static final int EVENT_TEACHER_UI_UPDATE_PROFILE = 260;
+    public static final int EVENT_TEACHER_UI_NOT_UPDATE_PROFILE = 261;
 }

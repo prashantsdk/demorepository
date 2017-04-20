@@ -1,0 +1,96 @@
+package com.example.c1311.smartcookieteacher.android.utils;
+
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+
+import com.example.c1311.smartcookieteacher.MainApplication;
+
+import java.util.Map;
+
+/**
+ * Created by web on 05-12-2015.
+ * dhanashree.ghayal
+ */
+public class SmartCookieSharedPreferences {
+
+    /**
+     * SharedPreference Object
+     */
+    private static SharedPreferences _sharedPreferences;
+
+    /**
+     * Name of SharedPreferences file
+     */
+    private static final String PREFERENCE_NAME = "SmartCookiePreferences";
+
+    /**
+     * Key for default audio
+     */
+    private static final boolean EMPTY_BOOLEAN_DEFAULT_VALUE = false;
+
+    /**
+     * Key for offline login
+     */
+    private static final String IS_LOGIN = "IS_LOGIN";
+
+
+    /**
+     * Initialize public class SmartCookieSharedPreferences {
+     * . This is one time initialization. It should be done from the
+     * Application.onCreate().
+     *
+     * @param context - Application context
+     */
+    public static void init(Context context) {
+
+        if (_sharedPreferences == null) {
+            /** Get the shared preferences object for RO. */
+            _sharedPreferences =
+                    context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
+        }
+        //clear all from phone storage
+        _sharedPreferences.edit().clear().commit();
+    }
+
+    public static boolean getLoginFlag() {
+        return getBooleanSharedPreference(IS_LOGIN);
+    }
+
+    /**
+     * @param loginFlag
+     */
+    public static void setLoginFlag(boolean loginFlag) {
+        setBooleanSharedPreference(IS_LOGIN, loginFlag);
+    }
+
+
+    /**
+     * Retrieves encrypted key-value and adds to SharedPreferences list.
+     *
+     * @param key   - Preference key
+     * @param value - Preference value
+     */
+    public static void setStringSharedPreference(String key, String value) {
+
+        SharedPreferences.Editor _editor = _sharedPreferences.edit();
+        _editor.putString(key, value);
+        _editor.commit();
+
+    }
+
+    public static void setBooleanSharedPreference(String key, boolean value) {
+
+        SharedPreferences.Editor _editor = _sharedPreferences.edit();
+        _editor.putBoolean(key, value);
+        _editor.commit();
+
+    }
+
+    public static boolean getBooleanSharedPreference(String key) {
+        boolean flag = _sharedPreferences.getBoolean(key, EMPTY_BOOLEAN_DEFAULT_VALUE);
+        return flag;
+    }
+
+
+}

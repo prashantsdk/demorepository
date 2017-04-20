@@ -30,7 +30,7 @@
                     android:layout_height="50dp"
                     android:layout_below="@+id/tv_login"
                     android:layout_marginLeft="8dp"
-                    android:layout_marginRight="60dp"
+                    android:layout_marginRight="10dp"
                     android:layout_marginTop="5dp"
                     android:background="@drawable/login_button_selector"
 
@@ -44,12 +44,12 @@
                         android:layout_marginLeft="15dp"
                         android:text="Student Search"
                         android:textColor="#FFFFFF"
-                        android:textSize="15dp" />
+                        android:textSize="13dp" />
                 </RelativeLayout>
 
                 <RelativeLayout
                     android:id="@+id/rel"
-                    android:layout_width="match_parent"
+                    android:layout_width="313dp"
                     android:layout_height="40dp"
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="15dp"
@@ -57,54 +57,54 @@
 
                     <TextView
                         android:id="@+id/tv_date"
-                        android:layout_width="50dp"
+                        android:layout_width="48dp"
                         android:layout_height="20dp"
                         android:layout_centerVertical="true"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginLeft="5dp"
                         android:text="Date"
-                        android:textStyle="bold"
                         android:textColor="#000000"
-                        android:textSize="15dp" />
+                        android:textSize="15dp"
+                        android:textStyle="bold" />
 
 
                     <TextView
                         android:id="@+id/txtStuName"
-                        android:layout_width="130dp"
+                        android:layout_width="123dp"
                         android:layout_height="20dp"
                         android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true"
-                        android:layout_marginLeft="20dp"
+                        android:layout_marginLeft="3dp"
                         android:layout_toRightOf="@+id/tv_date"
-                        android:text="StudentName"
-                        android:textStyle="bold"
+                        android:text="Student Name"
                         android:textColor="#000000"
-                        android:textSize="15dp" />
+                        android:textSize="15dp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/txtActivity"
-                        android:layout_width="80dp"
+                        android:layout_width="70dp"
                         android:layout_height="20dp"
                         android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true"
-                        android:layout_marginLeft="22dp"
+                        android:layout_marginLeft="3dp"
                         android:layout_toRightOf="@+id/txtStuName"
                         android:text="Activity"
-                        android:textStyle="bold"
                         android:textColor="#000000"
-                        android:textSize="15dp" />
+                        android:textSize="15dp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/txtPoint"
-                        android:layout_width="80dp"
+                        android:layout_width="45dp"
                         android:layout_height="20dp"
                         android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true"
-                        android:layout_marginLeft="22dp"
+                        android:layout_marginLeft="3dp"
                         android:layout_toRightOf="@+id/txtActivity"
                         android:text="Point"
-                        android:textStyle="bold"
                         android:textColor="#000000"
-                        android:textSize="15dp" />
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
 
                 </RelativeLayout>
 

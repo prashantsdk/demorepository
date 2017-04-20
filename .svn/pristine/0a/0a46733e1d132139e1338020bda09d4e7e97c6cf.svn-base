@@ -1,0 +1,231 @@
+package com.example.c1311.smartcookieteacher;
+
+import android.app.ActionBar;
+
+import android.content.Intent;
+import android.content.res.Configuration;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
+import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.text.Html;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+
+import com.example.c1311.smartcookieteacher.featurecontroller.LoginFeatureController;
+import com.example.c1311.smartcookieteacher.ui.StudentListFragment;
+import com.example.c1311.smartcookieteacher.ui.TeacherDashboardFragment;
+import com.example.c1311.smartcookieteacher.ui.customactionbar.CustomDrawerAdapter;
+import com.example.c1311.smartcookieteacher.ui.customactionbar.DrawerItem;
+
+import java.util.ArrayList;
+import java.util.List;
+
+
+/**
+ * Created by 1311 on 25-11-2015.
+ */
+public class AfterLoginActivity extends FragmentActivity {
+
+int y;
+    private DrawerLayout _mDrawerLayout;
+    private ActionBarDrawerToggle _drawerToggle;
+    private ListView mDrawerList;
+    private CharSequence mDrawerTitle;
+    private CharSequence mTitle;
+    private List<DrawerItem> _dataList;
+    private CustomDrawerAdapter _adapter;
+    private Fragment _fragment;
+    private final String _TAG = this.getClass().getSimpleName();
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.after_login_activity);
+        mTitle = getTitle();
+        mDrawerTitle = "Smart Cookie Program";
+        _mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerList = (ListView) findViewById(R.id.left_drawer);
+        _mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow,
+                GravityCompat.START);
+
+        _dataList = new ArrayList<DrawerItem>();
+        _dataList.add(new DrawerItem(true));
+
+        _dataList.add(new DrawerItem("My Points", R.drawable.ic_action_about));
+        _dataList.add(new DrawerItem("Students List", R.drawable.ic_action_group));
+        _dataList.add(new DrawerItem("Reward Point Log",
+                R.drawable.ic_action_gamepad));
+        _dataList.add(new DrawerItem("My Subject", R.drawable.ic_action_about));
+        _dataList.add(new DrawerItem("Sync", R.drawable.ic_action_about));
+        _dataList.add(new DrawerItem("Assign Points ",
+                R.drawable.ic_action_about));
+        _dataList.add(new DrawerItem("Coupon", R.drawable.ic_action_about));
+        _dataList.add(new DrawerItem("Log out", R.drawable.ic_action_help));
+
+        _adapter = new CustomDrawerAdapter(this, R.layout.custom_drawer_item,
+                _dataList);
+
+        mDrawerList.setAdapter(_adapter);
+
+        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+
+
+        _drawerToggle = new ActionBarDrawerToggle(this, _mDrawerLayout,
+                R.drawable.ic_navigation_drawer, R.string.drawer_open,
+                R.string.drawer_close) {
+            public void onDrawerClosed(View view) {
+                getActionBar().setTitle(
+                        Html.fromHtml("<font color='#ffffff'>" + mTitle
+                                + "</font>"));
+                invalidateOptionsMenu(); // creates call to
+                // onPrepareOptionsMenu()
+            }
+
+            public void onDrawerOpened(View drawerView) {
+                getActionBar().setTitle(
+                        Html.fromHtml("<font color='#ffffff'>" + mDrawerTitle
+                                + "</font>"));
+
+                invalidateOptionsMenu(); // creates call to
+                // onPrepareOptionsMenu()
+            }
+        };
+        _mDrawerLayout.setDrawerListener(_drawerToggle);
+
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+        getActionBar().setHomeButtonEnabled(true);
+        getActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#545da7")));
+
+        if (savedInstanceState == null) {
+
+            if (_dataList.get(0).isList()) {
+                SelectItem(1);
+
+            } else {
+                SelectItem(0);
+            }
+        }
+
+    }
+
+    public void SelectItem(int possition) {
+
+        Bundle args = new Bundle();
+        switch (possition) {
+
+            case 0:
+                // final ActionBar actionBar6 = getActionBar();
+                // actionBar6.setNavigationMode(ActionBar.DISPLAY_HOME_AS_UP);
+                break;
+            case 1:
+                _fragment = new StudentListFragment();
+                break;
+            case 2:
+                _fragment=new TeacherDashboardFragment();
+
+                //_fragment = new FragmentStuden();
+                break;
+            case 3:
+                //_fragment = new FragmentReward();
+
+                break;
+            case 4:
+                //_fragment = new MySubject();
+                break;
+            case 5:
+                //_fragment = new ActivitySyncFragment();
+                break;
+            case 6:
+                //_fragment = new AssignPointsFragment();
+                break;
+            case 7:
+                // _fragment = new HomeFragment();
+                break;
+            case 8:
+                Log.i(_TAG, "In logout");
+                LoginFeatureController.getInstance().logOut();
+                _startLoginActivity();
+                break;
+
+            default:
+                break;
+
+        }
+        if (_fragment != null) {
+            // fragment.setArguments(args);
+            FragmentManager frgManager = getSupportFragmentManager();
+            frgManager.beginTransaction().replace(R.id.content_frame, _fragment)
+                    .commit();
+            mDrawerList.setItemChecked(possition, true);
+            setTitle(_dataList.get(possition).getItemName());
+            _mDrawerLayout.closeDrawer(mDrawerList);
+        } else {
+
+        }
+    }
+
+    private void _startLoginActivity() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+        this.finish();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (_drawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        // Sync the toggle state after onRestoreInstanceState has occurred.
+        _drawerToggle.syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        // Pass any configuration change to the drawer toggles
+        _drawerToggle.onConfigurationChanged(newConfig);
+    }
+
+
+    private class DrawerItemClickListener implements
+            ListView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position,
+                                long id) {
+
+            SelectItem(position);
+
+        }
+    }
+
+    @Override
+    public void setTitle(CharSequence title) {
+        mTitle = title;
+        getActionBar().setTitle(
+                Html.fromHtml("<font color='#ffffff'>" + mTitle + "</font>"));
+
+    }
+}

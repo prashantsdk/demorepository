@@ -31,7 +31,7 @@ public class StudentDetailFragment extends Fragment {
     private TextView _stdName, _stdPRN, _claSsName;
     private ImageView iv_studentPhoto;
     private View _view;
-    private CustomButton _btnAssign;
+    private CustomButton _btnAssign,_btnactivitywise,_btnsubjectwise;
     private StudentProfileFragmentController _controller;
     private Student _student;
     private final String _TAG = this.getClass().getSimpleName();
@@ -66,8 +66,8 @@ public class StudentDetailFragment extends Fragment {
         _city = (TextView) _view.findViewById(R.id.txt_city);
         _country = (TextView) _view.findViewById(R.id.txt_country);
         _btnAssign = (CustomButton) _view.findViewById(R.id.btn_assignPoints);
-
-
+        _btnactivitywise= (CustomButton) _view.findViewById(R.id.btn_activitywise);
+        _btnsubjectwise = (CustomButton) _view.findViewById(R.id.btn_suvbjecwise);
     }
 
     private void _setStudentDetailsOnUI() {
@@ -117,6 +117,8 @@ public class StudentDetailFragment extends Fragment {
     private void _registerUIListeners() {
 
         _btnAssign.setOnClickListener(_controller);
+        _btnactivitywise.setOnClickListener(_controller);
+        _btnsubjectwise.setOnClickListener(_controller);
     }
 
     private void _setClassNameOnUI(Student student) {

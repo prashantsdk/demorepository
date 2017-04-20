@@ -1,8 +1,13 @@
 package com.blueplanet.smartcookieteacher.ui;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -18,8 +23,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.blueplanet.smartcookieteacher.MainApplication;
+
 import com.blueplanet.smartcookieteacher.R;
 import com.blueplanet.smartcookieteacher.communication.ServerResponse;
 import com.blueplanet.smartcookieteacher.featurecontroller.LoginFeatureController;
@@ -60,6 +67,7 @@ public class NewMapActivity extends AppCompatActivity
     Toolbar toolbar;
     DrawerLayout drawer;
     NavigationView navigationView;
+    public static final int PERMISSION_REQUEST_CODE=23;
     // HelperClass helperClass;
 
 
@@ -95,7 +103,15 @@ public class NewMapActivity extends AppCompatActivity
         setNavigationDrawer();
         teacher = LoginFeatureController.getInstance().getTeacher();
         Init_Controllers();
-        Init_Map();
+        if (checkPermission()) {
+
+            Init_Map();
+
+        } else {
+
+            requestPermission();
+        }
+
 
 
     }
@@ -918,6 +934,52 @@ public class NewMapActivity extends AppCompatActivity
 
         }
 
+    }
+
+
+
+
+
+    private boolean checkPermission(){
+        int result = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
+        if (result == PackageManager.PERMISSION_GRANTED){
+
+            return true;
+
+        } else {
+
+            return false;
+
+        }
+    }
+
+    private void requestPermission(){
+
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this,Manifest.permission.ACCESS_FINE_LOCATION)){
+
+            Toast.makeText(this,"GPS permission allows us to access location data. Please allow in App Settings for additional functionality.", Toast.LENGTH_LONG).show();
+
+        } else {
+
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSION_REQUEST_CODE);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case PERMISSION_REQUEST_CODE:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    Init_Map();
+                    Toast.makeText(this, "Permission Granted, Now you can access location data", Toast.LENGTH_LONG).show();
+
+                } else {
+                    Toast.makeText(this, "Permission Denied, You cannot access location data.", Toast.LENGTH_LONG).show();
+
+                }
+                break;
+        }
     }
 
 }

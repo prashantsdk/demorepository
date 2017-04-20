@@ -14,6 +14,10 @@ public class WebserviceConstants {
     public static final String KEY_STATUS_MESSAGE = "responseMessage";
     public static final String KEY_POSTS = "posts";
 
+    //Constant Related to GCM
+    public static final String KEY_GCM = "KEY_GCM";
+    public static final String IS_GCM_REGISTERED = "IS_GCM_REGISTERED";
+
 
     /**
      * constants for all webservices
@@ -21,13 +25,12 @@ public class WebserviceConstants {
     public static final String HTTP_BASE_URL = "http://";
     // public static final String BASE_URL = "tsmartcookies.bpsi.us/Version2/";
 
-    public static String BASE_URL =  "smartcookie.in/core/Version2/";
+    public static String BASE_URL = "smartcookie.in/core/Version2/";
     public static String BASE_URL1 = "tsmartcookies.bpsi.us/core/Version2/";
     public static String BASE_URL2 = "smartcookie.in/core/Version2/";
 
-  //  public static final String IMAGE_BASE_URL = "http://tsmartcookies.bpsi.us/";
+    //  public static final String IMAGE_BASE_URL = "http://tsmartcookies.bpsi.us/";
     public static final String IMAGE_BASE_URL = "http://smartcookie.bpsi.us/core/";
-
 
 
     //public static final String TEACHER_LOGIN = "login_teacher.php";
@@ -58,13 +61,19 @@ public class WebserviceConstants {
     public static final String POINTSHARE_WEB_SERVICE = "teacher_share_points.php";
     public static final String STUDENT_COORDINATOR_WEB_SERVICE = "getStudent_coord_Info.php";
     public static final String SPONSOR_LOCATION_URL = "display_sponsor_bydistance.php";
-    public static final String MAP_SERVICE_API ="map_service_API.php";
-    public static final String ALL_SUBJECT_WEB_SERVICE ="teacher_ws.php?f=teacherallsubjects";
-    public static final String LOGOUT_WEB_SERVICE="logout_teacher_API.php";
-    public static final String REQUEST_WEB_SERVICE="request_other_student.php";
-    public static final String ACCEPT_REQUEST_WEB_SERVICE="accept_other_request_student.php";
+    public static final String MAP_SERVICE_API = "map_service_API.php";
+    public static final String ALL_SUBJECT_WEB_SERVICE = "teacher_ws.php?f=teacherallsubjects";
+    public static final String LOGOUT_WEB_SERVICE = "logout_teacher_API.php";
+    public static final String REQUEST_WEB_SERVICE = "request_other_student.php";
 
+    public static final String ACCEPT_REQUEST_WEB_SERVICE = "accept_other_request_student.php";
+    public static final String STUDENT_UPDATE_GCM = "update_gcm_id_ws.php";
 
+    public static final String SOFT_REWARD = "display_soft_reward_webservice.php";
+    public static final String SOFT_REWARD_PURCHASE = "purchase_soft_rewards_teacher.php";
+    public static final String PURCHASEWATERPOINTS = "purchase_water_point_student.php";
+    public static final String TEACHER_DISPLAY_SUBJECT_WEB_SERVICE = "display_school_subject_for_teacher.php";
+    public static final String TEACHER_UPDATE_PROFILE = "update_teacher_profile_webservice.php";
 
     /**
      * constants for login_teacher webservice
@@ -72,7 +81,7 @@ public class WebserviceConstants {
     public static final String KEY_INPUT_ID = "input_id";
     public static final String KEY_ID = "id";
     public static final String KEY_DATABASE_ID = "teacher_id";
-
+    public static final String KEY_TID_SOFTREWARD = "t_id";
     public static final String KEY_TID = "t_id";
     public static final String KEY_TCOMPL_Name = "t_complete_name";
     public static final String KEY_TNAME = "t_name";
@@ -127,9 +136,9 @@ public class WebserviceConstants {
     public static final String KEY_PLATFORM_OS = "platform_OS";
     public static final String KEY_iPADDRESS = "ip_address";
     public static final String KEY_LATITUDE_LOGIN = "lat";
-    public static final String  KEY_LONGITUDE_LOGIN= "long";
+    public static final String KEY_LONGITUDE_LOGIN = "long";
 
-    public static final String  KEY_COUNTRY_CODE= "country_code";
+    public static final String KEY_COUNTRY_CODE = "country_code";
 
 
     /**
@@ -388,15 +397,15 @@ public class WebserviceConstants {
 
     // output for generate coupon log
 
-    public static final String KEY_TId= "teacherid";
-    public static final String KEY_COULOG_COUPONPOINT= "coupon_point";
+    public static final String KEY_TId = "teacherid";
+    public static final String KEY_COULOG_COUPONPOINT = "coupon_point";
     public static final String KEY_GENCOUPON_ID = "coupon_id";
     public static final String KEY_COUPON_STATUS = "status";
-    public static final String KEY_COUP_VALIDITY_DATE= "validity_date";
+    public static final String KEY_COUP_VALIDITY_DATE = "validity_date";
     public static final String KEY_COUP_ISSUE_DATE = "issue_date";
 
     public static final String EMAIL = "email";
-//SUB
+    //SUB
     public static final String SELEPRN = "std_PRN";
     public static final String SUBNAME = "subjectName";
     public static final String SUBCODE = "subjcet_code";
@@ -436,7 +445,7 @@ public class WebserviceConstants {
     public static final String KEY_SPONSOR_IMG_PATH = "sp_img_path";
 
 
-    public static final String KEY_MAP_IP_ID="input_id";
+    public static final String KEY_MAP_IP_ID = "input_id";
     public static final String KEY_LATT = "lat";
     public static final String KEY_LONGG = "long";
     public static final String KEY_ENTITY_TYPE = "entity_type";
@@ -464,8 +473,8 @@ public class WebserviceConstants {
     public static final String KEY_SCHOOL_LAT_ON_MAP = "school_latitude";
     public static final String KEY_SCHOOL_LONG_ON_MAP = "school_longitude";
     public static final String KEY_SCHOOL_DISTANCE_ON_MAP = "distance";
-    public static final String KEY_SCHOOL_STUDENTS_COUNT="student_count";
-    public static final String KEY_SCHOOL_IMG_PATH="school_img_path";
+    public static final String KEY_SCHOOL_STUDENTS_COUNT = "student_count";
+    public static final String KEY_SCHOOL_IMG_PATH = "school_img_path";
 
     public static final int ZOOM_LEVEL_STATE = 25;
     public static final int ZOOM_LEVEL_WORLD = 1;
@@ -500,4 +509,118 @@ public class WebserviceConstants {
     public static final String PRN_REQUEST = "std_PRN";
     public static final String DATE_REQUEST = "requestdate";
     public static final String STUDENT_PRN = "student_id";
+
+
+    /*
+     * constants related to UPDATE GCM to Server
+     */
+
+    /* I/P*/
+    public static final String KEY_GCM_STUD_ID = "user_id";
+    public static final String KEY_GCM_ID = "GCM_Id";
+    public static final String KEY_GCM_ENTITY_ID = "entity_id";
+
+ /*
+     * constants related to DELETE GCM FROM Server
+     */
+
+    /* I/P*/
+    public static final String KEY_DELETE_GCM_STUD_PRN = "std_prn";
+    public static final String KEY_DELETE_GCM_STUD_ID = "student_id";
+    public static final String KEY_DELETE_GCM_ID = "gcm_id";
+
+
+ /*
+     * constants FOR SOFT REWARD
+     */
+
+    /* I/P*/
+    public static final String SOFT_INPUT = "user";
+
+    public static final String SOFT_ID = "softrewardId";
+    public static final String REWARDTYPE = "rewardType";
+    public static final String FROMRANGE = "fromRange";
+    public static final String SOFT_IMG = "imagepath";
+
+/*
+     * constants FOR SOFT REWARD PURCHASE
+     */
+
+    /* I/P*/
+
+    public static final String SOFT_INPUT_TID = "t_id";
+    public static final String SOFT_ID_SCHOOL_ID = "school_id";
+    public static final String SOFT_REWARDD_ID = "softreward_id";
+
+
+    /*
+       * constants related to REQUEST FROM STUD TO TEACHER
+       */
+    public static final String KEY_REQ_FOR_POINTS_POINTS = "points";
+    /* I/P*/
+    public static final String KEY_PURCHASE_WATER_POINTS_COUPON_ID = "coupon_id";
+    public static final String KEY_PURCHASE_WATER_POINTS_STD_PRN = "std_PRN";
+    public static final String KEY_PURCHASE_WATER_POINTS_SCHOOL_ID = "school_id";
+    public static final String KEY_SOCIAL_LG_USER_TYPE = "UserType";
+
+
+    /*O/P*/
+
+
+    /*
+    * constants related to Purchase Coupon
+    */
+    public static final String KEY_SOCIAL_LG_FIRST_NAME = "First_Name";
+    public static final String KEY_SOCIAL_LG_LAST_NAME = "Last_Name";
+    public static final String KEY_SOCIAL_LG_EMAIL = "User_Email";
+    /*O/P*/
+
+
+    // Display teacher subject I/P
+
+    public static final String KEY_TEACHER_SUBJECT_KEY_NAME = "subject_key";
+
+    public static final String KEY_TEACHER_SUBJECT_NAME = "subject";
+    public static final String KEY_TEACHER_SUBJECT_CODE = "Subject_Code";
+    public static final String KEY_TEACHER_SUBJECT_SEMESTER_ID = "Semester_id";
+    public static final String KEY_TEACHER_SUBJECT_COURSE_LEVEL = "Course_Level_PID";
+
+
+//update profile
+
+    public static final String KEY_TEACHER_EMAIL = "User_email";
+    public static final String KEY_TEACHER_UPDATE_ID= "t_id";
+    public static final String KEY_TEACHER_USERIMG_BASE64= "User_imagebase64";
+    public static final String KEY_TEACHER_USERIMG= "User_Image";
+    public static final String KEY_TEACHER_UPDATE_FIRST_NAME= "User_FName";
+    public static final String KEY_TEACHER_UPDATE_LAST_NAME= "User_LName";
+
+    public static final String KEY_TEACHER_UPDATE_DOB= "User_dob";
+    public static final String KEY_TEACHER_UPDATE_ADDRESS= "User_address";
+    public static final String KEY_TEACHER_UPDATE_CITY= "User_city";
+    public static final String KEY_TEACHER_UPDATE_COUNTRY= "User_country";
+    public static final String KEY_TEACHER_UPDATE_STATE= "state";
+    public static final String KEY_TEACHER_UPDATE_GENDER= "User_gender";
+    public static final String KEY_TEACHER_UPDATE_PHONE= "User_Phone";
+    public static final String KEY_TEACHER_UPDATE_PASSWARD= "User_password";
+
+    public static final String KEY_TEACHER_UPDATE_MEMBERID = "User_Meid";
+    public static final String KEY_TEACHER_UPDATE_KEY="key";
+    public static final String KEY_TEACHER_UPDATE_COUNTRYCODE="CountryCode";
+
+
+    public static final String VAL_USER_TYPE_GUGMENT= "Judgement";
+    public static final String VAL_USER_TYPE_MARK= "Marks";
+    public static final String VAL_USER_TYPE_GRADE= "Grade";
+    public static final String VAL_USER_TYPE_PERSENTILE= "Percentile";
+
+    public static final String VAL_USER_TYPE_GRADE_A= "A";
+    public static final String VAL_USER_TYPE_GRADE_B= "B";
+    public static final String VAL_USER_TYPE_GRADE_C= "C";
+    public static final String VAL_USER_TYPE_GRADE_D= "D";
+
+   /* User_Meid=3454
+    key= member-id*/
+
+
 }

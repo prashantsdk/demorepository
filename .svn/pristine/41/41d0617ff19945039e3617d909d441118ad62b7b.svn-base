@@ -1,0 +1,139 @@
+package com.example.c1311.smartcookieteacher.webservices;
+
+/**
+ * @author sayali
+ */
+public class WebserviceConstants {
+    public static final int SUCCESS = 0;
+    public static final int FAILURE = -1;
+
+    public static final String KEY_STATUS_CODE = "responseStatus";
+    public static final String KEY_STATUS_MESSAGE = "responseMessage";
+    public static final String KEY_POSTS = "posts";
+
+    /**
+     * constants for all webservices
+     */
+    public static final String HTTP_BASE_URL = "http://";
+    public static final String BASE_URL = "tsmartcookies.bpsi.us/Version2/";
+    public static final String IMAGE_BASE_URL = "http://tsmartcookies.bpsi.us/";
+
+
+    public static final String TEACHER_LOGIN = "login_teacher.php";
+    public static final String GET_STUDENT_INFO = "getStudentInfo.php";
+    public static final String REGISTRATION = "teacher_registration.php";
+    public static final String TEACHER_POINT = "display_teacher_point.php";
+    /**
+     * constants for login_teacher webservice
+     */
+    public static final String KEY_INPUT_ID = "input_id";
+    public static final String KEY_ID = "id";
+    public static final String KEY_TID = "t_id";
+    public static final String KEY_TCOMPL_Name = "t_complete_name";
+    public static final String KEY_TNAME = "t_name";
+    public static final String KEY_TMIDDLE_NAME = "t_middlename";
+    public static final String KEY_TLAST_NAME = "t_lastname";
+    public static final String KEY_TCURRENT_SCHOOL_NAME = "t_current_school_name";
+    public static final String KEY_TSCHOOL_ID = "school_id";
+    public static final String KEY_TSTAFF_ID = "t_school_staff_id";
+    public static final String KEY_TDEPARTMENT = "t_dept";
+    public static final String KEY_TEXPRIENCE = "t_exprience";
+    public static final String KEY_TSUBJECT = "t_subject";
+    public static final String KEY_CLASS = "t_class";
+    public static final String KEY_TQULIFICATION = "t_qualification";
+    public static final String KEY_TADDRESS = "t_address";
+    public static final String KEY_TCITY = "t_city";
+    public static final String KEY_TDOB = "t_dob";
+    public static final String KEY_TAGE = "t_age";
+    public static final String KEY_GENDER = "t_gender";
+    public static final String KEY_TCOUNTRY = "t_country";
+    public static final String KEY_TEMAIL = "t_email";
+    public static final String KEY_TINTERNAL_EMAIL = "t_internal_email";
+    public static final String KEY_TPASSWORD = "t_password";
+    public static final String KEY_DATE = "t_date";
+    public static final String KEY_PC = "t_pc";
+    public static final String KEY_PHONE = "t_phone";
+    public static final String KEY_TLANDLINE = "t_landline";
+    public static final String KEY_BALANCE_POINT = "tc_balance_point";
+    public static final String KEY_TUSED_POINT = "tc_used_point";
+    public static final String KEY_TSTATE = "state";
+    public static final String KEY_BALANCE_BLUE_POINT = "balance_blue_points";
+    public static final String KEY_USED_BLUE_POINT = "used_blue_points";
+    public static final String KEY_BATCH_ID = "batch_id";
+    public static final String KEY_ERROR_RECORDS = "error_records";
+    public static final String KEY_SEND_UNSEND_STATUS = "send_unsend_status";
+    public static final String KEY_TEMP_ADDRESS = "t_temp_address";
+    public static final String KEY_PERMANENT_VILLAGE = "t_permanent_village";
+    public static final String KEY_PERMANENT_TALUKA = "t_permanent_taluka";
+    public static final String KEY_PERMANENT_DISTRICT = "t_permanent_district";
+    public static final String KEY_PERMANENT_PINCODE = "t_permanent_pincode";
+    public static final String KEY_DOT_OF_APPOINTMENT = "t_date_of_appointment";
+    public static final String KEYAPPOINTMENT_TYPE_PID = "t_appointment_type_pid";
+    public static final String KEY_EMP_TYPE_PID = "t_emp_type_pid";
+    public static final String KEY_COLLAGE_MNEMONIC = "college_mnemonic";
+
+    public static final String KEY_USERNAME = "User_Name";
+    public static final String KEY_USER_PASSWORD = "User_Pass";
+
+    /**
+     * constants for student list webservice
+     */
+
+    public static final String KEY_SCHOOLID = "school_id";
+
+
+    public static final String KEY_SID = "id";
+    public static final String KEY_SNAME = "std_name";
+    public static final String KEY_SFNAME = "std_Father_name";
+    public static final String KEY_SSCHOOLNMAE = "std_school_name";
+    public static final String KEY_SCLASSNAME = "std_class";
+    public static final String KEY_SADDRESS = "std_address";
+    public static final String KEY_SGENDER = "std_gender";
+    public static final String KEY_SDOB = "std_dob";
+    public static final String KEY_SAGE = "std_age";
+    public static final String KEY_SCITY = "std_city";
+    public static final String KEY_SEMAIL = "std_email";
+    public static final String KEY_SPRN = "std_PRN";
+
+    public static final String KEY_SSCHOOLID = "school_id";
+    public static final String KEY_SDATE = "std_date";
+    public static final String KEY_SDIV= "std_div";
+    public static final String KEY_SHOBBIES = "std_hobbies";
+
+    public static final String KEY_SCOUNTRY = "std_country";
+    public static final String KEY_SCLASSTEACHERNAME = "std_classteacher_name";
+    public static final String KEY_SIMGPATH= "std_img_path";
+    public static final String KEY_STUDENT_TOTAL_COUNT = "total_count";
+
+
+    /**
+     * constants for REGISTRATION
+     */
+    public static final String KEY_USER_EMAIL = "user_email";
+    public static final String KEY_USER_FNAME = "user_fname";
+    public static final String KEY_USER_LNAME = "user_lname";
+    public static final String KEY_USER_PASS= "user_password";
+    public static final String KEY_TEACHER_ID = "teacher_id";
+    public static final String KEY_USER_GENDER= "user_gender";
+    public static final String KEY_USER_AGE = "user_age";
+    public static final String KEY_USER_DOB = "user_dob";
+    public static final String KEY_USER_ADDRESS = "user_address";
+    public static final String KEY_USER_CITY = "user_city";
+    public static final String KEY_USER_IMAGE= "user_image";
+    public static final String KEY_USER_STATE = "user_state";
+    public static final String KEY_USER_COUNTRY= "user_country";
+    public static final String KEY_USER_EDUCTION = "user_education";
+    public static final String KEY_USER_PHONE = "user_phone";
+    public static final String KEY_USER_EXPERIENCE = "user_experience";
+
+    /**
+     * constants for TEACHER_POINT
+     */
+    //Input Tid
+
+    public static final String KEY_GREEN_POINT = "green_points";
+    public static final String KEY_BLUE_POINT = "blue_points";
+    public static final String KEY_BROWN_POINT = "water_points";
+    public static final String KEY_WATER_POINT= "brown_points";
+
+}

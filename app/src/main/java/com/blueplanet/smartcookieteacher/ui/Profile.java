@@ -84,6 +84,7 @@ public class Profile extends FragmentActivity {
         _address = (CustomEditText) findViewById(R.id.edt_address);
         _city = (CustomEditText) findViewById(R.id.edt_city);
         _country = (CustomEditText) findViewById(R.id.edt_country);
+
         _email = (CustomEditText) findViewById(R.id.edt_emailId);
         progressbar = (ProgressBar) findViewById(R.id.progressbar);
         //  _password = (CustomEditText) _view.findViewById(R.id.edt_password);

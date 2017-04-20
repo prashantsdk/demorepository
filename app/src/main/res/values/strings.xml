@@ -16,6 +16,7 @@
     <string name="network_not_available">Please enable your mobile data or WIFI connection</string>
     <string name="network_available">Network available</string>
     <string name="no_students_available">No students available</string>
+    <string name="select_activity">Please Select Activity</string>
     <string name="no_Blue_Point_available">No blue points log available</string>
     <string name="accept_request">Request Accepted</string>
     <string name="select_valid_point">Select Valid Point</string>
@@ -37,7 +38,10 @@
     <string name="add_to_cart">Coupon Added To Cart</string>
     <string name="pointshare">Point Share Successfully..!!</string>
     <string name="generate_coupon">You Do not have sufficient point to generate coupon..!!</string>
+    <string name="less_green_point">You Do not have sufficient point to assign..!!</string>
+    <string name="generate_generated_coupon">Coupon Generated successfully..!!</string>
     <string name="share_point">You Do not have sufficient point to share..!!</string>
+    <string name="Purchase_Points">You Do not have sufficient point to purchase point..!!</string>
 
     <!--drawer strings-->
     <string name="str_my_points">My Points</string>

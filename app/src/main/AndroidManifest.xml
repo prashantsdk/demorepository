@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.blueplanet.smartcookieteacher"
-   >
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.blueplanet.smartcookieteacher">
 
     <uses-sdk
         android:minSdkVersion="14"
@@ -11,8 +11,8 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+   <!-- <uses-permission android:name="android.permission.READ_PHONE_STATE" />-->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" tools:node="remove" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <!-- <permission
@@ -29,6 +29,12 @@
     <!-- Required to show current location -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <uses-permission
+        android:name="com.blueplanet.smartcookieteacher.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+
     <permission
         android:name="com.blueplanet.smartcookieteacher.permission.MAPS_RECEIVE"
         android:protectionLevel="signature" />
@@ -38,7 +44,6 @@
     <uses-feature
         android:glEsVersion="0x00020000"
         android:required="true" />
-
 
 
     <application
@@ -51,23 +56,48 @@
 
         <meta-data
             android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version"/>
+            android:value="@integer/google_play_services_version" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDHz0ChjrIwDPFcFXLu_5Kt3rccp_U0OSI"/>
+            android:value="AIzaSyA7xWh0S20ij5ijGSqqjJdcMzFwowfCfjQ" />
 
+        <!--AIzaSyA7xWh0S20ij5ijGSqqjJdcMzFwowfCfjQ-->           // SmartStudent Api key
+        <!--AIzaSyDHz0ChjrIwDPFcFXLu_5Kt3rccp_U0OSI-->         // SmartTeacher Api Key
 
-
-        <activity android:name=".BaseActivity">
+        <activity android:name=".BaseActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
+
+        </activity>
+
+        <receiver
+            android:name="com.google.android.gms.gcm.GcmReceiver"
+            android:exported="true"
+            android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+
+                <category android:name="com.blueplanet.smartcookieteacher" />
+            </intent-filter>
+        </receiver>
+
+
+        <!-- [START gcm_listener] -->
+        <service
+            android:name="com.blueplanet.smartcookieteacher.gcm.MyGcmListenerService"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
 
             </intent-filter>
-        </activity>
+        </service>
         <activity
             android:name=".LoginActivity"
             android:label="@string/app_name"
@@ -76,28 +106,34 @@
         <!--<activity android:name=".BaseActivity" />
         <activity android:name=".ui.InitialPaswordActivity" />-->
 
-        <activity android:name=".AfterLoginActivity" />
         <activity android:name=".ui.Profile" />
 
-       <!-- <activity android:name="com.blueplanet.smartcookieteacher.ui.MapActivity"
-            android:label="@string/app_name"
-            android:theme="@style/LoginActivityTheme"/>-->
+        <!-- <activity android:name="com.blueplanet.smartcookieteacher.ui.MapActivity"
+             android:label="@string/app_name"
+             android:theme="@style/LoginActivityTheme"/>-->
         <activity
             android:name="com.blueplanet.smartcookieteacher.ui.RegistrationActivity"
             android:label="@string/app_name"
-            android:theme="@style/LoginActivityTheme">
-        </activity>
+            android:theme="@style/LoginActivityTheme"></activity>
         <activity
             android:name="com.blueplanet.smartcookieteacher.ui.NewMapActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-        android:name="com.blueplanet.smartcookieteacher.ui.MapActivity"
-        android:label="@string/app_name"
-        android:screenOrientation="portrait"
-        android:theme="@style/AppTheme.NoActionBar" />
+            android:name="com.blueplanet.smartcookieteacher.ui.MapActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
 
+        <activity
+            android:name="com.blueplanet.smartcookieteacher.UpdateProfileActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.blueplanet.smartcookieteacher.AfterLoginActivity"
+            />
 
         <receiver
             android:name=".network.NetworkReceiver"
@@ -106,6 +142,12 @@
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
+
+
+
+
+
+        <service android:name=".services.TeacherPointService"></service>
 
 
     </application>

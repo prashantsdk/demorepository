@@ -35,28 +35,65 @@
                         android:id="@+id/iv_studentPhoto"
                         android:layout_width="90dp"
                         android:layout_height="90dp"
-                        android:layout_marginTop="10dp"
                         android:layout_marginLeft="22dp"
+                        android:layout_marginTop="10dp"
                         android:background="@drawable/logo" />
+
                     <com.blueplanet.smartcookieteacher.customcomponents.CustomButton
                         android:id="@+id/btn_assignPoints"
                         style="@style/login_button_style"
                         android:layout_width="120dp"
                         android:layout_height="40dp"
                         android:layout_below="@+id/iv_studentPhoto"
-                        android:textSize="15dp"
-
-
-                        android:background="@drawable/login_button_selector"
                         android:text="Assign Points"
-                        android:textColor="@color/white_solid" />
+                        android:textColor="@color/black_solid"
+                        android:textSize="15dp" />
                 </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/txt_couPointt"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_below="@+id/re_1"
+                    android:layout_marginTop="3dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:visibility="visible">
+
+                    <com.blueplanet.smartcookieteacher.customcomponents.CustomButton
+                        android:id="@+id/btn_suvbjecwise"
+                        style="@style/login_button_style"
+                        android:layout_width="120dp"
+                        android:layout_height="40dp"
+                        android:layout_below="@+id/iv_studentPhoto"
+                        android:background="@drawable/login_button_selector"
+
+
+                        android:text="Subjectwise"
+                        android:textColor="@color/white_solid"
+                        android:textSize="15dp" />
+
+                    <com.blueplanet.smartcookieteacher.customcomponents.CustomButton
+                        android:id="@+id/btn_activitywise"
+                        style="@style/login_button_style"
+                        android:layout_width="120dp"
+                        android:layout_height="40dp"
+                        android:layout_below="@+id/iv_studentPhoto"
+                        android:background="@drawable/login_button_selector"
+
+
+                        android:text="Activitywise"
+                        android:textColor="@color/white_solid"
+                        android:textSize="15dp" />
+
+                </LinearLayout>
+
 
                 <LinearLayout
                     android:id="@+id/stdName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/re_1"
+                    android:layout_below="@+id/txt_couPointt"
                     android:layout_marginTop="5dp"
                     android:orientation="horizontal">
 

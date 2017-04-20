@@ -16,6 +16,7 @@ import android.text.Html;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -44,19 +45,19 @@ import com.blueplanet.smartcookieteacher.ui.BluePointFragment;
 import com.blueplanet.smartcookieteacher.ui.BuyCouponLogFragment;
 import com.blueplanet.smartcookieteacher.ui.CoordinatorFragment;
 import com.blueplanet.smartcookieteacher.ui.DisplayCategorieFragment;
+import com.blueplanet.smartcookieteacher.ui.DisplaySubjectFragment;
 import com.blueplanet.smartcookieteacher.ui.GenerateCoupFragment;
 import com.blueplanet.smartcookieteacher.ui.GenerateCouponFragment;
 
 
 import com.blueplanet.smartcookieteacher.ui.MapActivity;
-import com.blueplanet.smartcookieteacher.ui.NewMapActivity;
-import com.blueplanet.smartcookieteacher.ui.Profile;
-import com.blueplanet.smartcookieteacher.ui.RequestForPointFragment;
-import com.blueplanet.smartcookieteacher.ui.RewardPointFragment;
+
 import com.blueplanet.smartcookieteacher.ui.SharePointFragment;
+import com.blueplanet.smartcookieteacher.ui.SoftRewardFragment;
 import com.blueplanet.smartcookieteacher.ui.StudentListFragment;
 import com.blueplanet.smartcookieteacher.ui.SyncFragment;
 import com.blueplanet.smartcookieteacher.ui.TeacherDashboardFragment;
+import com.blueplanet.smartcookieteacher.ui.TeacherProfileFragment;
 import com.blueplanet.smartcookieteacher.ui.TeacherSubjectFragment;
 import com.blueplanet.smartcookieteacher.ui.controllers.BuyCouLogFragmentController;
 import com.blueplanet.smartcookieteacher.ui.customactionbar.CustomDrawerAdapter;
@@ -119,8 +120,11 @@ public class AfterLoginActivity extends FragmentActivity implements IEventListen
         _dataList.add(new DrawerItem("Logs", R.drawable.coupon));
         _dataList.add(new DrawerItem("Sync", R.drawable.coupon));
         _dataList.add(new DrawerItem("Share Blue Point", R.drawable.coupon));
-        _dataList.add(new DrawerItem("map", R.drawable.coupon));
-        _dataList.add(new DrawerItem("Requests From Other Students", R.drawable.coupon));
+        _dataList.add(new DrawerItem("Soft Rewards", R.drawable.coupon));
+
+        _dataList.add(new DrawerItem("Map", R.drawable.coupon));
+        _dataList.add(new DrawerItem("Logout", R.drawable.coupon));
+
 
 
         // _dataList.add(new DrawerItem("Sponsar Map", R.drawable.coupon));
@@ -130,7 +134,7 @@ public class AfterLoginActivity extends FragmentActivity implements IEventListen
         //_dataList.add(new DrawerItem("sync", R.drawable.coupon));
         // _dataList.add(new DrawerItem("AdminThanQPointLog", R.drawable.coupon));
         // _dataList.add(new DrawerItem("Share Blue Points", R.drawable.coupon));
-        _dataList.add(new DrawerItem("Logout", R.drawable.logout));
+        //_dataList.add(new DrawerItem("Logout", R.drawable.logout));
 
         _adapter = new CustomDrawerAdapter(this, R.layout.custom_drawer_item,
 
@@ -288,8 +292,24 @@ public class AfterLoginActivity extends FragmentActivity implements IEventListen
                 // _fragment = new BuyCouponLogFragment();//
 
                 _fragment = new SharePointFragment();
+
                 break;
             case 10:
+                DrawerFeatureController.getInstance().setIsFragmentOpenedFromDrawer(true);
+                if (_count < 7) {
+                    _count = _count + 1;
+                }
+                _fragmentTagList.add("GenerateCouponFragment");
+                _addtoBackStack = true;
+                // _fragment = new BuyCouponLogFragment();//
+
+
+               //Remaining// _fragment = new DisplaySubjectFragment();
+
+                _fragment = new SoftRewardFragment();
+
+                break;
+            case 11:
                 Intent i = new Intent(this, MapActivity.class);
                 startActivity(i);
 
@@ -306,19 +326,20 @@ public class AfterLoginActivity extends FragmentActivity implements IEventListen
               /*  Intent i = new Intent(this, MapActivity.class);
                 startActivity(i);*/
                 break;
+            case 12:
+                _teacher = LoginFeatureController.getInstance().getTeacher();
 
-            case 11:
+                if (_teacher != null) {
+                    int id = _teacher.getId();
+                    _fetchLogoutListFromServer(id);
 
-                DrawerFeatureController.getInstance().setIsFragmentOpenedFromDrawer(true);
-                if (_count < 7) {
-                    _count = _count + 1;
+                    LoginFeatureController.getInstance().logOut();
+                    SmartCookieSharedPreferences.setLoginFlag(false);
+                    _startLoginActivity();
                 }
-                _fragmentTagList.add("GenerateCouponFragment");
-                _addtoBackStack = true;
-                //  _fragment = new GenerateCouponFragment();//
-
-                _fragment = new RequestForPointFragment();
                 break;
+            case 13:
+
 
 
               /*  LoginFeatureController.getInstance().logOut();
@@ -341,7 +362,8 @@ public class AfterLoginActivity extends FragmentActivity implements IEventListen
                // _fragment=new AllLogFragment();//*/
 
 
-            case 12:
+            case 14:
+/*
 
                 _teacher = LoginFeatureController.getInstance().getTeacher();
 
@@ -354,19 +376,20 @@ public class AfterLoginActivity extends FragmentActivity implements IEventListen
                     _startLoginActivity();
                 }
 
+*/
 
                 break;
-            case 13:
+            case 15:
                /* Log.i(_TAG, "In logout");
                 LoginFeatureController.getInstance().logOut();
                 SmartCookieSharedPreferences.setLoginFlag(false);
                 _startLoginActivity();*/
 
                 break;
-            case 14:
+            case 16:
                 // _fragment = new HomeFragment();
                 break;
-            case 15:
+            case 17:
                /* Log.i(_TAG, "In logout");
                 LoginFeatureController.getInstance().logOut();
                 _startLoginActivity();*/
@@ -390,6 +413,7 @@ public class AfterLoginActivity extends FragmentActivity implements IEventListen
         this.finish();
     }
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -404,6 +428,7 @@ public class AfterLoginActivity extends FragmentActivity implements IEventListen
 
         return false;
     }
+
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {

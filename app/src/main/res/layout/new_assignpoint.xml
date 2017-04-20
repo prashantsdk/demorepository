@@ -19,7 +19,7 @@
             android:layout_marginLeft="5dp"
             android:layout_weight="1"
             android:text=""
-            android:textColor="#190710"
+            android:textColor="@color/black_solid"
             />
 
 

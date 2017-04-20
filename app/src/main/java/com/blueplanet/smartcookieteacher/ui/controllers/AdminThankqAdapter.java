@@ -23,7 +23,7 @@ import java.util.ArrayList;
 /**
  * Created by 1311 on 14-07-2016.
  */
-public class AdminThankqAdapter  extends BaseAdapter {
+public class AdminThankqAdapter extends BaseAdapter {
 
     private AdminFragment _adFragment;
     private AdminThanqFragmentController _contr;
@@ -74,15 +74,14 @@ public class AdminThankqAdapter  extends BaseAdapter {
                 String date = adminlist.get(position).get_date();
                 Log.i(_TAG, "Date" + date);
                 String[] items1 = date.split("/");
-                String date1=null, month=null, year=null;
+                String date1 = null, month = null, year = null;
                 if (items1.length == 3) {
                     date1 = items1[0];
                     month = items1[1];
                     year = items1[2];
                 } else {
                     String[] items2 = date.split("-");
-                    if(items2.length==3)
-                    {
+                    if (items2.length == 3) {
                         date1 = items2[0];
                         month = items2[1];
                         year = items2[2];
@@ -116,7 +115,6 @@ public class AdminThankqAdapter  extends BaseAdapter {
         return convertView;
 
     }
-
 
 
     private boolean _RewardListPopulated(ArrayList<AdminThankqPoint> dummyList) {

@@ -89,6 +89,7 @@ public class BluePointFragment extends Fragment {
             public void run() {
                 if (visibility) {
                     _rewardListiew.setVisibility(View.VISIBLE);
+
                 } else {
                     _rewardListiew.setVisibility(View.GONE);
                 }

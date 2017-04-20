@@ -1,0 +1,99 @@
+package com.example.c1311.smartcookieteacher.featurecontroller;
+
+import com.example.c1311.smartcookieteacher.android.utils.SmartCookieSharedPreferences;
+import com.example.c1311.smartcookieteacher.communication.ServerResponse;
+import com.example.c1311.smartcookieteacher.models.TeacherDashbord;
+import com.example.c1311.smartcookieteacher.notification.EventNotifier;
+import com.example.c1311.smartcookieteacher.notification.EventState;
+import com.example.c1311.smartcookieteacher.notification.EventTypes;
+import com.example.c1311.smartcookieteacher.notification.IEventListener;
+import com.example.c1311.smartcookieteacher.notification.ListenerPriority;
+import com.example.c1311.smartcookieteacher.notification.NotifierFactory;
+import com.example.c1311.smartcookieteacher.webservices.TeacherPoint;
+import com.example.c1311.smartcookieteacher.webservices.WebserviceConstants;
+
+/**
+ * Created by 1311 on 15-12-2015.
+ */
+public class DashboardFeatureController implements IEventListener {
+
+    private static DashboardFeatureController _dashboardFeatureController = null;
+    private TeacherDashbord _teTeacherDashbord = null;
+    /**
+     * function to get single instance of this class
+     *
+     * @return _dashboardFeatureController
+     */
+public  static DashboardFeatureController getInstance(){
+
+    if (_dashboardFeatureController == null) {
+
+        _dashboardFeatureController = new DashboardFeatureController();
+    }
+    return _dashboardFeatureController;
+
+
+}
+
+    /**
+     * make constructor private
+     */
+    private DashboardFeatureController() {
+
+    }
+
+    public  void teacherPoint(String tId){
+        EventNotifier eventNotifier =
+                NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_TEACHER);
+        eventNotifier.registerListener(this, ListenerPriority.PRIORITY_MEDIUM);
+
+        TeacherPoint teacherPoint = new TeacherPoint( tId);
+        teacherPoint.send();
+
+
+    }
+    public void clearTeacherpoint() {
+        if (_teTeacherDashbord != null) {
+            _teTeacherDashbord = null;
+        }
+    }
+    public TeacherDashbord getTeacherpoint() {
+        return _teTeacherDashbord;
+    }
+
+    @Override
+    public int eventNotify(int eventType, Object eventObject) {
+
+        int eventState = EventState.EVENT_PROCESSED;
+        EventNotifier eventNotifier =
+                NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_LOGIN);
+        eventNotifier.unRegisterListener(this);
+
+        ServerResponse serverResponse = (ServerResponse) eventObject;
+        int errorCode = serverResponse.getErrorCode();
+        Object responseObject = serverResponse.getResponseObject();
+        EventNotifier eventNotifierUI;
+        switch (eventType) {
+            case EventTypes.EVENT_LOGIN_SUCCESSFUL:
+
+                if (errorCode == WebserviceConstants.SUCCESS) {
+                    _teTeacherDashbord = (TeacherDashbord) responseObject;
+                    SmartCookieSharedPreferences.setLoginFlag(true);
+
+                    eventNotifierUI =
+                            NotifierFactory.getInstance().getNotifier(
+                                    NotifierFactory.EVENT_NOTIFIER_TEACHER);
+                    eventNotifierUI.eventNotifyOnThread(EventTypes.EVENT_UI_TEACHERPOINT_RECEIVED,
+                            serverResponse);
+                }
+                break;
+
+
+            default:
+                eventState = EventState.EVENT_IGNORED;
+                break;
+
+        }
+        return 0;
+    }
+}

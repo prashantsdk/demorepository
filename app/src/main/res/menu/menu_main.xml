@@ -1,6 +1,55 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools" tools:context=".MainActivity">
-    <item android:id="@+id/action_settings" android:title="@string/action_settings"
-        android:orderInCategory="100" app:showAsAction="never" />
+    xmlns:hmkcode="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_more"
+        android:orderInCategory="3"
+        hmkcode:showAsAction="always"
+        android:icon="@drawable/ic_more_vert_white_24dp"
+        android:title="More">
+        <menu>
+
+            <item
+                android:id="@+id/Membershipcard"
+                android:title="Profile"/>
+
+            <item
+                android:id="@+id/UpdateProfile"
+                android:title="My Profile"/>
+            <item
+                android:id="@+id/Mywallet"
+                android:title="My Wallet"/>
+            <item
+                android:id="@+id/GetmorePoints"
+                android:title="GetMorePoints"/>
+
+            <item
+                android:id="@+id/SYNC"
+                android:title="Sync"/>
+
+            <item
+                android:id="@+id/suggestvendorlist"
+                android:title="Suggest VendorList "/>
+            <item
+                android:id="@+id/NewRequest"
+                android:title="New Request"/>
+            <item
+                android:id="@+id/CouponLog"
+                android:title="Used Coupon Log"/>
+
+        </menu>
+    </item>
+    <!--<item
+        android:id="@+id/action_mycart"
+        android:orderInCategory="2"
+        hmkcode:showAsAction="always"
+        android:icon="@drawable/ic_shopping_cart_white_24dp"
+        android:title="My Cart"/>-->
+
+    <!-- <item
+         android:id="@+id/action_notifiaction"
+         android:orderInCategory="1"
+         hmkcode:showAsAction="never"
+         android:icon="@drawable/ic_notifications_white_24dp"
+         android:title="Notification"/>-->
+
 </menu>

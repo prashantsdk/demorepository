@@ -1,0 +1,117 @@
+package com.example.c1311.smartcookieteacher.featurecontroller;
+
+import com.example.c1311.smartcookieteacher.android.utils.SmartCookieSharedPreferences;
+import com.example.c1311.smartcookieteacher.communication.ErrorInfo;
+import com.example.c1311.smartcookieteacher.communication.HTTPConstants;
+import com.example.c1311.smartcookieteacher.communication.ServerResponse;
+import com.example.c1311.smartcookieteacher.models.Teacher;
+import com.example.c1311.smartcookieteacher.notification.EventNotifier;
+import com.example.c1311.smartcookieteacher.notification.EventState;
+import com.example.c1311.smartcookieteacher.notification.EventTypes;
+import com.example.c1311.smartcookieteacher.notification.IEventListener;
+import com.example.c1311.smartcookieteacher.notification.ListenerPriority;
+import com.example.c1311.smartcookieteacher.notification.NotifierFactory;
+import com.example.c1311.smartcookieteacher.webservices.TeacherLogin;
+import com.example.c1311.smartcookieteacher.webservices.WebserviceConstants;
+
+/**
+ * Created by 1311 on 24-11-2015.
+ * singleton class for handling login related events
+ */
+public class LoginFeatureController implements IEventListener {
+
+    private static LoginFeatureController _loginFeatureController = null;
+
+    private Teacher _teacher = null;
+
+    /**
+     * function to get single instance of this class
+     *
+     * @return _loginFeatureController
+     */
+    public static LoginFeatureController getInstance() {
+        if (_loginFeatureController == null) {
+            _loginFeatureController = new LoginFeatureController();
+        }
+        return _loginFeatureController;
+    }
+
+    /**
+     * function to call teacher login ws
+     *
+     * @param username
+     * @param password
+     */
+    public void teacherLogin(String username, String password) {
+
+        EventNotifier eventNotifier =
+                NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_LOGIN);
+        eventNotifier.registerListener(this, ListenerPriority.PRIORITY_MEDIUM);
+
+        TeacherLogin teacherLogin = new TeacherLogin(username, password);
+        teacherLogin.send();
+
+    }
+
+    /**
+     * make constructor private
+     */
+    private LoginFeatureController() {
+
+    }
+
+    public void clearTeacherObject() {
+        if (_teacher != null) {
+            _teacher = null;
+        }
+    }
+
+    public void logOut() {
+        clearTeacherObject();
+        StudentFeatureController.getInstance().clearStudentList();
+        SmartCookieSharedPreferences.setLoginFlag(false);
+    }
+
+    public Teacher getTeacher() {
+        return _teacher;
+    }
+
+    @Override
+    public int eventNotify(int eventType, Object eventObject) {
+        int eventState = EventState.EVENT_PROCESSED;
+        EventNotifier eventNotifier =
+                NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_LOGIN);
+        eventNotifier.unRegisterListener(this);
+
+        ServerResponse serverResponse = (ServerResponse) eventObject;
+        int errorCode = serverResponse.getErrorCode();
+        Object responseObject = serverResponse.getResponseObject();
+        EventNotifier eventNotifierUI;
+
+        switch (eventType) {
+            case EventTypes.EVENT_LOGIN_SUCCESSFUL:
+
+                if (errorCode == WebserviceConstants.SUCCESS) {
+                    _teacher = (Teacher) responseObject;
+                    SmartCookieSharedPreferences.setLoginFlag(true);
+
+                    eventNotifierUI =
+                            NotifierFactory.getInstance().getNotifier(
+                                    NotifierFactory.EVENT_NOTIFIER_LOGIN);
+                    eventNotifierUI.eventNotifyOnThread(EventTypes.EVENT_UI_LOGIN_SUCCESSFUL,
+                            serverResponse);
+                }
+                break;
+
+
+            default:
+                eventState = EventState.EVENT_IGNORED;
+                break;
+
+        }
+        return EventState.EVENT_PROCESSED;
+    }
+
+
+}
+

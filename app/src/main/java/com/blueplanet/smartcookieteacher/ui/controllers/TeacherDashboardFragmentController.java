@@ -59,6 +59,7 @@ public class TeacherDashboardFragmentController implements IEventListener, AbsLi
             _schoolId = _teacher.get_tSchool_id();
             String id = _teacher.get_tId();
             _fetchPointFromServer(_teacherId);
+
         } else {
             _teacherDashboardFragment.setDashboardDataOnUI();
         }
@@ -121,6 +122,7 @@ public class TeacherDashboardFragmentController implements IEventListener, AbsLi
 
     private void _unRegisterEventListeners() {
         EventNotifier eventNotifier =
+
                 NotifierFactory.getInstance().getNotifier
                         (NotifierFactory.EVENT_NOTIFIER_TEACHER);
         eventNotifier.unRegisterListener(this);
@@ -157,6 +159,7 @@ public class TeacherDashboardFragmentController implements IEventListener, AbsLi
             case EventTypes.EVENT_UI_TEACHER_POINT_RECEIVED:
                 EventNotifier eventNotifier =
                         NotifierFactory.getInstance().getNotifier
+
                                 (NotifierFactory.EVENT_NOTIFIER_TEACHER);
                 eventNotifier.unRegisterListener(this);
 
@@ -211,9 +214,7 @@ public class TeacherDashboardFragmentController implements IEventListener, AbsLi
                                 (NotifierFactory.EVENT_NOTIFIER_STUDENT);
                 event1.unRegisterListener(this);
                 _teacherDashboardFragment.showOrHideProgressBar(false);
-
                 _teacherDashboardFragment.showNoStudentListMessage(false);
-
 
 
 
@@ -278,6 +279,7 @@ public class TeacherDashboardFragmentController implements IEventListener, AbsLi
         ft.addToBackStack("TeacherDashboardFragment");
         _teacherDashboardFragment.getActivity().setTitle("Student Profile");
         ft.commit();
+
     }
 
     private void _loadFragmentGreenPoint(int id, Fragment fragment) {
@@ -304,7 +306,6 @@ public class TeacherDashboardFragmentController implements IEventListener, AbsLi
 
         }
 
-
     }
 
     @Override
@@ -312,9 +313,9 @@ public class TeacherDashboardFragmentController implements IEventListener, AbsLi
         int id = v.getId();
         switch (id) {
             case R.id.greenpoint:
-                _loadFragmentGreenPoint(R.id.content_frame, new RewardPointFragment());
+               // _loadFragmentGreenPoint(R.id.content_frame, new RewardPointFragment());
             case R.id.bluepoint:
-                _loadFragmentGreenPoint(R.id.content_frame, new BluePointFragment());
+             //   _loadFragmentGreenPoint(R.id.content_frame, new BluePointFragment());
             default:
                 break;
         }

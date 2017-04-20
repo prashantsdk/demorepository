@@ -150,11 +150,207 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/re3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/RelativeLayout1"
+                android:visibility="visible">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Method :"
+
+                    android:textColor="#000000"
+                    android:textSize="20dp" />
+
+                <RelativeLayout
+                    android:id="@+id/gsr"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="110dp"
+                    android:layout_marginRight="35dp"
+                    android:layout_marginTop="11dp"
+                    android:background="@drawable/oval_white_background_transparant">
+
+                    <Spinner
+
+                        android:id="@+id/spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="45sp"
+                        android:layout_gravity="center_horizontal"
+
+                        android:visibility="visible" />
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_issue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/re3"
+
+                android:layout_marginTop="25dp"
+                android:orientation="horizontal"
+                android:visibility="visible">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="points :"
+                    android:textColor="#000000"
+                    android:textSize="20dp" />
+
+                <EditText
+                    android:id="@+id/txt_point"
+                    android:layout_width="110dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="30dp"
+                    android:inputType="phone"
+                    android:text=""
+                    android:textColor="#000000"
+                    android:textSize="15dp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_issue1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/re3"
+                android:layout_marginTop="25dp"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Marks :"
+                    android:textColor="#000000"
+                    android:textSize="20dp" />
+
+                <EditText
+                    android:id="@+id/txt_point1"
+                    android:layout_width="110dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="30dp"
+                    android:text=""
+                    android:inputType="phone"
+                    android:textColor="#000000"
+                    android:textSize="15dp" />
+
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/ll_issue2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/re3"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text=" Grade :"
+
+                    android:textColor="#000000"
+                    android:textSize="20dp" />
+
+                <RelativeLayout
+                    android:id="@+id/gsr2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="110dp"
+                    android:layout_marginRight="35dp"
+                    android:layout_marginTop="11dp"
+                    android:background="@drawable/oval_white_background_transparant">
+
+                    <Spinner
+
+                        android:id="@+id/spinner2"
+                        android:layout_width="match_parent"
+                        android:layout_height="45sp"
+                        android:layout_gravity="center_horizontal"
+                        android:entries="@array/login_type"
+                        android:visibility="visible" />
+                </RelativeLayout>
+
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_gradePoint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/re3"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="65dp"
+
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Points :"
+                    android:textColor="#000000"
+                    android:textSize="20dp" />
+
+                <EditText
+                    android:id="@+id/txt_gradePoint"
+                    android:layout_width="110dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="20dp"
+                    android:text=""
+
+                    android:textColor="#000000"
+                    android:textSize="15dp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_issue3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/re3"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="40dp"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Percentile :"
+                    android:textColor="#000000"
+                    android:textSize="20dp" />
+
+                <EditText
+                    android:id="@+id/txt_point2"
+                    android:layout_width="110dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="30dp"
+                    android:text=""
+                    android:inputType="phone"
+                    android:textColor="#000000"
+                    android:textSize="15dp" />
+
+
+            </LinearLayout>
+
+            <RelativeLayout
                 android:id="@+id/relay5"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@+id/RelativeLayout1"
-                android:background="#ffffff">
+                android:layout_below="@+id/ll_issue"
+                android:background="#ffffff"
+                android:visibility="invisible">
 
                 <SeekBar
                     android:id="@+id/seekassigpoints"
@@ -167,12 +363,16 @@
                     android:progressDrawable="@drawable/seekbarprogressfill"
                     android:thumb="@drawable/seekbar_thumb" />
             </RelativeLayout>
+
+
             <LinearLayout
                 android:id="@+id/lay1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@+id/relay5"
-                android:padding="5sp">
+                android:padding="5sp"
+
+                android:visibility="visible">
 
                 <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
                     android:id="@+id/txtassignedPoints"
@@ -182,7 +382,8 @@
                     android:layout_marginTop="15dp"
                     android:layout_weight="1"
                     android:text="0 POINTS"
-                    android:textColor="#257cc1" />
+                    android:textColor="#257cc1"
+                    android:visibility="invisible" />
 
                 <com.blueplanet.smartcookieteacher.customcomponents.CustomButton
                     android:id="@+id/btnsubmitassignpoints"

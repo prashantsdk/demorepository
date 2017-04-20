@@ -1,7 +1,11 @@
 package com.blueplanet.smartcookieteacher.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -15,8 +19,10 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.blueplanet.smartcookieteacher.R;
+import com.blueplanet.smartcookieteacher.UpdateProfileActivity;
 import com.blueplanet.smartcookieteacher.customcomponents.CustomTextView;
 import com.blueplanet.smartcookieteacher.featurecontroller.DashboardFeatureController;
+import com.blueplanet.smartcookieteacher.featurecontroller.DrawerFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.LoginFeatureController;
 import com.blueplanet.smartcookieteacher.models.Teacher;
 import com.blueplanet.smartcookieteacher.models.TeacherDashbordPoint;
@@ -49,11 +55,14 @@ public class TeacherDashboardFragment extends Fragment {
     private RelativeLayout _rlProgressbar;
     private ProgressBar _progressbar;
     private CustomTextView _tvPleaseWait;
+    private Runnable r;
+    private Handler handler=null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.i(_TAG, "In onCreateView of  TeacherDashboardFragment");
         _view = inflater.inflate(R.layout.teacher_dashboard, null);
+        setHasOptionsMenu(true);
         _initUI();
 
         _controller = new TeacherDashboardFragmentController(this, _view);
@@ -63,6 +72,17 @@ public class TeacherDashboardFragment extends Fragment {
 
         _setTeacherDetailsOnUI();
         _registerUIListeners();
+
+
+        handler =new Handler();
+        r = new Runnable() {
+            public void run() {
+                handler.postDelayed(this, 100);
+                setDashboardDataOnUI();
+
+            }
+        };handler.postDelayed(r, 300);
+
 
         getActivity().getActionBar().setTitle("Dashboard");
         return _view;
@@ -93,6 +113,7 @@ public class TeacherDashboardFragment extends Fragment {
     public void onResume() {
         super.onResume();
         Log.i(_TAG, "In onResume of  TeacherDashboardFragment");
+        handler.post(r);
     }
 
     /**
@@ -158,6 +179,7 @@ public class TeacherDashboardFragment extends Fragment {
                     String bluepoint = String.valueOf(_teacherDashbordPoint.get_bluepoint());
                     _teabluepoint.setText(bluepoint);
 
+
                     String brownpoint = String.valueOf(_teacherDashbordPoint.get_brownpoint());
                     _teabrownpoint.setText(brownpoint);
 
@@ -196,6 +218,7 @@ public class TeacherDashboardFragment extends Fragment {
 
     }
 
+
     public ListView getListview() {
 
         return _lvStudentList;
@@ -219,12 +242,20 @@ public class TeacherDashboardFragment extends Fragment {
 
     }
 
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        handler.removeCallbacks(r);
+    }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
         if (_controller != null) {
             _controller.close();
             _controller = null;
+            handler.removeCallbacks(r);
         }
         if (_StudentListDashboardAdapter != null) {
             _StudentListDashboardAdapter.close();
@@ -234,5 +265,36 @@ public class TeacherDashboardFragment extends Fragment {
 
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        // TODO Add your menu entries here
+        inflater.inflate(R.menu.mywallet, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // TODO Auto-generated method stub
+        int id = item.getItemId();
+        if (id == R.id.action_add) {
+           // _loadFragment(R.id.content_frame, new NewProfileFragment());
+            Intent i1 = new Intent(this.getActivity(), UpdateProfileActivity.class);
+            startActivity(i1);
+
+        } else {
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
+    private void _loadFragment(int id, Fragment fragment) {
+
+        DrawerFeatureController.getInstance().setIsFragmentOpenedFromDrawer(false);
+        FragmentManager fm = getActivity().getSupportFragmentManager();
+
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.replace(id, fragment);
+        ft.addToBackStack("TeacherDashboardFragment");
+
+        ft.commit();
+    }
 }

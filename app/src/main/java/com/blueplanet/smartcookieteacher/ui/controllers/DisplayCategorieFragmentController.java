@@ -249,7 +249,6 @@ public class DisplayCategorieFragmentController implements IEventListener, Adapt
                             Log.i(_TAG, "ON category list size : " + _categoryList.size());
                             Log.i(_TAG, "ON dialog dismiss");
                             if (category != null) {
-
                                 _disCategorieFragment.setNameOnCategoryTextView(category.get_categorie());
                                 String catId = String.valueOf(category.get_caID());
                                 Log.i(_TAG, catId);
@@ -306,9 +305,9 @@ public class DisplayCategorieFragmentController implements IEventListener, Adapt
             case R.id.txtCatogory:
 
                 // create class object
-                gps = new GPSTracker(_disCategorieFragment.getActivity());
+               // gps = new GPSTracker(_disCategorieFragment.getActivity());
                 // check if GPS enabled
-                if(gps.canGetLocation()){
+               /* if(gps.canGetLocation()){
 
                     double latitude = gps.getLatitude();
                     double longitude = gps.getLongitude();
@@ -320,7 +319,7 @@ public class DisplayCategorieFragmentController implements IEventListener, Adapt
                     // GPS or Network is not enabled
                     // Ask user to enable GPS/network in settings
                     gps.showSettingsAlert();
-                }
+                }*/
                 Log.i(_TAG, "ON clicked");
                 _showCategorieListDialog();
                 break;

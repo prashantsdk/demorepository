@@ -1,0 +1,13 @@
+-keep class com.example.c1311.smartcookieteacher.MainApplication {
+    <init>();
+    void attachBaseContext(android.content.Context);
+}
+-keep class com.example.c1311.smartcookieteacher.LoginActivity { <init>(); }
+-keep class com.example.c1311.smartcookieteacher.AfterLoginActivity { <init>(); }
+-keep class com.example.c1311.smartcookieteacher.network.NetworkReceiver { <init>(); }
+-keep public class * extends android.app.backup.BackupAgent {
+    <init>();
+}
+-keep public class * extends java.lang.annotation.Annotation {
+    *;
+}

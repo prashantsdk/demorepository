@@ -54,8 +54,8 @@ public class BluePointFeatureController  implements IEventListener {
     public void clearRewardPointList() {
         if (_bluepoint != null && _bluepoint.size() > 0) {
             _bluepoint.clear();
-            _bluepoint = null;
-
+          //  _bluepoint = null;
+            deleteBluePointLogFromDB(null);
         }
     }
 

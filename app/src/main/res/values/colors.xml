@@ -6,6 +6,8 @@
 
     <!-- COLOR Light Green   -->
     <color name="cl_primary">#545da7</color>
+    <color name="cl_prim">#CC04B404</color>
+
     <!-- 500  -->
     <color name="cl_primaryDark">#388E3C</color>
     <!-- 700  -->
@@ -55,4 +57,7 @@
     <color name="viewfinder_mask">#60000000</color>
 
     <color name="buttongoogle_press">#ad2d1e</color>
+    <color name="snack_back">#D50000</color>
+    <color name="cl_white">#FFFFFF</color>
+
 </resources>

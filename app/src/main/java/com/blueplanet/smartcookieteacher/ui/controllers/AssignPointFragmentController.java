@@ -1,26 +1,29 @@
 package com.blueplanet.smartcookieteacher.ui.controllers;
 
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.GridView;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.SeekBar;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.blueplanet.smartcookieteacher.MainApplication;
 import com.blueplanet.smartcookieteacher.R;
 import com.blueplanet.smartcookieteacher.communication.ServerResponse;
 import com.blueplanet.smartcookieteacher.customcomponents.CustomTextView;
 import com.blueplanet.smartcookieteacher.featurecontroller.ActivityListFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.AssignPointFeatureController;
+import com.blueplanet.smartcookieteacher.featurecontroller.BluePointFeatureController;
+import com.blueplanet.smartcookieteacher.featurecontroller.DashboardFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.LoginFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.RewardPointLogFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.StudentFeatureController;
-import com.blueplanet.smartcookieteacher.featurecontroller.SubjectFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.subFeaturecontroller;
 import com.blueplanet.smartcookieteacher.models.Student;
 import com.blueplanet.smartcookieteacher.models.SubNameCode;
@@ -34,10 +37,8 @@ import com.blueplanet.smartcookieteacher.notification.EventTypes;
 import com.blueplanet.smartcookieteacher.notification.IEventListener;
 import com.blueplanet.smartcookieteacher.notification.ListenerPriority;
 import com.blueplanet.smartcookieteacher.notification.NotifierFactory;
-import com.blueplanet.smartcookieteacher.ui.ApplicationConstants;
 import com.blueplanet.smartcookieteacher.ui.AssignPointFragment;
 import com.blueplanet.smartcookieteacher.webservices.WebserviceConstants;
-
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -58,6 +59,7 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
 
     private AssignPointListAdapter1 _adapter = null;
     //private AssignPointListAdapter1 _adapter = null;
+
     private GridView _grid;
     private AssignPointSubjectAdapter _subAdapter;
     private SeekBar seekpointsbar;
@@ -75,11 +77,25 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
     String selprn;
     private ArrayList<SubNameCode> _subNameCodeList;
     String prn;
+    private Spinner spinner, spinner1;
+
+    private TextView txt_point;
+    private EditText txt_mark;
+    String countrycode = "", logintype = "";
+    private EditText _txt_gradePoint,txt_point2;
 
     public AssignPointFragmentController(AssignPointFragment assignPointFragment, View view) {
 
         _assignPointFragment = assignPointFragment;
         _view = view;
+
+        spinner = (Spinner) _view.findViewById(R.id.spinner);
+        spinner1 = (Spinner) _view.findViewById(R.id.spinner2);
+
+        txt_point = (TextView) _view.findViewById(R.id.txt_point);
+        txt_mark=(EditText)_view.findViewById(R.id.txt_point1);
+        _txt_gradePoint = (EditText) _view.findViewById(R.id.txt_gradePoint);
+        txt_point2=(EditText)_view.findViewById(R.id.txt_point2);
         _studentList = StudentFeatureController.getInstance().getStudentList();
 
         _teacher = LoginFeatureController.getInstance().getTeacher();
@@ -286,11 +302,11 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
 */
 
             case R.id.btnsubmitassignpoints:
-
+/*
                 if (Seekvalue == 0 || Seekvalue >= 101) {
 
                     _assignPointFragment.showpointSelected(false);
-                }
+                }*/
                 /*else
                 if(selectedSubjectId==null) {
 
@@ -301,31 +317,153 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
 
                 }*/
 
-                else {
-                    Student student = AssignPointFeatureController.getInstance().get_selectedStudent();
-                    selectedActivityId = ActivityListFeatureController.getInstance().getSeletedActivityId();
-                    ////selectedSubjectId = SubjectFeatureController.getInstance().get_seletedSubjectId();
-                    selectedSubjectId = AssignPointFeatureController.getInstance().get_seletedSubjectId();
+
+                //Student student = AssignPointFeatureController.getInstance().get_selectedStudent();
+
+                Student student = StudentFeatureController.getInstance().getSelectedStudent();
+                selectedActivityId = ActivityListFeatureController.getInstance().getSeletedActivityId();
+                ////selectedSubjectId = SubjectFeatureController.getInstance().get_seletedSubjectId();
+                selectedSubjectId = AssignPointFeatureController.getInstance().get_seletedSubjectId();
 
 
-                    Log.i(_TAG, "Selected subject is : " + selectedSubjectId);
-                    boolean isStudyClicked = AssignPointFeatureController.getInstance().isStudyClicked();
+                Log.i(_TAG, "Selected subject is : " + selectedSubjectId);
 
-                    String prnNO = student.get_stdPRN();
 
-                    Log.i(_TAG, "Value of prn is: " + prnNO);
-                    String methodID = "1";
-                    //String activityID = selectedActivityName;
-                    Log.i(_TAG, "Value of activity id is: " + selectedActivityId);
-                    String subjectId = "0";
-                    //String activityId = "0";
-                    String rewardValue = _points;
-                    Log.i(_TAG, "Value of points is: " + _points);
-                    String date = getDate();
-                    Log.i(_TAG, "Value of date is: " + date);
-                    _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
-                            selectedActivityId, subjectId, rewardValue, date);
-                    clearActivityList();
+
+
+                boolean isStudyClicked = AssignPointFeatureController.getInstance().isStudyClicked();
+
+                String prnNO = student.get_stdPRN();
+
+                Log.i(_TAG, "Value of prn is: " + prnNO);
+                //String methodID = "1";
+                //sayali
+
+                String methodID = spinner.getSelectedItem().toString();
+                String grade = spinner1.getSelectedItem().toString();
+
+
+                logintype = spinner.getSelectedItem().toString();
+
+                //String activityID = selectedActivityName;
+                Log.i(_TAG, "Value of activity id is: " + selectedActivityId);
+                String subjectId = "0";
+                //String activityId = "0";
+                //s// String rewardValue = _points;
+
+                String rewardValue = txt_point.getText().toString();
+                String rewardValue1 = txt_mark.getText().toString();
+                String rewardValue2 = txt_point2.getText().toString();
+
+                Log.i(_TAG, "Value of points is: " + _points);
+                String date = getDate();
+                Log.i(_TAG, "Value of date is: " + date);
+
+                if (logintype.equals(WebserviceConstants.VAL_USER_TYPE_GUGMENT)) {
+                    methodID="1";
+                    if(selectedActivityId !=null && rewardValue !=null) {
+
+
+                        _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
+                                selectedActivityId, subjectId, rewardValue, date);
+                        clearActivityList();
+                    }else {
+                        Toast.makeText(_assignPointFragment.getActivity().getApplicationContext(),
+                                _assignPointFragment.getActivity().getString(R.string.select_activity),
+                                Toast.LENGTH_LONG).show();
+
+                    }
+                } else if (logintype.equals(WebserviceConstants.VAL_USER_TYPE_MARK)) {
+
+                    methodID="2";
+                    if(selectedActivityId !=null && rewardValue1 !=null) {
+                        _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
+                                selectedActivityId, subjectId, rewardValue1, date);
+                        clearActivityList();
+                    }else {
+                        Toast.makeText(_assignPointFragment.getActivity().getApplicationContext(),
+                                _assignPointFragment.getActivity().getString(R.string.select_activity),
+                                Toast.LENGTH_LONG).show();
+
+                    }
+
+                } else if (logintype.equals(WebserviceConstants.VAL_USER_TYPE_GRADE)) {
+
+                    if(grade.equals(WebserviceConstants.VAL_USER_TYPE_GRADE_A)){
+                        if(selectedActivityId !=null && rewardValue1 !=null) {
+
+                            methodID = "3";
+                            String rewardValue3 = "A";
+                            _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
+                                    selectedActivityId, subjectId, rewardValue3, date);
+                            clearActivityList();
+                        }else {
+                            Toast.makeText(_assignPointFragment.getActivity().getApplicationContext(),
+                                    _assignPointFragment.getActivity().getString(R.string.select_activity),
+                                    Toast.LENGTH_LONG).show();
+
+                        }
+
+                    }else if(grade.equals(WebserviceConstants.VAL_USER_TYPE_GRADE_B)){
+                        methodID="3";
+                        if(selectedActivityId !=null && rewardValue1 !=null) {
+                            String rewardValue3 = "B";
+                            _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
+                                    selectedActivityId, subjectId, rewardValue3, date);
+                            clearActivityList();
+                        }else {
+                            Toast.makeText(_assignPointFragment.getActivity().getApplicationContext(),
+                                    _assignPointFragment.getActivity().getString(R.string.select_activity),
+                                    Toast.LENGTH_LONG).show();
+
+                        }
+                    }
+
+                    else if(grade.equals(WebserviceConstants.VAL_USER_TYPE_GRADE_C)){
+                        methodID="3";
+                        if(selectedActivityId !=null && rewardValue1 !=null) {
+                            String rewardValue3 = "C";
+                            _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
+                                    selectedActivityId, subjectId, rewardValue3, date);
+                            clearActivityList();
+                        }else {
+                            Toast.makeText(_assignPointFragment.getActivity().getApplicationContext(),
+                                    _assignPointFragment.getActivity().getString(R.string.select_activity),
+                                    Toast.LENGTH_LONG).show();
+
+                        }
+                }
+
+                    else if(grade.equals(WebserviceConstants.VAL_USER_TYPE_GRADE_D)){
+                        methodID="3";
+                        if(selectedActivityId !=null && rewardValue1 !=null) {
+                            String rewardValue3 = "D";
+                            _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
+                                    selectedActivityId, subjectId, rewardValue3, date);
+                            clearActivityList();
+                        }else {
+                            Toast.makeText(_assignPointFragment.getActivity().getApplicationContext(),
+                                    _assignPointFragment.getActivity().getString(R.string.select_activity),
+                                    Toast.LENGTH_LONG).show();
+
+                        }
+                    }
+
+                } else if (logintype.equals(WebserviceConstants.VAL_USER_TYPE_PERSENTILE)) {
+                    methodID="4";
+                    if(selectedActivityId !=null && rewardValue1 !=null) {
+                        _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
+                                selectedActivityId, subjectId, rewardValue2, date);
+                        clearActivityList();
+                    }else {
+                        Toast.makeText(_assignPointFragment.getActivity().getApplicationContext(),
+                                _assignPointFragment.getActivity().getString(R.string.select_activity),
+                                Toast.LENGTH_LONG).show();
+
+                    }
+
+                }
+
 /*
                     if (isStudyClicked == true) {
                         if (student != null && !(TextUtils.isEmpty(selectedSubjectId))
@@ -378,15 +516,11 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
 
                         }
                     }*/
-                }
-                break;
-            default:
-                break;
-
-
         }
 
+
     }
+
 
     private boolean _isAcivityPopulated(ArrayList<TeacherActivity> list) {
         if (list != null && list.size() > 0) {
@@ -416,6 +550,7 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
         eventNotifier.registerListener(this, ListenerPriority.PRIORITY_MEDIUM);
 
         ActivityListFeatureController.getInstance().getACtivityListFromServer(schoolId);
+
     }
 
     /**
@@ -425,6 +560,7 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
      */
     private void _fetchSubmitPointFromServer(String teacherId, String schoolId, String stPRN, String methodId, String activityId, String subjectId,
                                              String rewardValue, String date) {
+
 
         EventNotifier eventNotifier =
                 NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_TEACHER);
@@ -539,6 +675,8 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
                             _grid.setAdapter(_adapter);
                             _grid.setVisibility(View.VISIBLE);
 
+
+
                         }
                     });
 
@@ -586,6 +724,13 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
             default:
                 eventState = EventState.EVENT_IGNORED;
                 break;
+            case EventTypes.EVENT_UI_NO_TEACHER_ASSIGN_POINT_RECEIVED:
+                EventNotifier eventNotifier5 =
+                        NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_TEACHER);
+                eventNotifier5.unRegisterListener(this);
+
+
+                _assignPointFragment.showNotEnoughPoint();
 
         }
 
@@ -606,6 +751,7 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
+
         _studentList = StudentFeatureController.getInstance().getStudentList();
 
         if (_studentList != null && _studentList.size() > 0) {
@@ -620,7 +766,9 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
                 a.add(subCode);
 
                 // int foo = Integer.parseInt(txtsubName);
-                _assignPointFragment.setStudentNameOnUI(name);
+                // _assignPointFragment.setStudentNameOnUI(name);
+
+                _assignPointFragment._setStudentDetailsOnUI();
                 AssignPointFeatureController.getInstance().set_selectedStudent(student);
                 //    AssignPointFeatureController.getInstance().set_selectedPrn(stuPRN);
 
@@ -628,10 +776,11 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
                 //    AssignPointFeatureController.getInstance().set_selestusubList(a);
                 AssignPointFeatureController.getInstance().set_selectedSubjsct(a);
 
-
             }
         }
+
     }
+
 
     public void clearActivityList() {
 

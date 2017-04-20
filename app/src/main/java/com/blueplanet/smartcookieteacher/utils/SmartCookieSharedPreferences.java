@@ -3,6 +3,8 @@ package com.blueplanet.smartcookieteacher.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.blueplanet.smartcookieteacher.webservices.WebserviceConstants;
+
 /**
  * Created by web on 05-12-2015.
  * dhanashree.ghayal
@@ -38,6 +40,8 @@ public class SmartCookieSharedPreferences {
     private static final String USER_NAME_KEY = "USER_NAME";
 
     private static final String PASS_WORD_KEY = "PASS_WORD";
+
+    private static final String USER_ID = "USER_ID";
 
 
 
@@ -79,6 +83,10 @@ public class SmartCookieSharedPreferences {
         setStringSharedPreference(USER_NAME_KEY, userName);
     }
 
+    public static void setUserID(String userid) {
+        setStringSharedPreference(USER_ID, userid);
+    }
+
     public static String getUserName() {
         return getStringSharedPreference(USER_NAME_KEY);
     }
@@ -89,6 +97,10 @@ public class SmartCookieSharedPreferences {
 
     public static String getPasswordKey() {
         return getStringSharedPreference(PASS_WORD_KEY);
+    }
+
+    public static String getUserId() {
+        return getStringSharedPreference(USER_ID);
     }
 
     public static boolean getRememberMeFlag() {
@@ -134,4 +146,30 @@ public class SmartCookieSharedPreferences {
         String value = _sharedPreferences.getString(key, EMPTY_STRING_DEFAULT_VALUE);
         return value;
     }
+
+    public static void setGCMSharedPreference(String key, String value) {
+        SharedPreferences.Editor _editor = _sharedPreferences.edit();
+        _editor.putString(key, value);
+        _editor.commit();
+    }
+
+
+
+    public static String getGCMSharedPreference(String key) {
+        String Gcm = _sharedPreferences.getString(key, EMPTY_STRING_DEFAULT_VALUE);
+        return Gcm;
+    }
+
+
+    public static boolean getDeviceRegisteredOnServer() {
+        boolean flag = _sharedPreferences.getBoolean(WebserviceConstants.IS_GCM_REGISTERED, EMPTY_BOOLEAN_DEFAULT_VALUE);
+        return flag;
+    }
+
+    public static void setDeviceRegisteredOnServer(boolean value) {
+        SharedPreferences.Editor _editor = _sharedPreferences.edit();
+        _editor.putBoolean(WebserviceConstants.IS_GCM_REGISTERED, value);
+        _editor.commit();
+    }
+
 }

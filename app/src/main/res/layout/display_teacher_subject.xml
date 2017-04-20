@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/parent_layout_friends"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/cl_white"
+    android:orientation="vertical"
+    >
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:background="@color/cl_white" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="false"
+            android:focusableInTouchMode="false" >
+
+            <AutoCompleteTextView
+                android:id="@+id/etxtSearch_new"
+                android:layout_width="match_parent"
+                android:layout_height="40sp"
+                android:layout_weight="1"
+                android:background="@null"
+                android:drawableLeft="@android:drawable/ic_menu_search"
+                android:hint="Student Name"
+
+                android:imeOptions="actionDone"
+                android:singleLine="true"
+                android:textSize="15sp" >
+
+            </AutoCompleteTextView>
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imgcross_new"
+
+            android:layout_width="40sp"
+            android:layout_height="40sp"
+            android:layout_gravity="right|center_horizontal"
+            android:padding="8dp"
+            android:src="@drawable/ic_clear_black_24dp"
+            android:visibility="visible" />
+    </FrameLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <ListView
+            android:id="@+id/lststudentlist"
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            >
+        </ListView>
+
+    </LinearLayout>
+
+</LinearLayout>

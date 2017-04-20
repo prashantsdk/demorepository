@@ -76,14 +76,14 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
     private EditText etxtpoints;
     private ImageView imgclearpoints;
     private Spinner spinner, spinnerPhone;
-    String[] userOption = {"Email", "Mobile-No", "EmployeeID"};
+    String[] userOption = {"Select Login Type", "Email", "Mobile-No", "EmployeeID", "MemberID"};
     String[] numberOptn = {"+91", "+1"};
-    private LinearLayout ll_userphone, ll_phone, ll_prn, ll_ID;
+    private LinearLayout ll_userphone, ll_phone, ll_prn, ll_ID, _l1memberID;
     public int _urlTP = 0;
     private final String _TAG = this.getClass().getSimpleName();
-
     private String selState, str;
     GPSTracker gps;
+    EditText etUserMobile;
 
 
     @Override
@@ -104,7 +104,7 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
         spinnerPhone.setAdapter(phone);
         getAndroidVersion();
         getDeviceName();
-      //  getDeviceId();
+        //  getDeviceId();
         getLocalIpAddress();
         isTabletDevice(getActivity());
         isTablet(getContext());
@@ -177,10 +177,12 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
         ll_phone = (LinearLayout) _view.findViewById(R.id.ll_phone);
         ll_prn = (LinearLayout) _view.findViewById(R.id.ll_prn);
         ll_ID = (LinearLayout) _view.findViewById(R.id.ll_ID);
+        _l1memberID = (LinearLayout) _view.findViewById(R.id.ll_MemerId);
+
+        EditText etUserMobile = (EditText) _view.findViewById(R.id.edt_phone);
         // imgclearpoints = (ImageView) _view.findViewById(R.id.imgclearpoints);
         //  etxtpoints = (EditText) _view.findViewById(R.id.etxtpoints);
     }
-
 
     /**
      * function to register UI Listeners
@@ -192,14 +194,14 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
         //_btnsignup.setOnClickListener(_loginFragmentController);
 
 
-
-       _test.setOnClickListener(_loginFragmentController);
+        _test.setOnClickListener(_loginFragmentController);
         _production.setOnClickListener(_loginFragmentController);
         // _btntest.setOnClickListener(_loginFragmentController);
 
 
         // _btnproduction.setOnClickListener(_loginFragmentController);
         tv_forgotPassword.setOnClickListener(_loginFragmentController);
+
         spinner.setOnItemSelectedListener(_loginFragmentController);
         spinnerPhone.setOnItemSelectedListener(this);
         //  etxtpoints.setOnClickListener(_loginFragmentController);
@@ -231,6 +233,22 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
 
     }
 
+    public void showGCMsmassage(final boolean visibility) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (visibility) {
+
+                } else {
+                    Toast.makeText(getActivity(), "Sorry! We are Unable to Register GCM", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+        });
+
+
+    }
+
     public void showType(final int position) {
 
         spinner.setSelection(position);
@@ -246,18 +264,31 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
             ll_phone.setVisibility(View.INVISIBLE);
             ll_prn.setVisibility(View.INVISIBLE);
             ll_ID.setVisibility(View.GONE);
+            _l1memberID.setVisibility(View.INVISIBLE);
             // LoginFeatureController.getInstance().setUserEmailType(true);
         } else if (selState.equalsIgnoreCase("Mobile-No")) {
             ll_userphone.setVisibility(View.INVISIBLE);
             ll_phone.setVisibility(View.VISIBLE);
             ll_prn.setVisibility(View.INVISIBLE);
             ll_ID.setVisibility(View.GONE);
+            _l1memberID.setVisibility(View.INVISIBLE);
+
             //   LoginFeatureController.getInstance().setUserEmailType(false);
         } else if (selState.equalsIgnoreCase("EmployeeID")) {
             ll_prn.setVisibility(View.VISIBLE);
             ll_ID.setVisibility(View.VISIBLE);
             ll_userphone.setVisibility(View.INVISIBLE);
             ll_phone.setVisibility(View.INVISIBLE);
+            _l1memberID.setVisibility(View.INVISIBLE);
+
+            //LoginFeatureController.getInstance().setUserEmailType(false);
+
+        } else if (selState.equalsIgnoreCase("MemberID")) {
+            ll_prn.setVisibility(View.INVISIBLE);
+            ll_ID.setVisibility(View.GONE);
+            ll_userphone.setVisibility(View.INVISIBLE);
+            ll_phone.setVisibility(View.INVISIBLE);
+            _l1memberID.setVisibility(View.VISIBLE);
 
             //LoginFeatureController.getInstance().setUserEmailType(false);
 

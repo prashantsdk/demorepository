@@ -3,7 +3,7 @@
 
 
     <item android:id="@+id/action_add"
-        android:icon="@drawable/cart"
+        android:icon="@drawable/profile"
         android:title="Add"
         android:orderInCategory="1"
         android:showAsAction="always" />

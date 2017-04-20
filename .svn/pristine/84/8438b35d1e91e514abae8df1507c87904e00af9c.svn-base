@@ -1,0 +1,106 @@
+package com.example.c1311.smartcookieteacher.webservices;
+
+import android.util.Log;
+
+import com.example.c1311.smartcookieteacher.communication.ErrorInfo;
+import com.example.c1311.smartcookieteacher.communication.HTTPConstants;
+import com.example.c1311.smartcookieteacher.communication.ServerResponse;
+import com.example.c1311.smartcookieteacher.communication.SmartCookieTeacherService;
+import com.example.c1311.smartcookieteacher.models.TeacherDashbord;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+/**
+ * Created by 1311 on 14-12-2015.
+ */
+public class TeacherPoint extends SmartCookieTeacherService {
+
+    private String _teacherID;
+    private final String _TAG = this.getClass().getSimpleName();
+
+    /**
+     * constructor
+     * @param tid
+     */
+    public TeacherPoint(String tid) {
+        _teacherID = tid;
+    }
+
+    @Override
+    protected String formRequest() {
+        return WebserviceConstants.HTTP_BASE_URL +
+                WebserviceConstants.BASE_URL + WebserviceConstants.TEACHER_POINT;
+    }
+
+    @Override
+    protected JSONObject formRequestBody() {
+        JSONObject requestBody = new JSONObject();
+        try {
+            requestBody.put(WebserviceConstants.KEY_TID, _teacherID);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        Log.i(_TAG, requestBody.toString());
+        return requestBody;
+    }
+
+    @Override
+    protected void parseResponse(String responseJSONString) {
+        int errorCode = WebserviceConstants.SUCCESS;
+        ServerResponse responseObject = null;
+        JSONObject objResponseJSON;
+        int statusCode = -1;
+        String statusMessage = null;
+
+        try {
+            objResponseJSON = new JSONObject(responseJSONString);
+
+            statusCode = objResponseJSON.getInt(WebserviceConstants.KEY_STATUS_CODE);
+            statusMessage =
+                    objResponseJSON.getString(WebserviceConstants.KEY_STATUS_MESSAGE);
+
+            TeacherDashbord teacherDashbord = null;
+            if (statusCode == HTTPConstants.HTTP_COMM_SUCCESS) {
+                // success
+                JSONArray responseData = objResponseJSON.optJSONArray(WebserviceConstants.KEY_POSTS);
+                for (int i = 0; i < responseData.length(); i++) {
+                    JSONObject jsonObject = responseData.optJSONObject(i);
+
+                    int tgreen = jsonObject.optInt(WebserviceConstants.KEY_GREEN_POINT);
+                    int tblue = jsonObject.optInt(WebserviceConstants.KEY_BLUE_POINT);
+                    int tbrown = jsonObject.optInt(WebserviceConstants.KEY_BROWN_POINT);
+                    int twater = jsonObject.optInt(WebserviceConstants.KEY_WATER_POINT);
+
+                    teacherDashbord = new TeacherDashbord(tgreen, tblue, tbrown, twater);
+
+                }
+                responseObject = new ServerResponse(errorCode, teacherDashbord);
+            } else {
+                // failure
+                errorCode = WebserviceConstants.FAILURE;
+                responseObject =
+                        new ServerResponse(errorCode, new ErrorInfo(statusCode, statusMessage,
+                                null));
+            }
+            fireEvent(responseObject);
+
+        } catch (JSONException jsonException) {
+            jsonException.printStackTrace();
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+
+
+    }
+
+    @Override
+    public void fireEvent(Object eventObject) {
+
+    }
+}

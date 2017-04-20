@@ -1,5 +1,6 @@
 package com.blueplanet.smartcookieteacher.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -7,6 +8,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 
+import com.blueplanet.smartcookieteacher.LoginActivity;
 import com.blueplanet.smartcookieteacher.R;
 
 
@@ -33,6 +35,14 @@ public class RegistrationActivity extends ActionBarActivity {
         FragmentTransaction ft = fm.beginTransaction();
         ft.replace(id, fragment);
         ft.commitAllowingStateLoss();
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
 
     }
 }

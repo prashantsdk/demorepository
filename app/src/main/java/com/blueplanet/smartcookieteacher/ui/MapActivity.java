@@ -16,14 +16,18 @@
 
 package com.blueplanet.smartcookieteacher.ui;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.Gravity;
@@ -45,6 +49,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.blueplanet.smartcookieteacher.MainApplication;
@@ -65,6 +70,7 @@ import com.blueplanet.smartcookieteacher.notification.EventTypes;
 import com.blueplanet.smartcookieteacher.notification.IEventListener;
 import com.blueplanet.smartcookieteacher.notification.ListenerPriority;
 import com.blueplanet.smartcookieteacher.notification.NotifierFactory;
+import com.blueplanet.smartcookieteacher.utils.HelperClass;
 import com.blueplanet.smartcookieteacher.webservices.WebserviceConstants;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -91,6 +97,7 @@ public class MapActivity extends AppCompatActivity
     DrawerLayout drawer;
     NavigationView navigationView;
     //HelperClass helperClass;
+    String[] LOC_PERMISSIONS = {Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION};
 
 
     private final String _TAG = this.getClass().getSimpleName();
@@ -118,6 +125,7 @@ public class MapActivity extends AppCompatActivity
     private float currentZoom = -1;
     private boolean entity_type = false;   //     0 for sponsor , 1 for college
     Button btn_map_list, btn_search_area;
+    public static final int PERMISSION_REQUEST_CODE=23;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,7 +136,14 @@ public class MapActivity extends AppCompatActivity
         setNavigationDrawer();
         teacher = LoginFeatureController.getInstance().getTeacher();
         Init_Controllers();
-        Init_Map();
+        if (checkPermission()) {
+
+            Init_Map();
+
+        } else {
+
+            requestPermission();
+        }
 
 
         etxt_search_place.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -182,6 +197,8 @@ public class MapActivity extends AppCompatActivity
         btn_search_area.setOnClickListener(this);
         btn_map_list = (Button) findViewById(R.id.btn_map_list);
         btn_map_list.setOnClickListener(this);
+
+
 
     }
 
@@ -264,7 +281,7 @@ public class MapActivity extends AppCompatActivity
             longitude = gpsTracker.getLongitude();
         } else {
 
-            //  HelperClass.OpenAlertDialog("Please Enable GPS",NewMapActivity.this);
+              HelperClass.OpenAlertDialog("Please Enable GPS", MapActivity.this);
         }
 
     }
@@ -307,7 +324,10 @@ public class MapActivity extends AppCompatActivity
         _registerEventListeners();
         _registerNetworkListener();
        SchoolOnMapFeatureController.getInstance().getSchoolListFromServer(ip_id, latitude, longitude, entity, place_name,
-                loc_type, distance, range_type);
+               loc_type, distance, range_type);
+
+
+
         //  _homeFragment.showOrHideLoadingSpinner(true);
 
 
@@ -524,7 +544,7 @@ public class MapActivity extends AppCompatActivity
 
             //   int Result = r.nextInt(High-Low);
 
-            marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.locationone));
+            marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.loc_red));
 
             mMap.addMarker(marker);
         }
@@ -553,7 +573,7 @@ public class MapActivity extends AppCompatActivity
 
             //   int Result = r.nextInt(High-Low);
 
-            marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.locationone));
+            marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_college));
 
             mMap.addMarker(marker);
         }
@@ -1056,4 +1076,46 @@ public class MapActivity extends AppCompatActivity
 
     }
 
+    private boolean checkPermission(){
+        int result = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
+        if (result == PackageManager.PERMISSION_GRANTED){
+
+            return true;
+
+        } else {
+
+            return false;
+
+        }
+    }
+
+
+    private void requestPermission(){
+
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION) || ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_COARSE_LOCATION)){
+
+            Toast.makeText(this, "GPS permission allows us to access location data. Please allow in App Settings for additional functionality.", Toast.LENGTH_LONG).show();
+
+        } else {
+
+            ActivityCompat.requestPermissions(this, LOC_PERMISSIONS, PERMISSION_REQUEST_CODE);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case PERMISSION_REQUEST_CODE:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    Init_Map();
+                    Toast.makeText(this, "Permission Granted, Now you can access location data", Toast.LENGTH_LONG).show();
+
+                } else {
+                    Toast.makeText(this, "Permission Denied, You cannot access location data.", Toast.LENGTH_LONG).show();
+
+                }
+                break;
+        }
+    }
 }

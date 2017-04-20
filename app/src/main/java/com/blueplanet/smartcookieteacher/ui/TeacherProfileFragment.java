@@ -36,10 +36,10 @@ public class TeacherProfileFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        _view = inflater.inflate(R.layout.teacher_profile, null);
+        _view = inflater.inflate(R.layout.fff, null);
         _initUI();
      //   _controller = new TeacherProfileController(this, _view);
-        _registerUIListeners();
+      //  _registerUIListeners();
         _setStudentDetailsOnUI();
 
         return _view;

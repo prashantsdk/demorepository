@@ -1,0 +1,64 @@
+package com.example.c1311.smartcookieteacher.webservices;
+
+import android.util.Log;
+
+import com.example.c1311.smartcookieteacher.communication.SmartCookieTeacherService;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+/**
+ * Created by 1311 on 08-12-2015.
+ */
+public class Registration extends SmartCookieTeacherService {
+
+    private String _school_id, _user_email,_user_fname,_user_lname,_user_password,_teacher_id,_user_gender,_user_age,_user_dob,
+            _user_address,_user_city,_user_image,_user_state,_user_country,_user_education,_user_phone,_user_experience;
+    private final String _TAG = this.getClass().getSimpleName();
+    @Override
+    protected String formRequest() {
+        return WebserviceConstants.HTTP_BASE_URL +
+                WebserviceConstants.BASE_URL + WebserviceConstants.REGISTRATION;
+    }
+
+    @Override
+    protected JSONObject formRequestBody() {
+        JSONObject requestBody = new JSONObject();
+        try {
+            requestBody.put(WebserviceConstants.KEY_TID, _school_id);
+            requestBody.put(WebserviceConstants.KEY_SCHOOLID, _user_email);
+            requestBody.put(WebserviceConstants.KEY_USER_FNAME, _user_fname);
+            requestBody.put(WebserviceConstants.KEY_USER_LNAME, _user_lname);
+            requestBody.put(WebserviceConstants.KEY_USER_PASS, _user_password);
+            requestBody.put(WebserviceConstants.KEY_TEACHER_ID, _teacher_id);
+            requestBody.put(WebserviceConstants.KEY_USER_GENDER, _user_gender);
+            requestBody.put(WebserviceConstants.KEY_USER_AGE, _user_age);
+            requestBody.put(WebserviceConstants.KEY_USER_DOB, _user_dob);
+            requestBody.put(WebserviceConstants.KEY_USER_ADDRESS, _user_address);
+            requestBody.put(WebserviceConstants.KEY_USER_CITY, _user_city);
+            requestBody.put(WebserviceConstants.KEY_USER_IMAGE, _user_image);
+            requestBody.put(WebserviceConstants.KEY_USER_STATE, _user_state);
+            requestBody.put(WebserviceConstants.KEY_USER_COUNTRY, _user_country);
+            requestBody.put(WebserviceConstants.KEY_USER_EDUCTION, _user_education);
+            requestBody.put(WebserviceConstants.KEY_USER_PHONE, _user_phone);
+            requestBody.put(WebserviceConstants.KEY_USER_EXPERIENCE, _user_experience);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        Log.i(_TAG, requestBody.toString());
+        return requestBody;
+    }
+
+    @Override
+    protected void parseResponse(String responseJSONString) {
+
+    }
+
+    @Override
+    public void fireEvent(Object eventObject) {
+
+    }
+}

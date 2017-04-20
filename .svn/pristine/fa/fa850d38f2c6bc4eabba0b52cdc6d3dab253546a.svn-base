@@ -1,0 +1,101 @@
+package com.example.c1311.smartcookieteacher.ui;
+
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+
+import com.example.c1311.smartcookieteacher.R;
+import com.example.c1311.smartcookieteacher.customcomponents.CustomTextView;
+import com.example.c1311.smartcookieteacher.featurecontroller.LoginFeatureController;
+import com.example.c1311.smartcookieteacher.featurecontroller.DashboardFeatureController;
+import com.example.c1311.smartcookieteacher.models.Teacher;
+import com.example.c1311.smartcookieteacher.models.TeacherDashbord;
+
+/**
+ * Created by 1311 on 14-12-2015.
+ */
+public class TeacherDashboardFragment extends Fragment {
+
+    private View _view;
+    private CustomTextView _teacherName, _teachercolgname, _teacherteacherId, _teagreenpoint;
+    private CustomTextView _teabluepoint, _teabrownpoint, _teawaterpoint;
+    private ImageView _teacherImage;
+    private Teacher _teacher;
+    private TeacherDashbord _teacherDashbord;
+    private final String _TAG = this.getClass().getSimpleName();
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        _view = inflater.inflate(R.layout.teacher_dashboard, null);
+        _initUI();
+
+        _teacher = LoginFeatureController.getInstance().getTeacher();
+        _teacherDashbord = DashboardFeatureController.getInstance().getTeacherpoint();
+        _setTeacherDetailsOnUI();
+        _setDashboardDataOnUI();
+        return _view;
+    }
+
+    private void _initUI() {
+        _teacherName = (CustomTextView) _view.findViewById(R.id.text_name);
+        _teachercolgname = (CustomTextView) _view.findViewById(R.id.txt_colgname);
+        _teacherteacherId = (CustomTextView) _view.findViewById(R.id.txt_teacher_id);
+        _teacherImage = (ImageView) _view.findViewById(R.id.teacher_img);
+    }
+
+    private void _setTeacherDetailsOnUI() {
+
+        if (_teacher != null) {
+            getActivity().runOnUiThread(new Runnable() {
+
+                @Override
+                public void run() {
+
+                    _teacherName.setText(_teacher.get_tCompleteName());
+                    _teachercolgname.setText(_teacher.get_tCurrent_School_Name());
+                    _teacherteacherId.setText(_teacher.get_tId());
+                    String timage = _teacher.get_tPC();
+                    if (timage != null && timage.length() > 0) {
+
+                      /*  final String imageName = WebserviceConstants.IMAGE_BASE_URL + timage;
+                        Log.i(_TAG, imageName);
+
+                        SmartCookieImageLoader.getInstance().setImageLoaderData(imageName, _teacherImage,
+                                IImageLoader.NORMAL_POSTER);
+                        SmartCookieImageLoader.getInstance().display();*/
+                    }
+
+                }
+            });
+
+        }
+
+    }
+
+    private void _setDashboardDataOnUI() {
+        if (_teacherDashbord != null) {
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    String greenPoint = String.valueOf(_teacherDashbord.get_greenpoint());
+                    _teagreenpoint.setText(greenPoint);
+
+                    String bluepoint = String.valueOf(_teacherDashbord.get_bluepoint());
+                    _teabluepoint.setText(bluepoint);
+
+                    String brownpoint = String.valueOf(_teacherDashbord.get_brownpoint());
+                    _teabrownpoint.setText(brownpoint);
+
+                    String waterpoint = String.valueOf(_teacherDashbord.get_waterpoint());
+                    _teawaterpoint.setText(waterpoint);
+
+
+                }
+            });
+        }
+    }
+
+}

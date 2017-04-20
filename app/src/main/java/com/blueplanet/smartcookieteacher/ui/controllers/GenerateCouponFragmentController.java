@@ -109,7 +109,7 @@ public class GenerateCouponFragmentController implements View.OnClickListener, I
         switch (id) {
             case R.id.etxtpoints:
                 Log.i(_TAG, "ON clicked");
-                final CharSequence[] items = {"50", "100", "200", "300", "400",
+                final CharSequence[] items = {"100", "200", "300", "400",
                         "500", "600", "700", "800", "900", "1000"};
 
                 _showData(items, "Select Points", null, null);
@@ -120,7 +120,6 @@ public class GenerateCouponFragmentController implements View.OnClickListener, I
                 break;
             case R.id.btn_generate:
                 String point = BalancePointModelClass.get_couValue();
-
                 _fetchGenCoupFromServer(_teacherId, point);
                 break;
             default:
@@ -220,6 +219,7 @@ public class GenerateCouponFragmentController implements View.OnClickListener, I
                     _couList = GenerateCouponFeatureController.getInstance().get_genCouList();
                     _genFragment.refreshListview();
                     _genFragment.setBalanceGreenPoint();
+                    _genFragment. generateCouponSuccessfullyPoint();
 
 
                 }

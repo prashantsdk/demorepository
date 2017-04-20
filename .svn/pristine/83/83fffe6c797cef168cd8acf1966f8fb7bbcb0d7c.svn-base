@@ -1,0 +1,33 @@
+package com.example.c1311.smartcookieteacher.notification;
+
+
+import com.example.c1311.smartcookieteacher.communication.HTTPConstants;
+
+/**
+ * Created by dhanashree.ghayal on 30-06-2015.
+ * This class declares constants for all Events required by the application.
+ */
+public class EventTypes {
+
+    public static final int EVENT_NETWORK_UNAVAILABLE = HTTPConstants.HTTP_NO_NETWORK;
+    public static final int EVENT_NETWORK_AVAILABLE = 100;
+
+    /**
+     * Events related to error handling
+     */
+    public static final int EVENT_ON_ERROR_RETRY = 151;
+    public static final int EVENT_ON_ERROR_CANCEL = 152;
+
+    /**
+     * EVENTS RELATED TO LOGIN
+     */
+    public static final int EVENT_LOGIN_SUCCESSFUL = 161;
+    public static final int EVENT_UI_LOGIN_SUCCESSFUL = 162;
+
+    public static final int EVENT_STUDENT_LIST_RECEIVED = 163;
+    public static final int EVENT_UI_STUDENT_LIST_RECEIVED = 164;
+    public static final int EVENT_UI_NO_STUDENT_LIST_RECEIVED = 165;
+    public static final int EVENT_UI_BAD_REQUEST = 166;
+    public static final int EVENT_UI_UNAUTHORIZED = 167;
+    public static final int EVENT_UI_TEACHERPOINT_RECEIVED = 168;
+}

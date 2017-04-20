@@ -27,7 +27,7 @@ public class SyncFragment extends Fragment {
 
     private View _view;
     private CustomEditText _etUserName, _etPassword;
-    private Button _btnPoint, _btnRewardPoint,_btnallStudent,_btnBuyPoint;
+    private Button _btnPoint, _btnRewardPoint,_btnallStudent,_btnthankuPoint;
     private RelativeLayout _rlProgressbar;
     private ProgressBar _progressbar;
     private CustomTextView _tvPleaseWait, txtp;
@@ -58,7 +58,7 @@ public class SyncFragment extends Fragment {
         txtp = (CustomTextView) _view.findViewById(R.id.tv_forgotPassword);
         _btnRewardPoint=(Button)_view.findViewById(R.id.btnRewardSyn);
         _btnallStudent=(Button)_view.findViewById(R.id.btnAllStudent);
-        _btnBuyPoint=(Button)_view.findViewById(R.id.btnBuy);
+        _btnthankuPoint=(Button)_view.findViewById(R.id.btnMythankuSyn);
 
 
 
@@ -72,7 +72,7 @@ public class SyncFragment extends Fragment {
         _btnPoint.setOnClickListener(_controller);
         _btnRewardPoint.setOnClickListener(_controller);
         _btnallStudent.setOnClickListener(_controller);
-        _btnBuyPoint.setOnClickListener(_controller);
+        _btnthankuPoint.setOnClickListener(_controller);
 
     }
 

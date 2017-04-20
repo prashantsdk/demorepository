@@ -1,0 +1,37 @@
+package com.example.c1311.smartcookieteacher;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+
+import com.example.c1311.smartcookieteacher.android.utils.SmartCookieSharedPreferences;
+
+/**
+ * Created by 1311 on 08-12-2015.
+ */
+public class BaseActivity extends Activity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        boolean isLoginDone = SmartCookieSharedPreferences.getLoginFlag();
+        if (isLoginDone) {
+            _startAfterLoginActivity();
+        } else {
+            _startLoginActivity();
+        }
+    }
+
+    private void _startLoginActivity() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+        this.finish();
+    }
+
+    private void _startAfterLoginActivity() {
+        Intent intent = new Intent(this, AfterLoginActivity.class);
+        startActivity(intent);
+        this.finish();
+    }
+}

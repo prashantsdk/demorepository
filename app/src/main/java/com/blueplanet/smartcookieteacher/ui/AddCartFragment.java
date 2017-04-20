@@ -1,32 +1,21 @@
 package com.blueplanet.smartcookieteacher.ui;
 
-import android.graphics.drawable.ColorDrawable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.Gallery;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.SeekBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.blueplanet.smartcookieteacher.R;
 import com.blueplanet.smartcookieteacher.customcomponents.CustomButton;
 import com.blueplanet.smartcookieteacher.customcomponents.CustomTextView;
 import com.blueplanet.smartcookieteacher.models.AddCart;
-import com.blueplanet.smartcookieteacher.models.Student;
-import com.blueplanet.smartcookieteacher.models.Teacher;
 import com.blueplanet.smartcookieteacher.ui.controllers.AddCartAdapter;
 import com.blueplanet.smartcookieteacher.ui.controllers.AddCartFragmentController;
-import com.blueplanet.smartcookieteacher.ui.controllers.AssignPointFragmentController;
-import com.blueplanet.smartcookieteacher.ui.controllers.GenerateCouponAdapter;
-import com.blueplanet.smartcookieteacher.ui.controllers.StudentListGalleryAdapter;
 
 import java.util.ArrayList;
 

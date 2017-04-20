@@ -13,6 +13,7 @@ import com.blueplanet.smartcookieteacher.models.Teacher;
 import com.blueplanet.smartcookieteacher.notification.EventNotifier;
 import com.blueplanet.smartcookieteacher.notification.EventTypes;
 import com.blueplanet.smartcookieteacher.notification.NotifierFactory;
+import com.blueplanet.smartcookieteacher.utils.SmartCookieSharedPreferences;
 
 
 import org.json.JSONArray;
@@ -218,6 +219,8 @@ public class TeacherLogin extends SmartCookieTeacherService {
                             tState, tBalanceBluePoint, tErrorRec, tSendStatus,
                             tTempAddress, tPerVillage, tPerTaluka, tPerDistrict,
                             tPerPincode, tDotAppoinment, tAppoinmentPid, tEmpTypeId, CollageMnemonic);
+
+                    SmartCookieSharedPreferences.setUserID(tid);
 
                 }
                 responseObject = new ServerResponse(errorCode, teacher);

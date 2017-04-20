@@ -69,6 +69,7 @@ public class RegistrationFeatureController implements IEventListener {
         }
     }
     public RegisModel get_registration() {
+
         return _registration;
     }
     @Override
@@ -91,6 +92,7 @@ public class RegistrationFeatureController implements IEventListener {
                     _registration = (RegisModel) responseObject;
 
                     eventNotifierUI =
+
                             NotifierFactory.getInstance().getNotifier(
                                     NotifierFactory.EVENT_NOTIFIER_TEACHER);
                     eventNotifierUI.eventNotifyOnThread(EventTypes.EVENT_UI_REGISTRATION_SUCCESS,

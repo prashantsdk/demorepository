@@ -1,0 +1,184 @@
+package com.example.c1311.smartcookieteacher.ui.controllers;
+
+import android.text.TextUtils;
+import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.AbsListView;
+import android.widget.ListView;
+
+import com.example.c1311.smartcookieteacher.communication.ServerResponse;
+import com.example.c1311.smartcookieteacher.featurecontroller.LoginFeatureController;
+import com.example.c1311.smartcookieteacher.featurecontroller.StudentFeatureController;
+import com.example.c1311.smartcookieteacher.models.Student;
+import com.example.c1311.smartcookieteacher.models.Teacher;
+import com.example.c1311.smartcookieteacher.notification.EventNotifier;
+import com.example.c1311.smartcookieteacher.notification.EventState;
+import com.example.c1311.smartcookieteacher.notification.EventTypes;
+import com.example.c1311.smartcookieteacher.notification.IEventListener;
+import com.example.c1311.smartcookieteacher.notification.ListenerPriority;
+import com.example.c1311.smartcookieteacher.notification.NotifierFactory;
+import com.example.c1311.smartcookieteacher.ui.StudentListFragment;
+import com.example.c1311.smartcookieteacher.webservices.GetStudentList;
+import com.example.c1311.smartcookieteacher.webservices.WebserviceConstants;
+
+import java.util.ArrayList;
+
+/**
+ * Created by 1311 on 25-11-2015.
+ */
+public class StudentListFragmentController implements OnClickListener, IEventListener, AbsListView.OnScrollListener {
+    private StudentListFragment _StudentListFragment;
+    private View _View;
+    private final String _TAG = this.getClass().getSimpleName();
+    private Teacher _teacher;
+    private ArrayList<Student> _studentList;
+    private String _teacherId, _schoolId;
+
+    /**
+     * constructur for student list
+     */
+
+    public StudentListFragmentController(StudentListFragment StudentListFragment, View View) {
+        _StudentListFragment = StudentListFragment;
+        _View = View;
+        _teacher = LoginFeatureController.getInstance().getTeacher();
+        _studentList = StudentFeatureController.getInstance().getStudentList();
+
+        //   if (_studentList != null && _studentList.size() > 0) {
+        //       _updateUI();
+        //   } else {
+        if (_teacher != null) {
+            _teacherId = _teacher.get_tId();
+            _schoolId = _teacher.get_tSchool_id();
+            _fetchStudentListFromServer(_teacherId, _schoolId);
+        }
+        //   }
+    }
+
+    /**
+     * function to show student list if already present
+     */
+    private void _updateUI() {
+        _StudentListFragment.showOrHideProgressBar(false);
+        _StudentListFragment.setVisibilityOfListView(true);
+    }
+
+    public void clear() {
+        if (_StudentListFragment != null) {
+            _StudentListFragment = null;
+        }
+    }
+
+    private void _registerEventListeners() {
+
+        EventNotifier eventNotifier =
+                NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_STUDENT);
+        eventNotifier.registerListener(this, ListenerPriority.PRIORITY_MEDIUM);
+
+    }
+
+    private void _fetchStudentListFromServer(String teacherId, String schoolId) {
+        _registerEventListeners();
+        StudentFeatureController.getInstance().getStudentListFromServer(teacherId, schoolId, 0);
+        _StudentListFragment.showOrHideProgressBar(true);
+    }
+
+    @Override
+    public void onClick(View view) {
+        int id = view.getId();
+        switch (id) {
+            default:
+                break;
+        }
+
+    }
+
+    @Override
+    public int eventNotify(int eventType, Object eventObject) {
+        int eventState = EventState.EVENT_PROCESSED;
+        ServerResponse serverResponse = (ServerResponse) eventObject;
+        int errorCode = -1;
+
+        if (serverResponse != null) {
+            errorCode = serverResponse.getErrorCode();
+        }
+
+        switch (eventType) {
+            case EventTypes.EVENT_UI_STUDENT_LIST_RECEIVED:
+                EventNotifier eventNotifier =
+                        NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_STUDENT);
+                eventNotifier.unRegisterListener(this);
+
+                if (errorCode == WebserviceConstants.SUCCESS) {
+                    _StudentListFragment.showOrHideProgressBar(false);
+                    /**
+                     * get student list before refreshing listview avoid runtime exception
+                     */
+                    _studentList = StudentFeatureController.getInstance().getStudentList();
+                    _StudentListFragment.setVisibilityOfListView(true);
+                    _StudentListFragment.refreshListview();
+
+                }
+                break;
+
+            case EventTypes.EVENT_UI_NO_STUDENT_LIST_RECEIVED:
+                EventNotifier event1 =
+                        NotifierFactory.getInstance().getNotifier
+                                (NotifierFactory.EVENT_NOTIFIER_STUDENT);
+                event1.unRegisterListener(this);
+
+                _StudentListFragment.showNoStudentListMessage(false);
+                break;
+
+            case EventTypes.EVENT_NETWORK_AVAILABLE:
+                break;
+            case EventTypes.EVENT_NETWORK_UNAVAILABLE:
+                EventNotifier eventNetwork =
+                        NotifierFactory.getInstance().getNotifier
+                                (NotifierFactory.EVENT_NOTIFIER_NETWORK);
+                eventNetwork.unRegisterListener(this);
+
+                _StudentListFragment.showNetworkToast(false);
+                break;
+            default:
+                eventState = EventState.EVENT_IGNORED;
+                break;
+
+        }
+
+        return EventState.EVENT_PROCESSED;
+
+    }
+
+    @Override
+    public void onScrollStateChanged(AbsListView view, int scrollState) {
+        ListView lv = _StudentListFragment.getListview();
+        if (_studentList != null && _studentList.size() > 0) {
+            if (scrollState == SCROLL_STATE_IDLE) {
+                Log.i(_TAG, "SCROLL_STATE_IDLE");
+
+                int lastVisiblePosition = lv.getLastVisiblePosition();
+                int totalCount = _studentList.get(lastVisiblePosition).getTotalCount();
+
+                if (_studentList.size() < totalCount) {
+
+                    int inputId = _studentList.get(lastVisiblePosition).getInputId();
+                    Log.i(_TAG, "input id is: " + inputId);
+                    Log.i(_TAG, "Student list size is: " + _studentList.size());
+                    if (inputId != -1 && !(TextUtils.isEmpty(_teacherId)) && !(TextUtils.isEmpty(_schoolId))) {
+                        _registerEventListeners();
+                        StudentFeatureController.getInstance().getStudentListFromServer(_teacherId, _schoolId, inputId);
+                    }
+                }
+            }
+        }
+
+
+    }
+
+    @Override
+    public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
+    }
+}

@@ -1,0 +1,175 @@
+package com.example.c1311.smartcookieteacher.ui.controllers;
+
+
+import android.content.Intent;
+import android.text.TextUtils;
+import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import com.example.c1311.smartcookieteacher.AfterLoginActivity;
+import com.example.c1311.smartcookieteacher.MainApplication;
+import com.example.c1311.smartcookieteacher.R;
+import com.example.c1311.smartcookieteacher.communication.ServerResponse;
+import com.example.c1311.smartcookieteacher.featurecontroller.LoginFeatureController;
+import com.example.c1311.smartcookieteacher.network.NetworkManager;
+import com.example.c1311.smartcookieteacher.notification.EventNotifier;
+import com.example.c1311.smartcookieteacher.notification.EventState;
+import com.example.c1311.smartcookieteacher.notification.EventTypes;
+import com.example.c1311.smartcookieteacher.notification.IEventListener;
+import com.example.c1311.smartcookieteacher.notification.ListenerPriority;
+import com.example.c1311.smartcookieteacher.notification.NotifierFactory;
+import com.example.c1311.smartcookieteacher.ui.LoginFragment;
+import com.example.c1311.smartcookieteacher.webservices.WebserviceConstants;
+
+/**
+ * Created by 1311 on 24-11-2015.
+ */
+public class LoginFragmentController implements OnClickListener, IEventListener {
+
+    private LoginFragment _loginFragment;
+    private View _view;
+    private final String _TAG = this.getClass().getSimpleName();
+
+    /**
+     * constructor
+     *
+     * @param loginFragment
+     * @param view
+     */
+    public LoginFragmentController(LoginFragment loginFragment, View view) {
+
+        _loginFragment = loginFragment;
+        _view = view;
+
+        if ((NetworkManager.isNetworkAvailable()) == false) {
+            _loginFragment.showNetworkToast(false);
+        }
+    }
+
+    private void _registerEventListeners() {
+        EventNotifier eventNotifier =
+                NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_LOGIN);
+        eventNotifier.registerListener(this, ListenerPriority.PRIORITY_MEDIUM);
+
+    }
+
+
+    private void _registerNetworkListeners() {
+        EventNotifier eventNotifier =
+
+
+                NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_NETWORK);
+        eventNotifier.registerListener(this, ListenerPriority.PRIORITY_MEDIUM);
+
+    }
+
+    private void _teacherLogin(String username, String password) {
+        _registerEventListeners();
+        _registerNetworkListeners();
+        _loginFragment.showOrHideProgressBar(true);
+        LoginFeatureController.getInstance().teacherLogin(username, password);
+    }
+
+    /**
+     * function to do clearing tasks
+     */
+    public void clear() {
+        if (_loginFragment != null) {
+            _loginFragment = null;
+        }
+    }
+
+    @Override
+    public void onClick(View view) {
+
+        int id = view.getId();
+
+        switch (id) {
+            case R.id.btn_login:
+                _loginFragment.hideSoftKeyboard();
+
+                if (NetworkManager.isNetworkAvailable()) {
+                    EditText etUserName = (EditText) _view.findViewById(R.id.edt_username);
+                    EditText etPassword = (EditText) _view.findViewById(R.id.edt_password);
+
+                    String userName = etUserName.getText().toString();
+                    String password = etPassword.getText().toString();
+
+                    if (!TextUtils.isEmpty(userName) && !TextUtils.isEmpty(password)) {
+                        _teacherLogin(userName, password);
+                    } else if (TextUtils.isEmpty(userName) && TextUtils.isEmpty(password)) {
+                        Toast.makeText(MainApplication.getContext(),
+                                "Please enter your credentials",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    _loginFragment.showNetworkToast(false);
+                }
+                break;
+
+
+            default:
+                break;
+        }
+
+    }
+
+
+    private void _startAfterLoginActivity() {
+        Intent intent = new Intent(_loginFragment.getActivity(),
+                AfterLoginActivity.class);
+        _loginFragment.startActivity(intent);
+        _loginFragment.getActivity().finish();
+    }
+
+    @Override
+    public int eventNotify(int eventType, Object eventObject) {
+        int eventState = EventState.EVENT_PROCESSED;
+        ServerResponse serverResponse = (ServerResponse) eventObject;
+        int errorCode = -1;
+
+        if (serverResponse != null) {
+            errorCode = serverResponse.getErrorCode();
+        }
+
+        switch (eventType) {
+            case EventTypes.EVENT_UI_LOGIN_SUCCESSFUL:
+                EventNotifier eventNotifier =
+                        NotifierFactory.getInstance().getNotifier
+                                (NotifierFactory.EVENT_NOTIFIER_LOGIN);
+                eventNotifier.unRegisterListener(this);
+
+                if (errorCode == WebserviceConstants.SUCCESS) {
+                    Log.i(_TAG, "In EVENT_UI_LOGIN_SUCCESSFUL");
+                    _loginFragment.showOrHideProgressBar(false);
+                    _startAfterLoginActivity();
+                }
+                break;
+
+            case EventTypes.EVENT_NETWORK_AVAILABLE:
+                break;
+            case EventTypes.EVENT_NETWORK_UNAVAILABLE:
+                EventNotifier eventNetwork =
+                        NotifierFactory.getInstance().getNotifier
+                                (NotifierFactory.EVENT_NOTIFIER_NETWORK);
+                eventNetwork.unRegisterListener(this);
+
+                _loginFragment.showNetworkToast(false);
+                break;
+
+            default:
+                eventState = EventState.EVENT_IGNORED;
+                break;
+
+        }
+
+        return EventState.EVENT_PROCESSED;
+
+
+    }
+
+}
+

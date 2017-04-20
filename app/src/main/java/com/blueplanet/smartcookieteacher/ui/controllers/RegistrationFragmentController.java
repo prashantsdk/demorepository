@@ -114,6 +114,8 @@ public class RegistrationFragmentController implements IEventListener, View.OnCl
                     if (!TextUtils.isEmpty(Fname) && !TextUtils.isEmpty(Lname) && !TextUtils.isEmpty(Email) || !TextUtils.isEmpty(password)
                             || !TextUtils.isEmpty(Phone)) {
                         _fetchRegistrationServer(Fname, Lname, Email, password,Phone);
+
+
                     } else if (TextUtils.isEmpty(Email) && TextUtils.isEmpty(password)) {
                         Toast.makeText(MainApplication.getContext(),
                                 "Please enter your credentials",

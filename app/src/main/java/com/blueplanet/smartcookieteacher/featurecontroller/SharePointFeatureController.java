@@ -5,16 +5,13 @@ import com.blueplanet.smartcookieteacher.communication.HTTPConstants;
 import com.blueplanet.smartcookieteacher.communication.ServerResponse;
 import com.blueplanet.smartcookieteacher.models.ShairPointModel;
 import com.blueplanet.smartcookieteacher.models.Student;
-import com.blueplanet.smartcookieteacher.models.SubNameCode;
-import com.blueplanet.smartcookieteacher.models.Teacher;
 import com.blueplanet.smartcookieteacher.notification.EventNotifier;
 import com.blueplanet.smartcookieteacher.notification.EventState;
 import com.blueplanet.smartcookieteacher.notification.EventTypes;
 import com.blueplanet.smartcookieteacher.notification.IEventListener;
 import com.blueplanet.smartcookieteacher.notification.ListenerPriority;
 import com.blueplanet.smartcookieteacher.notification.NotifierFactory;
-import com.blueplanet.smartcookieteacher.webservices.GetStudentList;
-import com.blueplanet.smartcookieteacher.webservices.ShairPoint;
+import com.blueplanet.smartcookieteacher.webservices.SharePoint;
 import com.blueplanet.smartcookieteacher.webservices.WebserviceConstants;
 
 import java.util.ArrayList;
@@ -49,6 +46,8 @@ public class SharePointFeatureController implements IEventListener {
 
         if (_shairFeatureCon == null) {
             _shairFeatureCon = new SharePointFeatureController();
+
+
         }
         return _shairFeatureCon;
 
@@ -110,7 +109,7 @@ public class SharePointFeatureController implements IEventListener {
         eventNotifier.registerListener(this, ListenerPriority.PRIORITY_MEDIUM);
 
 
-        ShairPoint getshairPoint = new ShairPoint(tID, scID);
+        SharePoint getshairPoint = new SharePoint(tID, scID);
         getshairPoint.send();
 
     }

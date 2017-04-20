@@ -109,12 +109,16 @@
                     android:background="@drawable/username_selector"
                     android:drawablePadding="15sp"
                     android:gravity="center_vertical"
-                    android:hint="Password"
+                    android:hint="@string/password"
+                    android:inputType="textPassword"
                     android:paddingLeft="20dp"
                     android:paddingRight="10dp"
                     android:text=""
                     android:textColor="#393939"
                     android:textColorHint="#393939"
+
+
+
                     android:textSize="20sp" />
 
                 <com.blueplanet.smartcookieteacher.customcomponents.CustomEditText
@@ -128,7 +132,8 @@
                     android:background="@drawable/username_selector"
                     android:drawablePadding="15sp"
                     android:gravity="center_vertical"
-                    android:hint="Phone No"
+                    android:hint="@string/password"
+                    android:inputType="textPassword"
                     android:paddingLeft="20dp"
                     android:paddingRight="10dp"
                     android:text=""

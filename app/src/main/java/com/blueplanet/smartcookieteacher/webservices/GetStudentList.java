@@ -50,6 +50,7 @@ public class GetStudentList extends SmartCookieTeacherService {
             requestBody.put(WebserviceConstants.KEY_TID, _t_id);
             requestBody.put(WebserviceConstants.KEY_SCHOOLID, _studentId);
             requestBody.put(WebserviceConstants.KEY_INPUT_ID, _inputId);
+
         } catch (JSONException e) {
             e.printStackTrace();
         } catch (Exception ex) {
@@ -91,11 +92,13 @@ public class GetStudentList extends SmartCookieTeacherService {
                     Log.i(_TAG,"Father Name"+sFname);
 
                     String sSchoolName = jsonObject.optString(WebserviceConstants.KEY_SSCHOOLNMAE);
+
                     String sClassName = jsonObject.optString(WebserviceConstants.KEY_SCLASSNAME);
                     String tMName = jsonObject.optString(WebserviceConstants.KEY_SADDRESS);
 
                     String SGender = jsonObject.optString(WebserviceConstants.KEY_SGENDER);
                     String Sdob = jsonObject.optString(WebserviceConstants.KEY_SDOB);
+
                     String sAge = jsonObject.optString(WebserviceConstants.KEY_SAGE);
 
                     String Scity = jsonObject.optString(WebserviceConstants.KEY_SCITY);
@@ -123,6 +126,8 @@ public class GetStudentList extends SmartCookieTeacherService {
 
 
                 }
+
+
                 responseObject = new ServerResponse(errorCode, studentList);
             } else {
                 // failure

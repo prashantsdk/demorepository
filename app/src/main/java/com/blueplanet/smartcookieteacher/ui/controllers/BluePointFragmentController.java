@@ -48,8 +48,6 @@ public class BluePointFragmentController implements IEventListener {
         _teacher = LoginFeatureController.getInstance().getTeacher();
         //_rewardList = RewardPointLogFeatureController.getInstance().getRewardFromDB();
        _bluePointList = BluePointFeatureController.getInstance().getBlueFromDB();
-
-
         if ((_isBluePopulated(_bluePointList))) {
             Log.i(_TAG, "Subject list got from DB");
 
@@ -61,7 +59,7 @@ public class BluePointFragmentController implements IEventListener {
             _teacher = LoginFeatureController.getInstance().getTeacher();
             if (_teacher != null) {
                 _teacherId = _teacher.get_tId();
-                _schoolId = _teacher.get_tSchool_id();
+                _teacher = LoginFeatureController.getInstance().getTeacher();
                 _fetchBlueListFromServer(_teacherId, _schoolId);
 
             }

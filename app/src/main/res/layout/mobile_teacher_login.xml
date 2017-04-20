@@ -16,7 +16,7 @@
             <RelativeLayout
                 android:id="@+id/rl_outer_grey_layout"
                 android:layout_width="280dp"
-                android:layout_height="520dp"
+                android:layout_height="match_parent"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="50dp"
                 android:background="#ECECEC">
@@ -62,7 +62,7 @@
                     android:layout_marginTop="10dp"
                     android:background="@drawable/username_selector"
                     android:orientation="horizontal"
-                    android:visibility="invisible">
+                    android:visibility="visible">
 
                     <ImageView
                         android:id="@+id/img_userName"
@@ -83,7 +83,6 @@
                         android:background="@null"
                         android:drawablePadding="15sp"
                         android:hint="Email"
-
                         android:paddingBottom="5dp"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
@@ -92,6 +91,8 @@
                         android:textColor="#393939"
                         android:textColorHint="#393939"
                         android:textSize="20sp" />
+
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -109,10 +110,11 @@
                     <Spinner
                         android:id="@+id/spinnerPhone"
                         android:layout_width="70dp"
-                        android:layout_height="match_parent"
+                        android:layout_height="50dp"
                         android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="7dp"
-                        android:layout_marginLeft="15dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="11dp"
+                        android:background="@drawable/oval_white"
                         android:visibility="visible" />
 
                     <com.blueplanet.smartcookieteacher.customcomponents.CustomEditText
@@ -124,13 +126,45 @@
                         android:background="@null"
                         android:drawablePadding="15sp"
                         android:hint="Phone"
-                        android:paddingLeft="10dp"
+                        android:inputType="phone"
+                        android:paddingLeft="20dp"
                         android:paddingRight="10dp"
                         android:singleLine="true"
                         android:textColor="#393939"
                         android:textColorHint="#393939"
-                        android:textSize="15sp"
-                        android:inputType="phone"/>
+                        android:textSize="15sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_MemerId"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_below="@+id/gsr"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/username_selector"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <com.blueplanet.smartcookieteacher.customcomponents.CustomEditText
+                        android:id="@+id/edt_memberid"
+                        style="@style/et_username_style"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginTop="5dp"
+                        android:background="@null"
+                        android:drawablePadding="15sp"
+                        android:hint="Member ID"
+
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingTop="5dp"
+                        android:singleLine="true"
+                        android:textColor="#393939"
+                        android:textColorHint="#393939"
+                        android:textSize="15sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -189,7 +223,6 @@
                         android:background="@null"
                         android:drawablePadding="15sp"
                         android:hint="EmployeeID"
-
                         android:paddingBottom="5dp"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
@@ -275,7 +308,8 @@
                     android:clickable="true"
                     android:text="@string/ForgotPassword"
                     android:textColor="#000000"
-                    android:textSize="17sp" />
+                    android:textSize="17sp"
+                    android:visibility="visible" />
 
                 <LinearLayout
                     android:id="@+id/tep"
@@ -287,7 +321,7 @@
                     android:layout_marginTop="10dp"
                     android:orientation="horizontal"
 
-                    android:visibility="visible">
+                    android:visibility="gone">
 
                     <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
                         android:id="@+id/txtproduction"

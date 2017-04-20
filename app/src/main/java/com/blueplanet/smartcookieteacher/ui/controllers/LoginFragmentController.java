@@ -4,6 +4,7 @@ package com.blueplanet.smartcookieteacher.ui.controllers;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -12,7 +13,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -21,11 +21,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.blueplanet.smartcookieteacher.AfterLoginActivity;
+import com.blueplanet.smartcookieteacher.GlobalInterface;
 import com.blueplanet.smartcookieteacher.MainApplication;
 import com.blueplanet.smartcookieteacher.R;
 import com.blueplanet.smartcookieteacher.communication.ServerResponse;
 import com.blueplanet.smartcookieteacher.featurecontroller.LoginFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.StudentFeatureController;
+import com.blueplanet.smartcookieteacher.featurecontroller.UpdateGCMFeatureController;
+import com.blueplanet.smartcookieteacher.gcm.GCMPreferences;
 import com.blueplanet.smartcookieteacher.models.BalancePointModelClass;
 import com.blueplanet.smartcookieteacher.models.LoginDetailModel;
 import com.blueplanet.smartcookieteacher.models.Teacher;
@@ -42,9 +45,15 @@ import com.blueplanet.smartcookieteacher.notification.NotifierFactory;
 import com.blueplanet.smartcookieteacher.ui.GPSTracker;
 import com.blueplanet.smartcookieteacher.ui.LoginFragment;
 import com.blueplanet.smartcookieteacher.ui.RegistrationActivity;
+
 import com.blueplanet.smartcookieteacher.ui.RegistrationFragment;
 import com.blueplanet.smartcookieteacher.utils.SmartCookieSharedPreferences;
 import com.blueplanet.smartcookieteacher.webservices.WebserviceConstants;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.gcm.GoogleCloudMessaging;
+
+import java.io.IOException;
 
 
 /**
@@ -59,6 +68,9 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
     private ImageView imgclearpoints;
     private Spinner spinner, spinnerPhone;
     GPSTracker gps;
+    private String password;
+
+    GoogleCloudMessaging gcm;
 
     /**
      * constructor
@@ -77,6 +89,11 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
         // create class object
         gps = new GPSTracker(_loginFragment.getActivity());
         CheckBox cbRememberMe = (CheckBox) _view.findViewById(R.id.cb_remember_me);
+
+
+        if (checkPlayServices()) {
+            registerInBackground();
+        }
 
 
         if ((NetworkManager.isNetworkAvailable()) == false) {
@@ -158,6 +175,7 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
                     EditText etUserMobile = (EditText) _view.findViewById(R.id.edt_phone);
                     EditText etcolgcode = (EditText) _view.findViewById(R.id.edt_colgCode);
                     EditText etprn = (EditText) _view.findViewById(R.id.edt_Id);
+                    EditText etMemberId = (EditText) _view.findViewById(R.id.edt_memberid);
                     // boolean userTyp = LoginFeatureController.getInstance().is_boolenType();
                     String colgCode = "";
                     String countryCode = "";
@@ -172,7 +190,7 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
                     if (usertype.equalsIgnoreCase("Email")) {
                         _handleRememberMeClick();
                         String userName = etUserName.getText().toString();
-                        String password = etPassword.getText().toString();
+                         password = etPassword.getText().toString();
 
 
                         //String selStatephone = (String) spinner.getSelectedItem();
@@ -188,23 +206,36 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
                                     Toast.LENGTH_SHORT).show();
                         }
 
+
                     } else if (usertype.equalsIgnoreCase("Mobile-No")) {
-                          _handleRememberMeClickEmp();
+                        _handleRememberMeClickEmp();
+                        password="";
                         String mobileno = etUserMobile.getText().toString();
                         String password = etPassword.getText().toString();
                         String code = "91";
+
 
                         //String selStatephone = (String) spinner.getSelectedItem();
                         // LoginFeatureController.getInstance().set_userName(username);
                         //LoginFeatureController.getInstance().set_pasword(password);
 
-                        if (!TextUtils.isEmpty(mobileno) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(usertype) || !TextUtils.isEmpty(colgCode)) {
+                     /*   if (!TextUtils.isEmpty(mobileno) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(usertype) || !TextUtils.isEmpty(colgCode) && mobileno.equalsIgnoreCase("0" ) ){
                             //  SmartCookieSharedPreferences.setLoginFlag(true);
                             _teacherLogin(mobileno, password, usertype, colgCode, method, devicetype, device_details, platform_OS, ip_address, code);
                         } else if (TextUtils.isEmpty(mobileno) && TextUtils.isEmpty(password)) {
                             Toast.makeText(MainApplication.getContext(),
                                     "Please enter your credentials",
                                     Toast.LENGTH_SHORT).show();
+                        }*/
+
+                        if (!TextUtils.isEmpty(mobileno) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(usertype) || !TextUtils.isEmpty(colgCode) && mobileno.equalsIgnoreCase("0" ) ){
+                            //  SmartCookieSharedPreferences.setLoginFlag(true);
+                            Toast.makeText(MainApplication.getContext(),
+                                    "Please enter your credentials",
+                                    Toast.LENGTH_SHORT).show();
+
+                        } else if (TextUtils.isEmpty(mobileno) && TextUtils.isEmpty(password)) {
+                            _teacherLogin(mobileno, password, usertype, colgCode, method, devicetype, device_details, platform_OS, ip_address, code);
                         }
 
 
@@ -229,6 +260,28 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
                         }
 
                     }
+                    if (usertype.equalsIgnoreCase("MemberID")) {
+                        _handleRememberMeClick();
+                        String userMemberID = etMemberId.getText().toString();
+                        password = etPassword.getText().toString();
+
+
+                        //String selStatephone = (String) spinner.getSelectedItem();
+                        // LoginFeatureController.getInstance().set_userName(username);
+                        //LoginFeatureController.getInstance().set_pasword(password);
+
+                        if (!TextUtils.isEmpty(userMemberID) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(usertype) || !TextUtils.isEmpty(colgCode)) {
+                            //  SmartCookieSharedPreferences.setLoginFlag(true);
+                            _teacherLogin(userMemberID, password, usertype, colgCode, method, devicetype, device_details, platform_OS, ip_address, countryCode);
+                        } else if (TextUtils.isEmpty(userMemberID) && TextUtils.isEmpty(password)) {
+                            Toast.makeText(MainApplication.getContext(),
+                                    "Please enter your credentials",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+
+
+                    }
+
                 } else {
                     _loginFragment.showNetworkToast(false);
                 }
@@ -321,6 +374,7 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
                 break;
 
             case R.id.btnRegis:
+               // _loadFragment(R.id.fragment_layout, new RegistrationFragment());
                 Intent intent = new Intent(_loginFragment.getActivity(), RegistrationActivity.class);
                 _loginFragment.startActivity(intent);
                 _loginFragment.getActivity().finish();
@@ -377,6 +431,8 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
 
     private void _loadFragment(int id, Fragment fragment) {
 
+
+
         FragmentManager fm = _loginFragment.getActivity().getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         ft.replace(id, fragment);
@@ -411,9 +467,18 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
                 if (errorCode == WebserviceConstants.SUCCESS) {
                     Log.i(_TAG, "In EVENT_UI_LOGIN_SUCCESSFUL");
                     //SmartCookieSharedPreferences.setLoginFlag(true);
-                    _loginFragment.showOrHideProgressBar(false);
-                    _startAfterLoginActivity();
+
                     SaveLoginData();
+                    _loginFragment.showOrHideProgressBar(false);
+                    Teacher teacher=LoginFeatureController.getInstance().getTeacher();
+                  //  _startAfterLoginActivity();
+                    if (SmartCookieSharedPreferences.getDeviceRegisteredOnServer()==true){
+                        registerGCMtoServer(String.valueOf(teacher.getId()),SmartCookieSharedPreferences.getGCMSharedPreference(GlobalInterface.KEY_GCM));
+                    }else {
+                        _startAfterLoginActivity();
+                    }
+
+
                 }
                 break;
             case EventTypes.EVENT_UI_NO_LOGIN_RESPONSE:
@@ -425,6 +490,23 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
                 Log.i("LoginFragmentController", "IN EVENT_UI_NO_LOGIN_RESPONSE");
                 _loginFragment.showOrHideProgressBar(false);
                 _loginFragment.showLoginErrorMessage();
+                break;
+
+            case EventTypes.EVENT_UI_GCM_RESPONCE_RECIEVED:
+                EventNotifier eventNotifier6 =
+                        NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_LOGIN);
+                eventNotifier6.unRegisterListener(this);
+                _startAfterLoginActivity();
+                _loginFragment.showOrHideProgressBar(false);
+
+                break;
+
+            case EventTypes.EVENT_UI_NO_GCM_RESPONCE_RECIEVED:
+                EventNotifier eventNotifier7 =
+                        NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_LOGIN);
+                eventNotifier7.unRegisterListener(this);
+                _loginFragment.showOrHideProgressBar(false);
+                _loginFragment.showGCMsmassage(false);
                 break;
             case EventTypes.EVENT_CONFLCTLOGIN_RESPONSE:
                 EventNotifier eventNotifier2 =
@@ -541,7 +623,6 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
         EditText etUserName = (EditText) _view.findViewById(R.id.edt_username);
         EditText etPassword = (EditText) _view.findViewById(R.id.edt_password);*/
         CheckBox cbRememberMe = (CheckBox) _view.findViewById(R.id.cb_remember_me);
-
         EditText etPassword = (EditText) _view.findViewById(R.id.edt_password);
         EditText etUserMobile = (EditText) _view.findViewById(R.id.edt_phone);
        /* String userName = etUserName.getText().toString();
@@ -634,6 +715,75 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+
+
+    private void registerGCMtoServer(String stud_id, String Gcm_id) {
+        _registerEventListeners();
+        _registerNetworkListeners();
+        UpdateGCMFeatureController.getInstance().registerGCMOnServer(stud_id, Gcm_id);
+        _loginFragment.showOrHideProgressBar(true);
+    }
+
+    /**
+     * Check the device to make sure it has the Google Play Services APK. If
+     * it doesn't, display a dialog that allows users to download the APK from
+     * the Google Play Store or enable it in the device's system settings.
+     */
+    private boolean checkPlayServices() {
+        GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
+        int resultCode = apiAvailability.isGooglePlayServicesAvailable(_loginFragment.getActivity());
+        if (resultCode != ConnectionResult.SUCCESS) {
+            if (apiAvailability.isUserResolvableError(resultCode)) {
+                apiAvailability.getErrorDialog(_loginFragment.getActivity(), resultCode, GCMPreferences.PLAY_SERVICES_RESOLUTION_REQUEST)
+                        .show();
+            } else {
+                Log.i(_TAG, "This device is not supported.");
+                _loginFragment.getActivity().finish();
+            }
+            return false;
+        }
+        return true;
+    }
+
+
+    private void registerInBackground() {
+        new AsyncTask<String,String,String>() {
+            @Override
+            protected String doInBackground(String... params) {
+                String msg = "";
+                try {
+                    if (gcm == null) {
+                        gcm = GoogleCloudMessaging.getInstance(_loginFragment.getActivity());
+                    }
+
+                    String Gcm_Id = "";
+                    Gcm_Id = gcm.register(GCMPreferences.GOOGLE_SENDER_ID);
+                    Log.d("RegisterActivity", "registerInBackground - regId: "
+                            + Gcm_Id);
+                    msg = "Device registered, registration ID=" + Gcm_Id;
+
+                    //    APA91bHU-Y5iGxs1K9a94p8Ygn0sqiZm4KTQwmnQZj26OoLJYXTFxHBFDeWDfrkz61kDZ5Y-hRA8CAV3hzaCK5JHqbsjCfzVR9KHGO98837XLRurAdOYARJXNwRsnwZ4KhXBPZCb2xaZ
+                    SmartCookieSharedPreferences.setGCMSharedPreference(WebserviceConstants.KEY_GCM, Gcm_Id);
+                    SmartCookieSharedPreferences.setDeviceRegisteredOnServer(true);
+                } catch (IOException ex) {
+                    msg = "Error :" + ex.getMessage();
+                    Log.d("RegisterActivity", "Error: " + msg);
+                    SmartCookieSharedPreferences.setDeviceRegisteredOnServer(false);
+                }
+                Log.d("RegisterActivity", "AsyncTask completed: " + msg);
+
+
+                return msg;
+            }
+
+            @Override
+            protected void onPostExecute(String msg) {
+                /*Toast.makeText(getApplicationContext(),
+                        "Registered with GCM Server." + msg, Toast.LENGTH_LONG)
+                        .show();*/
+            }
+        }.execute(null, null, null);
     }
 
 }

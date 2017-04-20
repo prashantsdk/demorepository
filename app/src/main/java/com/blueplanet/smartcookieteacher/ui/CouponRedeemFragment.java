@@ -1,6 +1,7 @@
 package com.blueplanet.smartcookieteacher.ui;
 
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
@@ -20,6 +21,7 @@ import com.google.zxing.EncodeHintType;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
 
 import java.util.ArrayList;
 import java.util.EnumMap;
@@ -47,7 +49,7 @@ public class CouponRedeemFragment extends Fragment {
         _view = inflater.inflate(R.layout.coupon_redeem, null);
         _initUI();
         _genCoupon = GenerateCouponFeatureController.getInstance().getGeneratedCoupon();
-
+        Loadqrcode();
         if (_genCoupon != null) {
             String cpId = _genCoupon.get_couID();
             if (!TextUtils.isEmpty(cpId)) {
@@ -55,10 +57,11 @@ public class CouponRedeemFragment extends Fragment {
 
                 try {
                     bitmap = encodeAsBitmap(cpId, BarcodeFormat.CODE_128, 800,
+                            
                             300);
-                    _barcodeImage.setImageBitmap(bitmap);
+                    //_barcodeImage.setImageBitmap(bitmap);
 
-                    _barcodeImage.setImageBitmap(bitmap);
+                   // _barcodeImage.setImageBitmap(bitmap);
                 } catch (WriterException e) {
 
                 } catch (Exception ex) {
@@ -140,7 +143,31 @@ public class CouponRedeemFragment extends Fragment {
         return null;
     }
 
+    public void Loadqrcode() {
+        // TODO Auto-generated method stub
+        //Find screen size
+        String cpId = _genCoupon.get_couID();
+       /* btnswitchqr.setText("Switch to Barcode");
+        txtcouponexpirydate.setText("Expired On : "+Validity);
+        txtcouponpoints.setText(""+bal_Points +" Points");*/
+        QRCodeWriter writer = new QRCodeWriter();
+        try {
+            BitMatrix bitMatrix = writer.encode(cpId, BarcodeFormat.QR_CODE, 512, 512);
+            int width = bitMatrix.getWidth();
+            int height = bitMatrix.getHeight();
+            Bitmap bmp = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
+            for (int x = 0; x < width; x++) {
+                for (int y = 0; y < height; y++) {
+                    bmp.setPixel(x, y, bitMatrix.get(x, y) ? Color.BLACK : Color.WHITE);
+                }
+            }
 
+            _barcodeImage.setImageBitmap(bmp);
+        } catch (WriterException e) {
+            e.printStackTrace();
+        }
+
+    }
 
     @Override
     public void onDestroy() {

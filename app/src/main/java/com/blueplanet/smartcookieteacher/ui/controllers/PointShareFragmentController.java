@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.blueplanet.smartcookieteacher.MainApplication;
 import com.blueplanet.smartcookieteacher.R;
 import com.blueplanet.smartcookieteacher.communication.ServerResponse;
+import com.blueplanet.smartcookieteacher.customcomponents.CustomEditText;
 import com.blueplanet.smartcookieteacher.featurecontroller.LoginFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.PointShareFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.SharePointFeatureController;
@@ -132,7 +133,7 @@ public class PointShareFragmentController implements IEventListener,View.OnClick
                 _fragment.hideSoftKeyboard();
 
                 if (NetworkManager.isNetworkAvailable()) {
-                    TextView etpoint = (TextView) _view.findViewById(R.id.txt_reason);
+                    CustomEditText etpoint = (CustomEditText) _view.findViewById(R.id.txt_reason);
                     TextView edtreasons = (TextView) _view.findViewById(R.id.txt_point);
                     _teacher = LoginFeatureController.getInstance().getTeacher();
                     _sharePoint=SharePointFeatureController.getInstance().get_selectedteacher();

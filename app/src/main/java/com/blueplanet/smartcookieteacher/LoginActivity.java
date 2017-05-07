@@ -23,8 +23,6 @@ public class LoginActivity extends AppCompatActivity {
         //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         _loadFragment(R.id.fragment_layout, new LoginFragment());
 
-
-
     }
 
     @Override
@@ -60,9 +58,9 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        // your code.
-
-      //  Intent i=new Intent(this, InitialPaswordActivity.class);
-       // startActivity(i);
+        Intent startMain = new Intent(Intent.ACTION_MAIN);
+        startMain.addCategory(Intent.CATEGORY_HOME);
+        startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(startMain);
     }
 }

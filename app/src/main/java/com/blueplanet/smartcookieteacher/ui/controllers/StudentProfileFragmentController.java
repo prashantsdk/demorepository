@@ -7,11 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 
 import com.blueplanet.smartcookieteacher.R;
-import com.blueplanet.smartcookieteacher.featurecontroller.AssignPointFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.DrawerFeatureController;
-import com.blueplanet.smartcookieteacher.featurecontroller.LoginFeatureController;
-import com.blueplanet.smartcookieteacher.featurecontroller.subFeaturecontroller;
-import com.blueplanet.smartcookieteacher.models.Student;
 import com.blueplanet.smartcookieteacher.models.Teacher;
 import com.blueplanet.smartcookieteacher.notification.IEventListener;
 import com.blueplanet.smartcookieteacher.ui.AssignPointFragment;

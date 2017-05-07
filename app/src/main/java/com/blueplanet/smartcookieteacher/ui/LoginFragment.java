@@ -265,6 +265,9 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
             ll_prn.setVisibility(View.INVISIBLE);
             ll_ID.setVisibility(View.GONE);
             _l1memberID.setVisibility(View.INVISIBLE);
+
+            ll_userphone.requestFocus();
+
             // LoginFeatureController.getInstance().setUserEmailType(true);
         } else if (selState.equalsIgnoreCase("Mobile-No")) {
             ll_userphone.setVisibility(View.INVISIBLE);
@@ -272,6 +275,8 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
             ll_prn.setVisibility(View.INVISIBLE);
             ll_ID.setVisibility(View.GONE);
             _l1memberID.setVisibility(View.INVISIBLE);
+
+            ll_phone.requestFocus();
 
             //   LoginFeatureController.getInstance().setUserEmailType(false);
         } else if (selState.equalsIgnoreCase("EmployeeID")) {
@@ -281,6 +286,7 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
             ll_phone.setVisibility(View.INVISIBLE);
             _l1memberID.setVisibility(View.INVISIBLE);
 
+
             //LoginFeatureController.getInstance().setUserEmailType(false);
 
         } else if (selState.equalsIgnoreCase("MemberID")) {
@@ -289,6 +295,8 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
             ll_userphone.setVisibility(View.INVISIBLE);
             ll_phone.setVisibility(View.INVISIBLE);
             _l1memberID.setVisibility(View.VISIBLE);
+
+            _l1memberID.requestFocus();
 
             //LoginFeatureController.getInstance().setUserEmailType(false);
 

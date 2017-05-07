@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import com.blueplanet.smartcookieteacher.R;
 import com.blueplanet.smartcookieteacher.featurecontroller.StudentFeatureController;
 import com.blueplanet.smartcookieteacher.models.Student;
-import com.blueplanet.smartcookieteacher.ui.AssignPointFragment;
 import com.blueplanet.smartcookieteacher.ui.AssignPointFragmentsubject;
 
 import java.util.ArrayList;

@@ -5,27 +5,18 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
-import com.blueplanet.smartcookieteacher.MainApplication;
 import com.blueplanet.smartcookieteacher.R;
-import com.blueplanet.smartcookieteacher.featurecontroller.DashboardFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.DrawerFeatureController;
-import com.blueplanet.smartcookieteacher.featurecontroller.LoginFeatureController;
-import com.blueplanet.smartcookieteacher.featurecontroller.RewardPointLogFeatureController;
-import com.blueplanet.smartcookieteacher.featurecontroller.StudentFeatureController;
 import com.blueplanet.smartcookieteacher.models.Teacher;
 import com.blueplanet.smartcookieteacher.network.NetworkManager;
 import com.blueplanet.smartcookieteacher.notification.IEventListener;
 import com.blueplanet.smartcookieteacher.ui.AdminFragment;
 import com.blueplanet.smartcookieteacher.ui.AllLogFragment;
-import com.blueplanet.smartcookieteacher.ui.AssignPointFragment;
 import com.blueplanet.smartcookieteacher.ui.BluePointFragment;
 import com.blueplanet.smartcookieteacher.ui.BuyCouponLogFragment;
 import com.blueplanet.smartcookieteacher.ui.GenerateCoupFragment;
-import com.blueplanet.smartcookieteacher.ui.GenerateCouponFragment;
 import com.blueplanet.smartcookieteacher.ui.RewardPointFragment;
-import com.blueplanet.smartcookieteacher.ui.SyncFragment;
 
 /**
  * Created by 1311 on 08-08-2016.

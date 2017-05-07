@@ -19,7 +19,6 @@ import com.blueplanet.smartcookieteacher.featurecontroller.SubjectFeatureControl
 import com.blueplanet.smartcookieteacher.featurecontroller.subFeaturecontroller;
 import com.blueplanet.smartcookieteacher.models.Student;
 import com.blueplanet.smartcookieteacher.models.Teacher;
-import com.blueplanet.smartcookieteacher.models.TeacherSubject;
 import com.blueplanet.smartcookieteacher.notification.EventNotifier;
 import com.blueplanet.smartcookieteacher.notification.EventState;
 import com.blueplanet.smartcookieteacher.notification.EventTypes;

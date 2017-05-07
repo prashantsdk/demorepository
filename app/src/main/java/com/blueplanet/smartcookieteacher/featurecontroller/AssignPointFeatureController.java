@@ -67,6 +67,8 @@ public class AssignPointFeatureController implements IEventListener {
 
 
     public ArrayList<Student> get_selestusubList() {
+
+
         return _selestusubList;
     }
 

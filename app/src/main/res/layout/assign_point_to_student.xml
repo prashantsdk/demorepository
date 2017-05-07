@@ -128,12 +128,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_below="@+id/line2"
-                android:layout_weight="4"
-                android:orientation="vertical">
-
-
+                android:orientation="vertical"
+                android:padding="10dp">
                 <GridView
-                    android:id="@+id/grid"
+                    android:id="@+id/lstActivity"
                     android:layout_width="match_parent"
                     android:layout_height="fill_parent"
                     android:layout_marginTop="10dp"
@@ -147,8 +145,77 @@
                     android:verticalSpacing="5dp"></GridView>
 
 
-            </RelativeLayout>
+                <!--<ListView
+                    android:id="@+id/lstActivity"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:divider="#EDEDED" />-->
 
+                <RelativeLayout
+                    android:id="@+id/rel4Option"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:visibility="visible">
+
+                    <ImageView
+                        android:id="@+id/img4option"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/skill_img_one" />
+
+                    <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                        android:id="@+id/txtArtAssignpoints"
+                        style="@style/Login_title"
+                        android:layout_width="50sp"
+                        android:layout_height="60sp"
+                        android:layout_below="@+id/txtStudyAssignPoints"
+                        android:layout_toLeftOf="@+id/txtStudyAssignPoints" />
+
+                    <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                        android:id="@+id/txtGeneralAssignPoints"
+                        style="@style/Login_title"
+                        android:layout_width="50sp"
+                        android:layout_height="60sp"
+                        android:layout_alignBaseline="@+id/txtArtAssignpoints"
+                        android:layout_alignBottom="@+id/txtArtAssignpoints"
+                        android:layout_toRightOf="@+id/txtStudyAssignPoints" />
+
+                    <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                        android:id="@+id/txtSportsAssingnedPoints"
+                        style="@style/Login_title"
+                        android:layout_width="60sp"
+                        android:layout_height="50sp"
+                        android:layout_below="@+id/txtGeneralAssignPoints"
+                        android:layout_toLeftOf="@+id/txtGeneralAssignPoints" />
+
+                    <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                        android:id="@+id/txtStudyAssignPoints"
+                        style="@style/Login_title"
+                        android:layout_width="60sp"
+                        android:layout_height="50dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="22dp" />
+
+                </RelativeLayout>
+
+                <ImageView
+                    android:id="@+id/imgSelectedOption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true" />
+
+                <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                    android:id="@+id/txtoptionselected"
+                    style="@style/Login_title"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_centerInParent="true" />
+
+            </RelativeLayout>
             <RelativeLayout
                 android:id="@+id/re3"
                 android:layout_width="match_parent"
@@ -191,7 +258,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/re3"
-
                 android:layout_marginTop="25dp"
                 android:orientation="horizontal"
                 android:visibility="visible">
@@ -290,7 +356,6 @@
                 android:layout_below="@+id/re3"
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="65dp"
-
                 android:orientation="horizontal"
                 android:visibility="gone">
 
@@ -314,6 +379,35 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/ll_markPoint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/re3"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="65dp"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Points :"
+                    android:textColor="#000000"
+                    android:textSize="20dp" />
+
+                <EditText
+                    android:id="@+id/txt_markPoint"
+                    android:layout_width="110dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="20dp"
+                    android:text=""
+
+                    android:textColor="#000000"
+                    android:textSize="15dp" />
+
+
+            </LinearLayout>
             <LinearLayout
                 android:id="@+id/ll_issue3"
                 android:layout_width="match_parent"
@@ -350,7 +444,7 @@
                 android:layout_height="match_parent"
                 android:layout_below="@+id/ll_issue"
                 android:background="#ffffff"
-                android:visibility="invisible">
+                android:visibility="gone">
 
                 <SeekBar
                     android:id="@+id/seekassigpoints"
@@ -364,14 +458,12 @@
                     android:thumb="@drawable/seekbar_thumb" />
             </RelativeLayout>
 
-
             <LinearLayout
                 android:id="@+id/lay1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@+id/relay5"
                 android:padding="5sp"
-
                 android:visibility="visible">
 
                 <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
@@ -383,7 +475,7 @@
                     android:layout_weight="1"
                     android:text="0 POINTS"
                     android:textColor="#257cc1"
-                    android:visibility="invisible" />
+                    android:visibility="invisible"/>
 
                 <com.blueplanet.smartcookieteacher.customcomponents.CustomButton
                     android:id="@+id/btnsubmitassignpoints"

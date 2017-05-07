@@ -131,7 +131,12 @@ public class DisplaySubjectFragment extends Fragment {
             @Override
             public void run() {
 
-                studentAdapter.getFilter().filter(string);
+                try{
+                    studentAdapter.getFilter().filter(string);
+                }catch (Exception e){
+
+                }
+
             }
         });
 

@@ -236,6 +236,7 @@ public class AfterLoginActivity extends FragmentActivity implements IEventListen
                 _fragment = new AllSubjectFragment();
 
                 break;
+
             case 5:
                 DrawerFeatureController.getInstance().setIsFragmentOpenedFromDrawer(true);
                 if (_count < 7) {
@@ -304,7 +305,7 @@ public class AfterLoginActivity extends FragmentActivity implements IEventListen
                 // _fragment = new BuyCouponLogFragment();//
 
 
-               //Remaining// _fragment = new DisplaySubjectFragment();
+                //_fragment = new DisplaySubjectFragment();
 
                 _fragment = new SoftRewardFragment();
 

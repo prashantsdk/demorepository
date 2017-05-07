@@ -12,11 +12,8 @@ import com.blueplanet.smartcookieteacher.MainApplication;
 import com.blueplanet.smartcookieteacher.R;
 import com.blueplanet.smartcookieteacher.customcomponents.CustomTextView;
 import com.blueplanet.smartcookieteacher.featurecontroller.AssignPointFeatureController;
-import com.blueplanet.smartcookieteacher.featurecontroller.SubjectFeatureController;
 import com.blueplanet.smartcookieteacher.models.SubNameCode;
-import com.blueplanet.smartcookieteacher.models.TeacherSubject;
 import com.blueplanet.smartcookieteacher.ui.AssignPointFragment;
-
 
 import java.util.ArrayList;
 
@@ -33,8 +30,8 @@ public class AssignPointSubjectAdapter extends BaseAdapter {
     private CustomTextView _textView[];
 
     public AssignPointSubjectAdapter(AssignPointFragment assignPointFragment,
-                                  AssignPointFragmentController assignPointFragmentController,
-                                  ArrayList<SubNameCode> subList) {
+                                     AssignPointFragmentController assignPointFragmentController,
+                                     ArrayList<SubNameCode> subList) {
 
         _assignPointFragment = assignPointFragment;
         _assignPointFragmentController = assignPointFragmentController;

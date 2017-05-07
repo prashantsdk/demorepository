@@ -114,6 +114,7 @@ public class WebserviceConstants {
     public static final String KEY_BALANCE_BLUE_POINT = "balance_blue_points";
     public static final String KEY_USED_BLUE_POINT = "used_blue_points";
     public static final String KEY_BATCH_ID = "batch_id";
+
     public static final String KEY_ERROR_RECORDS = "error_records";
     public static final String KEY_SEND_UNSEND_STATUS = "send_unsend_status";
     public static final String KEY_TEMP_ADDRESS = "t_temp_address";

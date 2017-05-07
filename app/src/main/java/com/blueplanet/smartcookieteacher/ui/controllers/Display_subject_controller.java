@@ -40,6 +40,7 @@ public class Display_subject_controller implements View.OnClickListener,IEventLi
     AutoCompleteTextView etxtSearch;
     String snamekey="";
     private DisplaySubjectFragment _subjectFragment = null;
+
     private View view;
     private Student student=null;
    // private ArrayList<Teachers> arr_teacher = null;

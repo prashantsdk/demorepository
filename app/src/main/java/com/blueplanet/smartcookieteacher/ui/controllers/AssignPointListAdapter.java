@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.blueplanet.smartcookieteacher.MainApplication;
 import com.blueplanet.smartcookieteacher.R;
@@ -15,7 +14,6 @@ import com.blueplanet.smartcookieteacher.customcomponents.CustomTextView;
 import com.blueplanet.smartcookieteacher.featurecontroller.ActivityListFeatureController;
 import com.blueplanet.smartcookieteacher.models.TeacherActivity;
 import com.blueplanet.smartcookieteacher.ui.AssignPointFragment;
-
 
 import java.util.ArrayList;
 
@@ -58,7 +56,6 @@ public class AssignPointListAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-
         return null;
     }
 
@@ -88,7 +85,6 @@ public class AssignPointListAdapter extends BaseAdapter {
                 relativeLayoutParams = new RelativeLayout.LayoutParams(
                         RelativeLayout.LayoutParams.WRAP_CONTENT,
                         RelativeLayout.LayoutParams.WRAP_CONTENT);
-
                 _textView[position].setText(_activityList.get(position).getActivityName());
 
                 if (position % 2 == 0) {
@@ -97,9 +93,7 @@ public class AssignPointListAdapter extends BaseAdapter {
                     _textView[position].setPadding(15, 15, 0, 0);
                 } else {
                     relativeLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-
                     _textView[position].setPadding(0, 15, 15, 0);
-
                 }
                 _textView[position].setTextSize(15);
                 _textView[position].setClickable(true);

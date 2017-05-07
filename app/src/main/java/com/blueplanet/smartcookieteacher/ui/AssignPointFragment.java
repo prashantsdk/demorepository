@@ -3,7 +3,6 @@ package com.blueplanet.smartcookieteacher.ui;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -15,7 +14,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Gallery;
-import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -33,7 +31,7 @@ import com.blueplanet.smartcookieteacher.featurecontroller.StudentFeatureControl
 import com.blueplanet.smartcookieteacher.models.Student;
 import com.blueplanet.smartcookieteacher.models.Teacher;
 import com.blueplanet.smartcookieteacher.ui.controllers.AssignPointFragmentController;
-import com.blueplanet.smartcookieteacher.ui.controllers.AssignPointListAdapter1;
+import com.blueplanet.smartcookieteacher.ui.controllers.AssignPointListAdapter;
 import com.blueplanet.smartcookieteacher.ui.controllers.StudentListGalleryAdapter;
 
 
@@ -52,29 +50,26 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
     private CustomTextView _txtstuName, _txtGeneralText, _txtSports, _txtArt, _txtOptionSelected, _txtStudy;
     private AssignPointFragmentController _assignPointFragmentController = null;
     private StudentListGalleryAdapter _galleryAdapter = null;
-    // private AssignPointListAdapter _adapter = null;
-    private AssignPointListAdapter1 _adapter = null;
+    private AssignPointListAdapter _adapter = null;
     private RelativeLayout _rl4Option;
     private CustomButton _btnSubmit;
     private TextView _txt_teacherName;
     private Teacher _teacher;
-    private GridView _grid;
     String[] userOption = {"Judgement", "Marks", "Grade", "Percentile"};
     String[] numberOptn = {"A", "B", "C", "D"};
     private Spinner spinner, spinner1;
+    private LinearLayout ll_issue, ll_issue1, ll_issue3, ll_gradePoint,ll_markPoint;
+    private RelativeLayout ll_issue2;
     private String selState, str;
     private final String _TAG = this.getClass().getSimpleName();
-    private LinearLayout ll_issue, ll_issue1, ll_issue3, ll_gradePoint;
-    private RelativeLayout ll_issue2;
-    private EditText _txt_gradePoint;
-    private Student _student;
+    private EditText _txt_gradePoint,_txtMark;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         _view = inflater.inflate(R.layout.assign_point_to_student, null);
 
         _initUI();
-
         ArrayAdapter aa = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item, userOption);
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(aa);
@@ -87,7 +82,7 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
         _assignPointFragmentController = new AssignPointFragmentController(this, _view);
 
         _galleryAdapter = new StudentListGalleryAdapter(this, _assignPointFragmentController, _view);
-        //  _adapter=new AssignPointListAdapter1(this,_assignPointFragmentController);
+
         _registerUIListeners();
         _setSeletedStudentOnGallery();
         _setTeacherNameOnUI();
@@ -102,17 +97,16 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
         _progressbar = (ProgressBar) _view.findViewById(R.id.progressbar);
         _tvPleaseWait = (CustomTextView) _view.findViewById(R.id.tv_please_wait);
         _gallery = (Gallery) _view.findViewById(R.id.galleryslider);
-     /*   _txtGeneralText = (CustomTextView) _view.findViewById(R.id.txtGeneralAssignPoints);
+        _txtGeneralText = (CustomTextView) _view.findViewById(R.id.txtGeneralAssignPoints);
         _txtSports = (CustomTextView) _view.findViewById(R.id.txtSportsAssingnedPoints);
         _txtArt = (CustomTextView) _view.findViewById(R.id.txtArtAssignpoints);
         _txtStudy = (CustomTextView) _view.findViewById(R.id.txtStudyAssignPoints);
 
-        _txtOptionSelected = (CustomTextView) _view.findViewById(R.id.txtoptionselected);*/
-        //  _rl4Option = (RelativeLayout) _view.findViewById(R.id.rel4Option);
+        _txtOptionSelected = (CustomTextView) _view.findViewById(R.id.txtoptionselected);
+        _rl4Option = (RelativeLayout) _view.findViewById(R.id.rel4Option);
         seekpointsbar = (SeekBar) _view.findViewById(R.id.seekassigpoints);
         _btnSubmit = (CustomButton) _view.findViewById(R.id.btnsubmitassignpoints);
         _txt_teacherName = (TextView) _view.findViewById(R.id.teacherName);
-        _grid = (GridView) _view.findViewById(R.id.grid);
         spinner = (Spinner) _view.findViewById(R.id.spinner);
         spinner1 = (Spinner) _view.findViewById(R.id.spinner2);
 
@@ -121,30 +115,26 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
         ll_issue2 = (RelativeLayout) _view.findViewById(R.id.ll_issue2);
         ll_issue3 = (LinearLayout) _view.findViewById(R.id.ll_issue3);
         ll_gradePoint = (LinearLayout) _view.findViewById(R.id.ll_gradePoint);
+        ll_markPoint= (LinearLayout) _view.findViewById(R.id.ll_markPoint);
         _txt_gradePoint = (EditText) _view.findViewById(R.id.txt_gradePoint);
-
+        _txtMark= (EditText) _view.findViewById(R.id.txt_markPoint);
     }
 
     /**
      * function to register UI Listeners
-     *
      */
     private void _registerUIListeners() {
         _gallery.setAdapter(_galleryAdapter);
         _gallery.setOnItemSelectedListener(_assignPointFragmentController);
-      /*  _txtGeneralText.setOnClickListener(_assignPointFragmentController);
+        _txtGeneralText.setOnClickListener(_assignPointFragmentController);
         _txtSports.setOnClickListener(_assignPointFragmentController);
         _txtArt.setOnClickListener(_assignPointFragmentController);
         _txtStudy.setOnClickListener(_assignPointFragmentController);
-
-
-
-        _txtOptionSelected.setOnClickListener(_assignPointFragmentController);*/
+        _txtOptionSelected.setOnClickListener(_assignPointFragmentController);
         seekpointsbar.setOnSeekBarChangeListener(_assignPointFragmentController);
         _btnSubmit.setOnClickListener(_assignPointFragmentController);
         spinner.setOnItemSelectedListener(this);
         spinner1.setOnItemSelectedListener(this);
-        //  _grid.setAdapter(_adapter);
     }
 
     private void _setSeletedStudentOnGallery() {
@@ -180,34 +170,6 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
 
     }
 
-    public void _setStudentDetailsOnUI() {
-
-        _student = StudentFeatureController.getInstance().getSelectedStudent();
-
-        if (_student != null) {
-            getActivity().runOnUiThread(new Runnable() {
-
-                @Override
-                public void run() {
-
-                    _setStudNameOnUI(_student);
-
-
-                }
-            });
-
-        }
-    }
-
-    private void _setStudNameOnUI(Student student) {
-        String name = student.get_stdName();
-        if (!(TextUtils.isEmpty(name)) && name.equalsIgnoreCase("null")) {
-            _txtstuName.setText("N/A");
-        } else {
-            _txtstuName.setText(name);
-
-        }
-    }
 
     private void _setTeacherNameOnUI() {
 
@@ -217,8 +179,7 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
                 @Override
                 public void run() {
 
-                    //  _txt_teacherName.setText(_teacher.get_tCompleteName() + " - " + _teacher.get_tId());
-                    _txt_teacherName.setText("Teacher ID - " + _teacher.get_tId());
+                    _txt_teacherName.setText(_teacher.get_tCompleteName() + " - " + _teacher.get_tId());
 
 
                 }
@@ -409,6 +370,7 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
             ll_issue2.setVisibility(View.INVISIBLE);
             ll_issue3.setVisibility(View.INVISIBLE);
             ll_gradePoint.setVisibility(View.GONE);
+            ll_markPoint.setVisibility(View.GONE);
 
             // LoginFeatureController.getInstance().setUserEmailType(true);
         } else if (selState.equalsIgnoreCase("Marks")) {
@@ -417,6 +379,7 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
             ll_issue2.setVisibility(View.INVISIBLE);
             ll_issue3.setVisibility(View.INVISIBLE);
             ll_gradePoint.setVisibility(View.GONE);
+            ll_markPoint.setVisibility(View.VISIBLE);
             //   LoginFeatureController.getInstance().setUserEmailType(false);
         } else if (selState.equalsIgnoreCase("Grade")) {
             ll_issue.setVisibility(View.INVISIBLE);
@@ -424,6 +387,7 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
             ll_issue2.setVisibility(View.VISIBLE);
             ll_issue3.setVisibility(View.INVISIBLE);
             ll_gradePoint.setVisibility(View.VISIBLE);
+            ll_markPoint.setVisibility(View.GONE);
 
             //LoginFeatureController.getInstance().setUserEmailType(false);
 
@@ -433,6 +397,7 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
             ll_issue2.setVisibility(View.INVISIBLE);
             ll_issue3.setVisibility(View.VISIBLE);
             ll_gradePoint.setVisibility(View.GONE);
+            ll_markPoint.setVisibility(View.GONE);
 
 
             //LoginFeatureController.getInstance().setUserEmailType(false);
@@ -492,17 +457,5 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
             default:
                 break;
         }
-    }
-    public void showNotEnoughPoint() {
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-
-                Toast.makeText(getActivity().getApplicationContext(),
-                        getActivity().getString(R.string.less_green_point),
-                        Toast.LENGTH_LONG).show();
-            }
-        });
-
     }
 }

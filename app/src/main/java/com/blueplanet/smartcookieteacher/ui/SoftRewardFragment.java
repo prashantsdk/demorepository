@@ -174,9 +174,8 @@ public class SoftRewardFragment extends Fragment {
 
     }
 
-
+    @Override
     public void onDestroy() {
-
         super.onDestroy();
         if (_softRewardContoller != null) {
             _softRewardContoller.clear();
@@ -185,7 +184,8 @@ public class SoftRewardFragment extends Fragment {
         if (_adapter != null) {
             _adapter = null;
         }
-
     }
+
+
 
 }

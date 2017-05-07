@@ -11,11 +11,8 @@ import android.widget.RadioGroup;
 
 import com.blueplanet.smartcookieteacher.MainApplication;
 import com.blueplanet.smartcookieteacher.R;
-import com.blueplanet.smartcookieteacher.featurecontroller.ActivityListFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.SubjectFeatureController;
-import com.blueplanet.smartcookieteacher.models.TeacherActivity;
 import com.blueplanet.smartcookieteacher.models.TeacherSubject;
-import com.blueplanet.smartcookieteacher.ui.AssignPointFragment;
 import com.blueplanet.smartcookieteacher.ui.AssignPointFragmentsubject;
 
 import java.util.ArrayList;

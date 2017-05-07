@@ -31,7 +31,7 @@ public class AddCartFragment extends Fragment {
     private ListView _listView;
     private AddCartFragmentController _controller = null;
     private CustomButton _btnBuy;
-    private ArrayList<AddCart> _couList = new ArrayList<>(); //Add fragment
+    private ArrayList<AddCart> _couList = new ArrayList<>();
 
 
 

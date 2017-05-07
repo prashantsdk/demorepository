@@ -181,6 +181,8 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
                     String countryCode = "";
                     String method = "Android";
                     String devicetype = "phone";
+
+
                     String device_details = _loginFragment.getDeviceName();
                     String platform_OS = _loginFragment.getAndroidVersion();
                     String ip_address = _loginFragment.getLocalIpAddress();

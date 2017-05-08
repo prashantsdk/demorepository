@@ -120,6 +120,7 @@ public class AfterLoginActivity extends FragmentActivity implements IEventListen
         _dataList.add(new DrawerItem("Logs", R.drawable.coupon));
         _dataList.add(new DrawerItem("Sync", R.drawable.coupon));
         _dataList.add(new DrawerItem("Share Blue Point", R.drawable.coupon));
+        _dataList.add(new DrawerItem("Add Teacher Subject", R.drawable.coupon));
         _dataList.add(new DrawerItem("Soft Rewards", R.drawable.coupon));
 
         _dataList.add(new DrawerItem("Map", R.drawable.coupon));
@@ -305,14 +306,24 @@ public class AfterLoginActivity extends FragmentActivity implements IEventListen
                 // _fragment = new BuyCouponLogFragment();//
 
 
-                //_fragment = new DisplaySubjectFragment();
+                _fragment = new DisplaySubjectFragment();
 
-                _fragment = new SoftRewardFragment();
+               // _fragment = new SoftRewardFragment();
 
                 break;
             case 11:
-                Intent i = new Intent(this, MapActivity.class);
-                startActivity(i);
+                DrawerFeatureController.getInstance().setIsFragmentOpenedFromDrawer(true);
+                if (_count < 7) {
+                    _count = _count + 1;
+                }
+                _fragmentTagList.add("GenerateCouponFragment");
+                _addtoBackStack = true;
+                // _fragment = new BuyCouponLogFragment();//
+
+
+                //_fragment = new DisplaySubjectFragment();
+
+                _fragment = new SoftRewardFragment();
 
              /*   DrawerFeatureController.getInstance().setIsFragmentOpenedFromDrawer(true);
                 if (_count < 7) {
@@ -328,6 +339,11 @@ public class AfterLoginActivity extends FragmentActivity implements IEventListen
                 startActivity(i);*/
                 break;
             case 12:
+                Intent i = new Intent(this, MapActivity.class);
+                startActivity(i);
+                break;
+            case 13:
+
                 _teacher = LoginFeatureController.getInstance().getTeacher();
 
                 if (_teacher != null) {
@@ -338,10 +354,6 @@ public class AfterLoginActivity extends FragmentActivity implements IEventListen
                     SmartCookieSharedPreferences.setLoginFlag(false);
                     _startLoginActivity();
                 }
-                break;
-            case 13:
-
-
 
               /*  LoginFeatureController.getInstance().logOut();
                 SmartCookieSharedPreferences.setLoginFlag(false);

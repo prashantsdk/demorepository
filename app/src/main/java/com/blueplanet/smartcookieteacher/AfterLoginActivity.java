@@ -240,6 +240,7 @@ public class AfterLoginActivity extends FragmentActivity implements IEventListen
 
             case 5:
                 DrawerFeatureController.getInstance().setIsFragmentOpenedFromDrawer(true);
+
                 if (_count < 7) {
                     _count = _count + 1;
                 }
@@ -252,6 +253,7 @@ public class AfterLoginActivity extends FragmentActivity implements IEventListen
 
             case 6:
                 DrawerFeatureController.getInstance().setIsFragmentOpenedFromDrawer(true);
+
                 if (_count < 7) {
                     _count = _count + 1;
                 }

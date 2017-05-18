@@ -76,8 +76,6 @@ public class StudentListFragment extends Fragment {
         //   etxtSearch = (AutoCompleteTextView) _view.findViewById(R.id.etxtSearch);
         _etTextSearch = (CustomEditText) _view.findViewById(R.id.etxtSearch);
 
-
-
         _edtCount = (CustomTextView) _view.findViewById(R.id.count);
         _txt_teacherName =(TextView) _view.findViewById(R.id.teacherName);
 
@@ -153,6 +151,7 @@ public class StudentListFragment extends Fragment {
                     _tvPleaseWait.setVisibility(View.VISIBLE);
                 } else {
                     _rlProgressbar.setVisibility(View.GONE);
+
                     _progressbar.setVisibility(View.GONE);
                     _tvPleaseWait.setVisibility(View.GONE);
                 }
@@ -238,4 +237,5 @@ public class StudentListFragment extends Fragment {
 
         StudentFeatureController.getInstance().clearFilterList();
     }
+
 }

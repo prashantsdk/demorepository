@@ -59,6 +59,7 @@ public class GenerateCouponFragmentController implements View.OnClickListener, I
         etxtpoints = (EditText) _view.findViewById(R.id.etxtpoints);
         imgclearpoints = (ImageView) _view.findViewById(R.id.imgclearpoints);
         _couList = GenerateCouponFeatureController.getInstance().get_genCouList();
+
         _teacher = LoginFeatureController.getInstance().getTeacher();
         if (_teacher != null) {
             _teacherId = _teacher.get_tId();
@@ -72,6 +73,7 @@ public class GenerateCouponFragmentController implements View.OnClickListener, I
         EventNotifier eventNotifier =
                 NotifierFactory.getInstance().getNotifier
                         (NotifierFactory.EVENT_NOTIFIER_COUPON);
+
 
         eventNotifier.unRegisterListener(this);
 

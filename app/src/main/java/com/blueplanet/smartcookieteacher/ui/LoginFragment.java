@@ -111,7 +111,6 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
         _registerUIListeners();
         _isRememberMeClicked();
         isTabletDevice();
-
         return _view;
     }
 

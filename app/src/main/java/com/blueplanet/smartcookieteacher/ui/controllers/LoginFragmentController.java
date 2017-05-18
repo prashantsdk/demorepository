@@ -433,8 +433,6 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
 
     private void _loadFragment(int id, Fragment fragment) {
 
-
-
         FragmentManager fm = _loginFragment.getActivity().getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         ft.replace(id, fragment);

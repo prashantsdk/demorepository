@@ -75,6 +75,8 @@ public class WebserviceConstants {
     public static final String TEACHER_DISPLAY_SUBJECT_WEB_SERVICE = "display_school_subject_for_teacher.php";
     public static final String TEACHER_UPDATE_PROFILE = "update_teacher_profile_webservice.php";
 
+
+
     /**
      * constants for login_teacher webservice
      */

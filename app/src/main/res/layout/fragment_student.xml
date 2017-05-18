@@ -36,7 +36,8 @@
         android:layout_marginLeft="15dp"
         android:layout_marginTop="5dp"
         android:drawableLeft="@android:drawable/ic_menu_search"
-        android:hint="Search" />
+        android:hint="Search"
+       />
 
     <RelativeLayout
         android:id="@+id/linlay_image"

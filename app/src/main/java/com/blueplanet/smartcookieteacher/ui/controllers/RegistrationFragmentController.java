@@ -235,6 +235,7 @@ public class RegistrationFragmentController implements IEventListener, View.OnCl
 
         return EventState.EVENT_PROCESSED;
 
+
     }
 
 

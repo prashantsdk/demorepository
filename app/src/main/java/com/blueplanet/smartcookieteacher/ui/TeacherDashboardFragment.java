@@ -56,7 +56,7 @@ public class TeacherDashboardFragment extends Fragment {
     private ProgressBar _progressbar;
     private CustomTextView _tvPleaseWait;
     private Runnable r;
-    private Handler handler=null;
+    private Handler handler = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -74,14 +74,15 @@ public class TeacherDashboardFragment extends Fragment {
         _registerUIListeners();
 
 
-        handler =new Handler();
+        handler = new Handler();
         r = new Runnable() {
             public void run() {
                 handler.postDelayed(this, 100);
                 setDashboardDataOnUI();
 
             }
-        };handler.postDelayed(r, 300);
+        };
+        handler.postDelayed(r, 300);
 
 
         getActivity().getActionBar().setTitle("Dashboard");
@@ -98,6 +99,9 @@ public class TeacherDashboardFragment extends Fragment {
         _teabluepoint = (CustomTextView) _view.findViewById(R.id.bluepoint);
         _teabrownpoint = (CustomTextView) _view.findViewById(R.id.brownpoint);
         _teawaterpoint = (CustomTextView) _view.findViewById(R.id.waterpoint);
+
+
+
         _lvStudentList = (ListView) _view.findViewById(R.id.lv_studentDashboard);
         _testpro = (CustomTextView) _view.findViewById(R.id.testproduction);
 
@@ -277,7 +281,7 @@ public class TeacherDashboardFragment extends Fragment {
         // TODO Auto-generated method stub
         int id = item.getItemId();
         if (id == R.id.action_add) {
-           // _loadFragment(R.id.content_frame, new NewProfileFragment());
+            // _loadFragment(R.id.content_frame, new NewProfileFragment());
             Intent i1 = new Intent(this.getActivity(), UpdateProfileActivity.class);
             startActivity(i1);
 
@@ -286,6 +290,7 @@ public class TeacherDashboardFragment extends Fragment {
         }
         return super.onOptionsItemSelected(item);
     }
+
     private void _loadFragment(int id, Fragment fragment) {
 
         DrawerFeatureController.getInstance().setIsFragmentOpenedFromDrawer(false);

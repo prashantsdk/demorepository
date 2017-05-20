@@ -25,6 +25,7 @@ public class DisplayCouponFeatureController implements IEventListener {
 
     private static DisplayCouponFeatureController _displayFeatureController = null;
 
+
     public void set_couponList(ArrayList<Coupon_display> _couponList) {
         this._couponList = _couponList;
     }

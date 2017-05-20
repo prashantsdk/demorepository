@@ -55,6 +55,8 @@ public class DisplaySubjectFeatureController implements IEventListener {
 
     /**
      * function to register event listeners
+     *
+     *
      */
     private void _registerEventListeners() {
         EventNotifier eventNotifier =

@@ -31,7 +31,7 @@ public class GetBuyCoupon extends SmartCookieTeacherService {
     private final String _TAG = this.getClass().getSimpleName();
 
     public GetBuyCoupon(String studentId, String entity, String userid, String couponid
-                        ) {
+    ) {
 
         _studentId = studentId;
         _entity = entity;
@@ -93,6 +93,7 @@ public class GetBuyCoupon extends SmartCookieTeacherService {
                     String coupon_uid = jsonObject.optString(WebserviceConstants.KEY_COUPON_UID);
                     String coupon_for_point = jsonObject.optString(WebserviceConstants.KEY_COUPON_FOR_POINTS);
                     String coupon_id = jsonObject.optString(WebserviceConstants.KEY_BUYCOUPON_ID);
+
                     String remainingPoint = jsonObject.optString(WebserviceConstants.KEY_BUYCOUPON_ID);
                     _buyCoupon = new BuyCoupon(sp_coupon_code, coupon_uid, coupon_for_point, coupon_id, remainingPoint);
                 }

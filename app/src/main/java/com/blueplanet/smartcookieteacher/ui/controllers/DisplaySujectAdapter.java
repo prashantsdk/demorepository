@@ -81,7 +81,7 @@ public class DisplaySujectAdapter  extends BaseAdapter implements Filterable {
             //row = inflater.inflate(layoutResID, parent, false);
             holder = new SpinnerHolder();
             holder.linlaystuddetails=(LinearLayout)row.findViewById(R.id.linlaystuditem);
-            holder.userImage = (ImageView) row.findViewById(R.id.student_imag);
+          //  holder.userImage = (ImageView) row.findViewById(R.id.student_imag);
             holder.txtmypoints=(TextView)row.findViewById(R.id.txtMypoints);
             holder.name = (TextView) row.findViewById(R.id.name);
 

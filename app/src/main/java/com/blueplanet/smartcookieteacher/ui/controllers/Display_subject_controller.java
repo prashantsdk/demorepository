@@ -4,15 +4,19 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.blueplanet.smartcookieteacher.MainApplication;
 import com.blueplanet.smartcookieteacher.R;
 import com.blueplanet.smartcookieteacher.communication.ServerResponse;
 import com.blueplanet.smartcookieteacher.featurecontroller.DisplaySubjectFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.LoginFeatureController;
+import com.blueplanet.smartcookieteacher.featurecontroller.StudentFeatureController;
+import com.blueplanet.smartcookieteacher.featurecontroller.subFeaturecontroller;
 import com.blueplanet.smartcookieteacher.models.DisplayTeacSubjectModel;
 import com.blueplanet.smartcookieteacher.models.Student;
 import com.blueplanet.smartcookieteacher.models.Teacher;
@@ -23,6 +27,7 @@ import com.blueplanet.smartcookieteacher.notification.IEventListener;
 import com.blueplanet.smartcookieteacher.notification.ListenerPriority;
 import com.blueplanet.smartcookieteacher.notification.NotifierFactory;
 import com.blueplanet.smartcookieteacher.ui.DisplaySubjectFragment;
+import com.blueplanet.smartcookieteacher.ui.StudentDetailFragment;
 import com.blueplanet.smartcookieteacher.webservices.WebserviceConstants;
 
 import java.util.ArrayList;
@@ -30,7 +35,7 @@ import java.util.ArrayList;
 /**
  * Created by Sayali on 3/15/2017.
  */
-public class Display_subject_controller implements View.OnClickListener,IEventListener {
+public class Display_subject_controller implements View.OnClickListener,IEventListener,AdapterView.OnItemClickListener {
 
 
     static int maxlenghth=0;
@@ -322,4 +327,22 @@ public class Display_subject_controller implements View.OnClickListener,IEventLi
 
     }
 
-}
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        //subFeaturecontroller.getInstance()._clearSubjectList();
+        Log.i(_TAG, "In onItemClick");
+        Toast.makeText(_subjectFragment.getActivity(), "Subject Added Successfully..!1", Toast.LENGTH_SHORT).show();
+      /*  _studentList = StudentFeatureController.getInstance().getStudentList();
+        if (_studentList != null && _studentList.size() > 0) {
+            Log.i(_TAG, "In onItemClick");
+            Student s = _studentList.get(position);
+            StudentFeatureController.getInstance().setSelectedStudent(s);
+            subFeaturecontroller.getInstance()._clearSubjectList();
+            _loadFragment(R.id.content_frame, new StudentDetailFragment());*/
+
+
+        }
+
+    }
+
+

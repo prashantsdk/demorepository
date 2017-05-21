@@ -189,5 +189,10 @@ public class EventTypes {
     public static final int EVENT_TEACHER_UI_UPDATE_PROFILE = 260;
     public static final int EVENT_TEACHER_UI_NOT_UPDATE_PROFILE = 261;
 
+    public static final int EVENT_TEACHER_ADD_SUBJECT= 262;
+    public static final int EVENT_TEACHER_UI_ADD_SUBJECT = 263;
+    public static final int EVENT_TEACHER_UI_NOT_ADD_SUBJECT = 264;
+
+
 
 }

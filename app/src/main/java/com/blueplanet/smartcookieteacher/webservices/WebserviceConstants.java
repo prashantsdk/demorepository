@@ -74,6 +74,9 @@ public class WebserviceConstants {
     public static final String PURCHASEWATERPOINTS = "purchase_water_point_student.php";
     public static final String TEACHER_DISPLAY_SUBJECT_WEB_SERVICE = "display_school_subject_for_teacher.php";
     public static final String TEACHER_UPDATE_PROFILE = "update_teacher_profile_webservice.php";
+    public static final String TEACHER_ADD_SUBJECT = "make_coordinator.php";
+
+
 
 
 
@@ -624,6 +627,16 @@ public class WebserviceConstants {
 
    /* User_Meid=3454
     key= member-id*/
+
+    // ip for add subject
+
+    public static final String ADD_SUBJECT_SUBJECT_NAME= "subject";
+
+    public static final String ADD_SUBJECT_CODE= "Subject_Code";
+    public static final String ADD_SUBJECT_SEMESTER_ID= "Semester_id";
+    public static final String ADD_SUBJECT_COURSE_LEVEL= "Course_Level_PID";
+
+    public static final String ADD_SUBJECT_SUBJECT_YEAR= "year";
 
 
 }

@@ -8,7 +8,6 @@ import com.blueplanet.smartcookieteacher.communication.ErrorInfo;
 import com.blueplanet.smartcookieteacher.communication.HTTPConstants;
 import com.blueplanet.smartcookieteacher.communication.ServerResponse;
 import com.blueplanet.smartcookieteacher.communication.SmartCookieTeacherService;
-import com.blueplanet.smartcookieteacher.models.RewardPointLog;
 import com.blueplanet.smartcookieteacher.models.SubNameCode;
 import com.blueplanet.smartcookieteacher.notification.EventNotifier;
 import com.blueplanet.smartcookieteacher.notification.EventTypes;
@@ -21,15 +20,23 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 /**
- * Created by 1311 on 05-07-2016.
+ * Created by Sayali on 5/21/2017.
  */
-public class Add_subList extends SmartCookieTeacherService {
-    private String _t_id, _studentId, stdPRN;
+public class AddSubjectTeacher extends SmartCookieTeacherService {
 
-    public Add_subList(String t_id, String studentId, String std_prn) {
+
+    private String _t_id, _studentId, _subName, _subcode, _subsemesterid, _subcourselevel,_subyear;
+
+    public AddSubjectTeacher(String t_id, String studentId, String subName, String subcode, String subsemesterid, String subcourselevel, String subyear) {
+
+
         _t_id = t_id;
         _studentId = studentId;
-        stdPRN = std_prn;
+        _subName = subName;
+        _subcode = subcode;
+        _subsemesterid = subsemesterid;
+        _subcourselevel = subcourselevel;
+        _subyear = subyear;
 
 
     }
@@ -40,16 +47,24 @@ public class Add_subList extends SmartCookieTeacherService {
     @Override
     protected String formRequest() {
         return WebserviceConstants.HTTP_BASE_URL +
-                WebserviceConstants.BASE_URL + WebserviceConstants.SUBWEBSERVICE;
+                WebserviceConstants.BASE_URL + WebserviceConstants.TEACHER_ADD_SUBJECT;
     }
 
     @Override
     protected JSONObject formRequestBody() {
         JSONObject requestBody = new JSONObject();
         try {
+
+
             requestBody.put(WebserviceConstants.KEY_TID, _t_id);
             requestBody.put(WebserviceConstants.KEY_SCHOOLID, _studentId);
-            requestBody.put(WebserviceConstants.SELEPRN, stdPRN);
+            requestBody.put(WebserviceConstants.ADD_SUBJECT_SUBJECT_NAME, _subName);
+            requestBody.put(WebserviceConstants.ADD_SUBJECT_CODE, _subcode);
+            requestBody.put(WebserviceConstants.ADD_SUBJECT_SEMESTER_ID, _subsemesterid);
+            requestBody.put(WebserviceConstants.ADD_SUBJECT_COURSE_LEVEL, _subcourselevel);
+            requestBody.put(WebserviceConstants.ADD_SUBJECT_SUBJECT_YEAR, _subyear);
+
+
         } catch (JSONException e) {
             e.printStackTrace();
         } catch (Exception ex) {
@@ -72,7 +87,6 @@ public class Add_subList extends SmartCookieTeacherService {
         ArrayList<SubNameCode> subNameCodelist = new ArrayList<>();
         try {
             objResponseJSON = new JSONObject(responseJSONString);
-
             statusCode = objResponseJSON.getInt(WebserviceConstants.KEY_STATUS_CODE);
             statusMessage =
                     objResponseJSON.getString(WebserviceConstants.KEY_STATUS_MESSAGE);
@@ -82,15 +96,8 @@ public class Add_subList extends SmartCookieTeacherService {
                 JSONArray responseData = objResponseJSON.optJSONArray(WebserviceConstants.KEY_POSTS);
                 for (int i = 0; i < responseData.length(); i++) {
                     JSONObject jsonObject = responseData.optJSONObject(i);
-                    String subname = jsonObject.optString(WebserviceConstants.SUBNAME);
-                    String subcode = jsonObject.optString(WebserviceConstants.SUBCODE);
-
-
-                    _namesub = new SubNameCode(subname, subcode);
-                    subNameCodelist.add(_namesub);
-
                 }
-                responseObject = new ServerResponse(errorCode, subNameCodelist);
+                responseObject = new ServerResponse(errorCode, null);
 
             } else {
                 // failure
@@ -120,7 +127,6 @@ public class Add_subList extends SmartCookieTeacherService {
 
         EventNotifier notifier =
                 NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_TEACHER);
-        notifier.eventNotify(EventTypes.EVENT_SUBJECT, eventObject);
+        notifier.eventNotify(EventTypes.EVENT_TEACHER_ADD_SUBJECT, eventObject);
     }
 }
-

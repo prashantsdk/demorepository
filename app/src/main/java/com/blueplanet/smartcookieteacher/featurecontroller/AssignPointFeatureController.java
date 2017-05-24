@@ -38,6 +38,17 @@ public class AssignPointFeatureController implements IEventListener {
 
     private String _emailID = null;
 
+    public String get_selectColor() {
+        return _selectColor;
+    }
+
+    public void set_selectColor(String _selectColor) {
+        this._selectColor = _selectColor;
+    }
+
+    private String _selectColor = null;
+
+
     public String get_grade() {
         return _grade;
     }
@@ -105,13 +116,13 @@ public class AssignPointFeatureController implements IEventListener {
      * @param tID,scID,stPRN,methodID,activityID,subjectID,rewardValue,date
      */
     public void getSubmitPointFromServer(String tID, String scID, String stPRN, String methodID, String activityID, String subjectID, String rewardValue,
-                                         String date) {
+                                         String date,String pointtype) {
 
         EventNotifier eventNotifier =
                 NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_TEACHER);
         eventNotifier.registerListener(this, ListenerPriority.PRIORITY_MEDIUM);
 
-        GetAssignPoint getAssignPoint = new GetAssignPoint(tID, scID, stPRN, methodID, activityID, subjectID, rewardValue, date);
+        GetAssignPoint getAssignPoint = new GetAssignPoint(tID, scID, stPRN, methodID, activityID, subjectID, rewardValue, date,pointtype);
         getAssignPoint.send();
 
 

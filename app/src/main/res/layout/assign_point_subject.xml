@@ -150,10 +150,47 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/re3"
+                android:id="@+id/recolor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/RelativeLayout1"
+                android:visibility="visible">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Method :"
+
+                    android:textColor="#000000"
+                    android:textSize="20dp" />
+
+                <RelativeLayout
+                    android:id="@+id/gsrcolor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="110dp"
+                    android:layout_marginRight="35dp"
+                    android:layout_marginTop="11dp"
+                    android:background="@drawable/oval_white_background_transparant">
+
+                    <Spinner
+
+                        android:id="@+id/spinnercolor"
+                        android:layout_width="match_parent"
+                        android:layout_height="45sp"
+                        android:layout_gravity="center_horizontal"
+
+                        android:visibility="visible" />
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/re3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/recolor"
                 android:visibility="visible">
 
                 <TextView
@@ -251,7 +288,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/re3"
-                android:visibility="gone">
+                android:layout_marginTop="50dp"
+                android:visibility="visible">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -343,6 +381,8 @@
 
 
             </LinearLayout>
+
+
 
             <RelativeLayout
                 android:id="@+id/relay5"

@@ -95,8 +95,9 @@ public class DisplayTeacherSubject  extends SmartCookieTeacherService {
                     String code= jsonObject.optString(WebserviceConstants.KEY_TEACHER_SUBJECT_CODE);
                     String  semesterid= jsonObject.optString(WebserviceConstants.KEY_TEACHER_SUBJECT_SEMESTER_ID);
                     String courselevel = jsonObject.optString(WebserviceConstants.KEY_TEACHER_SUBJECT_COURSE_LEVEL);
+                    String year = jsonObject.optString(WebserviceConstants.KEY_TEACHER_SUBJECT_YEAR);
 
-                    _subModel = new DisplayTeacSubjectModel(name, code, semesterid, courselevel);
+                    _subModel = new DisplayTeacSubjectModel(name, code, semesterid, courselevel,year);
 
                         if (DisplaySubjectFeatureController.getInstance().getSearchedTeacher() == null) {
                             subList.add(_subModel);

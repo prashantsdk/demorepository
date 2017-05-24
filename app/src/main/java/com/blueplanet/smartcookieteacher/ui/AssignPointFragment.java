@@ -57,7 +57,8 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
     private Teacher _teacher;
     String[] userOption = {"Judgement", "Marks", "Grade", "Percentile"};
     String[] numberOptn = {"A", "B", "C", "D"};
-    private Spinner spinner, spinner1;
+    String[] spinnerColor = {"Greenpoint", "Sponser", "Waterpoint"};
+    private Spinner spinner, spinner1,spinnercolr;
     private LinearLayout ll_issue, ll_issue1, ll_issue3, ll_gradePoint,ll_markPoint;
     private RelativeLayout ll_issue2;
     private String selState, str;
@@ -77,6 +78,11 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
         ArrayAdapter phone = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item, numberOptn);
         phone.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner1.setAdapter(phone);
+
+
+        ArrayAdapter color = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item, spinnerColor);
+        phone.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnercolr.setAdapter(color);
 
         hideSoftKeyboard();
         _assignPointFragmentController = new AssignPointFragmentController(this, _view);
@@ -109,6 +115,7 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
         _txt_teacherName = (TextView) _view.findViewById(R.id.teacherName);
         spinner = (Spinner) _view.findViewById(R.id.spinner);
         spinner1 = (Spinner) _view.findViewById(R.id.spinner2);
+        spinnercolr = (Spinner) _view.findViewById(R.id.spinnercolor);
 
         ll_issue = (LinearLayout) _view.findViewById(R.id.ll_issue);
         ll_issue1 = (LinearLayout) _view.findViewById(R.id.ll_issue1);
@@ -135,6 +142,7 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
         _btnSubmit.setOnClickListener(_assignPointFragmentController);
         spinner.setOnItemSelectedListener(this);
         spinner1.setOnItemSelectedListener(this);
+        spinnercolr.setOnItemSelectedListener(this);
     }
 
     private void _setSeletedStudentOnGallery() {
@@ -435,6 +443,19 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
         }
     }
 
+
+    public void showTypeColor(int position) {
+        spinnercolr.setSelection(position);
+        spinnercolr.setSelection(position);
+        selState = spinnercolr.getSelectedItem().toString();
+
+        AssignPointFeatureController.getInstance().set_selectColor(selState);
+
+
+        Log.i(_TAG, "In selected item" + selState);
+
+    }
+
     /*  @Override
       public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
           this.showType(position);
@@ -453,6 +474,9 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
                 break;
             case R.id.spinner2:
                 this.showTypeGrade(position);
+                break;
+            case R.id.spinnercolor:
+                this.showTypeColor(position);
                 break;
             default:
                 break;

@@ -491,10 +491,10 @@ public class AssignPointConSubject implements View.OnClickListener, IEventListen
         EventNotifier eventNotifier =
                 NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_TEACHER);
         eventNotifier.registerListener(this, ListenerPriority.PRIORITY_MEDIUM);
-
+String dd="pointtype";
         _registerNetworkListeners();
         AssignPointFeatureController.getInstance().getSubmitPointFromServer(teacherId, schoolId, stPRN, methodId, activityId,
-                subjectId, rewardValue, date);
+                subjectId, rewardValue, date,dd);
     }
 
 

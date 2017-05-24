@@ -92,6 +92,7 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
         _initUI();
         _loginFragmentController = new LoginFragmentController(this, _view);
 
+
         // create class object
         gps = new GPSTracker(getActivity());
 

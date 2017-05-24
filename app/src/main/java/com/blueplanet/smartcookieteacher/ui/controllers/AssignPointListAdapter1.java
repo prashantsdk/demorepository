@@ -33,6 +33,7 @@ public class AssignPointListAdapter1 extends BaseAdapter {
     private final String _TAG = this.getClass().getSimpleName();
     private RadioButton _textView[];
     private RadioGroup _radioGrup;
+
     private boolean[] itemChecked;
 
 

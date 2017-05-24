@@ -60,6 +60,7 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
     //private AssignPointListAdapter _adapter = null;
     private AssignPointListAdapter1 _adapter = null;
     private AssignPointSubjectAdapter _subAdapter;
+    private AssignPointSubjectAdapter1 _subadapter;
     private SeekBar seekpointsbar;
     private CustomTextView txtseekPoint;
     private int Seekvalue;
@@ -76,7 +77,7 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
     private ArrayList<SubNameCode> _subNameCodeList;
     String prn;
     String countrycode = "", logintype = "";
-    private Spinner spinner, spinner1;
+    private Spinner spinner, spinner1,spinnercolr;
 
     private TextView txt_point;
     private EditText txt_mark;
@@ -91,6 +92,7 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
         _view = view;
         spinner = (Spinner) _view.findViewById(R.id.spinner);
         spinner1 = (Spinner) _view.findViewById(R.id.spinner2);
+        spinnercolr = (Spinner) _view.findViewById(R.id.spinnercolor);
 
         txt_point = (TextView) _view.findViewById(R.id.txt_point);
         txt_mark=(EditText)_view.findViewById(R.id.txt_point1);
@@ -265,6 +267,7 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
                             _schoolId = _teacher.get_tSchool_id();
 
 
+
                           //  selprn = AssignPointFeatureController.getInstance().get_selectedPrn();
                             Student s=AssignPointFeatureController.getInstance().get_selectedStudent();
                             String prn=s.get_stdPRN();
@@ -346,6 +349,7 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
                             String date = getDate();
                             Log.i(_TAG, "Value of date is: " + date);
                             String grade = spinner1.getSelectedItem().toString();
+                            String pointtype=spinnercolr.getSelectedItem().toString();
                             logintype = spinner.getSelectedItem().toString();
                             String rewardValue = txt_point.getText().toString();
                             int rewardValue1 = Integer.parseInt(txt_mark.getText().toString());
@@ -358,7 +362,7 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
 
 
                                 _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
-                                        activityId, selectedSubjectId, rewardValue, date);
+                                        activityId, selectedSubjectId, rewardValue, date,pointtype);
                                 clearActivityList();
                             } else if (logintype.equals(WebserviceConstants.VAL_USER_TYPE_MARK)) {
 
@@ -368,7 +372,7 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
                                     txtMark.setText(hh);
                                     methodID = "2";
                                     _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
-                                            activityId, selectedSubjectId, String.valueOf(rewardValue1), date);
+                                            activityId, selectedSubjectId, String.valueOf(rewardValue1), date,pointtype);
                                     clearActivityList();
                                 }
 
@@ -381,7 +385,7 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
                                     methodID = "3";
                                     String rewardValue3 = "A";
                                     _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
-                                            activityId, selectedSubjectId, rewardValue3, date);
+                                            activityId, selectedSubjectId, rewardValue3, date,pointtype);
                                     clearActivityList();
 
 
@@ -389,27 +393,27 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
                                     methodID = "3";
                                     String rewardValue3 = "B";
                                     _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
-                                            activityId, selectedSubjectId, rewardValue3, date);
+                                            activityId, selectedSubjectId, rewardValue3, date,pointtype);
                                     clearActivityList();
 
                                 } else if (grade.equals(WebserviceConstants.VAL_USER_TYPE_GRADE_C)) {
                                     methodID = "3";
                                     String rewardValue3 = "C";
                                     _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
-                                            activityId, selectedSubjectId, rewardValue3, date);
+                                            activityId, selectedSubjectId, rewardValue3, date,pointtype);
                                     clearActivityList();
                                 } else if (grade.equals(WebserviceConstants.VAL_USER_TYPE_GRADE_D)) {
                                     methodID = "3";
                                     String rewardValue3 = "D";
                                     _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
-                                            activityId, selectedSubjectId, rewardValue3, date);
+                                            activityId, selectedSubjectId, rewardValue3, date,pointtype);
                                     clearActivityList();
                                 }
 
                             } else if (logintype.equals(WebserviceConstants.VAL_USER_TYPE_PERSENTILE)) {
                                 methodID = "4";
                                 _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
-                                        activityId, selectedSubjectId, rewardValue2, date);
+                                        activityId, selectedSubjectId, rewardValue2, date,pointtype);
                                 clearActivityList();
 
                             }else{
@@ -421,7 +425,7 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
                     else {
                         if (student != null && !(TextUtils.isEmpty(selectedActivityId))
                                 ) {
-
+                            String pointtype=spinnercolr.getSelectedItem().toString();
 
                             String prnNO = student.get_stdPRN();
 
@@ -450,7 +454,7 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
 
 
                                     _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
-                                            selectedActivityId, subjectId, rewardValue, date);
+                                            selectedActivityId, subjectId, rewardValue, date,pointtype);
                                     clearActivityList();
                                 }else {
                                     Toast.makeText(_assignPointFragment.getActivity().getApplicationContext(),
@@ -463,7 +467,7 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
                                 methodID="2";
                                 if(selectedActivityId !=null && rewardValue1 !=null) {
                                     _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
-                                            selectedActivityId, subjectId, rewardValue1, date);
+                                            selectedActivityId, subjectId, rewardValue1, date,pointtype);
                                     clearActivityList();
                                 }else {
                                     Toast.makeText(_assignPointFragment.getActivity().getApplicationContext(),
@@ -480,7 +484,7 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
                                         methodID = "3";
                                         String rewardValue3 = "A";
                                         _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
-                                                selectedActivityId, subjectId, rewardValue3, date);
+                                                selectedActivityId, subjectId, rewardValue3, date,pointtype);
                                         clearActivityList();
                                     }else {
                                         Toast.makeText(_assignPointFragment.getActivity().getApplicationContext(),
@@ -494,7 +498,7 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
                                     if(selectedActivityId !=null && rewardValue1 !=null) {
                                         String rewardValue3 = "B";
                                         _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
-                                                selectedActivityId, subjectId, rewardValue3, date);
+                                                selectedActivityId, subjectId, rewardValue3, date,pointtype);
                                         clearActivityList();
                                     }else {
                                         Toast.makeText(_assignPointFragment.getActivity().getApplicationContext(),
@@ -509,7 +513,7 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
                                     if(selectedActivityId !=null && rewardValue1 !=null) {
                                         String rewardValue3 = "C";
                                         _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
-                                                selectedActivityId, subjectId, rewardValue3, date);
+                                                selectedActivityId, subjectId, rewardValue3, date,pointtype);
                                         clearActivityList();
                                     }else {
                                         Toast.makeText(_assignPointFragment.getActivity().getApplicationContext(),
@@ -524,7 +528,7 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
                                     if(selectedActivityId !=null && rewardValue1 !=null) {
                                         String rewardValue3 = "D";
                                         _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
-                                                selectedActivityId, subjectId, rewardValue3, date);
+                                                selectedActivityId, subjectId, rewardValue3, date,pointtype);
                                         clearActivityList();
                                     }else {
                                         Toast.makeText(_assignPointFragment.getActivity().getApplicationContext(),
@@ -538,7 +542,7 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
                                 methodID="4";
                                 if(selectedActivityId !=null && rewardValue1 !=null) {
                                     _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
-                                            selectedActivityId, subjectId, rewardValue2, date);
+                                            selectedActivityId, subjectId, rewardValue2, date,pointtype);
                                     clearActivityList();
                                 }else {
                                     Toast.makeText(_assignPointFragment.getActivity().getApplicationContext(),
@@ -601,7 +605,7 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
      * @param schoolId,teacherId,stPRN,methodId,activityId,subjectId,rewardValue,date
      */
     private void _fetchSubmitPointFromServer(String teacherId, String schoolId, String stPRN, String methodId, String activityId, String subjectId,
-                                             String rewardValue, String date) {
+                                             String rewardValue, String date,String pointtype) {
 
         EventNotifier eventNotifier =
                 NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_TEACHER);
@@ -609,7 +613,7 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
 
         _registerNetworkListeners();
         AssignPointFeatureController.getInstance().getSubmitPointFromServer(teacherId, schoolId, stPRN, methodId, activityId,
-                subjectId, rewardValue, date);
+                subjectId, rewardValue, date,pointtype);
     }
 
 

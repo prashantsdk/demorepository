@@ -125,7 +125,7 @@ public class DisplaySujectAdapter extends BaseAdapter implements Filterable,IEve
         holder.txtmypoints.setText(subjectModel.get_subcode());
         holder.txtsemes.setText(subjectModel.get_subsemesterid());
         holder.txtcourse.setText(subjectModel.get_subCoursename());
-       // holder.txtyear.setText(subjectModel.get());
+       holder.txtyear.setText(subjectModel.get_subyear());
         holder._btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -136,6 +136,7 @@ public class DisplaySujectAdapter extends BaseAdapter implements Filterable,IEve
                 _subCode = subjectModel.get_subcode();
                 subsemesterid = subjectModel.get_subsemesterid();
                 subcourse = subjectModel.get_subCoursename();
+                subyear=subjectModel.get_subyear();
                 AddSubjectFeatureController.getInstance().GetAddSubjectFeatureController(_teacherId, _schoolId,
                         _subName,  _subCode,  subsemesterid,  subcourse,  subyear);
 

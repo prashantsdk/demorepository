@@ -26,11 +26,12 @@ public class WebserviceConstants {
     // public static final String BASE_URL = "tsmartcookies.bpsi.us/Version2/";
 
     public static String BASE_URL = "smartcookie.in/core/Version2/";
-    public static String BASE_URL1 = "tsmartcookies.bpsi.us/core/Version2/";
+   // public static String BASE_URL1 = "tsmartcookies.bpsi.us/core/Version2/";
+    public static String BASE_URL1 = "devsmart.bpsi.us/core/Version2/";
     public static String BASE_URL2 = "smartcookie.in/core/Version2/";
 
-    //  public static final String IMAGE_BASE_URL = "http://tsmartcookies.bpsi.us/";
-    public static final String IMAGE_BASE_URL = "http://smartcookie.bpsi.us/core/";
+      public static final String IMAGE_BASE_URL = "http://tsmartcookies.bpsi.us/";
+
 
 
     //public static final String TEACHER_LOGIN = "login_teacher.php";
@@ -239,6 +240,8 @@ public class WebserviceConstants {
     public static final String KEY_SUBJECT_IDI = "subject_id";
     public static final String KEY_REWARD_VALUE = "reward_value";
     public static final String KEY_USER_DATE = "User_date";
+    public static final String KEY_USER_POINT_TYPE = "point_type";
+
     /**
      * constants for TEACHER_ACTIVITY
      */
@@ -590,6 +593,7 @@ public class WebserviceConstants {
     public static final String KEY_TEACHER_SUBJECT_CODE = "Subject_Code";
     public static final String KEY_TEACHER_SUBJECT_SEMESTER_ID = "Semester_id";
     public static final String KEY_TEACHER_SUBJECT_COURSE_LEVEL = "Course_Level_PID";
+    public static final String KEY_TEACHER_SUBJECT_YEAR = "Year";
 
 
 //update profile

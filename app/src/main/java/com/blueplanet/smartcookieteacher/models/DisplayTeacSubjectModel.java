@@ -9,13 +9,15 @@ public class DisplayTeacSubjectModel {
     private String _subcode = null;
     private String _subsemesterid = null;
     private String _subCoursename = null;
+    private String _subyear = null;
 
-    public DisplayTeacSubjectModel(String subname,String subcode,String subsemesterid,String subCoursename){
+    public DisplayTeacSubjectModel(String subname,String subcode,String subsemesterid,String subCoursename,String subyear){
 
         _subname=subname;
         _subcode=subcode;
         _subsemesterid=subsemesterid;
         _subCoursename=subCoursename;
+        _subyear=subyear;
     }
 
     public String get_subname() {
@@ -32,5 +34,9 @@ public class DisplayTeacSubjectModel {
 
     public String get_subsemesterid() {
         return _subsemesterid;
+    }
+
+    public String get_subyear() {
+        return _subyear;
     }
 }

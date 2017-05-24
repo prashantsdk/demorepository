@@ -46,8 +46,6 @@ public class RegistrationFragment extends Fragment {
         _edtEmail = (CustomEditText) _view.findViewById(R.id.edt_emailId);
         _edtPassword = (CustomEditText) _view.findViewById(R.id.edt_password);
         edtplone = (CustomEditText) _view.findViewById(R.id.edtPhone);
-
-
         _btnRegister = (CustomButton) _view.findViewById(R.id.btn_register);
         _rlProgressbar = (RelativeLayout) _view
                 .findViewById(R.id.rl_progressBar);

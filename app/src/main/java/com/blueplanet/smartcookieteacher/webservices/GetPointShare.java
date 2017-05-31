@@ -26,15 +26,16 @@ import java.util.ArrayList;
 public class GetPointShare extends SmartCookieTeacherService {
 
 
-    private String _reason, _point,_t_id,_tid2,_studentId;
+    private String _reason, _point,_t_id,_tid2,_studentId,_pointtype;
     private final String _TAG = this.getClass().getSimpleName();
 
-    public GetPointShare(String t_id,String tid2, String point,String reason, String studentId) {
+    public GetPointShare(String t_id,String tid2, String point,String reason, String studentId,String pointtype) {
         _t_id=t_id;
         _tid2=tid2;
         _point = point;
         _reason = reason;
         _studentId=studentId;
+        _pointtype=pointtype;
 
     }
     @Override
@@ -54,6 +55,9 @@ public class GetPointShare extends SmartCookieTeacherService {
             requestBody.put(WebserviceConstants.KEY_POINTS_BLUE, _point);
             requestBody.put(WebserviceConstants.POINTS_REASON, _reason);
             requestBody.put(WebserviceConstants.KEY_SCHOOLID, _studentId);
+            requestBody.put(WebserviceConstants.POINTS_TYPECOLOR, _pointtype);
+
+
 
         } catch (JSONException e) {
             e.printStackTrace();

@@ -59,6 +59,7 @@ public class GenCoupLogAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
             LayoutInflater inflatorInflater = (LayoutInflater) MainApplication
+
                     .getContext().getSystemService(
                             Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflatorInflater.inflate(R.layout.gen_coup_log_item, null
@@ -77,7 +78,6 @@ public class GenCoupLogAdapter extends BaseAdapter {
                 txtIsshu = (TextView) convertView
                         .findViewById(R.id.txt_issue_Date);
                 txtIsshu.setText(couLog.get(position).get_gencoupon_issue_date());
-
 
                 _txtValidity = (TextView) convertView.findViewById(R.id.txtValidity_Date);
                 _txtValidity.setText(couLog.get(position).get_generate_validity_date());

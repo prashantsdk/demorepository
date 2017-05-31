@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,6 +46,8 @@ public class PointShareFragmentController implements IEventListener,View.OnClick
     private String _teacherId, _schoolId,tid2;
     private Teacher _teacher;
     private ShairPointModel _sharePoint;
+    private Spinner spinner, spinner1,spinnercolr;
+    String logintype;
 
 
     /**
@@ -57,6 +60,7 @@ public class PointShareFragmentController implements IEventListener,View.OnClick
 
         _fragment = fragment;
         _view = view;
+        spinner = (Spinner) _view.findViewById(R.id.spinner);
         etxtpoints = (EditText) _view.findViewById(R.id.etxtpoints);
         imgclearpoints = (ImageView) _view.findViewById(R.id.imgclearpoints);
         _teacher = LoginFeatureController.getInstance().getTeacher();
@@ -96,11 +100,11 @@ public class PointShareFragmentController implements IEventListener,View.OnClick
         eventNetwork.unRegisterListener(this);
     }
 
-    private void _pointShare(String tid, String tid2,String reason,String point,String stid) {
+    private void _pointShare(String tid, String tid2,String reason,String point,String stid,String pointtype) {
         _registerEventListeners();
         _registerNetworkListeners();
        // _fragment.showOrHideProgressBar(true);
-        PointShareFeatureController.getInstance().FetchPointSharePoints(tid, tid2,point,reason,stid);
+        PointShareFeatureController.getInstance().FetchPointSharePoints(tid, tid2,point,reason,stid,pointtype);
     }
     private void _forgetpassward(String entity, String email) {
         _registerEventListeners();
@@ -117,8 +121,6 @@ public class PointShareFragmentController implements IEventListener,View.OnClick
             _fragment = null;
         }
     }
-
-
 
 
     @Override
@@ -140,13 +142,14 @@ public class PointShareFragmentController implements IEventListener,View.OnClick
 
                     String points = etpoint.getText().toString();
                     String reason = edtreasons.getText().toString();
+                    logintype = spinner.getSelectedItem().toString();
 
                     if (_teacher != null && _sharePoint !=null && !TextUtils.isEmpty(points) && !TextUtils.isEmpty(reason)) {
                         _teacherId = _teacher.get_tId();
                         _schoolId = _teacher.get_tSchool_id();
                         tid2=_sharePoint.get_teacherid();
 
-                        _pointShare(_teacherId,tid2,points,reason,_schoolId);
+                        _pointShare(_teacherId,tid2,points,reason,_schoolId,logintype);
 
                         }
                     else if (TextUtils.isEmpty(points) && TextUtils.isEmpty(reason)) {

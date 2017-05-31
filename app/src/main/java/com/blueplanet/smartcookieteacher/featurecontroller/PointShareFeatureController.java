@@ -23,6 +23,17 @@ public class PointShareFeatureController implements IEventListener {
 
     private static PointShareFeatureController _pointShareFeatureController = null;
 
+    public String get_selectColor() {
+        return _selectColor;
+    }
+
+    public void set_selectColor(String _selectColor) {
+        this._selectColor = _selectColor;
+    }
+
+    private String _selectColor = null;
+
+
 
     /**
      * function to get single instance of this class
@@ -41,13 +52,13 @@ public class PointShareFeatureController implements IEventListener {
      *
      *
      */
-    public void FetchPointSharePoints(String tID,String tid2, String point,String reason,String scID) {
+    public void FetchPointSharePoints(String tID,String tid2, String point,String reason,String scID,String pointtype) {
 
         EventNotifier eventNotifier =
                 NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_TEACHER);
         eventNotifier.registerListener(this, ListenerPriority.PRIORITY_MEDIUM);
 
-        GetPointShare pointshare = new GetPointShare(tID,tid2,point,reason,scID);
+        GetPointShare pointshare = new GetPointShare(tID,tid2,point,reason,scID,pointtype);
         pointshare.send();
 
     }

@@ -25,7 +25,7 @@ import java.util.ArrayList;
  */
 public class GetGenerateCoupon extends SmartCookieTeacherService {
 
-    private String _t_id, _couPoint;
+    private String _t_id, _couPoint,_option;
     private int _inputId = -1;
     private final String _TAG = this.getClass().getSimpleName();
 
@@ -35,9 +35,10 @@ public class GetGenerateCoupon extends SmartCookieTeacherService {
      *
      * @param tid,schoolid
      */
-    public GetGenerateCoupon(String tid, String couPoint) {
+    public GetGenerateCoupon(String tid, String couPoint,String option) {
         _t_id = tid;
         _couPoint = couPoint;
+        _option=option;
 
     }
 
@@ -54,6 +55,8 @@ public class GetGenerateCoupon extends SmartCookieTeacherService {
         try {
             requestBody.put(WebserviceConstants.KEY_TID, _t_id);
             requestBody.put(WebserviceConstants.KEY_COUPON_POINT, _couPoint);
+            requestBody.put(WebserviceConstants.KEY_COUPON_OPTION, _option);
+
 
 
         } catch (JSONException e) {

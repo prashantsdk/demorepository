@@ -36,7 +36,6 @@ public class UpdateGCM extends SmartCookieTeacherService {
         this.Stud_GCM_id = Stud_GCM_id;
 
 
-
     }
 
     @Override

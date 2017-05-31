@@ -8,20 +8,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.blueplanet.smartcookieteacher.R;
 import com.blueplanet.smartcookieteacher.customcomponents.CustomEditText;
 import com.blueplanet.smartcookieteacher.customcomponents.CustomTextView;
+import com.blueplanet.smartcookieteacher.featurecontroller.AssignPointFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.DashboardFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.LoginFeatureController;
+import com.blueplanet.smartcookieteacher.featurecontroller.PointShareFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.SharePointFeatureController;
 import com.blueplanet.smartcookieteacher.models.ShairPointModel;
 import com.blueplanet.smartcookieteacher.models.Teacher;
@@ -40,23 +45,28 @@ import static android.view.View.VISIBLE;
 /**
  * Created by 1311 on 03-08-2016.
  */
-public class PointShareFragment extends Fragment {
+public class PointShareFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
     private View _view;
 
     private PointShareFragmentController _fragmentcontroller = null;
-private TextView _txttID2,txttID1,txtschoolName,txtbluePoint;
+    private TextView _txttID2, txttID1, txtschoolName, txtbluePoint;
     private ShairPointModel _sharePoint;
     private Button _btnshare;
     private Teacher _teacher;
     private TeacherDashbordPoint _teacherDashbordPoint;
+    private Spinner spinner, spinner1, spinnercolr;
+    String[] userOption = {"Bluepoint", "Waterpoint"};
+    private String selState, str;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         _view = inflater.inflate(R.layout.share_point_layout, null);
         _initUI();
         _fragmentcontroller = new PointShareFragmentController(this, _view);
-
+        ArrayAdapter aa = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item, userOption);
+        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(aa);
         _registerUIListeners();
         setbluepointDataOnUI();
         _setTeacherDetailsOnUI();
@@ -70,9 +80,8 @@ private TextView _txttID2,txttID1,txtschoolName,txtbluePoint;
 
 
     private void _initUI() {
-
-
         _btnshare = (Button) _view.findViewById(R.id.btn_share);
+        spinner = (Spinner) _view.findViewById(R.id.spinner);
     }
 
 
@@ -80,11 +89,12 @@ private TextView _txttID2,txttID1,txtschoolName,txtbluePoint;
      * function to register UI Listeners
      */
     private void _registerUIListeners() {
-        txttID1= (TextView) _view.findViewById(R.id.teacherName);
-        _txttID2= (TextView) _view.findViewById(R.id.tID2);
+        txttID1 = (TextView) _view.findViewById(R.id.teacherName);
+        _txttID2 = (TextView) _view.findViewById(R.id.tID2);
         txtschoolName = (TextView) _view.findViewById(R.id.txt_scname);
         txtbluePoint = (TextView) _view.findViewById(R.id.txt_balbluepoint);
         _btnshare.setOnClickListener(_fragmentcontroller);
+        spinner.setOnItemSelectedListener(this);
 
     }
 
@@ -123,13 +133,13 @@ private TextView _txttID2,txttID1,txtschoolName,txtbluePoint;
                     txtbluePoint.setText(_sharePoint.get_teacherbluePoint());
 
 
-
                 }
             });
 
         }
 
     }
+
     public void showNotEnoughPoint() {
         getActivity().runOnUiThread(new Runnable() {
             @Override
@@ -142,6 +152,7 @@ private TextView _txttID2,txttID1,txtschoolName,txtbluePoint;
         });
 
     }
+
     private void _setTeacherDetailsOnUI() {
 
         _teacher = LoginFeatureController.getInstance().getTeacher();
@@ -191,9 +202,8 @@ private TextView _txttID2,txttID1,txtschoolName,txtbluePoint;
                 public void run() {
 
 
-                    String bluepoint = String.valueOf("My Balance Blue Points :"+_teacherDashbordPoint.get_bluepoint());
+                    String bluepoint = String.valueOf("My Balance Blue Points :" + _teacherDashbordPoint.get_bluepoint());
                     txttID1.setText(bluepoint);
-
 
 
                 }
@@ -224,4 +234,31 @@ private TextView _txttID2,txttID1,txtschoolName,txtbluePoint;
 
     }
 
+    public void showTypeColor(int position) {
+        spinner.setSelection(position);
+        spinner.setSelection(position);
+        selState = spinner.getSelectedItem().toString();
+
+        //   AssignPointFeatureController.getInstance().set_selectColor(selState);
+        PointShareFeatureController.getInstance().set_selectColor(selState);
+
+
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        switch (parent.getId()) {
+            case R.id.spinner:
+                this.showTypeColor(position);
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
 }

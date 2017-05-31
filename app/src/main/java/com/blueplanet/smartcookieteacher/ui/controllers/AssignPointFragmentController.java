@@ -77,13 +77,12 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
     private ArrayList<SubNameCode> _subNameCodeList;
     String prn;
     String countrycode = "", logintype = "";
-    private Spinner spinner, spinner1,spinnercolr;
+    private Spinner spinner, spinner1, spinnercolr;
 
     private TextView txt_point;
     private EditText txt_mark;
 
-    private EditText _txt_gradePoint,txt_point2,txtMark;
-
+    private EditText _txt_gradePoint, txt_point2, txtMark;
 
 
     public AssignPointFragmentController(AssignPointFragment assignPointFragment, View view) {
@@ -95,10 +94,10 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
         spinnercolr = (Spinner) _view.findViewById(R.id.spinnercolor);
 
         txt_point = (TextView) _view.findViewById(R.id.txt_point);
-        txt_mark=(EditText)_view.findViewById(R.id.txt_point1);
+        txt_mark = (EditText) _view.findViewById(R.id.txt_point1);
         _txt_gradePoint = (EditText) _view.findViewById(R.id.txt_gradePoint);
-        txtMark= (EditText) _view.findViewById(R.id.txt_markPoint);
-        txt_point2=(EditText)_view.findViewById(R.id.txt_point2);
+        txtMark = (EditText) _view.findViewById(R.id.txt_markPoint);
+        txt_point2 = (EditText) _view.findViewById(R.id.txt_point2);
         _studentList = StudentFeatureController.getInstance().getStudentList();
 
         _teacher = LoginFeatureController.getInstance().getTeacher();
@@ -106,22 +105,22 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
         _activityList = ActivityListFeatureController.getInstance().getActivitylistInfoFromDB(_activityType);
 
 
-       if (_teacher != null) {
+        if (_teacher != null) {
             _teacherId = _teacher.get_tId();
             _schoolId = _teacher.get_tSchool_id();
             String id = _teacher.get_tId();
             _fetchActivityListFromServer(_schoolId);
 
-                _teacherId = _teacher.get_tId();
-                _schoolId = _teacher.get_tSchool_id();
+            _teacherId = _teacher.get_tId();
+            _schoolId = _teacher.get_tSchool_id();
 
 
-                //  selprn = AssignPointFeatureController.getInstance().get_selectedPrn();
+            //  selprn = AssignPointFeatureController.getInstance().get_selectedPrn();
           /* Student s = StudentFeatureController.getInstance().getSelectedStudent();
            prn=s.get_stdPRN();
            subFeaturecontroller.getInstance().fetchSubjectFromServer(_teacherId, _schoolId,prn);*/
 
-            }
+        }
 
 
     }
@@ -276,14 +275,11 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
                         }*/
 
                         _subNameCodeList = subFeaturecontroller.getInstance().get_subjList();
-                        _subAdapter = new AssignPointSubjectAdapter(_assignPointFragment,
+                        _subadapter = new AssignPointSubjectAdapter1(_assignPointFragment,
                                 AssignPointFragmentController.this, _subNameCodeList);
 
-                        _lvActivities.setAdapter(_subAdapter);
+                        _lvActivities.setAdapter(_subadapter);
                         _lvActivities.setVisibility(View.VISIBLE);
-
-
-
 
 
                         // _lvActivities.setOnItemClickListener(AssignPointFragmentController.this);
@@ -322,59 +318,63 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
 
 
 
-                }*/
+              }*/
+
+                Student student = AssignPointFeatureController.getInstance().get_selectedStudent();
+                selectedActivityId = ActivityListFeatureController.getInstance().getSeletedActivityId();
+                ////selectedSubjectId = SubjectFeatureController.getInstance().get_seletedSubjectId();
+                selectedSubjectId = AssignPointFeatureController.getInstance().get_seletedSubjectId();
 
 
-                    Student student = AssignPointFeatureController.getInstance().get_selectedStudent();
-                    selectedActivityId = ActivityListFeatureController.getInstance().getSeletedActivityId();
-                    ////selectedSubjectId = SubjectFeatureController.getInstance().get_seletedSubjectId();
-                    selectedSubjectId = AssignPointFeatureController.getInstance().get_seletedSubjectId();
+                Log.i(_TAG, "Selected subject is : " + selectedSubjectId);
+                boolean isStudyClicked = AssignPointFeatureController.getInstance().isStudyClicked();
+
+                if (isStudyClicked == true) {
+                    if (student != null /*&& !(TextUtils.isEmpty(selectedSubjectId)*/
+                            )
+                    { if (selectedSubjectId !=null) {
+
+                        String prnNO = student.get_stdPRN();
+                        Log.i(_TAG, "Value of prn is: " + prnNO);
+                        String methodID = "1";
+                        String activityId = "";
+                        //  String rewardValue = _points;
+                        Log.i(_TAG, "Value of points is: " + _points);
+
+                        String date = getDate();
+                        Log.i(_TAG, "Value of date is: " + date);
+                        String grade = spinner1.getSelectedItem().toString();
+                        String pointtype = spinnercolr.getSelectedItem().toString();
+                        logintype = spinner.getSelectedItem().toString();
+                        String rewardValue = txt_point.getText().toString();
+                        String rewardValue1 = txt_mark.getText().toString();
+                        String rewardValue2 = txt_point2.getText().toString();
 
 
 
-                    Log.i(_TAG, "Selected subject is : " + selectedSubjectId);
-                    boolean isStudyClicked = AssignPointFeatureController.getInstance().isStudyClicked();
-
-                    if (isStudyClicked == true) {
-                        if (student != null && !(TextUtils.isEmpty(selectedSubjectId))
-                                ) {
-
-                            String prnNO = student.get_stdPRN();
-                            Log.i(_TAG, "Value of prn is: " + prnNO);
-                            String methodID = "1";
-                            String activityId = "";
-                          //  String rewardValue = _points;
-                            Log.i(_TAG, "Value of points is: " + _points);
-
-                            String date = getDate();
-                            Log.i(_TAG, "Value of date is: " + date);
-                            String grade = spinner1.getSelectedItem().toString();
-                            String pointtype=spinnercolr.getSelectedItem().toString();
-                            logintype = spinner.getSelectedItem().toString();
-                            String rewardValue = txt_point.getText().toString();
-                            int rewardValue1 = Integer.parseInt(txt_mark.getText().toString());
-                            String rewardValue2 = txt_point2.getText().toString();
+                        if (logintype.equals(WebserviceConstants.VAL_USER_TYPE_GUGMENT)) {
+                                if ( rewardValue != null) {
+                                    methodID = "1";
 
 
-                            if (logintype.equals(WebserviceConstants.VAL_USER_TYPE_GUGMENT )) {
+                                    _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
+                                            activityId, selectedSubjectId, rewardValue, date, pointtype);
+                                    clearActivityList();
+                                }else {
+                                    Toast.makeText(_assignPointFragment.getActivity().getApplicationContext(),
+                                            _assignPointFragment.getActivity().getString(R.string.select_activity),
+                                            Toast.LENGTH_LONG).show();
 
-                                methodID = "1";
-
-
-                                _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
-                                        activityId, selectedSubjectId, rewardValue, date,pointtype);
-                                clearActivityList();
+                                }
                             } else if (logintype.equals(WebserviceConstants.VAL_USER_TYPE_MARK)) {
 
-                                if(rewardValue1 >= 35 && rewardValue1 <= 45){
                                     //rewardValue1=Integer.parseInt("30");
-                                    String hh="30";
+                                    String hh = "30";
                                     txtMark.setText(hh);
                                     methodID = "2";
                                     _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
-                                            activityId, selectedSubjectId, String.valueOf(rewardValue1), date,pointtype);
+                                            activityId, selectedSubjectId, String.valueOf(rewardValue1), date, pointtype);
                                     clearActivityList();
-                                }
 
 
 
@@ -385,7 +385,7 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
                                     methodID = "3";
                                     String rewardValue3 = "A";
                                     _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
-                                            activityId, selectedSubjectId, rewardValue3, date,pointtype);
+                                            activityId, selectedSubjectId, rewardValue3, date, pointtype);
                                     clearActivityList();
 
 
@@ -393,170 +393,177 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
                                     methodID = "3";
                                     String rewardValue3 = "B";
                                     _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
-                                            activityId, selectedSubjectId, rewardValue3, date,pointtype);
+                                            activityId, selectedSubjectId, rewardValue3, date, pointtype);
                                     clearActivityList();
 
                                 } else if (grade.equals(WebserviceConstants.VAL_USER_TYPE_GRADE_C)) {
                                     methodID = "3";
                                     String rewardValue3 = "C";
                                     _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
-                                            activityId, selectedSubjectId, rewardValue3, date,pointtype);
+                                            activityId, selectedSubjectId, rewardValue3, date, pointtype);
                                     clearActivityList();
                                 } else if (grade.equals(WebserviceConstants.VAL_USER_TYPE_GRADE_D)) {
                                     methodID = "3";
                                     String rewardValue3 = "D";
                                     _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
-                                            activityId, selectedSubjectId, rewardValue3, date,pointtype);
+                                            activityId, selectedSubjectId, rewardValue3, date, pointtype);
                                     clearActivityList();
                                 }
 
                             } else if (logintype.equals(WebserviceConstants.VAL_USER_TYPE_PERSENTILE)) {
                                 methodID = "4";
                                 _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
-                                        activityId, selectedSubjectId, rewardValue2, date,pointtype);
+                                        activityId, selectedSubjectId, rewardValue2, date, pointtype);
                                 clearActivityList();
 
-                            }else{
+                            } else {
+
+
+                            }
+                        } else {
+                            Toast.makeText(_assignPointFragment.getActivity().getApplicationContext(),
+                                    _assignPointFragment.getActivity().getString(R.string.select_subject),
+                                    Toast.LENGTH_LONG).show();
+                        }
+
+                    }
+                } else {
+                    if (student != null
+                            ) {
+
+                        if(selectedActivityId !=null){
+                        String pointtype = spinnercolr.getSelectedItem().toString();
+
+                        String prnNO = student.get_stdPRN();
+
+                        Log.i(_TAG, "Value of prn is: " + prnNO);
+                        String methodID = "1";
+                        //String activityID = selectedActivityName;
+                        Log.i(_TAG, "Value of activity id is: " + selectedActivityId);
+                        String subjectId = "0";
+                        //String activityId = "0";
+                        // String rewardValue = _points;
+                        Log.i(_TAG, "Value of points is: " + _points);
+                        String date = getDate();
+                        Log.i(_TAG, "Value of date is: " + date);
+
+                        String grade = spinner1.getSelectedItem().toString();
+                        logintype = spinner.getSelectedItem().toString();
+                        String rewardValue = txt_point.getText().toString();
+                        String rewardValue1 = txt_mark.getText().toString();
+                        String rewardValue2 = txt_point2.getText().toString();
+
+
+                        if (logintype.equals(WebserviceConstants.VAL_USER_TYPE_GUGMENT)) {
+                            methodID = "1";
+                            if (selectedActivityId != null && rewardValue != null) {
+
+
+                                _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
+                                        selectedActivityId, subjectId, rewardValue, date, pointtype);
+                                clearActivityList();
+                            } else {
+                                Toast.makeText(_assignPointFragment.getActivity().getApplicationContext(),
+                                        _assignPointFragment.getActivity().getString(R.string.select_activity),
+                                        Toast.LENGTH_LONG).show();
+
+                            }
+                        } else if (logintype.equals(WebserviceConstants.VAL_USER_TYPE_MARK)) {
+
+                            methodID = "2";
+                            if (selectedActivityId != null && rewardValue1 != null) {
+                                _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
+                                        selectedActivityId, subjectId, rewardValue1, date, pointtype);
+                                clearActivityList();
+                            } else {
+                                Toast.makeText(_assignPointFragment.getActivity().getApplicationContext(),
+                                        _assignPointFragment.getActivity().getString(R.string.select_activity),
+                                        Toast.LENGTH_LONG).show();
 
                             }
 
-                        }}
+                        } else if (logintype.equals(WebserviceConstants.VAL_USER_TYPE_GRADE)) {
 
-                    else {
-                        if (student != null && !(TextUtils.isEmpty(selectedActivityId))
-                                ) {
-                            String pointtype=spinnercolr.getSelectedItem().toString();
+                            if (grade.equals(WebserviceConstants.VAL_USER_TYPE_GRADE_A)) {
+                                if (selectedActivityId != null && rewardValue1 != null) {
 
-                            String prnNO = student.get_stdPRN();
-
-                            Log.i(_TAG, "Value of prn is: " + prnNO);
-                            String methodID = "1";
-                            //String activityID = selectedActivityName;
-                            Log.i(_TAG, "Value of activity id is: " + selectedActivityId);
-                            String subjectId = "0";
-                            //String activityId = "0";
-                          // String rewardValue = _points;
-                            Log.i(_TAG, "Value of points is: " + _points);
-                            String date = getDate();
-                            Log.i(_TAG, "Value of date is: " + date);
-
-                            String grade = spinner1.getSelectedItem().toString();
-                            logintype = spinner.getSelectedItem().toString();
-                            String rewardValue = txt_point.getText().toString();
-                            String rewardValue1 = txt_mark.getText().toString();
-                            String rewardValue2 = txt_point2.getText().toString();
-
-
-
-                            if (logintype.equals(WebserviceConstants.VAL_USER_TYPE_GUGMENT)) {
-                                methodID="1";
-                                if(selectedActivityId !=null && rewardValue !=null) {
-
-
+                                    methodID = "3";
+                                    String rewardValue3 = "A";
                                     _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
-                                            selectedActivityId, subjectId, rewardValue, date,pointtype);
+                                            selectedActivityId, subjectId, rewardValue3, date, pointtype);
                                     clearActivityList();
-                                }else {
-                                    Toast.makeText(_assignPointFragment.getActivity().getApplicationContext(),
-                                            _assignPointFragment.getActivity().getString(R.string.select_activity),
-                                            Toast.LENGTH_LONG).show();
-
-                                }
-                            } else if (logintype.equals(WebserviceConstants.VAL_USER_TYPE_MARK)) {
-
-                                methodID="2";
-                                if(selectedActivityId !=null && rewardValue1 !=null) {
-                                    _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
-                                            selectedActivityId, subjectId, rewardValue1, date,pointtype);
-                                    clearActivityList();
-                                }else {
+                                } else {
                                     Toast.makeText(_assignPointFragment.getActivity().getApplicationContext(),
                                             _assignPointFragment.getActivity().getString(R.string.select_activity),
                                             Toast.LENGTH_LONG).show();
 
                                 }
 
-                            } else if (logintype.equals(WebserviceConstants.VAL_USER_TYPE_GRADE)) {
-
-                                if(grade.equals(WebserviceConstants.VAL_USER_TYPE_GRADE_A)){
-                                    if(selectedActivityId !=null && rewardValue1 !=null) {
-
-                                        methodID = "3";
-                                        String rewardValue3 = "A";
-                                        _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
-                                                selectedActivityId, subjectId, rewardValue3, date,pointtype);
-                                        clearActivityList();
-                                    }else {
-                                        Toast.makeText(_assignPointFragment.getActivity().getApplicationContext(),
-                                                _assignPointFragment.getActivity().getString(R.string.select_activity),
-                                                Toast.LENGTH_LONG).show();
-
-                                    }
-
-                                }else if(grade.equals(WebserviceConstants.VAL_USER_TYPE_GRADE_B)){
-                                    methodID="3";
-                                    if(selectedActivityId !=null && rewardValue1 !=null) {
-                                        String rewardValue3 = "B";
-                                        _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
-                                                selectedActivityId, subjectId, rewardValue3, date,pointtype);
-                                        clearActivityList();
-                                    }else {
-                                        Toast.makeText(_assignPointFragment.getActivity().getApplicationContext(),
-                                                _assignPointFragment.getActivity().getString(R.string.select_activity),
-                                                Toast.LENGTH_LONG).show();
-
-                                    }
-                                }
-
-                                else if(grade.equals(WebserviceConstants.VAL_USER_TYPE_GRADE_C)){
-                                    methodID="3";
-                                    if(selectedActivityId !=null && rewardValue1 !=null) {
-                                        String rewardValue3 = "C";
-                                        _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
-                                                selectedActivityId, subjectId, rewardValue3, date,pointtype);
-                                        clearActivityList();
-                                    }else {
-                                        Toast.makeText(_assignPointFragment.getActivity().getApplicationContext(),
-                                                _assignPointFragment.getActivity().getString(R.string.select_activity),
-                                                Toast.LENGTH_LONG).show();
-
-                                    }
-                                }
-
-                                else if(grade.equals(WebserviceConstants.VAL_USER_TYPE_GRADE_D)){
-                                    methodID="3";
-                                    if(selectedActivityId !=null && rewardValue1 !=null) {
-                                        String rewardValue3 = "D";
-                                        _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
-                                                selectedActivityId, subjectId, rewardValue3, date,pointtype);
-                                        clearActivityList();
-                                    }else {
-                                        Toast.makeText(_assignPointFragment.getActivity().getApplicationContext(),
-                                                _assignPointFragment.getActivity().getString(R.string.select_activity),
-                                                Toast.LENGTH_LONG).show();
-
-                                    }
-                                }
-
-                            } else if (logintype.equals(WebserviceConstants.VAL_USER_TYPE_PERSENTILE)) {
-                                methodID="4";
-                                if(selectedActivityId !=null && rewardValue1 !=null) {
+                            } else if (grade.equals(WebserviceConstants.VAL_USER_TYPE_GRADE_B)) {
+                                methodID = "3";
+                                if (selectedActivityId != null && rewardValue1 != null) {
+                                    String rewardValue3 = "B";
                                     _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
-                                            selectedActivityId, subjectId, rewardValue2, date,pointtype);
+                                            selectedActivityId, subjectId, rewardValue3, date, pointtype);
                                     clearActivityList();
-                                }else {
+                                } else {
                                     Toast.makeText(_assignPointFragment.getActivity().getApplicationContext(),
                                             _assignPointFragment.getActivity().getString(R.string.select_activity),
                                             Toast.LENGTH_LONG).show();
 
                                 }
+                            } else if (grade.equals(WebserviceConstants.VAL_USER_TYPE_GRADE_C)) {
+                                methodID = "3";
+                                if (selectedActivityId != null && rewardValue1 != null) {
+                                    String rewardValue3 = "C";
+                                    _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
+                                            selectedActivityId, subjectId, rewardValue3, date, pointtype);
+                                    clearActivityList();
+                                } else {
+                                    Toast.makeText(_assignPointFragment.getActivity().getApplicationContext(),
+                                            _assignPointFragment.getActivity().getString(R.string.select_activity),
+                                            Toast.LENGTH_LONG).show();
+
+                                }
+                            } else if (grade.equals(WebserviceConstants.VAL_USER_TYPE_GRADE_D)) {
+                                methodID = "3";
+                                if (selectedActivityId != null && rewardValue1 != null) {
+                                    String rewardValue3 = "D";
+                                    _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
+                                            selectedActivityId, subjectId, rewardValue3, date, pointtype);
+                                    clearActivityList();
+                                } else {
+                                    Toast.makeText(_assignPointFragment.getActivity().getApplicationContext(),
+                                            _assignPointFragment.getActivity().getString(R.string.select_activity),
+                                            Toast.LENGTH_LONG).show();
+
+                                }
+                            }
+
+                        } else if (logintype.equals(WebserviceConstants.VAL_USER_TYPE_PERSENTILE)) {
+                            methodID = "4";
+                            if (selectedActivityId != null && rewardValue1 != null) {
+                                _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
+                                        selectedActivityId, subjectId, rewardValue2, date, pointtype);
+                                clearActivityList();
+                            } else {
+                                Toast.makeText(_assignPointFragment.getActivity().getApplicationContext(),
+                                        _assignPointFragment.getActivity().getString(R.string.select_activity),
+                                        Toast.LENGTH_LONG).show();
 
                             }
-                            //  ActivityListFeatureController.getInstance().
-                            //  setSeletedActivityId(null);
+
+                        }
+                        //  ActivityListFeatureController.getInstance().
+                        //  setSeletedActivityId(null);
 
 
-                        }}
+                    }else {
+                            Toast.makeText(_assignPointFragment.getActivity().getApplicationContext(),
+                                    _assignPointFragment.getActivity().getString(R.string.select_subject),
+                                    Toast.LENGTH_LONG).show();
+                }
+            }}
 
                 break;
             default:
@@ -565,8 +572,7 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
         }
 
 
-        }
-
+    }
 
 
     private boolean _isAcivityPopulated(ArrayList<TeacherActivity> list) {
@@ -605,7 +611,7 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
      * @param schoolId,teacherId,stPRN,methodId,activityId,subjectId,rewardValue,date
      */
     private void _fetchSubmitPointFromServer(String teacherId, String schoolId, String stPRN, String methodId, String activityId, String subjectId,
-                                             String rewardValue, String date,String pointtype) {
+                                             String rewardValue, String date, String pointtype) {
 
         EventNotifier eventNotifier =
                 NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_TEACHER);
@@ -613,7 +619,7 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
 
         _registerNetworkListeners();
         AssignPointFeatureController.getInstance().getSubmitPointFromServer(teacherId, schoolId, stPRN, methodId, activityId,
-                subjectId, rewardValue, date,pointtype);
+                subjectId, rewardValue, date, pointtype);
     }
 
 
@@ -704,7 +710,7 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
                 if (errorCode == WebserviceConstants.SUCCESS) {
 
                     Student s = StudentFeatureController.getInstance().getSelectedStudent();
-                    prn=s.get_stdPRN();
+                    prn = s.get_stdPRN();
                     subFeaturecontroller.getInstance().fetchSubjectFromServer(_teacherId, _schoolId, prn);
                 }
                 break;
@@ -785,7 +791,7 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
                 // int foo = Integer.parseInt(txtsubName);
                 _assignPointFragment.setStudentNameOnUI(name);
                 AssignPointFeatureController.getInstance().set_selectedStudent(student);
-            //    AssignPointFeatureController.getInstance().set_selectedPrn(stuPRN);
+                //    AssignPointFeatureController.getInstance().set_selectedPrn(stuPRN);
 
 
                 //    AssignPointFeatureController.getInstance().set_selestusubList(a);
@@ -848,9 +854,6 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
     public void onStopTrackingTouch(SeekBar seekBar) {
 
     }
-
-
-
 
 
 }

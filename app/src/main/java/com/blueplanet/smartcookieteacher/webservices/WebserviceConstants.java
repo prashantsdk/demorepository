@@ -371,6 +371,8 @@ public class WebserviceConstants {
 
 
     public static final String KEY_COUPON_POINT = "coupon_point";
+    public static final String KEY_COUPON_OPTION = "point_option";
+
 
     //output
     public static final String KEY_COU_ID = "coupon_id";
@@ -435,6 +437,9 @@ public class WebserviceConstants {
     // POINT SHARE
     public static final String KEY_POINTS_BLUE = "points";
     public static final String POINTS_REASON = "reason";
+    public static final String POINTS_TYPECOLOR = "point_type";
+
+
 
 
     public static final String KEY_LAT = "std_latitude";

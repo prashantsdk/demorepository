@@ -5,9 +5,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,6 +20,7 @@ import com.blueplanet.smartcookieteacher.customcomponents.CustomTextView;
 import com.blueplanet.smartcookieteacher.featurecontroller.DashboardFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.GenerateCouponFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.LoginFeatureController;
+import com.blueplanet.smartcookieteacher.featurecontroller.PointShareFeatureController;
 import com.blueplanet.smartcookieteacher.models.GenerateCoupon;
 import com.blueplanet.smartcookieteacher.models.Teacher;
 import com.blueplanet.smartcookieteacher.models.TeacherDashbordPoint;
@@ -28,7 +32,7 @@ import java.util.ArrayList;
 /**
  * Created by 1311 on 18-02-2016.
  */
-public class GenerateCouponFragment extends Fragment {
+public class GenerateCouponFragment extends Fragment  implements AdapterView.OnItemSelectedListener {
 
     private View _view;
     private TextView _txt_teacherName;
@@ -43,11 +47,17 @@ public class GenerateCouponFragment extends Fragment {
     private ListView _listView;
     private GenerateCouponAdapter _adapter;
     private GenerateCoupon _coupon;
+    private Spinner spinner, spinner1,spinnercolr;
+    String[] userOption = {"Bluepoint", "Waterpoint"};
+    private String selState, str;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         _view = inflater.inflate(R.layout.generate_coupon, null);
         _initUI();
+        ArrayAdapter aa = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item, userOption);
+        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(aa);
         _generateFragController = new GenerateCouponFragmentController(this, _view);
         _adapter = new GenerateCouponAdapter(this, _generateFragController,_view);
         _coupon= GenerateCouponFeatureController.getInstance().getGeneratedCoupon();
@@ -77,6 +87,7 @@ public class GenerateCouponFragment extends Fragment {
         imgclearpoints = (ImageView) _view.findViewById(R.id.imgclearpoints);
         _btnGen = (CustomButton) _view.findViewById(R.id.btn_generate);
         _listView = (ListView) _view.findViewById(R.id.Iv_CouList);
+        spinner = (Spinner) _view.findViewById(R.id.spinner);
 
     }
 
@@ -85,6 +96,7 @@ public class GenerateCouponFragment extends Fragment {
         imgclearpoints.setOnClickListener(_generateFragController);
         _btnGen.setOnClickListener(_generateFragController);
         _listView.setAdapter(_adapter);
+        spinner.setOnItemSelectedListener(this);
     }
 
     private void _setTeacherNameOnUI() {
@@ -194,7 +206,34 @@ public class GenerateCouponFragment extends Fragment {
                     }
                 });
     }
+    public void showTypeColor(int position) {
+        spinner.setSelection(position);
+        spinner.setSelection(position);
+        selState = spinner.getSelectedItem().toString();
 
+        //   AssignPointFeatureController.getInstance().set_selectColor(selState);
+       // PointShareFeatureController.getInstance().set_selectColor(selState);
+
+        GenerateCouponFeatureController.getInstance().set_selectColor(selState);
+
+
+    }
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        switch (parent.getId()) {
+            case R.id.spinner:
+                this.showTypeColor(position);
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
     @Override
     public void onDestroy() {
         super.onDestroy();

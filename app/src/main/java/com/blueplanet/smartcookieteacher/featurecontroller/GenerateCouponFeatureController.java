@@ -36,6 +36,16 @@ public class GenerateCouponFeatureController implements IEventListener {
     private ArrayList<GenerateCoupon> _genCouList = new ArrayList<>();
     private final String _TAG = this.getClass().getSimpleName();
 
+    private String _selectColor = null;
+
+    public String get_selectColor() {
+        return _selectColor;
+    }
+
+    public void set_selectColor(String _selectColor) {
+        this._selectColor = _selectColor;
+    }
+
     /**
      * function to get single instance of this class
      *
@@ -55,13 +65,13 @@ public class GenerateCouponFeatureController implements IEventListener {
      * @param _tId
      * @param
      */
-    public void fetchGenerateCouponFromServer(String _tId,String _couPoint) {
+    public void fetchGenerateCouponFromServer(String _tId,String _couPoint,String option) {
 
         EventNotifier eventNotifier =
                 NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_COUPON);
         eventNotifier.registerListener(this, ListenerPriority.PRIORITY_MEDIUM);
 
-        GetGenerateCoupon generateCoupon = new GetGenerateCoupon(_tId,_couPoint);
+        GetGenerateCoupon generateCoupon = new GetGenerateCoupon(_tId,_couPoint,option);
         generateCoupon.send();
 
     }

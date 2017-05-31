@@ -98,7 +98,8 @@ public class AssignPointSubjectAdapter extends BaseAdapter {
                 _textView[position].setTextColor(_assignPointFragment.getResources().getColor(R.color.blue_circle));
                 relativeLayout.addView(_textView[position], relativeLayoutParams);
 
-                _textView[position].setOnClickListener(new View.OnClickListener() {
+                _textView[position].setOnClickListener(
+                        new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         _textView[position].setTextColor(_assignPointFragment.getResources().getColor(R.color.red_solid));

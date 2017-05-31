@@ -134,11 +134,48 @@
 
 
             </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/re3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txt_balancebluepoint"
+                android:visibility="visible">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Select Point :"
+
+                    android:textColor="#000000"
+                    android:textSize="20dp" />
+
+                <RelativeLayout
+                    android:id="@+id/gsr"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="120dp"
+                    android:layout_marginRight="35dp"
+                    android:layout_marginTop="11dp"
+                    android:background="@drawable/oval_white_background_transparant">
+
+                    <Spinner
+
+                        android:id="@+id/spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="45sp"
+                        android:layout_gravity="center_horizontal"
+
+                        android:visibility="visible" />
+                </RelativeLayout>
+
+            </RelativeLayout>
             <LinearLayout
                 android:id="@+id/txt_couPointt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/txt_balancebluepoint"
+                android:layout_below="@+id/re3"
 
                 android:layout_marginTop="3dp"
                 android:orientation="vertical">

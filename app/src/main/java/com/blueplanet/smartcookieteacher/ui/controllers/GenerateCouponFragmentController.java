@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,7 +47,8 @@ public class GenerateCouponFragmentController implements View.OnClickListener, I
     private ImageView imgclearpoints;
     private Teacher _teacher;
     private String _teacherId;
-
+    private Spinner spinner, spinner1,spinnercolr;
+    String logintype;
     /**
      * constructur for reward list
      */
@@ -56,9 +58,12 @@ public class GenerateCouponFragmentController implements View.OnClickListener, I
 
         _genFragment = genFragment;
         _view = view;
+
+
         etxtpoints = (EditText) _view.findViewById(R.id.etxtpoints);
         imgclearpoints = (ImageView) _view.findViewById(R.id.imgclearpoints);
         _couList = GenerateCouponFeatureController.getInstance().get_genCouList();
+        spinner = (Spinner) _view.findViewById(R.id.spinner);
 
         _teacher = LoginFeatureController.getInstance().getTeacher();
         if (_teacher != null) {
@@ -96,12 +101,12 @@ public class GenerateCouponFragmentController implements View.OnClickListener, I
      *
      * @param
      */
-    private void _fetchGenCoupFromServer(String teacherId, String couPoint) {
+    private void _fetchGenCoupFromServer(String teacherId, String couPoint,String option) {
         EventNotifier eventNotifier =
                 NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_COUPON);
         eventNotifier.registerListener(this, ListenerPriority.PRIORITY_MEDIUM);
 
-        GenerateCouponFeatureController.getInstance().fetchGenerateCouponFromServer(teacherId, couPoint);
+        GenerateCouponFeatureController.getInstance().fetchGenerateCouponFromServer(teacherId, couPoint,option);
     }
 
     @Override
@@ -122,7 +127,8 @@ public class GenerateCouponFragmentController implements View.OnClickListener, I
                 break;
             case R.id.btn_generate:
                 String point = BalancePointModelClass.get_couValue();
-                _fetchGenCoupFromServer(_teacherId, point);
+                logintype = spinner.getSelectedItem().toString();
+                _fetchGenCoupFromServer(_teacherId, point,logintype);
                 break;
             default:
                 break;

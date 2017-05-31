@@ -81,7 +81,7 @@ public class GetAssignPoint extends SmartCookieTeacherService {
         JSONObject objResponseJSON;
         int statusCode = -1;
         String statusMessage = null;
-
+        String dd=null;
         Log.i(_TAG, responseJSONString.toString());
         try {
             objResponseJSON = new JSONObject(responseJSONString);
@@ -91,13 +91,15 @@ public class GetAssignPoint extends SmartCookieTeacherService {
 
             if (statusCode == HTTPConstants.HTTP_COMM_SUCCESS) {
                 // success
-                JSONArray responseData = objResponseJSON.optJSONArray(WebserviceConstants.KEY_POSTS);
+                dd=responseJSONString.toString();
+               /* JSONArray responseData = objResponseJSON.optJSONArray(WebserviceConstants.KEY_POSTS);
                 for (int i = 0; i < responseData.length(); i++) {
                     JSONObject jsonObject = responseData.optJSONObject(i);
                   //  String json = jsonObject.toJson(obj);
+                   dd=responseJSONString.toString();
 
-                }
-                responseObject = new ServerResponse(errorCode, null);
+                }*/
+                responseObject = new ServerResponse(errorCode, dd);
 
             } else {
                 // failure

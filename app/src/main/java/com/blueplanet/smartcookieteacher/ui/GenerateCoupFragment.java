@@ -94,6 +94,7 @@ private View _view;
                     _listView.setVisibility(View.VISIBLE);
                 } else {
                     _listView.setVisibility(View.GONE);
+
                 }
             }
         });

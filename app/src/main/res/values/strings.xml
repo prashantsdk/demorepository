@@ -17,6 +17,8 @@
     <string name="network_available">Network available</string>
     <string name="no_students_available">No students available</string>
     <string name="select_activity">Please Select Activity</string>
+    <string name="select_subject">Please Select Subject</string>
+
     <string name="no_Blue_Point_available">No blue points log available</string>
     <string name="accept_request">Request Accepted</string>
     <string name="select_valid_point">Select Valid Point</string>

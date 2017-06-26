@@ -232,11 +232,12 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
 
                         if (!TextUtils.isEmpty(mobileno) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(usertype) || !TextUtils.isEmpty(colgCode) && mobileno.equalsIgnoreCase("0" ) ){
                             //  SmartCookieSharedPreferences.setLoginFlag(true);
-                            Toast.makeText(MainApplication.getContext(),
-                                    "Please enter your credentials",
-                                    Toast.LENGTH_SHORT).show();
+                            _teacherLogin(mobileno, password, usertype, colgCode, method, devicetype, device_details, platform_OS, ip_address, code);
 
-                        } else if (TextUtils.isEmpty(mobileno) && TextUtils.isEmpty(password)) {
+                        } else if (TextUtils.isEmpty(mobileno) && TextUtils.isEmpty(password)) {                            Toast.makeText(MainApplication.getContext(),
+                                "Please enter your credentials",
+                                Toast.LENGTH_SHORT).show();
+
                             _teacherLogin(mobileno, password, usertype, colgCode, method, devicetype, device_details, platform_OS, ip_address, code);
                         }
 

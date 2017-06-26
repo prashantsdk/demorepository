@@ -43,6 +43,9 @@ public class AdminThanqFeatureController implements IEventListener{
 
     public ArrayList<AdminThankqPoint> get_adminthanqlist() {
         return _adminthanqlist;
+
+
+
     }
 
     public void clearRewardPointList() {

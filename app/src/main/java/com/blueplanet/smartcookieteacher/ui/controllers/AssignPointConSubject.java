@@ -75,7 +75,7 @@ public class AssignPointConSubject implements View.OnClickListener, IEventListen
     private ArrayList<SubNameCode> _subNameCodeList;
     String prn;
     private TextView txt_point;
-    private EditText txt_mark;
+    private EditText txt_mark, _comment;
     private EditText _txt_gradePoint, txt_point2;
 
     private ArrayList<TeacherSubject> _subjectList;
@@ -94,6 +94,7 @@ public class AssignPointConSubject implements View.OnClickListener, IEventListen
         txt_point = (TextView) _view.findViewById(R.id.txt_point);
         txt_mark = (EditText) _view.findViewById(R.id.txt_point1);
         _txt_gradePoint = (EditText) _view.findViewById(R.id.txt_gradePoint);
+        _comment = (EditText) _view.findViewById(R.id.txt_comment);
         txt_point2 = (EditText) _view.findViewById(R.id.txt_point2);
         spinner = (Spinner) _view.findViewById(R.id.spinner);
         spinner1 = (Spinner) _view.findViewById(R.id.spinner2);
@@ -303,13 +304,11 @@ public class AssignPointConSubject implements View.OnClickListener, IEventListen
             case R.id.btnsubmitassignpoints:
 
                 Student student = AssignPointFeatureController.getInstance().get_selectedStudent();
-                TeacherDashbordPoint _tepoint= DashboardFeatureController.getInstance().getTeacherpoint();
+                TeacherDashbordPoint _tepoint = DashboardFeatureController.getInstance().getTeacherpoint();
                 selectedActivityId = ActivityListFeatureController.getInstance().getSeletedActivityId();
                 ////selectedSubjectId = SubjectFeatureController.getInstance().get_seletedSubjectId();
-             //   selectedSubjectId = AssignPointFeatureController.getInstance().get_seletedSubjectId();
-                selectedSubjectId =SubjectFeatureController.getInstance().get_seletedSubjectId();
-
-
+                //   selectedSubjectId = AssignPointFeatureController.getInstance().get_seletedSubjectId();
+                selectedSubjectId = SubjectFeatureController.getInstance().get_seletedSubjectId();
 
 
                 Log.i(_TAG, "Selected subject is : " + selectedSubjectId);
@@ -333,26 +332,27 @@ public class AssignPointConSubject implements View.OnClickListener, IEventListen
                 String rewardValue1 = txt_mark.getText().toString();
                 String rewardValue2 = txt_point2.getText().toString();
                 String grade = spinner1.getSelectedItem().toString();
+                String commentPoint=_comment.getText().toString();
 
                 Log.i(_TAG, "Value of points is: " + _points);
                 String date = getDate();
                 Log.i(_TAG, "Value of date is: " + date);
-                String greenPoint=String.valueOf(_tepoint.get_greenpoint());
+                String greenPoint = String.valueOf(_tepoint.get_greenpoint());
 
 
-                if (logintype.equals(WebserviceConstants.VAL_USER_TYPE_GUGMENT )) {
+                if (logintype.equals(WebserviceConstants.VAL_USER_TYPE_GUGMENT)) {
 
                     methodID = "1";
 
 
                     _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
-                            activityId, selectedSubjectId, rewardValue, date);
+                            activityId, selectedSubjectId, rewardValue, date,commentPoint);
                     clearActivityList();
                 } else if (logintype.equals(WebserviceConstants.VAL_USER_TYPE_MARK)) {
 
                     methodID = "2";
                     _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
-                            activityId, selectedSubjectId, rewardValue1, date);
+                            activityId, selectedSubjectId, rewardValue1, date,commentPoint);
                     clearActivityList();
 
                 } else if (logintype.equals(WebserviceConstants.VAL_USER_TYPE_GRADE)) {
@@ -362,7 +362,7 @@ public class AssignPointConSubject implements View.OnClickListener, IEventListen
                         methodID = "3";
                         String rewardValue3 = "A";
                         _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
-                                activityId, selectedSubjectId, rewardValue3, date);
+                                activityId, selectedSubjectId, rewardValue3, date,commentPoint);
                         clearActivityList();
 
 
@@ -370,27 +370,27 @@ public class AssignPointConSubject implements View.OnClickListener, IEventListen
                         methodID = "3";
                         String rewardValue3 = "B";
                         _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
-                                activityId, selectedSubjectId, rewardValue3, date);
+                                activityId, selectedSubjectId, rewardValue3, date,commentPoint);
                         clearActivityList();
 
                     } else if (grade.equals(WebserviceConstants.VAL_USER_TYPE_GRADE_C)) {
                         methodID = "3";
                         String rewardValue3 = "C";
                         _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
-                                selectedActivityId, subjectId, rewardValue3, date);
+                                selectedActivityId, subjectId, rewardValue3, date,commentPoint);
                         clearActivityList();
                     } else if (grade.equals(WebserviceConstants.VAL_USER_TYPE_GRADE_D)) {
                         methodID = "3";
                         String rewardValue3 = "D";
                         _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
-                                selectedActivityId, subjectId, rewardValue3, date);
+                                selectedActivityId, subjectId, rewardValue3, date,commentPoint);
                         clearActivityList();
                     }
 
                 } else if (logintype.equals(WebserviceConstants.VAL_USER_TYPE_PERSENTILE)) {
                     methodID = "4";
                     _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
-                            selectedActivityId, subjectId, rewardValue2, date);
+                            selectedActivityId, subjectId, rewardValue2, date,commentPoint);
                     clearActivityList();
 
                 }
@@ -486,15 +486,15 @@ public class AssignPointConSubject implements View.OnClickListener, IEventListen
      * @param schoolId,teacherId,stPRN,methodId,activityId,subjectId,rewardValue,date
      */
     private void _fetchSubmitPointFromServer(String teacherId, String schoolId, String stPRN, String methodId, String activityId, String subjectId,
-                                             String rewardValue, String date) {
+                                             String rewardValue, String date, String comment) {
 
         EventNotifier eventNotifier =
                 NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_TEACHER);
         eventNotifier.registerListener(this, ListenerPriority.PRIORITY_MEDIUM);
-String dd="pointtype";
+        String dd = "pointtype";
         _registerNetworkListeners();
         AssignPointFeatureController.getInstance().getSubmitPointFromServer(teacherId, schoolId, stPRN, methodId, activityId,
-                subjectId, rewardValue, date,dd);
+                subjectId, rewardValue, date, dd, comment);
     }
 
 
@@ -652,7 +652,7 @@ String dd="pointtype";
                 eventNotifier5.unRegisterListener(this);
 
 
-                    _assignPointFragment.showNotEnoughPoint();
+                _assignPointFragment.showNotEnoughPoint();
 
             default:
                 eventState = EventState.EVENT_IGNORED;

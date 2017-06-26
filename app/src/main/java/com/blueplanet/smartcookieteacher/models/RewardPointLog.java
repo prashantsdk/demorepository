@@ -10,12 +10,17 @@ public class RewardPointLog {
     private String _point_date = null;
     private String _reason = null;
 
-    public RewardPointLog(String points,String stName,String pointDate,String reason){
+
+
+    private String _comment = null;
+
+    public RewardPointLog(String points,String stName,String pointDate,String reason,String comment){
 
         _points=points;
         _stuDate=stName;
         _point_date=pointDate;
         _reason=reason;
+        _comment=comment;
     }
 
     public String get_points() {
@@ -32,6 +37,9 @@ public class RewardPointLog {
 
     public String get_reason() {
         return _reason;
+    }
+    public String get_comment() {
+        return _comment;
     }
 
 }

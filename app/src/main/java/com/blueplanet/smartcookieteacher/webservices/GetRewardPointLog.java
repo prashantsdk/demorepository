@@ -91,8 +91,11 @@ public class GetRewardPointLog extends SmartCookieTeacherService {
                     String stuName = jsonObject.optString(WebserviceConstants.KEY_STU_NAME);
                     String pointDate = jsonObject.optString(WebserviceConstants.KEY_POINT_DATE);
                     String reason = jsonObject.optString(WebserviceConstants.KEY_REASON);
+                    String comment = jsonObject.optString(WebserviceConstants.KEY_COMMENT);
 
-                     _rewardPointLog = new RewardPointLog(point,stuName, pointDate, reason);
+
+                     _rewardPointLog = new RewardPointLog(point,stuName, pointDate, reason,comment);
+
                     rewardPoint.add(_rewardPointLog);
 
                 }

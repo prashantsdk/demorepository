@@ -75,9 +75,7 @@ public class WebserviceConstants {
     public static final String PURCHASEWATERPOINTS = "purchase_water_point_student.php";
     public static final String TEACHER_DISPLAY_SUBJECT_WEB_SERVICE = "display_school_subject_for_teacher.php";
     public static final String TEACHER_UPDATE_PROFILE = "update_teacher_profile_webservice.php";
-    public static final String TEACHER_ADD_SUBJECT = "make_coordinator.php";
-
-
+    public static final String TEACHER_ADD_SUBJECT = "wsforaddsub.php";
 
 
 
@@ -241,6 +239,7 @@ public class WebserviceConstants {
     public static final String KEY_REWARD_VALUE = "reward_value";
     public static final String KEY_USER_DATE = "User_date";
     public static final String KEY_USER_POINT_TYPE = "point_type";
+    public static final String KEY_USER_POINT_COMMENT = "Comment";
 
     /**
      * constants for TEACHER_ACTIVITY
@@ -258,6 +257,7 @@ public class WebserviceConstants {
     public static final String KEY_POINT = "points";
     public static final String KEY_POINT_DATE = "point_date";
     public static final String KEY_REASON = "reason";
+    public static final String KEY_COMMENT = "comment";
 
     /**
      * constants for display categorie

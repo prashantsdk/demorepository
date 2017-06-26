@@ -6,14 +6,14 @@
 
     <HorizontalScrollView
         android:id="@+id/horizontalScroll"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:animateLayoutChanges="true"
         android:scrollbars="none">
 
         <LinearLayout
             android:id="@+id/horizontalScroll_linear"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:orientation="horizontal">
@@ -33,7 +33,6 @@
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="5dp"
                     android:background="@drawable/login_button_selector"
-
                     android:orientation="horizontal">
 
                     <TextView
@@ -49,7 +48,7 @@
 
                 <RelativeLayout
                     android:id="@+id/rel"
-                    android:layout_width="313dp"
+                    android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="15dp"
@@ -105,6 +104,18 @@
                         android:textColor="#000000"
                         android:textSize="15sp"
                         android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/txtcomment"
+                        android:layout_width="45dp"
+                        android:layout_height="20dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="3dp"
+                        android:layout_toRightOf="@+id/txtPoint"
+                        android:text="Comment"
+                        android:textColor="#000000"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
 
                 </RelativeLayout>
 
@@ -122,9 +133,7 @@
                         android:id="@+id/lv_rewardpoint"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-
                         android:layout_weight="51"
-
                         android:clipToPadding="false"
                         android:paddingBottom="8dp" />
 
@@ -139,8 +148,8 @@
         android:layout_width="120dp"
         android:layout_height="80dp"
         android:layout_centerInParent="true"
-        android:background="#000000"
-        android:visibility="gone">
+        android:background="#ffffff"
+        android:visibility="visible">
 
         <ProgressBar
             android:id="@+id/progressbar"

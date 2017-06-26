@@ -27,7 +27,8 @@ public class RewardPointTabel extends TableOperations implements IPersistence {
             SmartTeacherDatabaseMasterTable.Reward.REWARD_POINT,
             SmartTeacherDatabaseMasterTable.Reward.REWARD_STUD_NAME,
             SmartTeacherDatabaseMasterTable.Reward.REWARD_DATE,
-            SmartTeacherDatabaseMasterTable.Reward.REWARD_REASON };
+            SmartTeacherDatabaseMasterTable.Reward.REWARD_REASON ,
+            SmartTeacherDatabaseMasterTable.Reward.REWARD_COMMENT };
 
     @Override
     public ContentValues prepare(Object obj) {
@@ -38,6 +39,7 @@ public class RewardPointTabel extends TableOperations implements IPersistence {
         values.put ( SmartTeacherDatabaseMasterTable.Reward.REWARD_STUD_NAME, rewardInfo.get_stuDate() );
         values.put ( SmartTeacherDatabaseMasterTable.Reward.REWARD_DATE, rewardInfo.get_point_date() );
         values.put ( SmartTeacherDatabaseMasterTable.Reward.REWARD_REASON, rewardInfo.get_reason() );
+        values.put ( SmartTeacherDatabaseMasterTable.Reward.REWARD_COMMENT, rewardInfo.get_comment() );
 
         return values;
     }
@@ -79,7 +81,7 @@ public class RewardPointTabel extends TableOperations implements IPersistence {
 
                    // boolean rememberMe = Boolean.parseBoolean(cursor.getString(2));
                     rewardObj =
-                            new RewardPointLog( cursor.getString ( 0 ), cursor.getString ( 1 ),  cursor.getString ( 2 ), cursor.getString ( 3 ));
+                            new RewardPointLog( cursor.getString ( 0 ), cursor.getString ( 1 ),  cursor.getString ( 2 ), cursor.getString ( 3 ),cursor.getString(4));
                     list.add(rewardObj);
 
                 } while ( cursor.moveToNext () );

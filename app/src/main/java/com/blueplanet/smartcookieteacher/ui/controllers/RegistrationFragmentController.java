@@ -84,7 +84,7 @@ public class RegistrationFragmentController implements IEventListener, View.OnCl
         _registerEventListeners();
         RegistrationFeatureController.getInstance().fetchRegistrationServer(fname,lname,email,pass,phone);
         _regFragment.hideSoftKeyboard();
-        _regFragment.showOrHideProgressBar(true);
+        //_regFragment.showOrHideProgressBar(true);
 
 
     }
@@ -162,7 +162,7 @@ public class RegistrationFragmentController implements IEventListener, View.OnCl
                 eventNotifier.unRegisterListener(this);
 
                 if (errorCode == WebserviceConstants.SUCCESS) {
-                    _regFragment.showOrHideProgressBar(false);
+                   // _regFragment.showOrHideProgressBar(false);
                     /**
                      * get reward list before refreshing listview avoid runtime exception
                      */

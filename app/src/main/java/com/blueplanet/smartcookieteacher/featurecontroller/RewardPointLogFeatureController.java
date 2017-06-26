@@ -56,7 +56,7 @@ public class RewardPointLogFeatureController implements IEventListener {
         if (_rewardPointLogList != null && _rewardPointLogList.size() > 0) {
 
             deleteRewardFromDB(null);
-         //   _rewardPointLogList.clear();
+            //   _rewardPointLogList.clear();
             _rewardPointLogList = null;
 
         }
@@ -79,6 +79,7 @@ public class RewardPointLogFeatureController implements IEventListener {
 
     public void getRewardListFromServer(String tID, String scID) {
 
+
         EventNotifier eventNotifier =
                 NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_TEACHER);
         eventNotifier.registerListener(this, ListenerPriority.PRIORITY_MEDIUM);
@@ -87,6 +88,7 @@ public class RewardPointLogFeatureController implements IEventListener {
         getRewardPointLog.send();
 
     }
+
     public RewardPointLog getRewardpointFromDB() {
         Object object =
                 PersistenceFactory.get(SmartTeacherDatabaseMasterTable.Tables.REWARD).getData();
@@ -97,8 +99,10 @@ public class RewardPointLogFeatureController implements IEventListener {
 
     private void _saveRewardLogIntoDB(RewardPointLog log) {
         IPersistence persistObj = PersistenceFactory.get(SmartTeacherDatabaseMasterTable.Tables.REWARD);
+
         persistObj.save(log);
     }
+
     public ArrayList<RewardPointLog> getRewardFromDB() {
         Object object =
                 PersistenceFactory.get(SmartTeacherDatabaseMasterTable.Tables.REWARD).getData();
@@ -120,10 +124,12 @@ public class RewardPointLogFeatureController implements IEventListener {
             _rewardPointLogList.clear();
         }
     }
-    public void deleteRewardFromDB(String userName){
+
+    public void deleteRewardFromDB(String userName) {
         IPersistence persistObj = PersistenceFactory.get(SmartTeacherDatabaseMasterTable.Tables.REWARD);
         persistObj.delete(userName);
     }
+
     @Override
     public int eventNotify(int eventType, Object eventObject) {
         int eventState = EventState.EVENT_PROCESSED;
@@ -147,11 +153,10 @@ public class RewardPointLogFeatureController implements IEventListener {
 
                         for (int i = 0; i < _rewardPointLogList.size(); i++) {
 
-                                _saveRewardLogIntoDB(_rewardPointLogList.get(i));
+                            _saveRewardLogIntoDB(_rewardPointLogList.get(i));
 
                         }
                     }
-
 
 
                     eventNotifierUI =

@@ -136,10 +136,12 @@ public class RewardPointFragmentController implements IEventListener {
             case EventTypes.EVENT_UI_TEACHER_REWARD_POINT_RECEVIED:
                 EventNotifier eventNotifier =
                         NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_TEACHER);
+
                 eventNotifier.unRegisterListener(this);
 
                 if (errorCode == WebserviceConstants.SUCCESS) {
                     _rePointFragment.showOrHideProgressBar(false);
+
                     /**
                      * get reward list before refreshing listview avoid runtime exception
                      */
@@ -182,6 +184,7 @@ public class RewardPointFragmentController implements IEventListener {
                 _rePointFragment.showOrHideProgressBar(false);
                 _rePointFragment.showNetworkToast(false);
                 break;
+
             default:
                 eventState = EventState.EVENT_IGNORED;
                 break;

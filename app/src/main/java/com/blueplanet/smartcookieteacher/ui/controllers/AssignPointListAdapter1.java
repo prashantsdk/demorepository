@@ -83,6 +83,8 @@ public class AssignPointListAdapter1 extends BaseAdapter {
                     .getContext().getSystemService(
                             Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflatorInflater.inflate(R.layout.new_assignpoint, null
+
+
             );
         }
         if (convertView != null) {
@@ -93,13 +95,13 @@ public class AssignPointListAdapter1 extends BaseAdapter {
 
                 _textView[position] = (RadioButton) convertView.findViewById(R.id.yes);
 
-
                 _textView[position].setText(_activityList.get(position).getActivityName());
 
 
                 _textView[position].setClickable(true);
 
                 _textView[position].setTextColor(_assignPointFragment.getResources().getColor(R.color.blue_circle));
+
 
                 //      _radioGrup.addView(_textView[position]);
 

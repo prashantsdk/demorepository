@@ -64,6 +64,7 @@ public class AdminThanqFragmentController implements IEventListener {
                 _fetchAdminPointFromServer(_teacherId, _schoolId);
 
             }
+
         }
 
     }
@@ -81,6 +82,7 @@ public class AdminThanqFragmentController implements IEventListener {
         EventNotifier eventNotifier =
                 NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_TEACHER);
         eventNotifier.registerListener(this, ListenerPriority.PRIORITY_MEDIUM);
+
 
     }
 

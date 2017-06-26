@@ -79,7 +79,7 @@ public class SmartTeacherDatabaseMasterTable {
             + Reward.REWARD_STUD_NAME + " TEXT," + Reward.REWARD_DATE + " TEXT," + Reward.REWARD_REASON + " TEXT" + " FOREIGN KEY ("+Reward.REWARD_POINT+") REFERENCES "+CREATE_TEACHER+"("+Teacher.KEY_TID+"));";*/
 
     public static final String CREATE_REWARD = "CREATE TABLE IF NOT EXISTS " + Tables.REWARD + "(" + Reward.REWARD_POINT + " TEXT NOT NULL UNIQUE PRIMARY KEY COLLATE NOCASE,"
-            + Reward.REWARD_STUD_NAME + " TEXT," + Reward.REWARD_DATE + " TEXT," + Reward.REWARD_REASON + " TEXT" + ");";
+            + Reward.REWARD_STUD_NAME + " TEXT," + Reward.REWARD_DATE + " TEXT," + Reward.REWARD_REASON + " TEXT,"+ Reward.REWARD_COMMENT + " TEXT" + ");";
 
     public static final String CREATE_STUDENTLIST = "CREATE TABLE IF NOT EXISTS "
             + Tables.STUDENTLIST
@@ -236,6 +236,8 @@ public class SmartTeacherDatabaseMasterTable {
         String REWARD_STUD_NAME = "reward_stu_name";
         String REWARD_DATE = "reward_date";
         String REWARD_REASON = "reward_reason";
+        String REWARD_COMMENT = "comment";
+
     }
 
     //table added to store User details.

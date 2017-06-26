@@ -28,7 +28,7 @@ public class RewardPointLogAdapter extends BaseAdapter {
     private RewardPointFragmentController _reRewardPointFragmentController;
     private ArrayList<RewardPointLog> rewardList;
     private final String _TAG = this.getClass().getSimpleName();
-    private TextView _txtName, txtDate, _txtMonth, _txtActivity, txtPoint;
+    private TextView _txtName, txtDate, _txtMonth, _txtActivity, txtPoint,txtcomment;
 
     public RewardPointLogAdapter(RewardPointFragment reRewardPointFragment
                                  ) {
@@ -110,6 +110,11 @@ public class RewardPointLogAdapter extends BaseAdapter {
                 txtPoint = (TextView) convertView
                         .findViewById(R.id.txtPointReward);
                 txtPoint.setText(rewardList.get(position).get_points());
+
+                txtcomment= (TextView) convertView
+                        .findViewById(R.id.txtActivitycomment);
+                txtcomment.setText(rewardList.get(position).get_comment());
+
 
             }
         }

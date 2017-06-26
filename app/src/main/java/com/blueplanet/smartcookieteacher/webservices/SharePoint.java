@@ -86,13 +86,12 @@ public class SharePoint extends SmartCookieTeacherService {
                 JSONArray responseData = objResponseJSON.optJSONArray(WebserviceConstants.KEY_POSTS);
                 for (int i = 0; i < responseData.length(); i++) {
                     JSONObject jsonObject = responseData.optJSONObject(i);
-
-
                     String teacherID = jsonObject.optString(WebserviceConstants.kEY_TEACHERID);
                     String tname = jsonObject.optString(WebserviceConstants.KEY_TEACHERNAME);
                     String temail = jsonObject.optString(WebserviceConstants.KEY_EMAILID);
                     String tmno = jsonObject.optString(WebserviceConstants.KEY_MOBILENO);
                     String tbalancebluepoint = jsonObject.optString(WebserviceConstants.KEY_BALANCE_BLUEPOINT);
+
 
 
                     ShairPointModel shairpoint = new ShairPointModel(teacherID, tname, temail, tmno,

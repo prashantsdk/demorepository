@@ -59,6 +59,7 @@ public class BluePointFragmentController implements IEventListener {
             _teacher = LoginFeatureController.getInstance().getTeacher();
             if (_teacher != null) {
                 _teacherId = _teacher.get_tId();
+                _schoolId=_teacher.get_tSchool_id();
                 _teacher = LoginFeatureController.getInstance().getTeacher();
                 _fetchBlueListFromServer(_teacherId, _schoolId);
 
@@ -78,6 +79,7 @@ public class BluePointFragmentController implements IEventListener {
         if (list != null && list.size() > 0) {
             return true;
         }
+
         return false;
 
     }

@@ -116,13 +116,13 @@ public class AssignPointFeatureController implements IEventListener {
      * @param tID,scID,stPRN,methodID,activityID,subjectID,rewardValue,date
      */
     public void getSubmitPointFromServer(String tID, String scID, String stPRN, String methodID, String activityID, String subjectID, String rewardValue,
-                                         String date,String pointtype) {
+                                         String date,String pointtype,String comment) {
 
         EventNotifier eventNotifier =
                 NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_TEACHER);
         eventNotifier.registerListener(this, ListenerPriority.PRIORITY_MEDIUM);
 
-        GetAssignPoint getAssignPoint = new GetAssignPoint(tID, scID, stPRN, methodID, activityID, subjectID, rewardValue, date,pointtype);
+        GetAssignPoint getAssignPoint = new GetAssignPoint(tID, scID, stPRN, methodID, activityID, subjectID, rewardValue, date,pointtype,comment);
         getAssignPoint.send();
 
 

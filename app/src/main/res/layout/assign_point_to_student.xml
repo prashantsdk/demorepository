@@ -15,17 +15,17 @@
             <RelativeLayout
                 android:id="@+id/rl_1"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="40dp"
                 android:gravity="center">
 
                 <RelativeLayout
                     android:id="@+id/ll_username"
                     android:layout_width="match_parent"
-                    android:layout_height="90dp"
+                    android:layout_height="50dp"
                     android:layout_below="@+id/tv_login"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
-                    android:layout_marginTop="5dp"
+
                     android:background="@drawable/login_button_selector"
 
                     android:orientation="horizontal">
@@ -38,7 +38,7 @@
                         android:layout_marginLeft="15dp"
                         android:text="Student Search"
                         android:textColor="#FFFFFF"
-                        android:textSize="15dp" />
+                        android:textSize="12dp" />
 
 
                     <ImageView
@@ -63,26 +63,26 @@
             <LinearLayout
                 android:id="@+id/lil_1"
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
+                android:layout_height="70dp"
                 android:layout_below="@+id/rl_1"
-                android:layout_weight="1"
+
                 android:orientation="vertical"
-                android:paddingTop="10dp">
+                android:paddingTop="1dp">
 
 
                 <Gallery
                     android:id="@+id/galleryslider"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:layout_height="70dp"
+
                     android:background="@drawable/border"
-                    android:spacing="20sp"
+                    android:spacing="10sp"
                     android:unselectedAlpha="0.5" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="2.5"
+                    android:layout_weight="5.8"
                     android:gravity="center_horizontal">
 
                     <ImageView
@@ -105,13 +105,13 @@
                 android:id="@+id/txtStudname_AssignPoints"
                 style="@style/Login_title"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="20dp"
                 android:layout_below="@+id/line1"
                 android:layout_weight="3"
                 android:background="#FFFFFF"
                 android:gravity="center"
                 android:text="sad"
-                android:textSize="17sp"
+                android:textSize="13sp"
                 android:textStyle="italic" />
 
             <LinearLayout
@@ -216,12 +216,55 @@
                     android:layout_centerInParent="true" />
 
             </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/recolor1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/RelativeLayout1"
+                android:visibility="visible">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Comment :"
+                    android:textColor="#000000"
+                    android:textSize="20dp" />
+
+                <RelativeLayout
+                    android:id="@+id/gsrcolor1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="120dp"
+                    android:layout_marginRight="35dp"
+                    android:layout_marginTop="11dp"
+                   >
+                    <EditText
+                        android:id="@+id/txt_comment"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="2dp"
+                       android:inputType="text"
+                        android:text=""
+                        android:textColor="#000000"
+                        android:textSize="17dp" />
+                <!--    <Spinner
+
+                        android:id="@+id/spinnercolor1"
+                        android:layout_width="match_parent"
+                        android:layout_height="40sp"
+                        android:layout_gravity="center_horizontal"
+
+                        android:visibility="visible" />-->
+                </RelativeLayout>
+
+            </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/recolor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/RelativeLayout1"
+                android:layout_below="@+id/recolor1"
                 android:visibility="visible">
 
                 <TextView
@@ -245,7 +288,7 @@
 
                         android:id="@+id/spinnercolor"
                         android:layout_width="match_parent"
-                        android:layout_height="45sp"
+                        android:layout_height="40sp"
                         android:layout_gravity="center_horizontal"
 
                         android:visibility="visible" />
@@ -281,7 +324,7 @@
 
                         android:id="@+id/spinner"
                         android:layout_width="match_parent"
-                        android:layout_height="45sp"
+                        android:layout_height="40sp"
                         android:layout_gravity="center_horizontal"
 
                         android:visibility="visible" />
@@ -526,4 +569,34 @@
             </LinearLayout>
         </RelativeLayout>
     </com.blueplanet.smartcookieteacher.customcomponents.VerticalScrollView>
+    <RelativeLayout
+        android:id="@+id/rl_progressBar"
+        android:layout_width="140dp"
+        android:layout_height="80dp"
+        android:layout_centerInParent="true"
+        android:background="#000000"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:id="@+id/progressbar"
+            style="@android:style/Widget.ProgressBar.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp" />
+
+
+        <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+            android:id="@+id/tv_please_wait"
+            style="@style/Login_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="10dp"
+            android:layout_toRightOf="@+id/progressbar"
+            android:text="Please wait..."
+            android:textColor="#ffffff"
+            android:textSize="16sp" />
+    </RelativeLayout>
 </RelativeLayout>

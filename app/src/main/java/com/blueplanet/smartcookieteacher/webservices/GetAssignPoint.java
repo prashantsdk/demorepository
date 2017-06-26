@@ -25,14 +25,14 @@ public class GetAssignPoint extends SmartCookieTeacherService {
 
     private String _t_id, _studentId;
     private String _std_prn, _method_id, _subject_id, _reward_value,
-            _user_date,_pointtype;
+            _user_date,_pointtype,_comment;
     private String _activity_id = null;
 
     private final String _TAG = this.getClass().getSimpleName();
 
 
     public GetAssignPoint(String t_id, String studentId, String std_prn, String method_id, String activity_id,
-                          String subject_id, String reward_value, String user_date,String pointtype) {
+                          String subject_id, String reward_value, String user_date,String pointtype,String comment) {
         _t_id = t_id;
         _studentId = studentId;
         _std_prn = std_prn;
@@ -42,6 +42,7 @@ public class GetAssignPoint extends SmartCookieTeacherService {
         _reward_value = reward_value;
         _user_date = user_date;
         _pointtype=pointtype;
+        _comment=comment;
     }
 
     @Override
@@ -63,6 +64,7 @@ public class GetAssignPoint extends SmartCookieTeacherService {
             requestBody.put(WebserviceConstants.KEY_REWARD_VALUE, _reward_value);
             requestBody.put(WebserviceConstants.KEY_USER_DATE, _user_date);
             requestBody.put(WebserviceConstants.KEY_USER_POINT_TYPE, _pointtype);
+            requestBody.put(WebserviceConstants.KEY_USER_POINT_COMMENT, _comment);
 
 
         } catch (JSONException e) {

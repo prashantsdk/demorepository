@@ -63,7 +63,7 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
     private RelativeLayout ll_issue2;
     private String selState, str;
     private final String _TAG = this.getClass().getSimpleName();
-    private EditText _txt_gradePoint,_txtMark;
+    private EditText _txt_gradePoint,_txtMark,_comment;
 
 
     @Override
@@ -124,6 +124,7 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
         ll_gradePoint = (LinearLayout) _view.findViewById(R.id.ll_gradePoint);
         ll_markPoint= (LinearLayout) _view.findViewById(R.id.ll_markPoint);
         _txt_gradePoint = (EditText) _view.findViewById(R.id.txt_gradePoint);
+        _comment = (EditText) _view.findViewById(R.id.txt_comment);
         _txtMark= (EditText) _view.findViewById(R.id.txt_markPoint);
     }
 
@@ -221,6 +222,7 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
     }
 
     public void showOrHideRl4Option(final boolean visibility) {
+
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {

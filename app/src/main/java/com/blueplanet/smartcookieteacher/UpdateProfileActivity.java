@@ -84,6 +84,30 @@ public class UpdateProfileActivity extends AppCompatActivity implements IEventLi
         _editableFieldsFalse();
         handleButtonClick();
 
+      /*  String user = LoginFeatureController.getInstance().get_emailID();
+        String method = LoginFeatureController.getInstance().getMethod();
+        String code = LoginFeatureController.getInstance().getColgcode();
+        String colgcode ="coep";
+        String devicedetail = LoginFeatureController.getInstance().getDevicedetail();
+        String devicetype = LoginFeatureController.getInstance().getDevicetype();
+        String ip = LoginFeatureController.getInstance().getIp();
+        String platform = LoginFeatureController.getInstance().getPlatfom();
+        String usertype = LoginFeatureController.getInstance().get_emailID();
+        String countrycode = "";
+        String teacherEmail = LoginFeatureController.getInstance().getEmail();
+        String userid="4198005007";
+        String userpass="dayaram123";
+        String usertypeteacher="EmployeeID";
+
+        String teacherpassword = LoginFeatureController.getInstance().getPassword();
+
+        ;
+        EventNotifier eventNotifier =
+                NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_LOGIN);
+        eventNotifier.registerListener(this, ListenerPriority.PRIORITY_MEDIUM);
+        LoginFeatureController.getInstance().teacherLogin(userid, userpass, usertypeteacher, colgcode, method, devicetype, devicedetail,
+                platform, ip, countrycode);*/
+
     }
 
     private void handleButtonClick() {
@@ -330,6 +354,7 @@ public class UpdateProfileActivity extends AppCompatActivity implements IEventLi
             try {
                 bm = MediaStore.Images.Media.getBitmap(this.getApplicationContext().getContentResolver(), data.getData());
 
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -342,6 +367,7 @@ public class UpdateProfileActivity extends AppCompatActivity implements IEventLi
         Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
+
         File destination = new File(Environment.getExternalStorageDirectory(),
                 System.currentTimeMillis() + ".jpg");
         FileOutputStream fo;
@@ -362,6 +388,8 @@ public class UpdateProfileActivity extends AppCompatActivity implements IEventLi
     private String getBase64() {
         _parentImg.buildDrawingCache();
         Bitmap bmap = _parentImg.getDrawingCache();
+
+
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         bmap.compress(Bitmap.CompressFormat.JPEG, 0, bos);
         bb = bos.toByteArray();
@@ -485,6 +513,7 @@ public class UpdateProfileActivity extends AppCompatActivity implements IEventLi
         int errorCode = -1;
         if (serverResponse != null) {
             errorCode = serverResponse.getErrorCode();
+
         }
         Log.i(_TAG, "" + eventType);
         switch (eventType) {
@@ -496,16 +525,30 @@ public class UpdateProfileActivity extends AppCompatActivity implements IEventLi
                 eventsponsorlist.unRegisterListener(this);
                 if (errorCode == WebserviceConstants.SUCCESS) {
                     //Sayali
-                  /*  showProfileUpdateMsg(true);
+                    Log.i(_TAG, "Value of reg is: ");
+                    showProfileUpdateMsg(true);
+
+                    showProfileUpdateMsg(true);
                     showOrHideLoadingSpinner(true);
                     String user = LoginFeatureController.getInstance().get_emailID();
-                    String pas = LoginFeatureController.getInstance().getp();
-                    String code = LoginFeatureController.getInstance().getCountryCode();
+                    String method = LoginFeatureController.getInstance().getMethod();
+                    String code = LoginFeatureController.getInstance().getColgcode();
+                    String colgcode = LoginFeatureController.getInstance().getColgcode();
+                    String devicedetail = LoginFeatureController.getInstance().getDevicedetail();
+                    String devicetype = LoginFeatureController.getInstance().getDevicetype();
+                    String ip = LoginFeatureController.getInstance().getIp();
+                    String platform = LoginFeatureController.getInstance().getPlatfom();
+                    String usertype = LoginFeatureController.getInstance().get_emailID();
+                    String countrycode = "";
+                    String teacherEmail = LoginFeatureController.getInstance().getEmail();
+                    String teacherpassword = LoginFeatureController.getInstance().getPassword();
+
+                    ;
                     EventNotifier eventNotifier =
                             NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_LOGIN);
                     eventNotifier.registerListener(this, ListenerPriority.PRIORITY_MEDIUM);
-                    LoginFeatureController.getInstance().teacherLogin(_teacher.get_tEmail(),_teacher.get_tPassword(), _teacher.getu, usertype, colgCode, method, devicetype, details,
-                            os, ipadddress, countryCode);*/
+                   /* LoginFeatureController.getInstance().teacherLogin(teacherEmail, teacherpassword, usertype, colgcode, method, devicetype, devicedetail,
+                            platform, ip, countrycode,latitude,longitude);*/
                 } else {
                     showProfileUpdateMsg(false);
                 }
@@ -544,10 +587,10 @@ public class UpdateProfileActivity extends AppCompatActivity implements IEventLi
                         NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_LOGIN);
                 evenlist.unRegisterListener(this);
                 if (errorCode == WebserviceConstants.SUCCESS) {
-                    showOrHideLoadingSpinner(false);
+                   /* showOrHideLoadingSpinner(false);
                     Intent i = new Intent(this, AfterLoginActivity.class);
                     startActivity(i);
-                    finish();
+                    finish();*/
 
 
                 } else {
@@ -591,8 +634,8 @@ public class UpdateProfileActivity extends AppCompatActivity implements IEventLi
 
     }
 
-    private void showProfileUpdateMsg(boolean flag) {
-        if (flag) {
+    private void showProfileUpdateMsg(final boolean flag) {
+        if (flag == true) {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {

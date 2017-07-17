@@ -20,6 +20,12 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        try {
+            MainApplication.enableGPS();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
         //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         _loadFragment(R.id.fragment_layout, new LoginFragment());
 
@@ -62,5 +68,10 @@ public class LoginActivity extends AppCompatActivity {
         startMain.addCategory(Intent.CATEGORY_HOME);
         startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(startMain);
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        MainApplication.disableGPS();
     }
 }

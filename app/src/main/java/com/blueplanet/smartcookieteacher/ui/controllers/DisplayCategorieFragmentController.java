@@ -1,22 +1,32 @@
 package com.blueplanet.smartcookieteacher.ui.controllers;
 
+import android.Manifest;
 import android.app.Dialog;
+import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.GridView;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.blueplanet.smartcookieteacher.MainApplication;
 import com.blueplanet.smartcookieteacher.R;
 import com.blueplanet.smartcookieteacher.communication.ServerResponse;
 import com.blueplanet.smartcookieteacher.featurecontroller.CategoriesFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.DisplayCouponFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.DrawerFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.LoginFeatureController;
+import com.blueplanet.smartcookieteacher.featurecontroller.SchoolOnMapFeatureController;
+import com.blueplanet.smartcookieteacher.featurecontroller.SponsorsOnMapFeatureController;
 import com.blueplanet.smartcookieteacher.models.Category;
 import com.blueplanet.smartcookieteacher.models.Coupon_display;
+import com.blueplanet.smartcookieteacher.models.LatAndLongModel;
 import com.blueplanet.smartcookieteacher.models.Teacher;
 import com.blueplanet.smartcookieteacher.notification.EventNotifier;
 import com.blueplanet.smartcookieteacher.notification.EventState;
@@ -27,7 +37,13 @@ import com.blueplanet.smartcookieteacher.notification.NotifierFactory;
 import com.blueplanet.smartcookieteacher.ui.CouponDetailForBuyFragment;
 import com.blueplanet.smartcookieteacher.ui.DisplayCategorieFragment;
 import com.blueplanet.smartcookieteacher.ui.GPSTracker;
+import com.blueplanet.smartcookieteacher.ui.MapActivity;
+import com.blueplanet.smartcookieteacher.utils.HelperClass;
 import com.blueplanet.smartcookieteacher.webservices.WebserviceConstants;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
 
 
 import java.util.ArrayList;
@@ -35,7 +51,7 @@ import java.util.ArrayList;
 /**
  * Created by 1311 on 09-01-2016.
  */
-public class DisplayCategorieFragmentController implements IEventListener, AdapterView.OnItemClickListener, View.OnClickListener {
+public class DisplayCategorieFragmentController implements IEventListener, AdapterView.OnItemClickListener, View.OnClickListener,OnMapReadyCallback {
 
     private DisplayCategorieFragment _disCategorieFragment;
     private ArrayList<Category> _categoryList;
@@ -44,9 +60,14 @@ public class DisplayCategorieFragmentController implements IEventListener, Adapt
     private CategorieAdapter _categorieAdapter;
     private final String _TAG = this.getClass().getSimpleName();
     private ArrayList<Coupon_display> displayList = null;
-    GPSTracker gps;
+    GPSTracker gpsTracker;
+    //double latitude = 18.5074, longitude = 73.8077;
     double latitude = 0.0, longitude = 0.0;
-    /**
+    double current_latitude = 0.0, current_longitude = 0.0;
+    public static final int PERMISSION_REQUEST_CODE=23;
+    String[] LOC_PERMISSIONS = {Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION};
+
+    /**18.5074° N, 73.8077
      * constructur for student list
      */
 
@@ -57,7 +78,17 @@ public class DisplayCategorieFragmentController implements IEventListener, Adapt
         _categoryList = CategoriesFeatureController.getInstance().getcategorieList();
 
         // create class object
-        gps = new GPSTracker(_disCategorieFragment.getActivity());
+
+        if (checkPermission()) {
+            gpsTracker = new GPSTracker(_disCategorieFragment.getActivity());
+
+        } else {
+
+            requestPermission();
+        }
+
+
+
         /**
          * call webservice to fetch categories
          */
@@ -248,13 +279,29 @@ public class DisplayCategorieFragmentController implements IEventListener, Adapt
                                 String catId = String.valueOf(category.get_caID());
                                 Log.i(_TAG, catId);
                                 String distance = "100";
-                               // String latitude = "18.5246165";
-                                //String longitude = "73.8629673";
-
-                                latitude = gps.getLatitude();
-                                longitude=gps.getLongitude();
-
+                                //  String distance = "100";
+                                latitude = gpsTracker.getLatitude();
+                                longitude = gpsTracker.getLongitude();
+                              /*  double lat=latitude;
+                                LatAndLongModel newlat= new LatAndLongModel();
+                                double newlatitude=newlat.get_latitude();
+*/
                                 _fetchDisplayCouponListFromServer(catId, distance, latitude, longitude);
+
+                            /*    if (gpsTracker.canGetLocation()) {
+
+                                    latitude = gpsTracker.getLatitude();
+                                    longitude = gpsTracker.getLongitude();
+                                    String distance = "100";
+                          *//*          double Lati=latitude;
+                                    double Long=longitude;*//*
+
+                                    _fetchDisplayCouponListFromServer(catId, distance, latitude, 73.8077);
+
+                                } else {
+
+
+                                }*/
 
                             }
 
@@ -321,5 +368,38 @@ public class DisplayCategorieFragmentController implements IEventListener, Adapt
             default:
                 break;
         }
+    }
+
+    private boolean checkPermission(){
+        int result = ContextCompat.checkSelfPermission(_disCategorieFragment.getActivity(), Manifest.permission.ACCESS_FINE_LOCATION);
+        if (result == PackageManager.PERMISSION_GRANTED){
+
+            return true;
+
+        } else {
+
+            return false;
+
+        }
+    }
+
+
+    private void requestPermission(){
+
+        if (ActivityCompat.shouldShowRequestPermissionRationale(_disCategorieFragment.getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) || ActivityCompat.shouldShowRequestPermissionRationale(_disCategorieFragment.getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION)){
+
+            Toast.makeText(_disCategorieFragment.getActivity(), "GPS permission allows us to access location data. Please allow in App Settings for additional functionality.", Toast.LENGTH_LONG).show();
+
+        } else {
+
+            ActivityCompat.requestPermissions(_disCategorieFragment.getActivity(), LOC_PERMISSIONS, PERMISSION_REQUEST_CODE);
+        }
+    }
+
+
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+
     }
 }

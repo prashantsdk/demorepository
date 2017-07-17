@@ -15,7 +15,7 @@
 
             <RelativeLayout
                 android:id="@+id/rl_outer_grey_layout"
-                android:layout_width="280dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="50dp"
@@ -30,7 +30,7 @@
                     android:layout_marginTop="70dp"
                     android:text="Teacher Login"
                     android:textColor="#393939"
-                    android:textSize="28sp" />
+                    android:textSize="25sp" />
 
                 <RelativeLayout
                     android:id="@+id/gsr"
@@ -39,6 +39,7 @@
                     android:layout_below="@+id/tv_login"
                     android:layout_marginLeft="35dp"
                     android:layout_marginRight="35dp"
+                    android:layout_marginTop="10dp"
                     android:background="@drawable/oval_white_background_transparant">
 
                     <Spinner
@@ -50,6 +51,7 @@
                         android:entries="@array/login_type"
                         android:visibility="visible" />
                 </RelativeLayout>
+
 
 
                 <LinearLayout
@@ -94,6 +96,7 @@
 
 
                 </LinearLayout>
+
 
                 <LinearLayout
                     android:id="@+id/ll_phone"
@@ -189,7 +192,7 @@
                         android:layout_marginTop="5dp"
                         android:background="@null"
                         android:drawablePadding="15sp"
-                        android:hint="Institute ID"
+                        android:hint="EmployeeID"
                         android:paddingBottom="5dp"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
@@ -222,7 +225,7 @@
                         android:layout_marginTop="5dp"
                         android:background="@null"
                         android:drawablePadding="15sp"
-                        android:hint="EmployeeID"
+                        android:hint="Institute ID"
                         android:paddingBottom="5dp"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
@@ -313,7 +316,7 @@
 
                 <LinearLayout
                     android:id="@+id/tep"
-                    android:layout_width="200dp"
+                    android:layout_width="250dp"
                     android:layout_height="30dp"
                     android:layout_below="@+id/tv_forgotPassword"
                     android:layout_centerHorizontal="true"
@@ -337,12 +340,22 @@
 
                     <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
                         android:id="@+id/txttest"
-                        android:layout_width="match_parent"
+                        android:layout_width="200dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:background="@drawable/btnrightcorner"
                         android:gravity="center"
                         android:text="Test"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="#ffffff" />
+                    <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                        android:id="@+id/txtDev"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/btnrightcorner"
+                        android:gravity="center"
+                        android:text="Dev"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textColor="#ffffff" />
                 </LinearLayout>
@@ -369,7 +382,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="15dp">
+                android:layout_marginTop="5dp">
 
                 <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
                     android:id="@+id/tv_circle"

@@ -1,13 +1,17 @@
 package com.blueplanet.smartcookieteacher.ui;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.telephony.TelephonyManager;
 import android.text.format.Formatter;
 import android.util.DisplayMetrics;
@@ -72,7 +76,7 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
     private TestPro testpro;
     public User url;
     public String strurl;
-    private CustomTextView _test, _production, tv_forgotPassword;
+    private CustomTextView _test, _production, tv_forgotPassword,_dev;
     private EditText etxtpoints;
     private ImageView imgclearpoints;
     private Spinner spinner, spinnerPhone;
@@ -82,7 +86,11 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
     public int _urlTP = 0;
     private final String _TAG = this.getClass().getSimpleName();
     private String selState, str;
-    GPSTracker gps;
+
+    GPSTracker   gpsTracker;;
+    double latitude = 0.0, longitude = 0.0;
+    public static final int PERMISSION_REQUEST_CODE=23;
+    String[] LOC_PERMISSIONS = {Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION};
     EditText etUserMobile;
 
 
@@ -91,10 +99,24 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
         _view = inflater.inflate(R.layout.mobile_teacher_login, null);
         _initUI();
         _loginFragmentController = new LoginFragmentController(this, _view);
+        if (checkPermission()) {
+            gpsTracker = new GPSTracker(getActivity());
+            latitude = gpsTracker.getLatitude();
+            longitude = gpsTracker.getLongitude();
 
+        } else {
+
+            requestPermission();
+        }
+
+        try {
+            MainApplication.enableGPS();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
         // create class object
-        gps = new GPSTracker(getActivity());
+
 
         ArrayAdapter aa = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item, userOption);
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -170,6 +192,7 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
         _rememberMe = (CheckBox) _view.findViewById(R.id.cb_remember_me);
         _test = (CustomTextView) _view.findViewById(R.id.txttest);
         _production = (CustomTextView) _view.findViewById(R.id.txtproduction);
+        _dev = (CustomTextView) _view.findViewById(R.id.txtDev);
         tv_forgotPassword = (CustomTextView) _view.findViewById(R.id.tv_forgotPassword);
         spinner = (Spinner) _view.findViewById(R.id.spinner);
         spinnerPhone = (Spinner) _view.findViewById(R.id.spinnerPhone);
@@ -196,6 +219,7 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
 
         _test.setOnClickListener(_loginFragmentController);
         _production.setOnClickListener(_loginFragmentController);
+        _dev.setOnClickListener(_loginFragmentController);
         // _btntest.setOnClickListener(_loginFragmentController);
 
 
@@ -263,7 +287,7 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
             ll_userphone.setVisibility(View.VISIBLE);
             ll_phone.setVisibility(View.INVISIBLE);
             ll_prn.setVisibility(View.INVISIBLE);
-            ll_ID.setVisibility(View.GONE);
+            ll_ID.setVisibility(View.VISIBLE);
             _l1memberID.setVisibility(View.INVISIBLE);
 
             ll_userphone.requestFocus();
@@ -562,7 +586,48 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
         }
         return null;
     }
-}
+
+    private boolean checkPermission(){
+        int result = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION);
+        if (result == PackageManager.PERMISSION_GRANTED){
+
+            return true;
+
+        } else {
+
+            return false;
+
+        }
+    }
+
+
+    private void requestPermission(){
+
+        if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) || ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION)){
+
+            Toast.makeText(getActivity(), "GPS permission allows us to access location data. Please allow in App Settings for additional functionality.", Toast.LENGTH_LONG).show();
+
+        } else {
+
+            ActivityCompat.requestPermissions(getActivity(), LOC_PERMISSIONS, PERMISSION_REQUEST_CODE);
+        }
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case PERMISSION_REQUEST_CODE:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    gpsTracker = new GPSTracker(getActivity());
+                    Toast.makeText(getActivity(), "Permission Granted, Now you can access location data", Toast.LENGTH_LONG).show();
+
+                } else {
+                    Toast.makeText(getActivity(), "Permission Denied, You cannot access location data.", Toast.LENGTH_LONG).show();
+
+                }
+                break;
+        }
+    }}
    /* @Override
     public void onClick(View v) {
 

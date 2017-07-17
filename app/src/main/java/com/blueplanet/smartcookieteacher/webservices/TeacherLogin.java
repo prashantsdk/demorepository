@@ -28,10 +28,12 @@ import org.json.JSONObject;
 public class TeacherLogin extends SmartCookieTeacherService {
 
 
-    private String _username, _userPassword, _type, _colgcode, _method, _devicetype, _details, _os, _ipadddress, _lat, _log, _countrycode;
+    private String _username, _userPassword, _type, _colgcode, _method, _devicetype, _details, _os, _ipadddress,  _countrycode;
     private final String _TAG = this.getClass().getSimpleName();
+    double       _lat, _log;
 
-    public TeacherLogin(String username, String userPassword, String type, String colgcode, String method, String devicetype, String details, String os, String ipadddress, String countrycode) {
+    public TeacherLogin(String username, String userPassword, String type, String colgcode, String method, String devicetype, String details, String os, String ipadddress, String countrycode,
+                        double lat, double log) {
 
         _username = username;
         _userPassword = userPassword;
@@ -43,6 +45,8 @@ public class TeacherLogin extends SmartCookieTeacherService {
         _os = os;
         _ipadddress = ipadddress;
         _countrycode = countrycode;
+        _lat=lat;
+        _log=log;
     }
 
     @Override

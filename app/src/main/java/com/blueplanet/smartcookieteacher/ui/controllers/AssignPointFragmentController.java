@@ -142,38 +142,35 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
 
     @Override
     public void onClick(final View view) {
-
         int id = view.getId();
         _lvActivities = (GridView) _view.findViewById(R.id.lstActivity);
         final ImageView imgCircle = (ImageView) _view.findViewById(R.id.imgSelectedOption);
         final RelativeLayout _rl4Option = (RelativeLayout) _view.findViewById(R.id.rel4Option);
         switch (id) {
             case R.id.txtGeneralAssignPoints:
-                _activityType = ApplicationConstants.KEY_GENERAL_ACTIVITY;
-                AssignPointFeatureController.getInstance().setIsStudyClicked(false);
-                _activityList = ActivityListFeatureController.getInstance().getActivitylistInfoFromDB(_activityType);
-                _assignPointFragment.getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
 
+                    _activityType = ApplicationConstants.KEY_GENERAL_ACTIVITY;
+                    AssignPointFeatureController.getInstance().setIsStudyClicked(false);
+                    _activityList = ActivityListFeatureController.getInstance().getActivitylistInfoFromDB(_activityType);
+                    _assignPointFragment.getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
 
-                        imgCircle.setImageResource(R.drawable.circle_general);
-                        // _assignPointFragment.showOrHideRl4Option(false);
-                        imgCircle.setVisibility(View.VISIBLE);
-                        _rl4Option.setVisibility(View.GONE);
+                            imgCircle.setImageResource(R.drawable.circle_general);
+                            // _assignPointFragment.showOrHideRl4Option(false);
+                            imgCircle.setVisibility(View.VISIBLE);
+                            _rl4Option.setVisibility(View.GONE);
 
+                            // _activityList = ActivityListFeatureController.
+                            // getInstance().getGeneralActivityList();
+                            _adapter = new AssignPointListAdapter1(_assignPointFragment,
+                                    AssignPointFragmentController.this, _activityList);
 
-                        // _activityList = ActivityListFeatureController.
-                        // getInstance().getGeneralActivityList();
-                        _adapter = new AssignPointListAdapter1(_assignPointFragment,
-                                AssignPointFragmentController.this, _activityList);
-
-                        _lvActivities.setAdapter(_adapter);
-                        _lvActivities.setVisibility(View.VISIBLE);
-                        //_lvActivities.setOnItemClickListener(AssignPointFragmentController.this);
-                    }
-                });
-
+                            _lvActivities.setAdapter(_adapter);
+                            _lvActivities.setVisibility(View.VISIBLE);
+                            //_lvActivities.setOnItemClickListener(AssignPointFragmentController.this);
+                        }
+                    });
 
                 break;
 
@@ -204,29 +201,29 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
 
                 break;
             case R.id.txtArtAssignpoints:
-                _activityType = ApplicationConstants.KEY_ART;
-                _activityList = ActivityListFeatureController.getInstance().getActivitylistInfoFromDB(_activityType);
-                AssignPointFeatureController.getInstance().setIsStudyClicked(false);
-                _assignPointFragment.getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        imgCircle.setImageResource(R.drawable.circle_art);
-                        // _assignPointFragment.showOrHideRl4Option(false);
-                        imgCircle.setVisibility(View.VISIBLE);
-                        _rl4Option.setVisibility(View.GONE);
 
+                    _activityType = ApplicationConstants.KEY_ART;
+                    _activityList = ActivityListFeatureController.getInstance().getActivitylistInfoFromDB(_activityType);
+                    AssignPointFeatureController.getInstance().setIsStudyClicked(false);
+                    _assignPointFragment.getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            imgCircle.setImageResource(R.drawable.circle_art);
+                            // _assignPointFragment.showOrHideRl4Option(false);
+                            imgCircle.setVisibility(View.VISIBLE);
+                            _rl4Option.setVisibility(View.GONE);
 
-                        //  _activityList = ActivityListFeatureController.
-                        //   getInstance().get_artActivityList();
-                        _adapter = new AssignPointListAdapter1(_assignPointFragment,
-                                AssignPointFragmentController.this, _activityList);
+                            //  _activityList = ActivityListFeatureController.
+                            //   getInstance().get_artActivityList();
+                            _adapter = new AssignPointListAdapter1(_assignPointFragment,
+                                    AssignPointFragmentController.this, _activityList);
 
-                        _lvActivities.setAdapter(_adapter);
-                        _lvActivities.setVisibility(View.VISIBLE);
-                        // _lvActivities.setOnItemClickListener(AssignPointFragmentController.this);
+                            _lvActivities.setAdapter(_adapter);
+                            _lvActivities.setVisibility(View.VISIBLE);
+                            // _lvActivities.setOnItemClickListener(AssignPointFragmentController.this);
 
-                    }
-                });
+                        }
+                    });
 
                 break;
             case R.id.txtStudyAssignPoints:
@@ -716,6 +713,7 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
                 if (errorCode == WebserviceConstants.SUCCESS) {
 
                     Student s = StudentFeatureController.getInstance().getSelectedStudent();
+
                     prn = s.get_stdPRN();
                     subFeaturecontroller.getInstance().fetchSubjectFromServer(_teacherId, _schoolId, prn);
                 }

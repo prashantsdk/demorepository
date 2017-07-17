@@ -24,15 +24,16 @@ import org.json.JSONObject;
  */
 public class TeacherPoint extends SmartCookieTeacherService {
 
-    private String _teacherID;
+    private String _teacherID,_studentId;
     private final String _TAG = this.getClass().getSimpleName();
 
     /**
      * constructor
      * @param tid
      */
-    public TeacherPoint(String tid) {
+    public TeacherPoint(String tid,String studentId) {
         _teacherID = tid;
+        _studentId = studentId;
     }
 
     @Override
@@ -46,6 +47,7 @@ public class TeacherPoint extends SmartCookieTeacherService {
         JSONObject requestBody = new JSONObject();
         try {
             requestBody.put(WebserviceConstants.KEY_TID, _teacherID);
+            requestBody.put(WebserviceConstants.KEY_SCHOOLID, _studentId);
 
         } catch (JSONException e) {
             e.printStackTrace();

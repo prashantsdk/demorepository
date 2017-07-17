@@ -48,12 +48,12 @@ public class DashboardFeatureController implements IEventListener {
 
     }
 
-    public void fetchTeacherPointFromServer(String tId) {
+    public void fetchTeacherPointFromServer(String tId,String studentId) {
         EventNotifier eventNotifier =
                 NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_TEACHER);
         eventNotifier.registerListener(this, ListenerPriority.PRIORITY_MEDIUM);
 
-        TeacherPoint teacherPoint = new TeacherPoint(tId);
+        TeacherPoint teacherPoint = new TeacherPoint(tId,studentId);
         teacherPoint.send();
 
 

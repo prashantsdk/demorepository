@@ -58,7 +58,7 @@ public class TeacherDashboardFragmentController implements IEventListener, AbsLi
             _teacherId = _teacher.get_tId();
             _schoolId = _teacher.get_tSchool_id();
             String id = _teacher.get_tId();
-            _fetchPointFromServer(_teacherId);
+            _fetchPointFromServer(_teacherId,_schoolId);
 
         } else {
             _teacherDashboardFragment.setDashboardDataOnUI();
@@ -99,10 +99,10 @@ public class TeacherDashboardFragmentController implements IEventListener, AbsLi
      *
      * @param techerId
      */
-    private void _fetchPointFromServer(String techerId) {
+    private void _fetchPointFromServer(String techerId,String studentId) {
         _registerNetworkListeners();
         _registerEventListeners();
-        DashboardFeatureController.getInstance().fetchTeacherPointFromServer(techerId);
+        DashboardFeatureController.getInstance().fetchTeacherPointFromServer(techerId,studentId);
     }
 
     private void _registerEventListeners() {

@@ -9,8 +9,8 @@ android {
         applicationId "com.blueplanet.smartcookieteacher"
         minSdkVersion 14
         targetSdkVersion 23
-        versionCode 17
-        versionName "1.7"
+        versionCode 21
+        versionName "1.11"
 
     }
     buildTypes {
@@ -40,6 +40,7 @@ dependencies {
     compile 'com.google.android.gms:play-services-location:9.0.2'
     compile 'com.android.support:design:23.3.0'
     compile 'com.android.support:recyclerview-v7:23.3.0'
+    //compile 'com.devs:acr:1.0.1'
 
 
 

@@ -59,5 +59,8 @@
     <color name="buttongoogle_press">#ad2d1e</color>
     <color name="snack_back">#D50000</color>
     <color name="cl_white">#FFFFFF</color>
+    <color name="cl_blue_new">#203CB6</color>
+    <color name="cl_black_80_transp">#CC000000</color>
+    <color name="cl_orange_800_dark">#EF6C00</color>
 
 </resources>

@@ -65,13 +65,13 @@ public class GenerateCouponFeatureController implements IEventListener {
      * @param _tId
      * @param
      */
-    public void fetchGenerateCouponFromServer(String _tId,String _couPoint,String option) {
+    public void fetchGenerateCouponFromServer(String _tId,String _couPoint,String option,String studentId) {
 
         EventNotifier eventNotifier =
                 NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_COUPON);
         eventNotifier.registerListener(this, ListenerPriority.PRIORITY_MEDIUM);
 
-        GetGenerateCoupon generateCoupon = new GetGenerateCoupon(_tId,_couPoint,option);
+        GetGenerateCoupon generateCoupon = new GetGenerateCoupon(_tId,_couPoint,option,studentId);
         generateCoupon.send();
 
     }

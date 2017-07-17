@@ -46,7 +46,7 @@ public class GenerateCouponFragmentController implements View.OnClickListener, I
     private ArrayList<GenerateCoupon> _couList;
     private ImageView imgclearpoints;
     private Teacher _teacher;
-    private String _teacherId;
+    private String _teacherId,schoolID;
     private Spinner spinner, spinner1,spinnercolr;
     String logintype;
     /**
@@ -68,6 +68,8 @@ public class GenerateCouponFragmentController implements View.OnClickListener, I
         _teacher = LoginFeatureController.getInstance().getTeacher();
         if (_teacher != null) {
             _teacherId = _teacher.get_tId();
+            schoolID=_teacher.get_tSchool_id();
+
 
         }
 
@@ -101,12 +103,12 @@ public class GenerateCouponFragmentController implements View.OnClickListener, I
      *
      * @param
      */
-    private void _fetchGenCoupFromServer(String teacherId, String couPoint,String option) {
+    private void _fetchGenCoupFromServer(String teacherId, String couPoint,String option,String studentId) {
         EventNotifier eventNotifier =
                 NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_COUPON);
         eventNotifier.registerListener(this, ListenerPriority.PRIORITY_MEDIUM);
 
-        GenerateCouponFeatureController.getInstance().fetchGenerateCouponFromServer(teacherId, couPoint,option);
+        GenerateCouponFeatureController.getInstance().fetchGenerateCouponFromServer(teacherId, couPoint,option,studentId);
     }
 
     @Override
@@ -128,7 +130,7 @@ public class GenerateCouponFragmentController implements View.OnClickListener, I
             case R.id.btn_generate:
                 String point = BalancePointModelClass.get_couValue();
                 logintype = spinner.getSelectedItem().toString();
-                _fetchGenCoupFromServer(_teacherId, point,logintype);
+                _fetchGenCoupFromServer(_teacherId, point,logintype,schoolID);
                 break;
             default:
                 break;

@@ -66,7 +66,7 @@ public class SyncFragmentController implements View.OnClickListener {
                 if (_teacher != null && NetworkManager.isNetworkAvailable()) {
                     _teacherId = _teacher.get_tId();
                     _schoolId = _teacher.get_tSchool_id();
-                    DashboardFeatureController.getInstance().fetchTeacherPointFromServer(_teacherId);
+                    DashboardFeatureController.getInstance().fetchTeacherPointFromServer(_teacherId,_schoolId);
 
                    // _btnPoint.setBackgroundResource(R.color.cl_primary);
                     Toast.makeText(MainApplication.getContext(),

@@ -180,6 +180,7 @@ public class ActivityListFeatureController implements IEventListener {
         Object object =
                 PersistenceFactory.get(SmartTeacherDatabaseMasterTable.Tables.ACTIVITYLIST).load(activityType);
 
+
         if (object != null) {
             ArrayList<TeacherActivity> list = (ArrayList<TeacherActivity>) object;
             if (list != null && list.size() > 0) {

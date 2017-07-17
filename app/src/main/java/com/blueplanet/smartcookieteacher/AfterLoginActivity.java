@@ -55,6 +55,7 @@ import com.blueplanet.smartcookieteacher.ui.MapActivity;
 import com.blueplanet.smartcookieteacher.ui.SharePointFragment;
 import com.blueplanet.smartcookieteacher.ui.SoftRewardFragment;
 import com.blueplanet.smartcookieteacher.ui.StudentListFragment;
+import com.blueplanet.smartcookieteacher.ui.SugestSponserFragment;
 import com.blueplanet.smartcookieteacher.ui.SyncFragment;
 import com.blueplanet.smartcookieteacher.ui.TeacherDashboardFragment;
 import com.blueplanet.smartcookieteacher.ui.TeacherProfileFragment;
@@ -125,7 +126,6 @@ public class AfterLoginActivity extends FragmentActivity implements IEventListen
 
         _dataList.add(new DrawerItem("Map", R.drawable.coupon));
         _dataList.add(new DrawerItem("Logout", R.drawable.coupon));
-
 
 
         // _dataList.add(new DrawerItem("Sponsar Map", R.drawable.coupon));
@@ -310,7 +310,7 @@ public class AfterLoginActivity extends FragmentActivity implements IEventListen
 
                 _fragment = new DisplaySubjectFragment();
 
-               // _fragment = new SoftRewardFragment();
+                // _fragment = new SoftRewardFragment();
 
                 break;
             case 11:
@@ -326,6 +326,14 @@ public class AfterLoginActivity extends FragmentActivity implements IEventListen
                 //_fragment = new DisplaySubjectFragment();
 
                 _fragment = new SoftRewardFragment();
+                //_fragment = new SugestSponserFragment();
+
+
+
+
+
+
+
 
              /*   DrawerFeatureController.getInstance().setIsFragmentOpenedFromDrawer(true);
                 if (_count < 7) {

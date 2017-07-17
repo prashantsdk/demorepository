@@ -9,4 +9,21 @@
     <dimen name="feed_item_corner_radius">5dp</dimen>
     <dimen name="et_username_textSize">18sp</dimen>
     <dimen name="oval_corner">5dp</dimen>
+
+    <dimen name="edittext_height">35dp</dimen>
+    <dimen name="gray_line">0.5dp</dimen>
+    <dimen name="etextsize">13sp</dimen>
+    <dimen name="Main_button_height">45sp</dimen>
+
+    <dimen name="Zero_dp_height">0dp</dimen>
+
+    <dimen name="txt_title">18sp</dimen>
+
+    <dimen name="txt_sub_title">12sp</dimen>
+
+
+    <dimen name="grid_margin">2dp</dimen>
+
+
+    <dimen name="txt_size_grid">14sp</dimen>
 </resources>

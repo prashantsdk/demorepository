@@ -1,13 +1,17 @@
 package com.blueplanet.smartcookieteacher.ui.controllers;
 
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.AsyncTask;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -69,7 +73,14 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
     private Spinner spinner, spinnerPhone;
     GPSTracker gps;
     private String password;
+    GPSTracker gpsTracker;
 
+
+    public static final int PERMISSION_REQUEST_CODE=23;
+
+    double latitude = 0.0, longitude = 0.0;
+
+    String[] LOC_PERMISSIONS = {Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION};
     GoogleCloudMessaging gcm;
 
     /**
@@ -87,7 +98,17 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
         spinnerPhone = (Spinner) _view.findViewById(R.id.spinnerPhone);
 
         // create class object
-        gps = new GPSTracker(_loginFragment.getActivity());
+        if (checkPermission()) {
+            gpsTracker = new GPSTracker(_loginFragment.getActivity());
+            latitude = gpsTracker.getLatitude();
+            longitude = gpsTracker.getLongitude();
+
+
+        } else {
+
+            requestPermission();
+        }
+
         CheckBox cbRememberMe = (CheckBox) _view.findViewById(R.id.cb_remember_me);
 
 
@@ -130,12 +151,12 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
     }
 
     private void _teacherLogin(String username, String password, String usertype, String colgCode, String method, String devicetype, String details,
-                               String os, String ipadddress, String countryCode) {
+                               String os, String ipadddress, String countryCode,double lat, double log) {
         _registerEventListeners();
         _registerNetworkListeners();
         _loginFragment.showOrHideProgressBar(true);
         LoginFeatureController.getInstance().teacherLogin(username, password, usertype, colgCode, method, devicetype, details,
-                os, ipadddress, countryCode);
+                os, ipadddress, countryCode,lat,log);
     }
 
     private void _forgetpassward(String entity, String email) {
@@ -180,19 +201,30 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
                     String colgCode = "";
                     String countryCode = "";
                     String method = "Android";
+                    LoginFeatureController.getInstance().setMethod(method);
                     String devicetype = "phone";
+                    LoginFeatureController.getInstance().setDevicetype(devicetype);
 
 
                     String device_details = _loginFragment.getDeviceName();
+                    LoginFeatureController.getInstance().setDevicedetail(device_details);
+
                     String platform_OS = _loginFragment.getAndroidVersion();
+                    LoginFeatureController.getInstance().setPlatfom(platform_OS);
                     String ip_address = _loginFragment.getLocalIpAddress();
+                    LoginFeatureController.getInstance().setIp(ip_address);
                     String usertype = LoginFeatureController.getInstance().get_emailID();
                     String usertphone = LoginFeatureController.getInstance().get_phoneNo();
 
                     if (usertype.equalsIgnoreCase("Email")) {
                         _handleRememberMeClick();
                         String userName = etUserName.getText().toString();
+                        LoginFeatureController.getInstance().setEmail(userName);
+
                          password = etPassword.getText().toString();
+                        LoginFeatureController.getInstance().setPassword(password);
+                        String collgcode = etprn.getText().toString();
+                        LoginFeatureController.getInstance().setColgcode(collgcode);
 
 
                         //String selStatephone = (String) spinner.getSelectedItem();
@@ -201,7 +233,8 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
 
                         if (!TextUtils.isEmpty(userName) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(usertype) || !TextUtils.isEmpty(colgCode)) {
                             //  SmartCookieSharedPreferences.setLoginFlag(true);
-                            _teacherLogin(userName, password, usertype, colgCode, method, devicetype, device_details, platform_OS, ip_address, countryCode);
+
+                            _teacherLogin(userName, password, usertype, collgcode, method, devicetype, device_details, platform_OS, ip_address, countryCode,latitude,longitude);
                         } else if (TextUtils.isEmpty(userName) && TextUtils.isEmpty(password)) {
                             Toast.makeText(MainApplication.getContext(),
                                     "Please enter your credentials",
@@ -232,13 +265,14 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
 
                         if (!TextUtils.isEmpty(mobileno) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(usertype) || !TextUtils.isEmpty(colgCode) && mobileno.equalsIgnoreCase("0" ) ){
                             //  SmartCookieSharedPreferences.setLoginFlag(true);
-                            _teacherLogin(mobileno, password, usertype, colgCode, method, devicetype, device_details, platform_OS, ip_address, code);
+
+                            _teacherLogin(mobileno, password, usertype, colgCode, method, devicetype, device_details, platform_OS, ip_address, code,latitude,longitude);
 
                         } else if (TextUtils.isEmpty(mobileno) && TextUtils.isEmpty(password)) {                            Toast.makeText(MainApplication.getContext(),
                                 "Please enter your credentials",
                                 Toast.LENGTH_SHORT).show();
 
-                            _teacherLogin(mobileno, password, usertype, colgCode, method, devicetype, device_details, platform_OS, ip_address, code);
+                            _teacherLogin(mobileno, password, usertype, colgCode, method, devicetype, device_details, platform_OS, ip_address, code,latitude,longitude);
                         }
 
 
@@ -253,7 +287,8 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
 
                         if (!TextUtils.isEmpty(prn) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(usertype) || !TextUtils.isEmpty(colgCode)) {
                             //  SmartCookieSharedPreferences.setLoginFlag(true);
-                            _teacherLogin(prn, password, usertype, code, method, devicetype, device_details, platform_OS, ip_address, countryCode);
+
+                            _teacherLogin(prn, password, usertype, code, method, devicetype, device_details, platform_OS, ip_address, countryCode,latitude,longitude);
                         } else if (TextUtils.isEmpty(prn) && TextUtils.isEmpty(password)) {
                             Toast.makeText(MainApplication.getContext(),
                                     "Please enter your credentials",
@@ -275,7 +310,8 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
 
                         if (!TextUtils.isEmpty(userMemberID) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(usertype) || !TextUtils.isEmpty(colgCode)) {
                             //  SmartCookieSharedPreferences.setLoginFlag(true);
-                            _teacherLogin(userMemberID, password, usertype, colgCode, method, devicetype, device_details, platform_OS, ip_address, countryCode);
+
+                            _teacherLogin(userMemberID, password, usertype, colgCode, method, devicetype, device_details, platform_OS, ip_address, countryCode,latitude,longitude);
                         } else if (TextUtils.isEmpty(userMemberID) && TextUtils.isEmpty(password)) {
                             Toast.makeText(MainApplication.getContext(),
                                     "Please enter your credentials",
@@ -375,6 +411,17 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
                 etxtpoints.setText("");
                 imgclearpoints.setVisibility(View.GONE);
                 break;
+
+
+            case R.id.txtDev:
+                TestPro testpro2 = new TestPro();
+                WebserviceConstants.BASE_URL = WebserviceConstants.BASE_URL3;
+                testpro2.set_url(WebserviceConstants.BASE_URL);
+                String a2 = testpro2.get_url();
+                Toast.makeText(_loginFragment.getActivity(), "Dev",
+                        Toast.LENGTH_LONG).show();
+                break;
+
 
             case R.id.btnRegis:
                // _loadFragment(R.id.fragment_layout, new RegistrationFragment());
@@ -785,6 +832,31 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
                         .show();*/
             }
         }.execute(null, null, null);
+    }
+    private boolean checkPermission(){
+        int result = ContextCompat.checkSelfPermission(_loginFragment.getActivity(), Manifest.permission.ACCESS_FINE_LOCATION);
+        if (result == PackageManager.PERMISSION_GRANTED){
+
+            return true;
+
+        } else {
+
+            return false;
+
+        }
+    }
+
+
+    private void requestPermission(){
+
+        if (ActivityCompat.shouldShowRequestPermissionRationale(_loginFragment.getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) || ActivityCompat.shouldShowRequestPermissionRationale(_loginFragment.getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION)){
+
+            Toast.makeText(_loginFragment.getActivity(), "GPS permission allows us to access location data. Please allow in App Settings for additional functionality.", Toast.LENGTH_LONG).show();
+
+        } else {
+
+            ActivityCompat.requestPermissions(_loginFragment.getActivity(), LOC_PERMISSIONS, PERMISSION_REQUEST_CODE);
+        }
     }
 
 }

@@ -55,7 +55,87 @@ public class LoginFeatureController implements IEventListener {
 
     private String _emailID = null;
 
+    private  String email,password,usertype,colgcode,method,devicetype,devicedetail,platfom,ip,countrycode;
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getUsertype() {
+        return usertype;
+    }
+
+    public void setUsertype(String usertype) {
+        this.usertype = usertype;
+    }
+
+    public String getColgcode() {
+        return colgcode;
+    }
+
+    public void setColgcode(String colgcode) {
+        this.colgcode = colgcode;
+    }
+
+    public String getMethod() {
+        return method;
+    }
+
+    public void setMethod(String method) {
+        this.method = method;
+    }
+
+    public String getDevicetype() {
+        return devicetype;
+    }
+
+    public void setDevicetype(String devicetype) {
+        this.devicetype = devicetype;
+    }
+
+    public String getDevicedetail() {
+        return devicedetail;
+    }
+
+    public void setDevicedetail(String devicedetail) {
+        this.devicedetail = devicedetail;
+    }
+
+    public String getPlatfom() {
+        return platfom;
+    }
+
+    public void setPlatfom(String platfom) {
+        this.platfom = platfom;
+    }
+
+    public String getIp() {
+        return ip;
+    }
+
+    public void setIp(String ip) {
+        this.ip = ip;
+    }
+
+    public String getCountrycode() {
+        return countrycode;
+    }
+
+    public void setCountrycode(String countrycode) {
+        this.countrycode = countrycode;
+    }
 
     private String _phoneNo = null;
     /**
@@ -78,14 +158,14 @@ public class LoginFeatureController implements IEventListener {
      * @param password
      */
     public void teacherLogin(String username, String password, String usertype, String colgCode, String method, String devicetype, String details,
-                             String os, String ipadd,String cuntryCode) {
+                             String os, String ipadd,String cuntryCode,double lat, double log) {
 
         EventNotifier eventNotifier =
                 NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_LOGIN);
         eventNotifier.registerListener(this, ListenerPriority.PRIORITY_MEDIUM);
 
         TeacherLogin teacherLogin = new TeacherLogin(username, password, usertype, colgCode, method, devicetype, details,
-                os, ipadd,cuntryCode);
+                os, ipadd,cuntryCode,lat,log);
 
         teacherLogin.send();
 

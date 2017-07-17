@@ -48,7 +48,7 @@ public class GenerateCouponFragment extends Fragment  implements AdapterView.OnI
     private GenerateCouponAdapter _adapter;
     private GenerateCoupon _coupon;
     private Spinner spinner, spinner1,spinnercolr;
-    String[] userOption = {"Bluepoint", "Waterpoint"};
+    String[] userOption = {"Bluepoints", "Waterpoints"};
     private String selState, str;
 
     @Override

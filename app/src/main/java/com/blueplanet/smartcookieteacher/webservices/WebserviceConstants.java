@@ -26,8 +26,8 @@ public class WebserviceConstants {
     // public static final String BASE_URL = "tsmartcookies.bpsi.us/Version2/";
 
     public static String BASE_URL = "smartcookie.in/core/Version2/";
-   // public static String BASE_URL1 = "tsmartcookies.bpsi.us/core/Version2/";
-    public static String BASE_URL1 = "devsmart.bpsi.us/core/Version2/";
+  public static String BASE_URL1 = "tsmartcookies.bpsi.us/core/Version2/";
+    public static String BASE_URL3 = "devsmart.bpsi.us/core/Version2/";
     public static String BASE_URL2 = "smartcookie.in/core/Version2/";
 
       public static final String IMAGE_BASE_URL = "http://tsmartcookies.bpsi.us/";
@@ -36,10 +36,10 @@ public class WebserviceConstants {
 
     //public static final String TEACHER_LOGIN = "login_teacher.php";
     //public static final String TEACHER_LOGIN = "login_teacher2.php";
-    public static final String TEACHER_LOGIN = "login_teacher_V3.php";
+    public static final String TEACHER_LOGIN = "login_teacher_V4.php";
     public static final String GET_STUDENT_INFO = "getStudentInfo.php";
     public static final String REGISTRATION = "teacher_registration.php";
-    public static final String TEACHER_POINT = "display_teacher_point.php";
+    public static final String TEACHER_POINT = "display_teacher_point_v3.php";
     public static final String TEACHER_SUBJECT = "teacher_ws.php?f=teacherMySubjects";
     public static final String TEACHER_ASSIGN_POINT = "point_registration_webservice.php";
     public static final String TEACHER_ACIVITY = "activity_list.php";
@@ -50,7 +50,7 @@ public class WebserviceConstants {
     public static final String SUBJECTWISE_STUDENT = "teacher_ws.php?f=teacherMystudentsforsubject";
     public static final String BLUE_POINT_LOG = "thanQ_points_log.php";
     public static final String NEW_REGISTRATION = "teacher_registration.php";
-    public static final String GENERATE_COUPON_LOG = "teacher_generate_coupon_ws.php";
+    public static final String GENERATE_COUPON_LOG = "teacher_generate_coupon_ws_v3.php";
     public static final String COUPON_ADD_TO_CART = "add_to_cart_ws.php";
     public static final String COUPON_ADD_TO_CART_CONFIRM = "cart_confirm_ws.php";
     public static final String BUY_COUPON_LOG = "show_selected_vendor_coupons_ws.php";
@@ -66,10 +66,8 @@ public class WebserviceConstants {
     public static final String ALL_SUBJECT_WEB_SERVICE = "teacher_ws.php?f=teacherallsubjects";
     public static final String LOGOUT_WEB_SERVICE = "logout_teacher_API.php";
     public static final String REQUEST_WEB_SERVICE = "request_other_student.php";
-
     public static final String ACCEPT_REQUEST_WEB_SERVICE = "accept_other_request_student.php";
     public static final String STUDENT_UPDATE_GCM = "update_gcm_id_ws.php";
-
     public static final String SOFT_REWARD = "display_soft_reward_webservice.php";
     public static final String SOFT_REWARD_PURCHASE = "purchase_soft_rewards_teacher.php";
     public static final String PURCHASEWATERPOINTS = "purchase_water_point_student.php";
@@ -363,6 +361,7 @@ public class WebserviceConstants {
     //output
     public static final String KEY_MEMBER_ID = "member_id";
     public static final String KEY_TEACHER__ID = "t_id";
+
 
     /**
      * constants for GENERATE COUPON

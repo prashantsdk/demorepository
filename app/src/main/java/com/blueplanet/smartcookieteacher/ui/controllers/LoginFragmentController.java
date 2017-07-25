@@ -288,7 +288,7 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
                         if (!TextUtils.isEmpty(prn) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(usertype) || !TextUtils.isEmpty(colgCode)) {
                             //  SmartCookieSharedPreferences.setLoginFlag(true);
 
-                            _teacherLogin(prn, password, usertype, code, method, devicetype, device_details, platform_OS, ip_address, countryCode,latitude,longitude);
+                            _teacherLogin(code, password, usertype, code, method, devicetype, device_details, platform_OS, ip_address, countryCode,latitude,longitude);
                         } else if (TextUtils.isEmpty(prn) && TextUtils.isEmpty(password)) {
                             Toast.makeText(MainApplication.getContext(),
                                     "Please enter your credentials",

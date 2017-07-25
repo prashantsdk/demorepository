@@ -9,8 +9,8 @@ android {
         applicationId "com.blueplanet.smartcookieteacher"
         minSdkVersion 14
         targetSdkVersion 23
-        versionCode 21
-        versionName "1.11"
+        versionCode 22
+        versionName "1.12"
 
     }
     buildTypes {

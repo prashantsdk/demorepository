@@ -124,6 +124,7 @@ public class AfterLoginActivity extends FragmentActivity implements IEventListen
         _dataList.add(new DrawerItem("Add Teacher Subject", R.drawable.coupon));
         _dataList.add(new DrawerItem("Soft Rewards", R.drawable.coupon));
 
+        _dataList.add(new DrawerItem("Suggest Vendor", R.drawable.coupon));
         _dataList.add(new DrawerItem("Map", R.drawable.coupon));
         _dataList.add(new DrawerItem("Logout", R.drawable.coupon));
 
@@ -349,10 +350,26 @@ public class AfterLoginActivity extends FragmentActivity implements IEventListen
                 startActivity(i);*/
                 break;
             case 12:
+                DrawerFeatureController.getInstance().setIsFragmentOpenedFromDrawer(true);
+                if (_count < 7) {
+                    _count = _count + 1;
+                }
+                _fragmentTagList.add("GenerateCouponFragment");
+                _addtoBackStack = true;
+                // _fragment = new BuyCouponLogFragment();//
+
+
+                //_fragment = new DisplaySubjectFragment();
+
+              //  _fragment = new SoftRewardFragment();
+                _fragment = new SugestSponserFragment();
+
+                break;
+            case 13:
                 Intent i = new Intent(this, MapActivity.class);
                 startActivity(i);
                 break;
-            case 13:
+            case 14:
 
                 _teacher = LoginFeatureController.getInstance().getTeacher();
 
@@ -385,7 +402,7 @@ public class AfterLoginActivity extends FragmentActivity implements IEventListen
                // _fragment=new AllLogFragment();//*/
 
 
-            case 14:
+            case 15:
 /*
 
                 _teacher = LoginFeatureController.getInstance().getTeacher();
@@ -402,17 +419,17 @@ public class AfterLoginActivity extends FragmentActivity implements IEventListen
 */
 
                 break;
-            case 15:
+            case 16:
                /* Log.i(_TAG, "In logout");
                 LoginFeatureController.getInstance().logOut();
                 SmartCookieSharedPreferences.setLoginFlag(false);
                 _startLoginActivity();*/
 
                 break;
-            case 16:
+            case 17:
                 // _fragment = new HomeFragment();
                 break;
-            case 17:
+            case 18:
                /* Log.i(_TAG, "In logout");
                 LoginFeatureController.getInstance().logOut();
                 _startLoginActivity();*/

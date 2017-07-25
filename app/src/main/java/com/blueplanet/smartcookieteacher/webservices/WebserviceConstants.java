@@ -26,8 +26,8 @@ public class WebserviceConstants {
     // public static final String BASE_URL = "tsmartcookies.bpsi.us/Version2/";
 
     public static String BASE_URL = "smartcookie.in/core/Version2/";
-  public static String BASE_URL1 = "tsmartcookies.bpsi.us/core/Version2/";
-    public static String BASE_URL3 = "devsmart.bpsi.us/core/Version2/";
+  public static String BASE_URL1 = "test.smartcookie.in/core/Version2/";
+    public static String BASE_URL3 = "dev.smartcookie.in/core/Version2/";
     public static String BASE_URL2 = "smartcookie.in/core/Version2/";
 
       public static final String IMAGE_BASE_URL = "http://tsmartcookies.bpsi.us/";
@@ -74,6 +74,10 @@ public class WebserviceConstants {
     public static final String TEACHER_DISPLAY_SUBJECT_WEB_SERVICE = "display_school_subject_for_teacher.php";
     public static final String TEACHER_UPDATE_PROFILE = "update_teacher_profile_webservice.php";
     public static final String TEACHER_ADD_SUBJECT = "wsforaddsub.php";
+
+  public static final String STUDENT_SUGGEST_SPONSOR_LIST = "suggested_sponsors.php";
+  public static final String STUDENT_SUGGEST_SPONSOR_LIKES = "like_sponsor.php";
+  public static final String STUDENT_SUGGEST_NEW_SPONSOR = "suggest_sponsor_v1.php";
 
 
 
@@ -647,4 +651,62 @@ public class WebserviceConstants {
     public static final String ADD_SUBJECT_SUBJECT_YEAR= "year";
 
 
+    /*
+     * constants related to Suggest Sponsor List
+     */
+
+  /* I/P*/
+  public static final String KEY_SUGGEST_SPONSOR_ENTITY = "entity";
+  public static final String KEY_SUGGEST_SPONSOR_USER_ID = "user_id";
+  public static final String KEY_SUGGEST_SPONSOR_LATITUDE = "lk_sp_lat";
+  public static final String KEY_SUGGEST_SPONSOR_LONGITUDE = "lk_sp_long";
+  public static final String KEY_SUGGEST_SPONSOR_CATAGORY = "lk_sp_cat";
+  public static final String KEY_SUGGEST_SPONSOR_COUNTRY = "lk_sp_country";
+  public static final String KEY_SUGGEST_SPONSOR_STATE = "lk_sp_state";
+  public static final String KEY_SUGGEST_SPONSOR_CITY = "lk_sp_city";
+  public static final String KEY_SUGGEST_SPONSOR_IS_LOC = "lk_loc";
+  public static final String VALUE_SUGGEST_SPONSOR_ENTITY = "3";
+
+
+    /* O/P*/
+
+  public static final String KEY_SUGGEST_SPONSOR_ID = "v_id";
+  public static final String KEY_SUGGEST_SPONSOR_NAME = "v_name";
+  public static final String KEY_SUGGEST_SPONSOR_ADDRESS = "v_address";
+  public static final String KEY_SUGGEST_SPONSOR_EMAIL = "v_email";
+  public static final String KEY_SUGGEST_SPONSOR_LIKES = "v_likes";
+  public static final String KEY_SUGGEST_SPONSOR_KILOMETERS = "kilometers";
+  public static final String KEY_SUGGEST_SPONSOR_LIKE_STATUS = "like_status";
+
+
+     /*
+     * constants related to Suggest New Sponsor
+     */
+
+    /* I/P*/
+
+
+  public static final String KEY_SUGGEST_NEW_SPONSOR_USER_ID = "user_id";
+  public static final String KEY_SUGGEST_NEW_SPONSOR_NAME = "sp_name";
+  public static final String KEY_SUGGEST_NEW_SPONSOR_CATEGORY = "v_category";
+  public static final String KEY_SUGGEST_NEW_SPONSOR_PHONE = "sp_phone";
+  public static final String KEY_SUGGEST_NEW_SPONSOR_EMAIL = "sp_email";
+  public static final String KEY_SUGGEST_NEW_SPONSOR_ADDRESS = "sp_address";
+  public static final String KEY_SUGGEST_NEW_SPONSOR_CITY = "sp_city";
+  public static final String KEY_SUGGEST_NEW_SPONSOR_STATE = "sp_state";
+  public static final String KEY_SUGGEST_NEW_SPONSOR_COUNTRY = "sp_country";
+  public static final String KEY_SUGGEST_NEW_SPONSOR_LAT = "lat";
+  public static final String KEY_SUGGEST_NEW_SPONSOR_LONG = "lon";
+  public static final String KEY_SUGGEST_NEW_SPONSOR_ENTITY = "entity";
+  public static final String KEY_SUGGEST_NEW_SPONSOR_IMAGE = "Vendor_Image";
+  public static final String KEY_SUGGEST_NEW_SPONSOR_IMAGE_BASE_64 = "Vendor_Base64";
+  public static final String KEY_SUGGEST_NEW_SPONSOR_PLATFORM_SOURSE = "platform_source";
+  public static final String KEY_SUGGEST_NEW_SPONSOR_VERSION = "app_version";
+
+
+
+
+
+  public static final String VALUE_STUDENT_FLAG_ACCEPT = "1";
+  public static final String VALUE_STUDENT_FLAG_REJECT = "2";
 }

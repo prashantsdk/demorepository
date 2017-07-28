@@ -14,6 +14,7 @@
     <string name="ERROR_DESC_NOT_FOUND">Unable to establish connection with Server. Please try again later or contact customer care.</string>
 
     <string name="network_not_available">Please enable your mobile data or WIFI connection</string>
+    <string name="fill_all_fields">Please Fill all the fields</string>
     <string name="network_available">Network available</string>
     <string name="no_students_available">No students available</string>
     <string name="select_activity">Please Select Activity</string>
@@ -44,6 +45,7 @@
     <string name="generate_coupon">You Do not have sufficient point to generate coupon..!!</string>
     <string name="less_green_point">You Do not have sufficient point to assign..!!</string>
     <string name="generate_generated_coupon">Coupon Generated successfully..!!</string>
+    <string name="suggest_coupon">Sponsor List Received successfully..!!</string>
     <string name="share_point">You Do not have sufficient point to share..!!</string>
     <string name="Purchase_Points">You Do not have sufficient point to purchase point..!!</string>
 

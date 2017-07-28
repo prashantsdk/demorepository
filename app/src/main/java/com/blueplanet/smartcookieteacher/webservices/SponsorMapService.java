@@ -144,7 +144,9 @@ public class SponsorMapService extends SmartCookieTeacherService {
                 errorCode = WebserviceConstants.FAILURE;
                 responseObject =
                         new ServerResponse(errorCode, new ErrorInfo(statusCode, statusMessage,
+
                                 null));
+
             }
             fireEvent(responseObject);
 

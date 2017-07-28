@@ -62,7 +62,8 @@ public class WebserviceConstants {
     public static final String POINTSHARE_WEB_SERVICE = "teacher_share_points.php";
     public static final String STUDENT_COORDINATOR_WEB_SERVICE = "getStudent_coord_Info.php";
     public static final String SPONSOR_LOCATION_URL = "display_sponsor_bydistance.php";
-    public static final String MAP_SERVICE_API = "map_service_API.php";
+    //public static final String MAP_SERVICE_API = "map_service_API.php";
+  public static final String MAP_SERVICE_API = "map_service_API_V2.php";
     public static final String ALL_SUBJECT_WEB_SERVICE = "teacher_ws.php?f=teacherallsubjects";
     public static final String LOGOUT_WEB_SERVICE = "logout_teacher_API.php";
     public static final String REQUEST_WEB_SERVICE = "request_other_student.php";
@@ -470,7 +471,10 @@ public class WebserviceConstants {
     public static final String KEY_LOC_TYPE = "loc_type";
     public static final String KEY_DISTANCEE = "range";
     public static final String KEY_DISTANCE_TYPE = "range_type";
-    // o/p
+
+
+
+  // o/p
     public static final String KEY_SPONSOR_IDD = "id";
     public static final String KEY_SPONSOR_NAMEE = "sp_name";
     public static final String KEY_SPONSOR_ADDRESSS = "sp_address";
@@ -702,7 +706,8 @@ public class WebserviceConstants {
   public static final String KEY_SUGGEST_NEW_SPONSOR_IMAGE_BASE_64 = "Vendor_Base64";
   public static final String KEY_SUGGEST_NEW_SPONSOR_PLATFORM_SOURSE = "platform_source";
   public static final String KEY_SUGGEST_NEW_SPONSOR_VERSION = "app_version";
-
+  public static final String KEY_SUGGEST_NEW_SPONSOR_LATITIDE= "splat";
+  public static final String KEY_SUGGEST_NEW_SPONSOR_LOGITITUDE = "splon";
 
 
 

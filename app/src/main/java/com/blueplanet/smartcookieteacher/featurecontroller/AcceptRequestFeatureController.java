@@ -3,8 +3,12 @@ package com.blueplanet.smartcookieteacher.featurecontroller;
 import com.blueplanet.smartcookieteacher.DatabaseManager.IPersistence;
 import com.blueplanet.smartcookieteacher.DatabaseManager.PersistenceFactory;
 import com.blueplanet.smartcookieteacher.DatabaseManager.SmartTeacherDatabaseMasterTable;
+import com.blueplanet.smartcookieteacher.communication.ErrorInfo;
+import com.blueplanet.smartcookieteacher.communication.HTTPConstants;
 import com.blueplanet.smartcookieteacher.communication.ServerResponse;
+import com.blueplanet.smartcookieteacher.models.RequestPointModel;
 import com.blueplanet.smartcookieteacher.models.RewardPointLog;
+import com.blueplanet.smartcookieteacher.models.TeacherSubject;
 import com.blueplanet.smartcookieteacher.notification.EventNotifier;
 import com.blueplanet.smartcookieteacher.notification.EventState;
 import com.blueplanet.smartcookieteacher.notification.EventTypes;
@@ -23,8 +27,17 @@ import java.util.ArrayList;
 public class AcceptRequestFeatureController implements IEventListener {
 
     private static AcceptRequestFeatureController _AcceptLogFeatureController = null;
-    private ArrayList<RewardPointLog> _rewardPointLogList = new ArrayList<>();
+    private ArrayList<RequestPointModel> _PointLogList = new ArrayList<>();
     private final String _TAG = this.getClass().getSimpleName();
+    private RequestPointModel _selectedRequest = null;
+
+    public RequestPointModel get_selectedRequest() {
+        return _selectedRequest;
+    }
+
+    public void set_selectedRequest(RequestPointModel _selectedRequest) {
+        this._selectedRequest = _selectedRequest;
+    }
 
     /**
      * function to get single instance of this class
@@ -42,17 +55,16 @@ public class AcceptRequestFeatureController implements IEventListener {
 
     }
 
-    public ArrayList<RewardPointLog> getRewardPointList() {
-
-        return _rewardPointLogList;
+    public ArrayList<RequestPointModel> get_PointLogList() {
+        return _PointLogList;
     }
 
     public void clearRewardPointList() {
-        if (_rewardPointLogList != null && _rewardPointLogList.size() > 0) {
+        if (_PointLogList != null && _PointLogList.size() > 0) {
 
-            deleteRewardFromDB(null);
+
             //   _rewardPointLogList.clear();
-            _rewardPointLogList = null;
+            _PointLogList = null;
 
         }
     }
@@ -72,36 +84,26 @@ public class AcceptRequestFeatureController implements IEventListener {
      */
 
 
-    public void getRequestPointListFromServer(String tID, String scID,String prn) {
+    public void getRequestPointListFromServer(String tID, String scID) {
 
         EventNotifier eventNotifier =
                 NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_TEACHER);
         eventNotifier.registerListener(this, ListenerPriority.PRIORITY_MEDIUM);
 
-        AcceptRequest accept = new AcceptRequest(tID, scID,prn);
+        AcceptRequest accept = new AcceptRequest(tID, scID);
         accept.send();
     }
 
-    public RewardPointLog getRewardpointFromDB() {
-        Object object =
-                PersistenceFactory.get(SmartTeacherDatabaseMasterTable.Tables.REWARD).getData();
-
-        RewardPointLog rewLog = (RewardPointLog) object;
-        return rewLog;
-    }
 
 
 
 
     private void _clearRewardList() {
-        if (_rewardPointLogList != null && _rewardPointLogList.size() > 0) {
-            _rewardPointLogList.clear();
+        if (_PointLogList != null && _PointLogList.size() > 0) {
+            _PointLogList.clear();
         }
     }
-    public void deleteRewardFromDB(String userName){
-        IPersistence persistObj = PersistenceFactory.get(SmartTeacherDatabaseMasterTable.Tables.REWARD);
-        persistObj.delete(userName);
-    }
+
     @Override
     public int eventNotify(int eventType, Object eventObject) {
         int eventState = EventState.EVENT_PROCESSED;
@@ -119,17 +121,7 @@ public class AcceptRequestFeatureController implements IEventListener {
             case EventTypes.EVENT_ACCEPT_REQUEST:
 
                 if (errorCode == WebserviceConstants.SUCCESS) {
-                    _rewardPointLogList = (ArrayList<RewardPointLog>) responseObject;
-
-                    if (_rewardPointLogList != null && _rewardPointLogList.size() > 0) {
-
-                        for (int i = 0; i < _rewardPointLogList.size(); i++) {
-
-                            //_saveRewardLogIntoDB(_rewardPointLogList.get(i));
-
-                        }
-                    }
-
+                    _PointLogList = (ArrayList<RequestPointModel>) responseObject;
 
 
                     eventNotifierUI =
@@ -137,6 +129,28 @@ public class AcceptRequestFeatureController implements IEventListener {
                                     NotifierFactory.EVENT_NOTIFIER_TEACHER);
                     eventNotifierUI.eventNotifyOnThread(EventTypes.EVENT_UI_ACCEPT_REQUEST,
                             serverResponse);
+                }else {
+                    ErrorInfo errorInfo = (ErrorInfo) responseObject;
+                    int statusCode = errorInfo.getErrorCode();
+
+                    if (statusCode == HTTPConstants.HTTP_COM_NO_CONTENT) {
+
+                        eventNotifierUI =
+
+                                NotifierFactory.getInstance().getNotifier(
+                                        NotifierFactory.EVENT_NOTIFIER_TEACHER);
+                        eventNotifierUI.eventNotifyOnThread(EventTypes.EVENT_NOT_UI_ACCEPT_REQUEST,
+                                serverResponse);
+
+                    } else if (statusCode == HTTPConstants.HTTP_COMM_ERR_BAD_REQUEST) {
+
+                        eventNotifierUI =
+                                NotifierFactory.getInstance().getNotifier(
+                                        NotifierFactory.EVENT_NOTIFIER_TEACHER);
+                        eventNotifierUI.eventNotifyOnThread(EventTypes.EVENT_UI_BAD_REQUEST,
+                                serverResponse);
+
+                    }
                 }
                 break;
 

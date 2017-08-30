@@ -13,6 +13,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.telephony.TelephonyManager;
+import android.text.format.DateFormat;
 import android.text.format.Formatter;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -54,6 +55,7 @@ import java.lang.reflect.Method;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
+import java.util.Date;
 import java.util.Enumeration;
 
 import static android.view.View.*;
@@ -92,6 +94,7 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
     public static final int PERMISSION_REQUEST_CODE=23;
     String[] LOC_PERMISSIONS = {Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION};
     EditText etUserMobile;
+    Date d = new Date();
 
 
     @Override
@@ -99,6 +102,8 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
         _view = inflater.inflate(R.layout.mobile_teacher_login, null);
         _initUI();
         _loginFragmentController = new LoginFragmentController(this, _view);
+
+
         if (checkPermission()) {
             gpsTracker = new GPSTracker(getActivity());
             latitude = gpsTracker.getLatitude();
@@ -201,7 +206,6 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
         ll_prn = (LinearLayout) _view.findViewById(R.id.ll_prn);
         ll_ID = (LinearLayout) _view.findViewById(R.id.ll_ID);
         _l1memberID = (LinearLayout) _view.findViewById(R.id.ll_MemerId);
-
         EditText etUserMobile = (EditText) _view.findViewById(R.id.edt_phone);
         // imgclearpoints = (ImageView) _view.findViewById(R.id.imgclearpoints);
         //  etxtpoints = (EditText) _view.findViewById(R.id.etxtpoints);
@@ -225,7 +229,6 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
 
         // _btnproduction.setOnClickListener(_loginFragmentController);
         tv_forgotPassword.setOnClickListener(_loginFragmentController);
-
         spinner.setOnItemSelectedListener(_loginFragmentController);
         spinnerPhone.setOnItemSelectedListener(this);
         //  etxtpoints.setOnClickListener(_loginFragmentController);

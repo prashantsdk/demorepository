@@ -37,6 +37,7 @@ import com.blueplanet.smartcookieteacher.notification.EventTypes;
 import com.blueplanet.smartcookieteacher.notification.IEventListener;
 import com.blueplanet.smartcookieteacher.notification.ListenerPriority;
 import com.blueplanet.smartcookieteacher.notification.NotifierFactory;
+import com.blueplanet.smartcookieteacher.ui.AcceptRequestFragment;
 import com.blueplanet.smartcookieteacher.ui.AddCartFragment;
 import com.blueplanet.smartcookieteacher.ui.AdminFragment;
 import com.blueplanet.smartcookieteacher.ui.AllLogFragment;
@@ -52,6 +53,7 @@ import com.blueplanet.smartcookieteacher.ui.GenerateCouponFragment;
 
 import com.blueplanet.smartcookieteacher.ui.MapActivity;
 
+import com.blueplanet.smartcookieteacher.ui.SendRequestFragment;
 import com.blueplanet.smartcookieteacher.ui.SharePointFragment;
 import com.blueplanet.smartcookieteacher.ui.SoftRewardFragment;
 import com.blueplanet.smartcookieteacher.ui.StudentListFragment;
@@ -125,6 +127,8 @@ public class AfterLoginActivity extends FragmentActivity implements IEventListen
         _dataList.add(new DrawerItem("Soft Rewards", R.drawable.coupon));
 
         _dataList.add(new DrawerItem("Suggest Vendor", R.drawable.coupon));
+        _dataList.add(new DrawerItem("Accept Request", R.drawable.coupon));
+        _dataList.add(new DrawerItem("Send Request", R.drawable.coupon));
         _dataList.add(new DrawerItem("Map", R.drawable.coupon));
         _dataList.add(new DrawerItem("Logout", R.drawable.coupon));
 
@@ -366,10 +370,42 @@ public class AfterLoginActivity extends FragmentActivity implements IEventListen
 
                 break;
             case 13:
+                DrawerFeatureController.getInstance().setIsFragmentOpenedFromDrawer(true);
+                if (_count < 7) {
+                    _count = _count + 1;
+                }
+                _fragmentTagList.add("GenerateCouponFragment");
+                _addtoBackStack = true;
+                // _fragment = new BuyCouponLogFragment();//
+
+
+                //_fragment = new DisplaySubjectFragment();
+
+                //  _fragment = new SoftRewardFragment();
+                _fragment = new AcceptRequestFragment();
+
+                break;
+            case 14:
+                DrawerFeatureController.getInstance().setIsFragmentOpenedFromDrawer(true);
+                if (_count < 7) {
+                    _count = _count + 1;
+                }
+                _fragmentTagList.add("GenerateCouponFragment");
+                _addtoBackStack = true;
+                // _fragment = new BuyCouponLogFragment();//
+
+
+                //_fragment = new DisplaySubjectFragment();
+
+                //  _fragment = new SoftRewardFragment();
+                _fragment = new SendRequestFragment();
+
+                break;
+            case 15:
                 Intent i = new Intent(this, MapActivity.class);
                 startActivity(i);
                 break;
-            case 14:
+            case 16:
 
                 _teacher = LoginFeatureController.getInstance().getTeacher();
 
@@ -402,7 +438,7 @@ public class AfterLoginActivity extends FragmentActivity implements IEventListen
                // _fragment=new AllLogFragment();//*/
 
 
-            case 15:
+            case 17:
 /*
 
                 _teacher = LoginFeatureController.getInstance().getTeacher();
@@ -419,17 +455,17 @@ public class AfterLoginActivity extends FragmentActivity implements IEventListen
 */
 
                 break;
-            case 16:
+            case 18:
                /* Log.i(_TAG, "In logout");
                 LoginFeatureController.getInstance().logOut();
                 SmartCookieSharedPreferences.setLoginFlag(false);
                 _startLoginActivity();*/
 
                 break;
-            case 17:
+            case 19:
                 // _fragment = new HomeFragment();
                 break;
-            case 18:
+            case 20:
                /* Log.i(_TAG, "In logout");
                 LoginFeatureController.getInstance().logOut();
                 _startLoginActivity();*/

@@ -73,6 +73,8 @@ public class SmartCookieSharedPreferences {
      */
     public static void setLoginFlag(boolean loginFlag) {
         setBooleanSharedPreference(IS_LOGIN, loginFlag);
+
+
     }
     public static void setTestProduction(boolean Flag) {
         setBooleanSharedPreference(IS_TEST, Flag);

@@ -48,7 +48,7 @@ public class GenerateCouponFragment extends Fragment  implements AdapterView.OnI
     private GenerateCouponAdapter _adapter;
     private GenerateCoupon _coupon;
     private Spinner spinner, spinner1,spinnercolr;
-    String[] userOption = {"Bluepoints", "Waterpoints"};
+    String[] userOption = {"Bluepoints", "Waterpoints","Brownpoints"};
     private String selState, str;
 
     @Override
@@ -215,6 +215,8 @@ public class GenerateCouponFragment extends Fragment  implements AdapterView.OnI
        // PointShareFeatureController.getInstance().set_selectColor(selState);
 
         GenerateCouponFeatureController.getInstance().set_selectColor(selState);
+        String Inputtype="";
+        String points="";
 
 
     }

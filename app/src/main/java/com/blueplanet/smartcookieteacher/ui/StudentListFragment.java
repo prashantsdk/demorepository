@@ -151,7 +151,6 @@ public class StudentListFragment extends Fragment {
                     _tvPleaseWait.setVisibility(View.VISIBLE);
                 } else {
                     _rlProgressbar.setVisibility(View.GONE);
-
                     _progressbar.setVisibility(View.GONE);
                     _tvPleaseWait.setVisibility(View.GONE);
                 }
@@ -168,7 +167,6 @@ public class StudentListFragment extends Fragment {
                 @Override
                 public void run() {
                     int totalCount = _studentList.get(0).getTotalCount();
-
                     _edtCount.setText(String.valueOf(totalCount));
                     Log.i(_TAG, "Total Count" + _edtCount);
 

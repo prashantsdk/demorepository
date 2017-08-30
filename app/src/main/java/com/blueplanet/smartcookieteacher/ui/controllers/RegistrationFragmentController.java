@@ -9,6 +9,7 @@ import android.widget.Toast;
 import com.blueplanet.smartcookieteacher.MainApplication;
 import com.blueplanet.smartcookieteacher.R;
 import com.blueplanet.smartcookieteacher.communication.ServerResponse;
+import com.blueplanet.smartcookieteacher.customcomponents.CustomEditText;
 import com.blueplanet.smartcookieteacher.featurecontroller.LoginFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.RegistrationFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.RewardPointLogFeatureController;
@@ -80,9 +81,9 @@ public class RegistrationFragmentController implements IEventListener, View.OnCl
      *
      * @
      */
-    private void _fetchRegistrationServer(String fname, String lname,String email,String pass,String phone) {
+    private void _fetchRegistrationServer(String fname, String lname,String email,String pass,String phone,String mname,String countrycode,String type,String sourse) {
         _registerEventListeners();
-        RegistrationFeatureController.getInstance().fetchRegistrationServer(fname,lname,email,pass,phone);
+        RegistrationFeatureController.getInstance().fetchRegistrationServer(fname,lname,email,pass,phone,mname,countrycode,type,sourse);
         _regFragment.hideSoftKeyboard();
         //_regFragment.showOrHideProgressBar(true);
 
@@ -103,6 +104,7 @@ public class RegistrationFragmentController implements IEventListener, View.OnCl
                     EditText email = (EditText) _view.findViewById(R.id.edt_emailId);
                     EditText tpassword = (EditText) _view.findViewById(R.id.edt_password);
                     EditText phone = (EditText) _view.findViewById(R.id.edtPhone);
+                    EditText middle = (EditText) _view.findViewById(R.id.edt_middleName);
 
 
                     String Fname = fname.getText().toString();
@@ -110,10 +112,14 @@ public class RegistrationFragmentController implements IEventListener, View.OnCl
                     String Email = email.getText().toString();
                     String password = tpassword.getText().toString();
                     String Phone = phone.getText().toString();
+                    String middlename = middle.getText().toString();
+                    String countrycode = "91";
+                    String type = "teacher";
+                    String sourse=LoginFeatureController.getInstance().getDevicedetail();
 
                     if (!TextUtils.isEmpty(Fname) && !TextUtils.isEmpty(Lname) && !TextUtils.isEmpty(Email) || !TextUtils.isEmpty(password)
-                            || !TextUtils.isEmpty(Phone)) {
-                        _fetchRegistrationServer(Fname, Lname, Email, password,Phone);
+                            || !TextUtils.isEmpty(Phone)|| !TextUtils.isEmpty(middlename)|| !TextUtils.isEmpty(countrycode)|| !TextUtils.isEmpty(type)|| !TextUtils.isEmpty(sourse)) {
+                        _fetchRegistrationServer(Fname, Lname, Email, password,Phone,middlename,countrycode,type,sourse);
 
 
                     } else if (TextUtils.isEmpty(Email) && TextUtils.isEmpty(password)) {

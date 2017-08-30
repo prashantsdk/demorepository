@@ -29,6 +29,7 @@ import com.blueplanet.smartcookieteacher.GlobalInterface;
 import com.blueplanet.smartcookieteacher.MainApplication;
 import com.blueplanet.smartcookieteacher.R;
 import com.blueplanet.smartcookieteacher.communication.ServerResponse;
+import com.blueplanet.smartcookieteacher.featurecontroller.ErrorFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.LoginFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.StudentFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.UpdateGCMFeatureController;
@@ -74,7 +75,8 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
     GPSTracker gps;
     private String password;
     GPSTracker gpsTracker;
-
+    private Teacher _teacher;
+    private String _teacherId, _schoolId;
 
     public static final int PERMISSION_REQUEST_CODE=23;
 
@@ -150,14 +152,24 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
         eventNetwork.unRegisterListener(this);
     }
 
-    private void _teacherLogin(String username, String password, String usertype, String colgCode, String method, String devicetype, String details,
+     private void _teacherLogin(String username, String password, String usertype, String colgCode, String method, String devicetype, String details,
                                String os, String ipadddress, String countryCode,double lat, double log) {
         _registerEventListeners();
         _registerNetworkListeners();
         _loginFragment.showOrHideProgressBar(true);
         LoginFeatureController.getInstance().teacherLogin(username, password, usertype, colgCode, method, devicetype, details,
-                os, ipadddress, countryCode,lat,log);
+                os, ipadddress, countryCode, lat, log);
     }
+
+    private void _ErrorWev(String t_id,String studentId,String type,String description,String date,String datetime,String usertype,String name,String phone,String email,
+                           String appname,String subroutinename, String line,String status,String webmethodname,String webservice,String proname) {
+        _registerEventListeners();
+        _registerNetworkListeners();
+        _loginFragment.showOrHideProgressBar(true);
+        ErrorFeatureController.getInstance().getErrorListFromServer(t_id, studentId, type, description, date, datetime, usertype, name, phone, email,
+                appname, subroutinename,  line, status, webmethodname, webservice, proname);
+    }
+
 
     private void _forgetpassward(String entity, String email) {
         _registerEventListeners();
@@ -534,10 +546,12 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
                         NotifierFactory.getInstance().getNotifier
                                 (NotifierFactory.EVENT_NOTIFIER_LOGIN);
                 eventNotifier1.unRegisterListener(this);
-
                 Log.i("LoginFragmentController", "IN EVENT_UI_NO_LOGIN_RESPONSE");
                 _loginFragment.showOrHideProgressBar(false);
                 _loginFragment.showLoginErrorMessage();
+                _teacher = LoginFeatureController.getInstance().getTeacher();
+
+
                 break;
 
             case EventTypes.EVENT_UI_GCM_RESPONCE_RECIEVED:
@@ -563,6 +577,8 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
                 eventNotifier2.unRegisterListener(this);
 
                 Log.i("LoginFragmentController", "IN EVENT_UI_NO_LOGIN_RESPONSE");
+
+
                 _loginFragment.showOrHideProgressBar(false);
                 _loginFragment.showLoginErrorMessage();
                 break;
@@ -667,11 +683,13 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
     }
 
     private void _handleRememberMeClickEmp() {
+
 /*
         EditText etUserName = (EditText) _view.findViewById(R.id.edt_username);
         EditText etPassword = (EditText) _view.findViewById(R.id.edt_password);*/
         CheckBox cbRememberMe = (CheckBox) _view.findViewById(R.id.cb_remember_me);
         EditText etPassword = (EditText) _view.findViewById(R.id.edt_password);
+
         EditText etUserMobile = (EditText) _view.findViewById(R.id.edt_phone);
        /* String userName = etUserName.getText().toString();
         String password = etPassword.getText().toString();*/
@@ -728,7 +746,6 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
             SmartCookieSharedPreferences.setUserName(prn);
             SmartCookieSharedPreferences.setPRNKey(code);
             SmartCookieSharedPreferences.setPassowrdKey(password);
-
 
             SmartCookieSharedPreferences.setLoginFlag(true);
             LoginFeatureController.getInstance().deleteUserFromDB(null);

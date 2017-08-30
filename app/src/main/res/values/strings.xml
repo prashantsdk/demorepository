@@ -48,6 +48,9 @@
     <string name="suggest_coupon">Sponsor List Received successfully..!!</string>
     <string name="share_point">You Do not have sufficient point to share..!!</string>
     <string name="Purchase_Points">You Do not have sufficient point to purchase point..!!</string>
+    <string name="Request_Accept">Request Accepted Successfully..!!</string>
+    <string name="Request_Decline">Request Decline Successfully..!!</string>
+    <string name="Request_send">Request Send Successfully..!!</string>
 
     <!--drawer strings-->
     <string name="str_my_points">My Points</string>

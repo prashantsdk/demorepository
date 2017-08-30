@@ -213,6 +213,7 @@ public class GenerateCouponFragmentController implements View.OnClickListener, I
 
         if (serverResponse != null) {
             errorCode = serverResponse.getErrorCode();
+
         }
 
         switch (eventType) {

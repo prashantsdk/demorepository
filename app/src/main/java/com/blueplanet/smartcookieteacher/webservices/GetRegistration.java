@@ -27,16 +27,20 @@ import java.util.ArrayList;
 public class GetRegistration extends SmartCookieTeacherService {
 
     private String _email, _tPassword;
-    private String _userFname,_Lname,_Email,_Pass,_Phone;
+    private String _userFname,_Lname,_Email,_Pass,_Phone,_mname,_countrycode,_type,_sourse;
     private final String _TAG = this.getClass().getSimpleName();
 
-    public GetRegistration(String userFname, String Lname,String Email, String Pass,String Phone) {
+    public GetRegistration(String userFname, String Lname,String Email, String Pass,String Phone,String mname,String countrycode,String type,String sourse) {
 
         _userFname=userFname;
         _Lname=Lname;
         _Email=Email;
         _Pass=Pass;
         _Phone=Phone;
+        _mname=mname;
+        _countrycode=countrycode;
+        _type=type;
+        _sourse=sourse;
     }
 
     @Override
@@ -51,10 +55,15 @@ public class GetRegistration extends SmartCookieTeacherService {
         JSONObject requestBody = new JSONObject();
         try {
             requestBody.put(WebserviceConstants.KEY_USER_FNAME, _userFname);
+            requestBody.put(WebserviceConstants.KEY_USER_LNAME, _mname);
             requestBody.put(WebserviceConstants.KEY_USER_LNAME, _Lname);
             requestBody.put(WebserviceConstants.KEY_USER_EMAIL, _Email);
             requestBody.put(WebserviceConstants.KEY_USER_PASS, _Pass);
             requestBody.put(WebserviceConstants.KEY_USER_PHONE, _Phone);
+            requestBody.put(WebserviceConstants.KEY_USER_PHONE_CODE, _countrycode);
+            requestBody.put(WebserviceConstants.KEY_USER_TYPE, _type);
+            requestBody.put(WebserviceConstants.KEY_USER_PLAT_SOURSE, _sourse);
+
         } catch (JSONException e) {
             e.printStackTrace();
         } catch (Exception ex) {

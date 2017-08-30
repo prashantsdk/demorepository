@@ -198,9 +198,28 @@ public class EventTypes {
     public static final int EVENT_UI_NO_SUGGESTED_SPONSOR_RESPONCE_RECIEVED = 267;
 
 
+
     public static final int EVENT_SUGGEST_NEW_SPONSOR_RESPONCE_RECIEVED = 268;
     public static final int EVENT_UI_SUGGEST_NEW_SPONSOR_RESPONCE_RECIEVED= 269;
     public static final int EVENT_UI_NO_SUGGEST_NEW_SPONSOR_RESPONCE_RECIEVED = 270;
+
+    public static final int EVENT_ACCEPT_REQUEST_STUDENT = 271;
+    public static final int EVENT_UI_ACCEPT_REQUEST_STUDENT= 272;
+    public static final int EVENT_UI_NOT_ACCEPT_REQUEST_STUDENT = 273;
+
+    public static final int EVENT_DECLINE_REQUEST_STUDENT = 274;
+    public static final int EVENT_UI_DECLINE_REQUEST_STUDENT= 275;
+    public static final int EVENT_UI_NOT_DECLINE_REQUEST_STUDENT = 276;
+
+    public static final int EVENT_ERROR = 277;
+    public static final int EVENT_UI_ERROR = 278;
+    public static final int EVENT_UI_NOT_ERROR = 279;
+
+    public static final int EVENT_INVALID_INPUT = 280;
+
+    public static final int EVENT_SEND_REQUEST= 281;
+    public static final int EVENT_UI_SEND_REQUEST = 282;
+    public static final int EVENT_UI_NOT_SEND_REQUEST = 283;
 
 
 }

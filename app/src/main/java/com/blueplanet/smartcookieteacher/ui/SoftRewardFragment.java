@@ -2,7 +2,6 @@ package com.blueplanet.smartcookieteacher.ui;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,10 +19,8 @@ import com.blueplanet.smartcookieteacher.customcomponents.CustomEditText;
 import com.blueplanet.smartcookieteacher.customcomponents.CustomTextView;
 import com.blueplanet.smartcookieteacher.models.Student;
 import com.blueplanet.smartcookieteacher.models.Teacher;
-import com.blueplanet.smartcookieteacher.ui.controllers.SharePointFragmentController;
 import com.blueplanet.smartcookieteacher.ui.controllers.SofrRewardController;
 import com.blueplanet.smartcookieteacher.ui.controllers.SoftRewardAdapter;
-import com.blueplanet.smartcookieteacher.ui.controllers.TeacherSharePointAdapter;
 
 import java.util.ArrayList;
 

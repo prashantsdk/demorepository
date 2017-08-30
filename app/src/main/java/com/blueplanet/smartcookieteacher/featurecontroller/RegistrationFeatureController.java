@@ -54,12 +54,12 @@ public class RegistrationFeatureController implements IEventListener {
      *
      *
      */
-    public void fetchRegistrationServer(String fname, String lname,String email,String pass,String phone) {
+    public void fetchRegistrationServer(String fname, String lname,String email,String pass,String phone,String mname,String countrycode,String type,String sourse) {
         EventNotifier eventNotifier =
                 NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_TEACHER);
         eventNotifier.registerListener(this, ListenerPriority.PRIORITY_MEDIUM);
 
-        GetRegistration getRegis = new GetRegistration(fname, lname,email,pass,phone);
+        GetRegistration getRegis = new GetRegistration(fname, lname,email,pass,phone,mname,countrycode,type,sourse);
         getRegis.send();
 
     }

@@ -56,6 +56,7 @@ public class CoordinatorAdapter extends BaseAdapter implements TextWatcher {
         _Controller=Controller;
 
         _filteredSTuCoorList = CoordinatorFeatureController.getInstance().getStudentList();
+
         // _filteredStudentList = StudentFeatureController.getInstance().getStudentInfoFromDB();
         _allStudCoorList = new ArrayList<>();
         _allStudCoorList.addAll(_filteredSTuCoorList);
@@ -121,9 +122,7 @@ public class CoordinatorAdapter extends BaseAdapter implements TextWatcher {
                 }
 
                 }
-
-
-                String imageurl = _filteredSTuCoorList.get(position).get_stdImageUrl();
+            String imageurl = _filteredSTuCoorList.get(position).get_stdImageUrl();
                 if (imageurl != null && imageurl.length() > 0) {
                     final String imageName = WebserviceConstants.IMAGE_BASE_URL
                             + imageurl;

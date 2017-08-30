@@ -313,6 +313,7 @@ public class MapActivity extends AppCompatActivity
         _registerNetworkListener();
         SponsorsOnMapFeatureController.getInstance().getSponsorListFromServer(ip_id, latitude, longitude, entity, place_name,
                 loc_type, distance, range_type);
+
         //refresh_map.setVisibility(View.VISIBLE);
         //  _homeFragment.showOrHideLoadingSpinner(true);
 

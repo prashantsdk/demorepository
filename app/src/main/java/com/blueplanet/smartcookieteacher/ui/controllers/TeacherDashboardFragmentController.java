@@ -15,6 +15,7 @@ import com.blueplanet.smartcookieteacher.R;
 import com.blueplanet.smartcookieteacher.communication.ServerResponse;
 import com.blueplanet.smartcookieteacher.featurecontroller.DashboardFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.DrawerFeatureController;
+import com.blueplanet.smartcookieteacher.featurecontroller.ErrorFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.LoginFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.StudentFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.subFeaturecontroller;
@@ -102,7 +103,7 @@ public class TeacherDashboardFragmentController implements IEventListener, AbsLi
     private void _fetchPointFromServer(String techerId,String studentId) {
         _registerNetworkListeners();
         _registerEventListeners();
-        DashboardFeatureController.getInstance().fetchTeacherPointFromServer(techerId,studentId);
+        DashboardFeatureController.getInstance().fetchTeacherPointFromServer(techerId, studentId);
     }
 
     private void _registerEventListeners() {
@@ -144,6 +145,14 @@ public class TeacherDashboardFragmentController implements IEventListener, AbsLi
         }
         return false;
     }
+    private void _ErrorWev(String t_id,String studentId,String type,String description,String date,String datetime,String usertype,String name,String phone,String email,
+                           String appname,String subroutinename, String line,String status,String webmethodname,String webservice,String proname) {
+        _registerEventListeners();
+        _registerNetworkListeners();
+      //  _loginFragment.showOrHideProgressBar(true);
+        ErrorFeatureController.getInstance().getErrorListFromServer(t_id, studentId, type, description, date, datetime, usertype, name, phone, email,
+                appname, subroutinename,  line, status, webmethodname, webservice, proname);
+    }
 
     @Override
     public int eventNotify(int eventType, Object eventObject) {
@@ -166,8 +175,41 @@ public class TeacherDashboardFragmentController implements IEventListener, AbsLi
                 if (errorCode == WebserviceConstants.SUCCESS) {
                     Log.i(_TAG, "In EVENT_UI_TEACHER_POINT_RECEIVED");
                     _teacherDashboardFragment.setDashboardDataOnUI();
+                    Log.i("LoginFragmentController", "IN EVENT_UI_NO_LOGIN_RESPONSE");
 
-                    int id = StudentFeatureController.getInstance().getLastInputId();
+                /*    _teacher = LoginFeatureController.getInstance().getTeacher();
+                    String type="TeacherLogin";
+                    String descr="Unable To login";
+                    String date="2017.08.29";
+                    String datetime="";
+                    String usertype="teacher";
+                    String name="Shubhangi";
+                    String phone="8888406762";
+                    String email="sayalir@roseland.com";
+                    String appname="Smart Teacher";
+                    String subtype="";
+                    String line="45";
+                    String status="not Found";
+                    String method="";
+                    String websename="login_teacher_V4.php";
+                    String proname="Sayali Raghojiwar";
+                    if (_teacher != null) {
+                        _teacherId = String.valueOf(_teacher.getId());
+                        _schoolId = _teacher.get_tSchool_id();
+
+                        _ErrorWev(_teacherId,_schoolId,type,descr,date,datetime,usertype,name,phone,email,appname,subtype,line,status,method,websename,proname);
+
+
+
+
+                        //  selprn = AssignPointFeatureController.getInstance().get_selectedPrn();
+          *//* Student s = StudentFeatureController.getInstance().getSelectedStudent();
+           prn=s.get_stdPRN();
+           subFeaturecontroller.getInstance().fetchSubjectFromServer(_teacherId, _schoolId,prn);*//*
+
+                    }*/
+
+                   int id = StudentFeatureController.getInstance().getLastInputId();
 
                     _studentList = StudentFeatureController.getInstance().getStudentList();
                     if (!(_isStudentListPopulated(_studentList))) {

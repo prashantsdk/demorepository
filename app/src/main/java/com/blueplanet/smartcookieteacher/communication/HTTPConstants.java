@@ -31,6 +31,7 @@ public class HTTPConstants {
     public static final int HTTP_COMM_ERR_BAD_GETWAY = 502;
 
     public static final int HTTP_COMM_CONFLICT = 409;
+    public static final int HTTP_INVALID_INPUT = 1000;
 
     // Service Unavailable: The server is currently unable to handle the
     // request due to a temporary overloading or maintenance of the server.

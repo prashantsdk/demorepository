@@ -60,12 +60,12 @@ public class SponsorMapService extends SmartCookieTeacherService {
 
 
             requestBody.put(WebserviceConstants.KEY_MAP_IP_ID, input_id);
-            requestBody.put(WebserviceConstants.KEY_LAT, latitude);
-            requestBody.put(WebserviceConstants.KEY_LONG, longitude);
+            requestBody.put(WebserviceConstants.KEY_LATT, latitude);
+            requestBody.put(WebserviceConstants.KEY_LONGG, longitude);
             requestBody.put(WebserviceConstants.KEY_ENTITY_TYPE, entity_type);
             requestBody.put(WebserviceConstants.KEY_PLACE_NAME, place_name);
             requestBody.put(WebserviceConstants.KEY_LOC_TYPE, loc_type);
-            requestBody.put(WebserviceConstants.KEY_DISTANCE, distance);
+            requestBody.put(WebserviceConstants.KEY_DISTANCEE, distance);
             requestBody.put(WebserviceConstants.KEY_DISTANCE_TYPE, range_type);
 
         } catch (JSONException jsonException) {
@@ -102,9 +102,9 @@ public class SponsorMapService extends SmartCookieTeacherService {
                 // success
                 JSONArray responseData = objResponseJSON.optJSONArray(WebserviceConstants.KEY_POSTS);
                 for (int i = 0; i < responseData.length(); i++) {
-                    JSONObject jsonObjectl = responseData.optJSONObject(i);
+                    JSONObject jsonObject = responseData.optJSONObject(i);
 
-                    JSONObject jsonObject=jsonObjectl.getJSONObject(WebserviceConstants.KEY_POST);
+                  //  JSONObject jsonObject=jsonObjectl.getJSONObject(WebserviceConstants.KEY_POST);
                     String KEY_SPONSOR_ID = jsonObject.optString(WebserviceConstants.KEY_SPONSOR_IDD);
                     String SPONSOR_NAME = jsonObject.optString(WebserviceConstants.KEY_SPONSOR_NAMEE);
                     String SPONSOR_ADDRESS = jsonObject.optString(WebserviceConstants.KEY_SPONSOR_ADDRESSS);

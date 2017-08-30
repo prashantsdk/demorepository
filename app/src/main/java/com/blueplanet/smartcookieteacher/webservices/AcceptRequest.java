@@ -9,6 +9,7 @@ import com.blueplanet.smartcookieteacher.communication.HTTPConstants;
 import com.blueplanet.smartcookieteacher.communication.ServerResponse;
 import com.blueplanet.smartcookieteacher.communication.SmartCookieTeacherService;
 import com.blueplanet.smartcookieteacher.models.RequestPointModel;
+import com.blueplanet.smartcookieteacher.models.SubNameCode;
 import com.blueplanet.smartcookieteacher.notification.EventNotifier;
 import com.blueplanet.smartcookieteacher.notification.EventTypes;
 import com.blueplanet.smartcookieteacher.notification.NotifierFactory;
@@ -33,27 +34,27 @@ public class AcceptRequest extends SmartCookieTeacherService {
      *
      * @param studentId
      */
-    public AcceptRequest(String t_id,String studentId,String studentprn) {
+    public AcceptRequest(String t_id,String studentId) {
 
         _t_id=t_id;
         _studentId = studentId;
-        _studentprn=studentprn;
+
     }
 
 
     @Override
     protected String formRequest() {
         return WebserviceConstants.HTTP_BASE_URL +
-                WebserviceConstants.BASE_URL + WebserviceConstants.ACCEPT_REQUEST_WEB_SERVICE;
+                WebserviceConstants.BASE_URL + WebserviceConstants.ACCEPT_REQUEST_LOG_WEB_SERVICE;
     }
 
     @Override
     protected JSONObject formRequestBody() {
         JSONObject requestBody = new JSONObject();
         try {
-            requestBody.put(WebserviceConstants.KEY_DATABASE_ID, _t_id);
+            requestBody.put(WebserviceConstants.KEY_TID, _t_id);
             requestBody.put(WebserviceConstants.KEY_SCHOOLID, _studentId);
-            requestBody.put(WebserviceConstants.STUDENT_PRN, _studentprn);
+
 
 
         } catch (JSONException e) {
@@ -74,7 +75,7 @@ public class AcceptRequest extends SmartCookieTeacherService {
         String statusMessage = null;
         RequestPointModel _requestpoint = null;
 
-        ArrayList<RequestPointModel> requestPoint = new ArrayList<>();
+        ArrayList<RequestPointModel> requestPointList = new ArrayList<>();
         try {
             objResponseJSON = new JSONObject(responseJSONString);
 
@@ -87,8 +88,20 @@ public class AcceptRequest extends SmartCookieTeacherService {
                 JSONArray responseData = objResponseJSON.optJSONArray(WebserviceConstants.KEY_POSTS);
                 for (int i = 0; i < responseData.length(); i++) {
                     JSONObject jsonObject = responseData.optJSONObject(i);
+
+                    String NAME = jsonObject.optString(WebserviceConstants.KEY_REQUEST_NAME);
+                    String POINTS = jsonObject.optString(WebserviceConstants.KEY_REQUEST_POINTS);
+                    String DATE = jsonObject.optString(WebserviceConstants.KEY_REQUEST_DATE);
+                    String REASON = jsonObject.optString(WebserviceConstants.KEY_REQUEST_REASON);
+                    String image = jsonObject.optString(WebserviceConstants.KEY_REQUEST_IMAGE);
+                    String type = jsonObject.optString(WebserviceConstants.KEY_REQUEST_TYPE);
+                    String stuprn = jsonObject.optString(WebserviceConstants.KEY_REQUEST_STUDENT_PRN);
+                    String reasonid = jsonObject.optString(WebserviceConstants.KEY_REQUEST_STUDENT_REASON_ID);
+
+                    _requestpoint = new RequestPointModel(NAME, POINTS,DATE,REASON,image,type,stuprn,reasonid);
+                    requestPointList.add(_requestpoint);
                 }
-                responseObject = new ServerResponse(errorCode, null);
+                responseObject = new ServerResponse(errorCode, requestPointList);
 
             }  else {
                 // failure

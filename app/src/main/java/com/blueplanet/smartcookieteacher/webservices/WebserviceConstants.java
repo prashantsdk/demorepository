@@ -26,12 +26,11 @@ public class WebserviceConstants {
     // public static final String BASE_URL = "tsmartcookies.bpsi.us/Version2/";
 
     public static String BASE_URL = "smartcookie.in/core/Version2/";
-  public static String BASE_URL1 = "test.smartcookie.in/core/Version2/";
+    public static String BASE_URL1 = "test.smartcookie.in/core/Version2/";
     public static String BASE_URL3 = "dev.smartcookie.in/core/Version2/";
     public static String BASE_URL2 = "smartcookie.in/core/Version2/";
 
-      public static final String IMAGE_BASE_URL = "http://tsmartcookies.bpsi.us/";
-
+    public static final String IMAGE_BASE_URL = "http://smartcookie.in/core/";
 
 
     //public static final String TEACHER_LOGIN = "login_teacher.php";
@@ -41,7 +40,7 @@ public class WebserviceConstants {
     public static final String REGISTRATION = "teacher_registration.php";
     public static final String TEACHER_POINT = "display_teacher_point_v3.php";
     public static final String TEACHER_SUBJECT = "teacher_ws.php?f=teacherMySubjects";
-    public static final String TEACHER_ASSIGN_POINT = "point_registration_webservice.php";
+    public static final String TEACHER_ASSIGN_POINT = "point_registration_webservice_v2.php";
     public static final String TEACHER_ACIVITY = "activity_list.php";
     public static final String REWARD_POINT_LOG = "display_teacher_rewardlog.php";
     public static final String Display_CATEGORIE = "display_category.php";
@@ -49,8 +48,8 @@ public class WebserviceConstants {
     public static final String BUY_COUPON = "buy_coupon_webservice.php";
     public static final String SUBJECTWISE_STUDENT = "teacher_ws.php?f=teacherMystudentsforsubject";
     public static final String BLUE_POINT_LOG = "thanQ_points_log.php";
-    public static final String NEW_REGISTRATION = "teacher_registration.php";
-    public static final String GENERATE_COUPON_LOG = "teacher_generate_coupon_ws_v3.php";
+    public static final String NEW_REGISTRATION = "quickregistration_ws_v1.php";
+    public static final String GENERATE_COUPON_LOG = "teacher_generate_coupon_ws_v4.php";
     public static final String COUPON_ADD_TO_CART = "add_to_cart_ws.php";
     public static final String COUPON_ADD_TO_CART_CONFIRM = "cart_confirm_ws.php";
     public static final String BUY_COUPON_LOG = "show_selected_vendor_coupons_ws.php";
@@ -63,11 +62,11 @@ public class WebserviceConstants {
     public static final String STUDENT_COORDINATOR_WEB_SERVICE = "getStudent_coord_Info.php";
     public static final String SPONSOR_LOCATION_URL = "display_sponsor_bydistance.php";
     //public static final String MAP_SERVICE_API = "map_service_API.php";
-  public static final String MAP_SERVICE_API = "map_service_API_V2.php";
+    public static final String MAP_SERVICE_API = "map_service_API_V2.php";
     public static final String ALL_SUBJECT_WEB_SERVICE = "teacher_ws.php?f=teacherallsubjects";
     public static final String LOGOUT_WEB_SERVICE = "logout_teacher_API.php";
     public static final String REQUEST_WEB_SERVICE = "request_other_student.php";
-    public static final String ACCEPT_REQUEST_WEB_SERVICE = "accept_other_request_student.php";
+    public static final String ACCEPT_REQUEST_LOG_WEB_SERVICE = "list_of_request_from_students_for_points.php";
     public static final String STUDENT_UPDATE_GCM = "update_gcm_id_ws.php";
     public static final String SOFT_REWARD = "display_soft_reward_webservice.php";
     public static final String SOFT_REWARD_PURCHASE = "purchase_soft_rewards_teacher.php";
@@ -76,10 +75,13 @@ public class WebserviceConstants {
     public static final String TEACHER_UPDATE_PROFILE = "update_teacher_profile_webservice.php";
     public static final String TEACHER_ADD_SUBJECT = "wsforaddsub.php";
 
-  public static final String STUDENT_SUGGEST_SPONSOR_LIST = "suggested_sponsors.php";
-  public static final String STUDENT_SUGGEST_SPONSOR_LIKES = "like_sponsor.php";
-  public static final String STUDENT_SUGGEST_NEW_SPONSOR = "suggest_sponsor_v1.php";
-
+    public static final String STUDENT_SUGGEST_SPONSOR_LIST = "suggested_sponsors.php";
+    public static final String STUDENT_SUGGEST_SPONSOR_LIKES = "like_sponsor.php";
+    public static final String STUDENT_SUGGEST_NEW_SPONSOR = "suggest_sponsor_v1.php";
+    public static final String ACCEPT_STUDENT_REQUEST = "accept_request_for_points_from_students.php";
+    public static final String DECLINE_STUDENT_REQUEST = "decline_request_for_points_from_students.php";
+    public static final String ERROE_LOG_WEB_SERVICE = "error_log_ws_v1.php";
+    public static final String SEND_REQUEST_WEB_SERVICE = "send_request_to_join_smartcookie.php";
 
 
     /**
@@ -90,6 +92,8 @@ public class WebserviceConstants {
     public static final String KEY_DATABASE_ID = "teacher_id";
     public static final String KEY_TID_SOFTREWARD = "t_id";
     public static final String KEY_TID = "t_id";
+
+
     public static final String KEY_TCOMPL_Name = "t_complete_name";
     public static final String KEY_TNAME = "t_name";
     public static final String KEY_TMIDDLE_NAME = "t_middlename";
@@ -185,11 +189,22 @@ public class WebserviceConstants {
      * constants for REGISTRATION
      */
 
-    public static final String KEY_USER_FNAME = "user_fname";
+  /*  public static final String KEY_USER_FNAME = "user_fname";
     public static final String KEY_USER_LNAME = "user_lname";
     public static final String KEY_USER_EMAIL = "user_email";
     public static final String KEY_USER_PASS = "user_password";
-    public static final String KEY_USER_PHONE = "user_phone";
+    public static final String KEY_USER_PHONE = "user_phone";*/
+
+    public static final String KEY_USER_FNAME = "firstname";
+    public static final String KEY_USER_MNAME = "middlename";
+    public static final String KEY_USER_LNAME = "lastname";
+    public static final String KEY_USER_EMAIL = "emailid";
+    public static final String KEY_USER_PASS = "password";
+    public static final String KEY_USER_PHONE = "phonenumber";
+    public static final String KEY_USER_PHONE_CODE = "countrycode";
+    public static final String KEY_USER_TYPE = "type";
+    public static final String KEY_USER_PLAT_SOURSE = "platform_source";
+
 
     public static final String KEY_TEACHER_ID = "teacher_id";
     public static final String KEY_USER_GENDER = "user_gender";
@@ -212,8 +227,8 @@ public class WebserviceConstants {
 
     public static final String KEY_GREEN_POINT = "green_points";
     public static final String KEY_BLUE_POINT = "blue_points";
-    public static final String KEY_BROWN_POINT = "water_points";
-    public static final String KEY_WATER_POINT = "brown_points";
+    public static final String KEY_BROWN_POINT = "brown_points";
+    public static final String KEY_WATER_POINT = "water_points";
 
     /**
      * constants for TEACHER_SUBJECT
@@ -444,8 +459,6 @@ public class WebserviceConstants {
     public static final String POINTS_TYPECOLOR = "point_type";
 
 
-
-
     public static final String KEY_LAT = "std_latitude";
     public static final String KEY_LONG = "std_longitude";
     public static final String KEY_DISTANCE1 = "distance";
@@ -473,8 +486,7 @@ public class WebserviceConstants {
     public static final String KEY_DISTANCE_TYPE = "range_type";
 
 
-
-  // o/p
+    // o/p
     public static final String KEY_SPONSOR_IDD = "id";
     public static final String KEY_SPONSOR_NAMEE = "sp_name";
     public static final String KEY_SPONSOR_ADDRESSS = "sp_address";
@@ -611,76 +623,76 @@ public class WebserviceConstants {
 //update profile
 
     public static final String KEY_TEACHER_EMAIL = "User_email";
-    public static final String KEY_TEACHER_UPDATE_ID= "t_id";
-    public static final String KEY_TEACHER_USERIMG_BASE64= "User_imagebase64";
-    public static final String KEY_TEACHER_USERIMG= "User_Image";
-    public static final String KEY_TEACHER_UPDATE_FIRST_NAME= "User_FName";
-    public static final String KEY_TEACHER_UPDATE_LAST_NAME= "User_LName";
+    public static final String KEY_TEACHER_UPDATE_ID = "t_id";
+    public static final String KEY_TEACHER_USERIMG_BASE64 = "User_imagebase64";
+    public static final String KEY_TEACHER_USERIMG = "User_Image";
+    public static final String KEY_TEACHER_UPDATE_FIRST_NAME = "User_FName";
+    public static final String KEY_TEACHER_UPDATE_LAST_NAME = "User_LName";
 
-    public static final String KEY_TEACHER_UPDATE_DOB= "User_dob";
-    public static final String KEY_TEACHER_UPDATE_ADDRESS= "User_address";
-    public static final String KEY_TEACHER_UPDATE_CITY= "User_city";
-    public static final String KEY_TEACHER_UPDATE_COUNTRY= "User_country";
-    public static final String KEY_TEACHER_UPDATE_STATE= "state";
-    public static final String KEY_TEACHER_UPDATE_GENDER= "User_gender";
-    public static final String KEY_TEACHER_UPDATE_PHONE= "User_Phone";
-    public static final String KEY_TEACHER_UPDATE_PASSWARD= "User_password";
+    public static final String KEY_TEACHER_UPDATE_DOB = "User_dob";
+    public static final String KEY_TEACHER_UPDATE_ADDRESS = "User_address";
+    public static final String KEY_TEACHER_UPDATE_CITY = "User_city";
+    public static final String KEY_TEACHER_UPDATE_COUNTRY = "User_country";
+    public static final String KEY_TEACHER_UPDATE_STATE = "state";
+    public static final String KEY_TEACHER_UPDATE_GENDER = "User_gender";
+    public static final String KEY_TEACHER_UPDATE_PHONE = "User_Phone";
+    public static final String KEY_TEACHER_UPDATE_PASSWARD = "User_password";
 
     public static final String KEY_TEACHER_UPDATE_MEMBERID = "User_Meid";
-    public static final String KEY_TEACHER_UPDATE_KEY="key";
-    public static final String KEY_TEACHER_UPDATE_COUNTRYCODE="CountryCode";
+    public static final String KEY_TEACHER_UPDATE_KEY = "key";
+    public static final String KEY_TEACHER_UPDATE_COUNTRYCODE = "CountryCode";
 
 
-    public static final String VAL_USER_TYPE_GUGMENT= "Judgement";
-    public static final String VAL_USER_TYPE_MARK= "Marks";
-    public static final String VAL_USER_TYPE_GRADE= "Grade";
-    public static final String VAL_USER_TYPE_PERSENTILE= "Percentile";
+    public static final String VAL_USER_TYPE_GUGMENT = "Judgement";
+    public static final String VAL_USER_TYPE_MARK = "Marks";
+    public static final String VAL_USER_TYPE_GRADE = "Grade";
+    public static final String VAL_USER_TYPE_PERSENTILE = "Percentile";
 
-    public static final String VAL_USER_TYPE_GRADE_A= "A";
-    public static final String VAL_USER_TYPE_GRADE_B= "B";
-    public static final String VAL_USER_TYPE_GRADE_C= "C";
-    public static final String VAL_USER_TYPE_GRADE_D= "D";
+    public static final String VAL_USER_TYPE_GRADE_A = "A";
+    public static final String VAL_USER_TYPE_GRADE_B = "B";
+    public static final String VAL_USER_TYPE_GRADE_C = "C";
+    public static final String VAL_USER_TYPE_GRADE_D = "D";
 
    /* User_Meid=3454
     key= member-id*/
 
     // ip for add subject
 
-    public static final String ADD_SUBJECT_SUBJECT_NAME= "subject";
+    public static final String ADD_SUBJECT_SUBJECT_NAME = "subject";
 
-    public static final String ADD_SUBJECT_CODE= "Subject_Code";
-    public static final String ADD_SUBJECT_SEMESTER_ID= "Semester_id";
-    public static final String ADD_SUBJECT_COURSE_LEVEL= "Course_Level_PID";
+    public static final String ADD_SUBJECT_CODE = "Subject_Code";
+    public static final String ADD_SUBJECT_SEMESTER_ID = "Semester_id";
+    public static final String ADD_SUBJECT_COURSE_LEVEL = "Course_Level_PID";
 
-    public static final String ADD_SUBJECT_SUBJECT_YEAR= "year";
+    public static final String ADD_SUBJECT_SUBJECT_YEAR = "year";
 
 
     /*
      * constants related to Suggest Sponsor List
      */
 
-  /* I/P*/
-  public static final String KEY_SUGGEST_SPONSOR_ENTITY = "entity";
-  public static final String KEY_SUGGEST_SPONSOR_USER_ID = "user_id";
-  public static final String KEY_SUGGEST_SPONSOR_LATITUDE = "lk_sp_lat";
-  public static final String KEY_SUGGEST_SPONSOR_LONGITUDE = "lk_sp_long";
-  public static final String KEY_SUGGEST_SPONSOR_CATAGORY = "lk_sp_cat";
-  public static final String KEY_SUGGEST_SPONSOR_COUNTRY = "lk_sp_country";
-  public static final String KEY_SUGGEST_SPONSOR_STATE = "lk_sp_state";
-  public static final String KEY_SUGGEST_SPONSOR_CITY = "lk_sp_city";
-  public static final String KEY_SUGGEST_SPONSOR_IS_LOC = "lk_loc";
-  public static final String VALUE_SUGGEST_SPONSOR_ENTITY = "3";
+    /* I/P*/
+    public static final String KEY_SUGGEST_SPONSOR_ENTITY = "entity";
+    public static final String KEY_SUGGEST_SPONSOR_USER_ID = "user_id";
+    public static final String KEY_SUGGEST_SPONSOR_LATITUDE = "lk_sp_lat";
+    public static final String KEY_SUGGEST_SPONSOR_LONGITUDE = "lk_sp_long";
+    public static final String KEY_SUGGEST_SPONSOR_CATAGORY = "lk_sp_cat";
+    public static final String KEY_SUGGEST_SPONSOR_COUNTRY = "lk_sp_country";
+    public static final String KEY_SUGGEST_SPONSOR_STATE = "lk_sp_state";
+    public static final String KEY_SUGGEST_SPONSOR_CITY = "lk_sp_city";
+    public static final String KEY_SUGGEST_SPONSOR_IS_LOC = "lk_loc";
+    public static final String VALUE_SUGGEST_SPONSOR_ENTITY = "3";
 
 
     /* O/P*/
 
-  public static final String KEY_SUGGEST_SPONSOR_ID = "v_id";
-  public static final String KEY_SUGGEST_SPONSOR_NAME = "v_name";
-  public static final String KEY_SUGGEST_SPONSOR_ADDRESS = "v_address";
-  public static final String KEY_SUGGEST_SPONSOR_EMAIL = "v_email";
-  public static final String KEY_SUGGEST_SPONSOR_LIKES = "v_likes";
-  public static final String KEY_SUGGEST_SPONSOR_KILOMETERS = "kilometers";
-  public static final String KEY_SUGGEST_SPONSOR_LIKE_STATUS = "like_status";
+    public static final String KEY_SUGGEST_SPONSOR_ID = "v_id";
+    public static final String KEY_SUGGEST_SPONSOR_NAME = "v_name";
+    public static final String KEY_SUGGEST_SPONSOR_ADDRESS = "v_address";
+    public static final String KEY_SUGGEST_SPONSOR_EMAIL = "v_email";
+    public static final String KEY_SUGGEST_SPONSOR_LIKES = "v_likes";
+    public static final String KEY_SUGGEST_SPONSOR_KILOMETERS = "kilometers";
+    public static final String KEY_SUGGEST_SPONSOR_LIKE_STATUS = "like_status";
 
 
      /*
@@ -690,28 +702,77 @@ public class WebserviceConstants {
     /* I/P*/
 
 
-  public static final String KEY_SUGGEST_NEW_SPONSOR_USER_ID = "user_id";
-  public static final String KEY_SUGGEST_NEW_SPONSOR_NAME = "sp_name";
-  public static final String KEY_SUGGEST_NEW_SPONSOR_CATEGORY = "v_category";
-  public static final String KEY_SUGGEST_NEW_SPONSOR_PHONE = "sp_phone";
-  public static final String KEY_SUGGEST_NEW_SPONSOR_EMAIL = "sp_email";
-  public static final String KEY_SUGGEST_NEW_SPONSOR_ADDRESS = "sp_address";
-  public static final String KEY_SUGGEST_NEW_SPONSOR_CITY = "sp_city";
-  public static final String KEY_SUGGEST_NEW_SPONSOR_STATE = "sp_state";
-  public static final String KEY_SUGGEST_NEW_SPONSOR_COUNTRY = "sp_country";
-  public static final String KEY_SUGGEST_NEW_SPONSOR_LAT = "lat";
-  public static final String KEY_SUGGEST_NEW_SPONSOR_LONG = "lon";
-  public static final String KEY_SUGGEST_NEW_SPONSOR_ENTITY = "entity";
-  public static final String KEY_SUGGEST_NEW_SPONSOR_IMAGE = "Vendor_Image";
-  public static final String KEY_SUGGEST_NEW_SPONSOR_IMAGE_BASE_64 = "Vendor_Base64";
-  public static final String KEY_SUGGEST_NEW_SPONSOR_PLATFORM_SOURSE = "platform_source";
-  public static final String KEY_SUGGEST_NEW_SPONSOR_VERSION = "app_version";
-  public static final String KEY_SUGGEST_NEW_SPONSOR_LATITIDE= "splat";
-  public static final String KEY_SUGGEST_NEW_SPONSOR_LOGITITUDE = "splon";
+    public static final String KEY_SUGGEST_NEW_SPONSOR_USER_ID = "user_id";
+    public static final String KEY_SUGGEST_NEW_SPONSOR_NAME = "sp_name";
+    public static final String KEY_SUGGEST_NEW_SPONSOR_CATEGORY = "v_category";
+    public static final String KEY_SUGGEST_NEW_SPONSOR_PHONE = "sp_phone";
+    public static final String KEY_SUGGEST_NEW_SPONSOR_EMAIL = "sp_email";
+    public static final String KEY_SUGGEST_NEW_SPONSOR_ADDRESS = "sp_address";
+    public static final String KEY_SUGGEST_NEW_SPONSOR_CITY = "sp_city";
+    public static final String KEY_SUGGEST_NEW_SPONSOR_STATE = "sp_state";
+    public static final String KEY_SUGGEST_NEW_SPONSOR_COUNTRY = "sp_country";
+    public static final String KEY_SUGGEST_NEW_SPONSOR_LAT = "lat";
+    public static final String KEY_SUGGEST_NEW_SPONSOR_LONG = "lon";
+    public static final String KEY_SUGGEST_NEW_SPONSOR_ENTITY = "entity";
+    public static final String KEY_SUGGEST_NEW_SPONSOR_IMAGE = "Vendor_Image";
+    public static final String KEY_SUGGEST_NEW_SPONSOR_IMAGE_BASE_64 = "Vendor_Base64";
+    public static final String KEY_SUGGEST_NEW_SPONSOR_PLATFORM_SOURSE = "platform_source";
+    public static final String KEY_SUGGEST_NEW_SPONSOR_VERSION = "app_version";
+    public static final String KEY_SUGGEST_NEW_SPONSOR_LATITIDE = "splat";
+    public static final String KEY_SUGGEST_NEW_SPONSOR_LOGITITUDE = "splon";
 
 
+    public static final String VALUE_STUDENT_FLAG_ACCEPT = "1";
+    public static final String VALUE_STUDENT_FLAG_REJECT = "2";
 
+    //constants for request point
 
-  public static final String VALUE_STUDENT_FLAG_ACCEPT = "1";
-  public static final String VALUE_STUDENT_FLAG_REJECT = "2";
+    public static final String KEY_REQUEST_NAME = "std_complete_name";
+    public static final String KEY_REQUEST_POINTS = "points";
+    public static final String KEY_REQUEST_DATE = "requestdate";
+    public static final String KEY_REQUEST_REASON = "reason";
+    public static final String KEY_REQUEST_IMAGE = "std_img_path";
+
+    public static final String KEY_REQUEST_TYPE = "activity_type";
+
+    public static final String KEY_REQUEST_STUDENT_PRN = "student_PRN";
+    public static final String KEY_REQUEST_STUDENT_REASON_ID = "reason_id";
+
+    //input for error log
+
+    public static final String KEY_ERROR_TYPE = "error_type";
+    public static final String KEY_ERROR_DESCRIPTION = "error_description";
+    public static final String KEY_ERROR_DATE = "data";
+    public static final String KEY_ERROR_DATETIME = "datetime";
+    public static final String KEY_ERROR_USERTYPE = "user_type";
+
+    public static final String KEY_ERROR_NAME = "name";
+    public static final String KEY_ERROR_PHONE = "phone";
+    public static final String KEY_ERROR_EMAIL = "email";
+    public static final String KEY_ERROR_APP0NAME = "app_name";
+    public static final String KEY_ERROR_SUBROUTINENAME = "subroutine_name";
+    public static final String KEY_ERROR_LINE = "line";
+    public static final String KEY_ERROR_STATUS = "status";
+    public static final String KEY_ERROR_WEBMETHOD_NAME = "webmethod_name";
+    public static final String KEY_ERROR_WEBSERVICE_NAME = "webservice_name";
+    public static final String KEY_ERROR_LASTPROGR_NAME = "last_programmer_name";
+
+    //output
+    public static final String KEY_ERROR_ID = "error_id";
+
+//  input for send request
+
+    public static final String KEY_SEND_REQUEST_MEMBER_ID = "sender_member_id";
+    public static final String KEY_SEND_REQUEST_SENDER_ID = "sender_entity_id";
+    public static final String KEY_SEND_REQUEST_RECIVER_ID = "receiver_entity_id";
+    public static final String KEY_SEND_REQUEST_COUNTRYCODE= "receiver_country_code";
+    public static final String KEY_SEND_REQUEST_MOBILENO = "receiver_mobile_number";
+    public static final String KEY_SEND_REQUEST_EMAILID= "receiver_email_id";
+    public static final String KEY_SEND_REQUEST_FIRSTNAME= "firstname";
+    public static final String KEY_SEND_REQUEST_MIDDLENAME= "middlename";
+    public static final String KEY_SEND_REQUEST_LASTNAME= "lastname";
+    public static final String KEY_SEND_REQUEST_PLATFORM= "platform_source";
+    public static final String KEY_SEND_REQUEST_SENDSTATUS= "request_status";
+    public static final String KEY_SEND_REQUEST_INVITATYION_SENDER_NAME= "invitation_sender_name";
+
 }

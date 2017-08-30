@@ -17,7 +17,7 @@
             <RelativeLayout
                 android:id="@+id/rl_outer_grey_layout"
                 android:layout_width="320dp"
-                android:layout_height="500dp"
+                android:layout_height="590dp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="40dp"
                 android:background="#ECECEC">
@@ -56,11 +56,31 @@
                     android:textSize="20sp" />
 
                 <com.blueplanet.smartcookieteacher.customcomponents.CustomEditText
-                    android:id="@+id/edt_lastName"
+                    android:id="@+id/edt_middleName"
                     style="@style/et_username_style"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_below="@+id/edt_firstname"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/username_selector"
+                    android:drawablePadding="15sp"
+                    android:gravity="center_vertical"
+                    android:hint="Middle Name"
+                    android:inputType="text"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="5dp"
+                    android:text=""
+                    android:textColor="#393939"
+                    android:textColorHint="#393939"
+                    android:textSize="20sp" />
+                <com.blueplanet.smartcookieteacher.customcomponents.CustomEditText
+                    android:id="@+id/edt_lastName"
+                    style="@style/et_username_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_below="@+id/edt_middleName"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:background="@drawable/username_selector"
@@ -75,13 +95,52 @@
                     android:textColor="#393939"
                     android:textColorHint="#393939"
                     android:textSize="20sp" />
+                <LinearLayout
+                    android:id="@+id/ll_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_below="@+id/edt_lastName"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/username_selector"
+                    android:orientation="horizontal"
+                    android:visibility="visible">
 
+                    <Spinner
+                        android:id="@+id/spinnerPhone"
+                        android:layout_width="70dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginLeft="8dp"
+
+                        android:background="@drawable/oval_white"
+                        android:visibility="visible" />
+
+                    <com.blueplanet.smartcookieteacher.customcomponents.CustomEditText
+                        android:id="@+id/edtPhone"
+                        style="@style/et_username_style"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:background="@null"
+                        android:drawablePadding="15sp"
+                        android:hint="Phone"
+                        android:maxLength="10"
+                        android:inputType="phone"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="10dp"
+                        android:singleLine="true"
+                        android:textColor="#393939"
+                        android:textColorHint="#393939"
+                        android:textSize="15sp" />
+                </LinearLayout>
                 <com.blueplanet.smartcookieteacher.customcomponents.CustomEditText
                     android:id="@+id/edt_emailId"
                     style="@style/et_username_style"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:layout_below="@+id/edt_lastName"
+                    android:layout_below="@+id/ll_phone"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:background="@drawable/username_selector"
@@ -122,7 +181,7 @@
                     android:textSize="20sp" />
 
                 <com.blueplanet.smartcookieteacher.customcomponents.CustomEditText
-                    android:id="@+id/edtPhone"
+                    android:id="@+id/edtPhone1"
                     style="@style/et_username_style"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
@@ -132,7 +191,7 @@
                     android:background="@drawable/username_selector"
                     android:drawablePadding="15sp"
                     android:gravity="center_vertical"
-                    android:hint="@string/password"
+                  android:visibility="gone"
                     android:inputType="textPassword"
                     android:paddingLeft="20dp"
                     android:paddingRight="10dp"
@@ -148,7 +207,7 @@
                     style="@style/login_button_style"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:layout_below="@+id/edtPhone"
+                    android:layout_below="@+id/edt_password"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:background="@drawable/login_button_selector"

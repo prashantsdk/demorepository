@@ -5,7 +5,7 @@
     android:background="@color/white_solid"
     android:paddingBottom="20dp">
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/ll_username"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -13,33 +13,29 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="5dp"
+        android:background="@drawable/login_button_selector"
         android:orientation="horizontal">
 
-        <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
-            style="@style/Login_title"
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/teacherName"
+            android:layout_width="190dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="Maven Participant :  "
-            android:textColor="#190710"
-            android:textSize="22sp" />
-
-
-        <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:text="Student Search"
+            android:textColor="#FFFFFF"
+            android:textSize="15dp" />
+        <TextView
             android:id="@+id/websearch"
-
-            android:layout_width="25dp"
-            android:layout_height="35dp"
-            android:layout_weight="1"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/btnleftcorner"
-            android:gravity="center"
-            android:text="Search"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="#ffffff" />
-
-
-    </LinearLayout>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:text="web search"
+            android:layout_toRightOf="@+id/teacherName"
+            android:textColor="#FFFFFF"
+            android:textSize="15dp" />
+    </RelativeLayout>
 
     <com.blueplanet.smartcookieteacher.customcomponents.CustomEditText
         android:id="@+id/etxtSearch"
@@ -48,10 +44,9 @@
         android:layout_below="@+id/ll_username"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="5dp"
-        android:visibility="gone"
         android:drawableLeft="@android:drawable/ic_menu_search"
         android:hint="Search"
-       />
+        />
 
     <RelativeLayout
         android:id="@+id/linlay_image"
@@ -59,7 +54,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/ll_username"
-        android:visibility="gone"
         android:layout_marginLeft="10dp">
 
 

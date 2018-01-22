@@ -51,6 +51,8 @@ public class StudentListFragment extends Fragment {
     private ArrayList<Student> _studentList = null;
     private View _view;
     private TextView _txt_teacherName;
+
+    private CustomTextView _txtwebsearch;
     private Teacher _teacher;
 
     @Override
@@ -60,7 +62,7 @@ public class StudentListFragment extends Fragment {
         _sListFragmentController = new StudentListFragmentController(this, _view);
         _studentAdapter = new StudentListAdapter(this, _sListFragmentController, _view);
         _showDataOnUI();
-        _setTeacherNameOnUI();
+       // _setTeacherNameOnUI();
         _registerUIListeners();
         return _view;
 
@@ -77,7 +79,8 @@ public class StudentListFragment extends Fragment {
         _etTextSearch = (CustomEditText) _view.findViewById(R.id.etxtSearch);
 
         _edtCount = (CustomTextView) _view.findViewById(R.id.count);
-        _txt_teacherName =(TextView) _view.findViewById(R.id.teacherName);
+      //  _txt_teacherName =(TextView) _view.findViewById(R.id.teacherName);
+        _txtwebsearch =(CustomTextView) _view.findViewById(R.id.websearch);
 
     }
 
@@ -94,7 +97,7 @@ public class StudentListFragment extends Fragment {
         });
     }
 
-    private void _setTeacherNameOnUI(){
+   /* private void _setTeacherNameOnUI(){
 
         _teacher = LoginFeatureController.getInstance().getTeacher();
         if (_teacher != null) {
@@ -102,14 +105,14 @@ public class StudentListFragment extends Fragment {
                 @Override
                 public void run() {
 
-                    _txt_teacherName.setText(_teacher.get_tCompleteName()+" - "+_teacher.get_tId());
+                    _txt_teacherName.setText(_teacher.get_tCompleteName());
 
 
                 }
             });
         }
     }
-
+*/
 
 
     public ListView getListview() {
@@ -125,6 +128,7 @@ public class StudentListFragment extends Fragment {
         _studentListView.setOnScrollListener(_sListFragmentController);
         _studentListView.setOnItemClickListener(_sListFragmentController);
         _etTextSearch.addTextChangedListener(_studentAdapter);
+        _txtwebsearch.setOnClickListener(_sListFragmentController);
 
 
     }

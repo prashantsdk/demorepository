@@ -100,8 +100,6 @@ public class TeacherDashboardFragment extends Fragment {
         _teabrownpoint = (CustomTextView) _view.findViewById(R.id.brownpoint);
         _teawaterpoint = (CustomTextView) _view.findViewById(R.id.waterpoint);
 
-
-
         _lvStudentList = (ListView) _view.findViewById(R.id.lv_studentDashboard);
         _testpro = (CustomTextView) _view.findViewById(R.id.testproduction);
 
@@ -109,6 +107,7 @@ public class TeacherDashboardFragment extends Fragment {
                 .findViewById(R.id.rl_progressBar);
         _progressbar = (ProgressBar) _view.findViewById(R.id.progressbar);
         _tvPleaseWait = (CustomTextView) _view.findViewById(R.id.tv_please_wait);
+
 
 
     }
@@ -138,6 +137,8 @@ public class TeacherDashboardFragment extends Fragment {
         TestProduction testproduction = new TestProduction();
         final String protest = testproduction.get_production();
         if (_teacher != null) {
+
+
             getActivity().runOnUiThread(new Runnable() {
 
                 @Override

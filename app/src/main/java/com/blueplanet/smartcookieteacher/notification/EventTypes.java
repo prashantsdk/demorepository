@@ -221,5 +221,15 @@ public class EventTypes {
     public static final int EVENT_UI_SEND_REQUEST = 282;
     public static final int EVENT_UI_NOT_SEND_REQUEST = 283;
 
+    public static final int EVENT_SEARCH_STUDENT= 284;
+    public static final int EVENT_UI_SEARCH_STUDENT = 285;
+    public static final int EVENT_UI_NOT_SEARCH_STUDENT = 286;
+
+    public static final int EVENT_UI_INVALID_INPUT = 287;
+
+
+
+
+
 
 }

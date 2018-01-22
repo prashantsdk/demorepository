@@ -8,6 +8,8 @@ import com.blueplanet.smartcookieteacher.communication.ErrorInfo;
 import com.blueplanet.smartcookieteacher.communication.HTTPConstants;
 import com.blueplanet.smartcookieteacher.communication.ServerResponse;
 import com.blueplanet.smartcookieteacher.communication.SmartCookieTeacherService;
+import com.blueplanet.smartcookieteacher.models.AdminThankqPoint;
+import com.blueplanet.smartcookieteacher.models.NewRegistrationModel;
 import com.blueplanet.smartcookieteacher.models.ShairPointModel;
 import com.blueplanet.smartcookieteacher.notification.EventNotifier;
 import com.blueplanet.smartcookieteacher.notification.EventTypes;
@@ -35,7 +37,7 @@ public class UpdateProfile extends SmartCookieTeacherService {
      */
     public UpdateProfile(String email, String fname, String lname, String dob, String address, String city, String country,
                          String gender, String passward, String phone, String state,String studentId,String countrycode,
-                         String memberID,String Key) {
+                         String memberID,String Key,String img) {
         _email = email;
         _fname = fname;
         _lname = lname;
@@ -51,6 +53,7 @@ public class UpdateProfile extends SmartCookieTeacherService {
         _countrycode=countrycode;
         _memberID=memberID;
         _Key=Key;
+        _img=img;
 
     }
 
@@ -88,7 +91,10 @@ public class UpdateProfile extends SmartCookieTeacherService {
 
             requestBody.put(WebserviceConstants.KEY_TEACHER_UPDATE_MEMBERID, _memberID);
             requestBody.put(WebserviceConstants.KEY_TEACHER_UPDATE_KEY, _Key);
-            requestBody.put(WebserviceConstants.KEY_TEACHER_UPDATE_COUNTRYCODE, _countrycode);
+            requestBody.put(WebserviceConstants.KEY_TEACHER_UPDATE_COUNTRYCODE, _countrycode
+            );
+            requestBody.put(WebserviceConstants.KEY_TEACHER_USERIMG_BASE64, _img
+            );
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -108,6 +114,9 @@ public class UpdateProfile extends SmartCookieTeacherService {
         int statusCode = -1;
         String statusMessage = null;
         Log.i(_TAG, "In parseResponse" + responseJSONString.toString());
+        NewRegistrationModel _regmodel = null;
+
+        ArrayList<NewRegistrationModel> reglist = new ArrayList<>();
         try {
             objResponseJSON = new JSONObject(responseJSONString);
             String obj = objResponseJSON.toString();
@@ -118,10 +127,32 @@ public class UpdateProfile extends SmartCookieTeacherService {
             Log.i(_TAG, responseJSONString.toString());
 
             if (statusCode == HTTPConstants.HTTP_COMM_SUCCESS) {
+                // success
                 JSONArray responseData = objResponseJSON.optJSONArray(WebserviceConstants.KEY_POSTS);
+                for (int i = 0; i < responseData.length(); i++) {
+                    JSONObject jsonObject = responseData.optJSONObject(i);
+                    String userIdname = jsonObject.optString(WebserviceConstants.KEY_USER_MID);
+                    String compname = jsonObject.optString(WebserviceConstants.KEY_USER_COMPNAME);
+                    String fname = jsonObject.optString(WebserviceConstants.KEY_USER_REG_FNAME);
+                    String lname = jsonObject.optString(WebserviceConstants.KEY_USER_REG_lNAME);
+                    String address = jsonObject.optString(WebserviceConstants.KEY_USER_REG_ADDRESS);
+                    String city = jsonObject.optString(WebserviceConstants.KEY_USER_REG_CITY);
+                    String country = jsonObject.optString(WebserviceConstants.KEY_USER_REG_COUNTEY);
+                    String state = jsonObject.optString(WebserviceConstants.KEY_USER_REG_STATE);
+                    String phone= jsonObject.optString(WebserviceConstants.KEY_USER_REG_PHONE);
+                    String regpassward = jsonObject.optString(WebserviceConstants.KEY_USER_REG_PASSWARD);
+                    String countryucode = jsonObject.optString(WebserviceConstants.KEY_USER_REG_COUNTRYCODE);
+                    String email = jsonObject.optString(WebserviceConstants.KEY_USER_REG_EMAIL);
+                    String imgpath = jsonObject.optString(WebserviceConstants.KEY_USER_REG_IMGPATH);
+                    String imgname = jsonObject.optString(WebserviceConstants.KEY_USER_REG_IMGNAME);
 
 
-                responseObject = new ServerResponse(errorCode, responseData);
+
+                    _regmodel = new NewRegistrationModel(userIdname,compname, fname, lname,address,city,country,state,phone,regpassward,countryucode,email,imgpath,imgname);
+                    reglist.add(_regmodel);
+
+                }
+                responseObject = new ServerResponse(errorCode, reglist);
 
             } else {
                 // failure

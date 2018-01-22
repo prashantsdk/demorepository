@@ -3,10 +3,15 @@ package com.blueplanet.smartcookieteacher.ui.controllers;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -17,9 +22,11 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -52,13 +59,33 @@ import com.blueplanet.smartcookieteacher.ui.LoginFragment;
 import com.blueplanet.smartcookieteacher.ui.RegistrationActivity;
 
 import com.blueplanet.smartcookieteacher.ui.RegistrationFragment;
+import com.blueplanet.smartcookieteacher.utils.HelperClass;
 import com.blueplanet.smartcookieteacher.utils.SmartCookieSharedPreferences;
 import com.blueplanet.smartcookieteacher.webservices.WebserviceConstants;
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.Arrays;
+
+import me.msfjarvis.apprate.AppRate;
 
 
 /**
@@ -77,13 +104,16 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
     GPSTracker gpsTracker;
     private Teacher _teacher;
     private String _teacherId, _schoolId;
-
-    public static final int PERMISSION_REQUEST_CODE=23;
-
+    public CallbackManager callbackManager = CallbackManager.Factory.create();
+    public static final int PERMISSION_REQUEST_CODE = 23;
+    String social_email = "", social_id = "", social_f_name = "", social_l_name = "", str_social_profile_pic = "";
     double latitude = 0.0, longitude = 0.0;
 
     String[] LOC_PERMISSIONS = {Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION};
     GoogleCloudMessaging gcm;
+    String[] social_name;
+    URL social_profile_pic = null;
+    private  String packageName= "com.example.sayali.callreminder";
 
     /**
      * constructor
@@ -152,8 +182,8 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
         eventNetwork.unRegisterListener(this);
     }
 
-     private void _teacherLogin(String username, String password, String usertype, String colgCode, String method, String devicetype, String details,
-                               String os, String ipadddress, String countryCode,double lat, double log) {
+    private void _teacherLogin(String username, String password, String usertype, String colgCode, String method, String devicetype, String details,
+                               String os, String ipadddress, String countryCode, double lat, double log) {
         _registerEventListeners();
         _registerNetworkListeners();
         _loginFragment.showOrHideProgressBar(true);
@@ -161,13 +191,13 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
                 os, ipadddress, countryCode, lat, log);
     }
 
-    private void _ErrorWev(String t_id,String studentId,String type,String description,String date,String datetime,String usertype,String name,String phone,String email,
-                           String appname,String subroutinename, String line,String status,String webmethodname,String webservice,String proname) {
+    private void _ErrorWev(String t_id, String studentId, String type, String description, String date, String datetime, String usertype, String name, String phone, String email,
+                           String appname, String subroutinename, String line, String status, String webmethodname, String webservice, String proname) {
         _registerEventListeners();
         _registerNetworkListeners();
         _loginFragment.showOrHideProgressBar(true);
         ErrorFeatureController.getInstance().getErrorListFromServer(t_id, studentId, type, description, date, datetime, usertype, name, phone, email,
-                appname, subroutinename,  line, status, webmethodname, webservice, proname);
+                appname, subroutinename, line, status, webmethodname, webservice, proname);
     }
 
 
@@ -228,15 +258,20 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
                     String usertype = LoginFeatureController.getInstance().get_emailID();
                     String usertphone = LoginFeatureController.getInstance().get_phoneNo();
 
+
                     if (usertype.equalsIgnoreCase("Email")) {
                         _handleRememberMeClick();
                         String userName = etUserName.getText().toString();
                         LoginFeatureController.getInstance().setEmail(userName);
 
-                         password = etPassword.getText().toString();
+                        password = etPassword.getText().toString();
                         LoginFeatureController.getInstance().setPassword(password);
                         String collgcode = etprn.getText().toString();
                         LoginFeatureController.getInstance().setColgcode(collgcode);
+                     /*   SmartCookieSharedPreferences.setUserNameInSharedPreference(userName);
+                        SmartCookieSharedPreferences.setPasswordInSharedPreference(password);
+                        SmartCookieSharedPreferences.setUserIDInSharedPreference(collgcode);*/
+
 
 
                         //String selStatephone = (String) spinner.getSelectedItem();
@@ -246,17 +281,20 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
                         if (!TextUtils.isEmpty(userName) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(usertype) || !TextUtils.isEmpty(colgCode)) {
                             //  SmartCookieSharedPreferences.setLoginFlag(true);
 
-                            _teacherLogin(userName, password, usertype, collgcode, method, devicetype, device_details, platform_OS, ip_address, countryCode,latitude,longitude);
+                            _teacherLogin(userName, password, usertype, collgcode, method, devicetype, device_details, platform_OS, ip_address, countryCode, latitude, longitude);
                         } else if (TextUtils.isEmpty(userName) && TextUtils.isEmpty(password)) {
                             Toast.makeText(MainApplication.getContext(),
                                     "Please enter your credentials",
                                     Toast.LENGTH_SHORT).show();
+                          /*  SmartCookieSharedPreferences.setUserNameInSharedPreference("");
+                            SmartCookieSharedPreferences.setPasswordInSharedPreference("");
+                            SmartCookieSharedPreferences.setUserIDInSharedPreference("");*/
                         }
 
 
                     } else if (usertype.equalsIgnoreCase("Mobile-No")) {
                         _handleRememberMeClickEmp();
-                        password="";
+                        password = "";
                         String mobileno = etUserMobile.getText().toString();
                         String password = etPassword.getText().toString();
                         String code = "91";
@@ -275,16 +313,17 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
                                     Toast.LENGTH_SHORT).show();
                         }*/
 
-                        if (!TextUtils.isEmpty(mobileno) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(usertype) || !TextUtils.isEmpty(colgCode) && mobileno.equalsIgnoreCase("0" ) ){
+                        if (!TextUtils.isEmpty(mobileno) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(usertype) || !TextUtils.isEmpty(colgCode) && mobileno.equalsIgnoreCase("0")) {
                             //  SmartCookieSharedPreferences.setLoginFlag(true);
 
-                            _teacherLogin(mobileno, password, usertype, colgCode, method, devicetype, device_details, platform_OS, ip_address, code,latitude,longitude);
+                            _teacherLogin(mobileno, password, usertype, colgCode, method, devicetype, device_details, platform_OS, ip_address, code, latitude, longitude);
 
-                        } else if (TextUtils.isEmpty(mobileno) && TextUtils.isEmpty(password)) {                            Toast.makeText(MainApplication.getContext(),
-                                "Please enter your credentials",
-                                Toast.LENGTH_SHORT).show();
+                        } else if (TextUtils.isEmpty(mobileno) && TextUtils.isEmpty(password)) {
+                            Toast.makeText(MainApplication.getContext(),
+                                    "Please enter your credentials",
+                                    Toast.LENGTH_SHORT).show();
 
-                            _teacherLogin(mobileno, password, usertype, colgCode, method, devicetype, device_details, platform_OS, ip_address, code,latitude,longitude);
+                            _teacherLogin(mobileno, password, usertype, colgCode, method, devicetype, device_details, platform_OS, ip_address, code, latitude, longitude);
                         }
 
 
@@ -300,7 +339,7 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
                         if (!TextUtils.isEmpty(prn) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(usertype) || !TextUtils.isEmpty(colgCode)) {
                             //  SmartCookieSharedPreferences.setLoginFlag(true);
 
-                            _teacherLogin(code, password, usertype, prn, method, devicetype, device_details, platform_OS, ip_address, countryCode,latitude,longitude);
+                            _teacherLogin(code, password, usertype, prn, method, devicetype, device_details, platform_OS, ip_address, countryCode, latitude, longitude);
                         } else if (TextUtils.isEmpty(prn) && TextUtils.isEmpty(password)) {
                             Toast.makeText(MainApplication.getContext(),
                                     "Please enter your credentials",
@@ -323,7 +362,7 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
                         if (!TextUtils.isEmpty(userMemberID) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(usertype) || !TextUtils.isEmpty(colgCode)) {
                             //  SmartCookieSharedPreferences.setLoginFlag(true);
 
-                            _teacherLogin(userMemberID, password, usertype, colgCode, method, devicetype, device_details, platform_OS, ip_address, countryCode,latitude,longitude);
+                            _teacherLogin(userMemberID, password, usertype, colgCode, method, devicetype, device_details, platform_OS, ip_address, countryCode, latitude, longitude);
                         } else if (TextUtils.isEmpty(userMemberID) && TextUtils.isEmpty(password)) {
                             Toast.makeText(MainApplication.getContext(),
                                     "Please enter your credentials",
@@ -436,18 +475,51 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
 
 
             case R.id.btnRegis:
-               // _loadFragment(R.id.fragment_layout, new RegistrationFragment());
+                // _loadFragment(R.id.fragment_layout, new RegistrationFragment());
                 Intent intent = new Intent(_loginFragment.getActivity(), RegistrationActivity.class);
                 _loginFragment.startActivity(intent);
                 _loginFragment.getActivity().finish();
                 break;
 
+            case R.id.btnfacebook:
+                AppRater.showRateDialog(_loginFragment.getActivity(), null);
+
+              /*  new AppRate(_loginFragment.getActivity()).init();
+                new AppRate(_loginFragment.getActivity())
+                        .setMinDaysUntilPrompt(7)
+                        .setMinLaunchesUntilPrompt(20)
+                        .init();
+                rateApp(MainApplication.getContext());*/
+            /*    try {
+                    _loginFragment.startActivity(new Intent(Intent.ACTION_VIEW,
+                            Uri.parse("market://details?id=" + packageName)));
+                } catch (android.content.ActivityNotFoundException e) {
+                    _loginFragment.startActivity(new Intent(Intent.ACTION_VIEW,
+                            Uri.parse("http://play.google.com/store/apps/details?id=" + packageName)));
+                }*/
+
+
+                // Facebook_SignIn();
+                break;
             default:
                 break;
         }
 
     }
+    public static void rateApp(Context context) {
+        try {
+            context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + context.getPackageName())));
+        } catch (android.content.ActivityNotFoundException anfe) {
+            viewInBrowser(context, "https://play.google.com/store/apps/details?id=" + context.getPackageName());
+        }
+    }
 
+    public static void viewInBrowser(Context context, String url) {
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        if (null != intent.resolveActivity(context.getPackageManager())) {
+            context.startActivity(intent);
+        }
+    }
 
     void _showData(final CharSequence[] items, final String msg,
                    final EditText txt, final TextView lbl) {
@@ -511,6 +583,7 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
     public int eventNotify(int eventType, Object eventObject) {
         int eventState = EventState.EVENT_PROCESSED;
         ServerResponse serverResponse = (ServerResponse) eventObject;
+
         int errorCode = -1;
 
         if (serverResponse != null) {
@@ -526,15 +599,15 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
 
                 if (errorCode == WebserviceConstants.SUCCESS) {
                     Log.i(_TAG, "In EVENT_UI_LOGIN_SUCCESSFUL");
-                    //SmartCookieSharedPreferences.setLoginFlag(true);
+                   // SmartCookieSharedPreferences.setLoginFlag(true);
 
                     SaveLoginData();
                     _loginFragment.showOrHideProgressBar(false);
-                    Teacher teacher=LoginFeatureController.getInstance().getTeacher();
-                  //  _startAfterLoginActivity();
-                    if (SmartCookieSharedPreferences.getDeviceRegisteredOnServer()==true){
-                        registerGCMtoServer(String.valueOf(teacher.getId()),SmartCookieSharedPreferences.getGCMSharedPreference(GlobalInterface.KEY_GCM));
-                    }else {
+                    Teacher teacher = LoginFeatureController.getInstance().getTeacher();
+                    //  _startAfterLoginActivity();
+                    if (SmartCookieSharedPreferences.getDeviceRegisteredOnServer() == true) {
+                        registerGCMtoServer(String.valueOf(teacher.getId()), SmartCookieSharedPreferences.getGCMSharedPreference(GlobalInterface.KEY_GCM));
+                    } else {
                         _startAfterLoginActivity();
                     }
 
@@ -652,7 +725,7 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
 
         String userName = etUserName.getText().toString();
         String password = etPassword.getText().toString();
-        String prn="";
+        String prn = "";
         if (cbRememberMe.isChecked()) {
             Log.i(_TAG, "In remember me checked");
 
@@ -665,7 +738,7 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
             /**
              * save user data into DB
              */
-            User user = new User(userName, password, true,prn);
+            User user = new User(userName, password, true, prn);
             LoginFeatureController.getInstance().saveUserDataIntoDB(user);
         } else {
 
@@ -697,7 +770,7 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
         String mobileno = etUserMobile.getText().toString();
         String password = etPassword.getText().toString();
         String code = "91";
-        String prn="";
+        String prn = "";
 
         if (cbRememberMe.isChecked()) {
             Log.i(_TAG, "In remember me checked");
@@ -709,7 +782,7 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
             /**
              * save user data into DB
              */
-            User user = new User(mobileno, password, true,prn);
+            User user = new User(mobileno, password, true, prn);
             LoginFeatureController.getInstance().saveUserDataIntoDB(user);
         } else {
 
@@ -725,6 +798,7 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
         }
 
     }
+
     private void _handleRememberMeClickPrn() {
 /*
         EditText etUserName = (EditText) _view.findViewById(R.id.edt_username);
@@ -752,7 +826,7 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
             /**
              * save user data into DB
              */
-            User user = new User(code, prn, true,password);
+            User user = new User(code, prn, true, password);
             LoginFeatureController.getInstance().saveUserDataIntoDB(user);
         } else {
 
@@ -768,6 +842,7 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
         }
 
     }
+
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
@@ -811,9 +886,141 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
         return true;
     }
 
+    private void Facebook_SignIn() {
+        LoginManager.getInstance().logInWithReadPermissions(_loginFragment, Arrays.asList("email"));
+
+        LoginManager.getInstance().registerCallback(_loginFragment.callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                SmartCookieSharedPreferences.setFbLogin(true);
+                GraphRequest request = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
+
+                    @Override
+                    public void onCompleted(JSONObject object, GraphResponse response) {
+                        Log.i("LoginActivity", response.toString());
+                        // Get facebook data from login
+                        // Bundle bFacebookData = getFacebookData(object);
+
+                        if (object.has("email")) {
+                            social_email = object.optString("email");
+                        }
+                        if (object.has("id")) {
+                            social_id = object.optString("id");
+                        }
+                        if (object.has("name")) {
+                            String fb_name = object.optString("name");
+                            social_name = fb_name.split(" ");
+
+                            try {
+                                social_f_name = social_name[0].trim();
+                                social_l_name = social_name[1].trim();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+
+
+                        try {
+                            social_profile_pic = new URL("https://graph.facebook.com/" + social_id + "/picture?type=small");
+                            Log.i("profile_pic", social_profile_pic + "");
+                            str_social_profile_pic = social_profile_pic.toString();
+                        } catch (MalformedURLException e) {
+                            e.printStackTrace();
+
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                      /*  if (!social_email.equals("")) {
+                            getMoreDetails();
+                            getSociallogindataFromServer(WebserviceConstants.VAL_SOCIAL_LG_FB_LOGIN, social_f_name, social_l_name, social_email, social_id, "", "",
+                                    str_social_profile_pic, "", countrycode, method, devicetype, devicedetails, platformos,
+                                    ipaddress, String.valueOf(lattitude), String.valueOf(longitude));
+                        } else {
+                            HelperClass.OpenAlertDialog("Please Try to login facebook with your email Id.", _loginFragment.getActivity());
+                            Fb_LogOut();
+                        }*/
+
+
+                    }
+
+                });
+                Bundle parameters = new Bundle();
+                parameters.putString("fields", "id,name,email,gender"); // Parámetros que pedimos a facebook
+
+                request.setParameters(parameters);
+                request.executeAsync();
+
+            }
+
+            @Override
+            public void onCancel() {
+
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+
+            }
+        });
+
+
+    }
+
+
+    public void handleSignInResult(GoogleSignInResult result) {
+        Log.d("TAG", "handleSignInResult:" + result.isSuccess());
+        if (result.isSuccess()) {
+            // Signed in successfully, show authenticated UI.
+            SmartCookieSharedPreferences.setGplusLogin(true);
+            GoogleSignInAccount acct = result.getSignInAccount();
+
+
+            String strgmail_id = "";
+
+            try {
+                social_email = acct.getEmail().toString();
+                String name = acct.getDisplayName().toString();
+                social_name = name.split(" ");
+                social_f_name = social_name[0].trim();
+                social_l_name = social_name[1].trim();
+                strgmail_id = acct.getId().toString();
+                Uri s1 = acct.getPhotoUrl();
+                //String s=s1;
+                social_profile_pic = new URL(s1.toString());
+                Log.i("profile_pic", social_profile_pic + "");
+                str_social_profile_pic = social_profile_pic.toString();
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+                SmartCookieSharedPreferences.setGplusLogin(false);
+            } catch (IOException e) {
+                e.printStackTrace();
+                SmartCookieSharedPreferences.setGplusLogin(false);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+           /* getMoreDetails();
+            getSociallogindataFromServer(WebserviceConstants.VAL_SOCIAL_LG_GPLUS_LOGIN, social_f_name, social_l_name, social_email, "", strgmail_id, "",
+                    str_social_profile_pic, "", countrycode, method, devicetype, devicedetails, platformos,
+                    ipaddress, String.valueOf(lattitude), String.valueOf(longitude));*/
+
+        } else {
+            // Signed out, show unauthenticated UI.
+            SmartCookieSharedPreferences.setGplusLogin(false);
+        }
+    }
+
+    public void Fb_LogOut() {
+
+        LoginManager.getInstance().logOut();
+    }
 
     private void registerInBackground() {
-        new AsyncTask<String,String,String>() {
+        new AsyncTask<String, String, String>() {
             @Override
             protected String doInBackground(String... params) {
                 String msg = "";
@@ -850,9 +1057,10 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
             }
         }.execute(null, null, null);
     }
-    private boolean checkPermission(){
+
+    private boolean checkPermission() {
         int result = ContextCompat.checkSelfPermission(_loginFragment.getActivity(), Manifest.permission.ACCESS_FINE_LOCATION);
-        if (result == PackageManager.PERMISSION_GRANTED){
+        if (result == PackageManager.PERMISSION_GRANTED) {
 
             return true;
 
@@ -864,17 +1072,101 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
     }
 
 
-    private void requestPermission(){
+    private void requestPermission() {
 
-        if (ActivityCompat.shouldShowRequestPermissionRationale(_loginFragment.getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) || ActivityCompat.shouldShowRequestPermissionRationale(_loginFragment.getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION)){
+        if (ActivityCompat.shouldShowRequestPermissionRationale(_loginFragment.getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) || ActivityCompat.shouldShowRequestPermissionRationale(_loginFragment.getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION)) {
 
             Toast.makeText(_loginFragment.getActivity(), "GPS permission allows us to access location data. Please allow in App Settings for additional functionality.", Toast.LENGTH_LONG).show();
 
         } else {
-
             ActivityCompat.requestPermissions(_loginFragment.getActivity(), LOC_PERMISSIONS, PERMISSION_REQUEST_CODE);
         }
     }
 
-}
+    public static class AppRater {
+        private final static String APP_TITLE = "Smart Teacher";
+        private final static String APP_PNAME = "com.blueplanet.smartcookieteacher";
 
+        private final static int DAYS_UNTIL_PROMPT = 3;
+        private final static int LAUNCHES_UNTIL_PROMPT = 7;
+
+        public  void app_launched(Context mContext) {
+            SharedPreferences prefs = mContext.getSharedPreferences("apprater", 0);
+            if (prefs.getBoolean("dontshowagain", false)) { return ; }
+
+            SharedPreferences.Editor editor = prefs.edit();
+
+            // Increment launch counter
+            long launch_count = prefs.getLong("launch_count", 0) + 1;
+            editor.putLong("launch_count", launch_count);
+
+            // Get date of first launch
+            Long date_firstLaunch = prefs.getLong("date_firstlaunch", 0);
+            if (date_firstLaunch == 0) {
+                date_firstLaunch = System.currentTimeMillis();
+                editor.putLong("date_firstlaunch", date_firstLaunch);
+            }
+
+            // Wait at least n days before opening dialog
+            if (launch_count >= LAUNCHES_UNTIL_PROMPT) {
+                if (System.currentTimeMillis() >= date_firstLaunch +
+                        (DAYS_UNTIL_PROMPT * 24 * 60 * 60 * 1000)) {
+                    showRateDialog(mContext, editor);
+                }
+            }
+
+            editor.commit();
+        }
+
+        public static void showRateDialog(final Context mContext, final SharedPreferences.Editor editor) {
+            final Dialog dialog = new Dialog(mContext);
+            dialog.setTitle("Rate " + APP_TITLE);
+
+            LinearLayout ll = new LinearLayout(mContext);
+            ll.setOrientation(LinearLayout.VERTICAL);
+
+
+            TextView tv = new TextView(mContext);
+            tv.setText("If you enjoy using " + APP_TITLE + ", please take a moment to rate it. Thanks for your support!");
+            tv.setWidth(840);
+            ll.setBackgroundResource(R.color.colorPrimaryDark_transparent);
+            tv.setPadding(1, 0, 1, 5);
+            ll.addView(tv);
+
+            Button b1 = new Button(mContext);
+            b1.setText("Rate " + APP_TITLE);
+            b1.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    mContext.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + APP_PNAME)));
+                    dialog.dismiss();
+                }
+            });
+            ll.addView(b1);
+
+            Button b2 = new Button(mContext);
+            b2.setText("Remind me later");
+            b2.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    dialog.dismiss();
+                }
+            });
+            ll.addView(b2);
+
+            Button b3 = new Button(mContext);
+            b3.setText("No, thanks");
+            b3.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    if (editor != null) {
+                        editor.putBoolean("dontshowagain", true);
+                        editor.commit();
+                    }
+                    dialog.dismiss();
+                }
+            });
+            ll.addView(b3);
+
+            dialog.setContentView(ll);
+            dialog.show();
+        }
+    }
+}

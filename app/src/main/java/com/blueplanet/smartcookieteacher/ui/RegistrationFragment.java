@@ -108,7 +108,20 @@ public class RegistrationFragment extends Fragment implements AdapterView.OnItem
         });
 
     }
+    public void invalidinputMessage(final boolean flag) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (flag == false) {
+                    Toast.makeText(getActivity().getApplicationContext(),
+                            getActivity().getString(R.string.invalid_input),
+                            Toast.LENGTH_LONG).show();
+                }
+            }
+        });
 
+
+    }
     /**
      * function to show or hide loading spinner
      *

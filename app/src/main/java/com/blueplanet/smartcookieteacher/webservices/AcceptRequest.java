@@ -97,7 +97,6 @@ public class AcceptRequest extends SmartCookieTeacherService {
                     String type = jsonObject.optString(WebserviceConstants.KEY_REQUEST_TYPE);
                     String stuprn = jsonObject.optString(WebserviceConstants.KEY_REQUEST_STUDENT_PRN);
                     String reasonid = jsonObject.optString(WebserviceConstants.KEY_REQUEST_STUDENT_REASON_ID);
-
                     _requestpoint = new RequestPointModel(NAME, POINTS,DATE,REASON,image,type,stuprn,reasonid);
                     requestPointList.add(_requestpoint);
                 }
@@ -111,6 +110,9 @@ public class AcceptRequest extends SmartCookieTeacherService {
                                 null));
             }
             fireEvent(responseObject);
+
+
+
 
         } catch (JSONException jsonException) {
             jsonException.printStackTrace();

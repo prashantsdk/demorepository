@@ -12,14 +12,32 @@ public class TeacherDashbordPoint {
     private int _brownpoint = -1;
 
 
-    public TeacherDashbordPoint(int greenpoint, int bluepoint, int brownpoint, int wateroint) {
+    public TeacherDashbordPoint(int greenpoint, int wateroint , int bluepoint, int brownpoint) {
         _greenpoint = greenpoint;
-        _bluepoint = bluepoint;
-        _brownpoint = brownpoint;
+
         _waterpoint = wateroint;
+        _bluepoint = bluepoint;
+
+        _brownpoint = brownpoint;
+    }
+
+    public int get_greenpoint() {
+        return _greenpoint;
+    }
+
+    public int get_waterpoint() {
+        return _waterpoint;
     }
 
     public int get_bluepoint() {
+        return _bluepoint;
+    }
+
+    public int get_brownpoint() {
+        return _brownpoint;
+    }
+
+    /*   public int get_bluepoint() {
         return _bluepoint;
     }
 
@@ -35,6 +53,6 @@ public class TeacherDashbordPoint {
         return _greenpoint;
     }
 
-
+*/
 
 }

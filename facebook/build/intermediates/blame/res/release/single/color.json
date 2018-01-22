@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "E:\\SmartCookieStudent_8312017\\smartcookiestudent_v1_android\\smartcookiestudent_v1_android\\facebook\\build\\intermediates\\res\\merged\\release\\color\\com_facebook_button_text_color.xml",
+        "source": "E:\\SmartCookieStudent_8312017\\smartcookiestudent_v1_android\\smartcookiestudent_v1_android\\facebook\\src\\main\\res\\color\\com_facebook_button_text_color.xml"
+    },
+    {
+        "merged": "E:\\SmartCookieStudent_8312017\\smartcookiestudent_v1_android\\smartcookiestudent_v1_android\\facebook\\build\\intermediates\\res\\merged\\release\\color\\com_facebook_send_button_text_color.xml",
+        "source": "E:\\SmartCookieStudent_8312017\\smartcookiestudent_v1_android\\smartcookiestudent_v1_android\\facebook\\src\\main\\res\\color\\com_facebook_send_button_text_color.xml"
+    },
+    {
+        "merged": "E:\\Swapnil Handover\\smartcookiestudent_v1\\facebook\\build\\intermediates\\res\\merged\\release\\color\\com_facebook_send_button_text_color.xml",
+        "source": "E:\\Swapnil Handover\\smartcookiestudent_v1\\facebook\\src\\main\\res\\color\\com_facebook_send_button_text_color.xml"
+    },
+    {
+        "merged": "E:\\Swapnil Handover\\smartcookiestudent_v1\\facebook\\build\\intermediates\\res\\merged\\release\\color\\com_facebook_button_text_color.xml",
+        "source": "E:\\Swapnil Handover\\smartcookiestudent_v1\\facebook\\src\\main\\res\\color\\com_facebook_button_text_color.xml"
+    }
+]

@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorPrimary">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true">
+
+        <RelativeLayout
+            android:id="@+id/relayoutLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/oval_white_background">
+
+    <EditText
+        android:id="@+id/etxt_suggest_vendor_name"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/edittext_height"
+        android:background="@null"
+        android:ems="10"
+        android:layout_marginTop="20dp"
+        android:gravity="center_vertical"
+        android:hint="Sponsor Name *"
+        android:inputType="textCapWords|textPersonName"
+        android:paddingLeft="5dp"
+        android:layout_marginRight="7dp"
+        android:layout_marginLeft="7dp"
+        android:textSize="@dimen/etextsize" />
+
+    <LinearLayout
+        android:id="@+id/line2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/etxt_suggest_vendor_name"
+        android:background="@color/black_solid"
+        android:orientation="horizontal"
+        android:layout_marginRight="7dp"
+        android:layout_marginLeft="7dp"/>
+
+    <EditText
+        android:id="@+id/etxt_suggest_email"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/edittext_height"
+        android:layout_below="@+id/line2"
+        android:background="@null"
+        android:ems="10"
+        android:layout_marginTop="3dp"
+        android:layout_marginRight="7dp"
+        android:layout_marginLeft="7dp"
+        android:gravity="center_vertical"
+        android:hint="Email *"
+        android:inputType="textCapWords|textPersonName"
+        android:paddingLeft="5dp"
+        android:textSize="@dimen/etextsize" />
+
+    <LinearLayout
+        android:id="@+id/line3"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginRight="7dp"
+        android:layout_marginLeft="7dp"
+        android:layout_below="@+id/etxt_suggest_email"
+        android:background="@color/black_solid"
+        android:orientation="horizontal" />
+
+        <EditText
+            android:id="@+id/etxt_phone"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/edittext_height"
+            android:background="@null"
+
+            android:layout_below="@+id/line3"
+            android:layout_marginTop="3dp"
+            android:gravity="center_vertical"
+            android:hint="Phone * "
+            android:ems="10"
+            android:inputType="phone"
+            android:maxLength="10"
+            android:paddingLeft="5dp"
+            android:layout_marginRight="7dp"
+            android:layout_marginLeft="7dp"
+            android:textSize="@dimen/etextsize" />
+
+        <LinearLayout
+            android:id="@+id/line4"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/etxt_phone"
+            android:background="@color/black_solid"
+            android:orientation="horizontal"
+            android:layout_marginRight="7dp"
+            android:layout_marginLeft="7dp"/>
+        <EditText
+            android:id="@+id/etxt_address"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/edittext_height"
+            android:background="@null"
+            android:ems="10"
+            android:layout_marginTop="3dp"
+            android:gravity="center_vertical"
+            android:hint="Address *"
+            android:layout_below="@+id/line4"
+            android:inputType="textCapWords|textPersonName"
+            android:paddingLeft="5dp"
+            android:layout_marginRight="7dp"
+            android:layout_marginLeft="7dp"
+            android:textSize="@dimen/etextsize" />
+
+        <LinearLayout
+            android:id="@+id/line5"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/etxt_address"
+            android:background="@color/black_solid"
+            android:orientation="horizontal"
+            android:layout_marginRight="7dp"
+            android:layout_marginLeft="7dp"/>
+        <EditText
+            android:id="@+id/etxt_city"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/edittext_height"
+            android:background="@null"
+            android:ems="10"
+            android:layout_marginTop="3dp"
+            android:layout_below="@+id/line5"
+            android:gravity="center_vertical"
+            android:hint="City *"
+            android:inputType="textCapWords|textPersonName"
+            android:paddingLeft="5dp"
+            android:layout_marginRight="7dp"
+            android:layout_marginLeft="7dp"
+            android:textSize="@dimen/etextsize" />
+
+        <LinearLayout
+            android:id="@+id/line6"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/etxt_city"
+            android:background="@color/black_solid"
+            android:orientation="horizontal"
+            android:layout_marginRight="7dp"
+            android:layout_marginLeft="7dp"/>
+        <EditText
+            android:id="@+id/etxt_state"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/edittext_height"
+            android:background="@null"
+            android:ems="10"
+            android:layout_marginTop="3dp"
+            android:layout_below="@+id/line6"
+            android:gravity="center_vertical"
+            android:hint="State *"
+            android:inputType="textCapWords|textPersonName"
+            android:paddingLeft="5dp"
+            android:layout_marginRight="7dp"
+            android:layout_marginLeft="7dp"
+            android:textSize="@dimen/etextsize" />
+
+        <LinearLayout
+            android:id="@+id/line7"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/etxt_state"
+            android:background="@color/black_solid"
+            android:orientation="horizontal"
+            android:layout_marginRight="7dp"
+            android:layout_marginLeft="7dp"/>
+        <EditText
+            android:id="@+id/etxt_country"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/edittext_height"
+            android:background="@null"
+            android:ems="10"
+            android:layout_below="@+id/line7"
+            android:layout_marginTop="3dp"
+            android:gravity="center_vertical"
+            android:hint="Country *"
+            android:inputType="textCapWords|textPersonName"
+            android:paddingLeft="5dp"
+            android:layout_marginRight="7dp"
+            android:layout_marginLeft="7dp"
+            android:textSize="@dimen/etextsize" />
+
+        <LinearLayout
+            android:id="@+id/line8"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/etxt_country"
+            android:background="@color/black_solid"
+            android:orientation="horizontal"
+            android:layout_marginRight="7dp"
+            android:layout_marginLeft="7dp"/>
+      <EditText
+            android:id="@+id/etxt_catrgory"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/edittext_height"
+            android:background="@null"
+            android:ems="10"
+            android:layout_below="@+id/line8"
+            android:layout_marginTop="3dp"
+            android:gravity="center_vertical"
+            android:hint="Select Sponsor Category * "
+            android:inputType="textCapWords|textPersonName"
+            android:paddingLeft="5dp"
+            android:layout_marginRight="7dp"
+            android:layout_marginLeft="7dp"
+            android:textSize="@dimen/etextsize" />
+
+
+
+        <LinearLayout
+            android:id="@+id/line9"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/etxt_catrgory"
+            android:background="@color/black_solid"
+            android:orientation="horizontal"
+            android:layout_marginRight="7dp"
+            android:layout_marginLeft="7dp"/>
+        <LinearLayout
+            android:id="@+id/checkbox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/line9">
+
+
+            <CheckBox
+                android:id="@+id/chk_suggest_vendor_loc"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:text="Use Current Location As Vendor Location" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="3.5"
+            android:layout_below="@+id/checkbox"
+            android:orientation="vertical">
+            <Button
+                android:id="@+id/btn_suggest_button"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/Main_button_height"
+                android:layout_gravity="center"
+                android:layout_margin="25dp"
+                android:background="@color/colorPrimaryDark"
+                android:gravity="center"
+                android:text="Suggest Now"
+
+                android:textColor="@color/cl_white"
+                android:textSize="@dimen/etextsize" />
+        </LinearLayout>
+</RelativeLayout>
+            </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>

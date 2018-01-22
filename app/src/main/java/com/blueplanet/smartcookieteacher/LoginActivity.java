@@ -69,6 +69,9 @@ public class LoginActivity extends AppCompatActivity {
         startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(startMain);
     }
+
+
+
     @Override
     protected void onDestroy() {
         super.onDestroy();

@@ -92,6 +92,7 @@ public class AdminThanqLog extends SmartCookieTeacherService {
                     String points = jsonObject.optString(WebserviceConstants.KEY_POINTS);
                     String date = jsonObject.optString(WebserviceConstants.KEY_DATES);
 
+
                     _thankqpointmodel = new AdminThankqPoint(name,reason, points, date);
                     thanqpoint.add(_thankqpointmodel);
 

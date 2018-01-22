@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:background="@drawable/white_layout_prim_border"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:minHeight="?attr/actionBarSize"
+            android:text="Share on Facebook"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/cl_white"
+            android:textSize="20sp" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:src="@drawable/logo"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+
+                <EditText
+                    android:id="@+id/etxt_title_facebook_share"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:gravity="top|left"
+                    android:hint="Title"
+                    android:textSize="18sp"/>
+                <EditText
+                    android:id="@+id/etxt_msg_facebook_share"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:gravity="top|left"
+                    android:textSize="12sp"/>
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+        <com.facebook.share.widget.ShareButton
+            android:id="@+id/share_button_facebook_share"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/img_cancel_facebook_share"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/cancel_icon"/>
+</RelativeLayout>

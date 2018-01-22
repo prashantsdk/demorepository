@@ -116,6 +116,7 @@ public class SponsorsOnMapFeatureController implements IEventListener {
 
         Log.i(_TAG, " " + eventType);
         ServerResponse serverResponse = (ServerResponse) eventObject;
+
         int errorCode = serverResponse.getErrorCode();
         Log.i(_TAG, "Error code id:" + errorCode);
         Object responseObject = serverResponse.getResponseObject();
@@ -140,6 +141,7 @@ public class SponsorsOnMapFeatureController implements IEventListener {
                 }else{
 
                     ErrorInfo errorInfo = (ErrorInfo) responseObject;
+
                     int statusCode = errorInfo.getErrorCode();
                     if (statusCode == HTTPConstants.HTTP_COM_NO_CONTENT) {
 

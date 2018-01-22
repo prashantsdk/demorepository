@@ -166,7 +166,7 @@ public class GenerateCoupLogFragmentController implements IEventListener {
                 event1.unRegisterListener(this);
 
                 _genFragment.showOrHideProgressBar(false);
-                //  _buyFragment.showNoRewardListMessage(false);
+                _genFragment.showGCMsmassage(false);
 
                 break;
 

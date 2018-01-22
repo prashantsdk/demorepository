@@ -33,6 +33,7 @@ public class TeacherPointTable extends TableOperations implements IPersistence {
         TeacherDashbordPoint point = ( TeacherDashbordPoint) obj;
         ContentValues values = new ContentValues ();
 
+
         values.put ( SmartTeacherDatabaseMasterTable.TeacherPoint.GREEN, point.get_greenpoint() );
         values.put ( SmartTeacherDatabaseMasterTable.TeacherPoint.WATER, point.get_waterpoint() );
         values.put ( SmartTeacherDatabaseMasterTable.TeacherPoint.BLUE, point.get_bluepoint() );
@@ -47,6 +48,7 @@ public class TeacherPointTable extends TableOperations implements IPersistence {
     public void save(Object obj) {
         try {
             ContentValues contentValues = prepare ( obj );
+
             insertRecord ( SmartTeacherDatabaseMasterTable.Tables.TEACHERPOINT, null, contentValues );
         } catch ( Exception e ) {
 

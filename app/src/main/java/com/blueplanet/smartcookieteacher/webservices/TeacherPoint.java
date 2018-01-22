@@ -83,11 +83,12 @@ public class TeacherPoint extends SmartCookieTeacherService {
                     JSONObject jsonObject = responseData.optJSONObject(i);
 
                     int tgreen = jsonObject.optInt(WebserviceConstants.KEY_GREEN_POINT);
+                    int twater = jsonObject.optInt(WebserviceConstants.KEY_WATER_POINT);
                     int tblue = jsonObject.optInt(WebserviceConstants.KEY_BLUE_POINT);
                     int tbrown = jsonObject.optInt(WebserviceConstants.KEY_BROWN_POINT);
-                    int twater = jsonObject.optInt(WebserviceConstants.KEY_WATER_POINT);
 
-                    teacherDashbordPoint = new TeacherDashbordPoint(tgreen, tblue, tbrown, twater);
+
+                    teacherDashbordPoint = new TeacherDashbordPoint(tgreen,twater, tblue, tbrown );
 
                 }
                 responseObject = new ServerResponse(errorCode, teacherDashbordPoint);

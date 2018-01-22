@@ -48,15 +48,19 @@ public class SponsorMapService extends SmartCookieTeacherService {
     @Override
     protected String formRequest() {
 
+
         return WebserviceConstants.HTTP_BASE_URL +
                 WebserviceConstants.BASE_URL +
                 WebserviceConstants.MAP_SERVICE_API;
+
+
     }
 
     @Override
     protected JSONObject formRequestBody() {
         JSONObject requestBody = new JSONObject();
         try {
+
 
 
             requestBody.put(WebserviceConstants.KEY_MAP_IP_ID, input_id);
@@ -67,6 +71,7 @@ public class SponsorMapService extends SmartCookieTeacherService {
             requestBody.put(WebserviceConstants.KEY_LOC_TYPE, loc_type);
             requestBody.put(WebserviceConstants.KEY_DISTANCEE, distance);
             requestBody.put(WebserviceConstants.KEY_DISTANCE_TYPE, range_type);
+
 
         } catch (JSONException jsonException) {
             jsonException.printStackTrace();
@@ -128,7 +133,7 @@ public class SponsorMapService extends SmartCookieTeacherService {
                     if (SPONSOR_DISTANCE.equals("0")){
                         SPONSOR_DISTANCE="0.1";
                     }
-
+//
 
                     sponsorOnMapModel=new SponsorOnMapModel(KEY_SPONSOR_ID,SPONSOR_NAME,SPONSOR_ADDRESS,SPONSOR_CITY,SPONSOR_COUNTRY,
                                                     SPONSOR_LAT,SPONSOR_LONG,SPONSOR_DISTANCE,KEY_SPONSOR_CATEGORY,KEY_SPONSOR_IMG_PATH);

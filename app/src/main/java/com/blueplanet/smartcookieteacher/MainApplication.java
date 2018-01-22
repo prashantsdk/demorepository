@@ -3,15 +3,23 @@ package com.blueplanet.smartcookieteacher;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.provider.Settings;
+import android.util.Base64;
+import android.util.Log;
 
+import com.blueplanet.smartcookieteacher.DatabaseManager.DatabaseHelper;
 import com.blueplanet.smartcookieteacher.DatabaseManager.SQLDatabaseManager;
 import com.blueplanet.smartcookieteacher.network.NetworkManager;
 import com.blueplanet.smartcookieteacher.ui.GPSTracker;
 import com.blueplanet.smartcookieteacher.utils.SmartCookieImageLoader;
 import com.blueplanet.smartcookieteacher.utils.SmartCookieSharedPreferences;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.Signature;
 
 
 /**
@@ -21,6 +29,7 @@ public class MainApplication extends Application {
 
     private static Context _context;
     public static GPSTracker _gpsTracker;
+    public static DatabaseHelper dbHelper;
 
     @Override
     public void onCreate() {
@@ -29,6 +38,7 @@ public class MainApplication extends Application {
         NetworkManager.setApplicationContext(this);
         SmartCookieImageLoader.getInstance().initImageLoaderConfiguration(this);
         SmartCookieSharedPreferences.init(this);
+        dbHelper = new DatabaseHelper(_context);
         SQLDatabaseManager.getInstance().setApplicationContext(_context);
 
      /*   AutoErrorReporter.get(this)
@@ -87,4 +97,5 @@ public class MainApplication extends Application {
             _context.sendBroadcast(poke);
         }
     }
+
 }

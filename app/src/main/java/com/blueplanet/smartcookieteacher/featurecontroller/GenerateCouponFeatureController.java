@@ -114,6 +114,12 @@ public class GenerateCouponFeatureController implements IEventListener {
         this._genpoint = _genpoint;
     }
 
+    public void clearGenerateCop() {
+        if (_genCouList != null&& _genCouList.size() > 0) {
+            _genCouList.clear();
+           // _genCouList = null;
+        }
+    }
 
     @Override
     public int eventNotify(int eventType, Object eventObject) {

@@ -1,6 +1,11 @@
 package com.blueplanet.smartcookieteacher.ui.controllers;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -22,6 +27,7 @@ import com.blueplanet.smartcookieteacher.notification.EventTypes;
 import com.blueplanet.smartcookieteacher.notification.IEventListener;
 import com.blueplanet.smartcookieteacher.notification.ListenerPriority;
 import com.blueplanet.smartcookieteacher.notification.NotifierFactory;
+import com.blueplanet.smartcookieteacher.ui.LoginFragment;
 import com.blueplanet.smartcookieteacher.ui.RegistrationFragment;
 import com.blueplanet.smartcookieteacher.ui.RewardPointFragment;
 import com.blueplanet.smartcookieteacher.webservices.WebserviceConstants;
@@ -35,6 +41,7 @@ public class RegistrationFragmentController implements IEventListener, View.OnCl
     private View _view;
     private final String _TAG = this.getClass().getSimpleName();
     private RegisModel _register;
+    private EditText email;
 
     /**
      * constructur for reward list
@@ -45,6 +52,8 @@ public class RegistrationFragmentController implements IEventListener, View.OnCl
 
         _regFragment = regFragment;
         _view = view;
+
+        email = (EditText) _view.findViewById(R.id.edt_emailId);
 
     }
 
@@ -81,13 +90,31 @@ public class RegistrationFragmentController implements IEventListener, View.OnCl
      *
      * @
      */
-    private void _fetchRegistrationServer(String fname, String lname,String email,String pass,String phone,String mname,String countrycode,String type,String sourse) {
+    private void _fetchRegistrationServer(String fname, String lname, String email, String pass, String phone, String mname, String countrycode, String type, String sourse) {
         _registerEventListeners();
-        RegistrationFeatureController.getInstance().fetchRegistrationServer(fname,lname,email,pass,phone,mname,countrycode,type,sourse);
+        _regFragment.showOrHideProgressBar(true);
+        RegistrationFeatureController.getInstance().fetchRegistrationServer(fname, lname, email, pass, phone, mname, countrycode, type, sourse);
         _regFragment.hideSoftKeyboard();
         //_regFragment.showOrHideProgressBar(true);
 
 
+    }
+
+    private boolean validateEmail() {
+        String eamail = email.getText().toString().trim();
+
+        if (eamail.isEmpty() || !isValidEmail(eamail)) {
+
+            return false;
+        } else {
+
+        }
+
+        return true;
+    }
+
+    private static boolean isValidEmail(String email) {
+        return !TextUtils.isEmpty(email) && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
     @Override
@@ -110,23 +137,27 @@ public class RegistrationFragmentController implements IEventListener, View.OnCl
                     String Fname = fname.getText().toString();
                     String Lname = lname.getText().toString();
                     String Email = email.getText().toString();
+
                     String password = tpassword.getText().toString();
                     String Phone = phone.getText().toString();
                     String middlename = middle.getText().toString();
                     String countrycode = "91";
                     String type = "teacher";
-                    String sourse=LoginFeatureController.getInstance().getDevicedetail();
-
-                    if (!TextUtils.isEmpty(Fname) && !TextUtils.isEmpty(Lname) && !TextUtils.isEmpty(Email) || !TextUtils.isEmpty(password)
-                            || !TextUtils.isEmpty(Phone)|| !TextUtils.isEmpty(middlename)|| !TextUtils.isEmpty(countrycode)|| !TextUtils.isEmpty(type)|| !TextUtils.isEmpty(sourse)) {
-                        _fetchRegistrationServer(Fname, Lname, Email, password,Phone,middlename,countrycode,type,sourse);
+                    String sourse = "Android";
 
 
-                    } else if (TextUtils.isEmpty(Email) && TextUtils.isEmpty(password)) {
-                        Toast.makeText(MainApplication.getContext(),
-                                "Please enter your credentials",
-                                Toast.LENGTH_SHORT).show();
-                    }
+
+                        if (!TextUtils.isEmpty(Fname) && !TextUtils.isEmpty(Lname) && !validateEmail() || !TextUtils.isEmpty(password)
+                                || !TextUtils.isEmpty(Phone) || !TextUtils.isEmpty(middlename) || !TextUtils.isEmpty(countrycode) || !TextUtils.isEmpty(type)
+                                || !TextUtils.isEmpty(sourse)|| !TextUtils.isEmpty(password)) {
+                            _fetchRegistrationServer(Fname, Lname, Email, password, Phone, middlename, countrycode, type, sourse);
+
+
+                        } else if (TextUtils.isEmpty(Email) && TextUtils.isEmpty(password)) {
+                            Toast.makeText(MainApplication.getContext(),
+                                    "Please enter your credentials",
+                                    Toast.LENGTH_SHORT).show();
+                        }
 
 
                 } else {
@@ -168,17 +199,38 @@ public class RegistrationFragmentController implements IEventListener, View.OnCl
                 eventNotifier.unRegisterListener(this);
 
                 if (errorCode == WebserviceConstants.SUCCESS) {
-                   // _regFragment.showOrHideProgressBar(false);
+                    // _regFragment.showOrHideProgressBar(false);
                     /**
                      * get reward list before refreshing listview avoid runtime exception
                      */
+                    _regFragment.showOrHideProgressBar(false);
                     _register = RegistrationFeatureController.getInstance().get_registration();
                     _regFragment.getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(MainApplication.getContext(),
+                          /*  Toast.makeText(MainApplication.getContext(),
                                     "Registration Successful! Thank you!",
-                                    Toast.LENGTH_LONG).show();
+                                    Toast.LENGTH_LONG).show();*/
+                            AlertDialog alert;
+                            AlertDialog.Builder builder = new AlertDialog.Builder(
+                                    _regFragment.getActivity());
+                            builder.setTitle("Congratulations!! You are successfully register");
+                            builder.setCancelable(false);
+
+                            builder.setPositiveButton("Ok",
+                                    new DialogInterface.OnClickListener() {
+
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            // TODO Auto-generated method stub
+                                            _loadFragment(R.id.Registration_fragment_layout, new LoginFragment());
+
+                                        }
+                                    });
+
+                            alert = builder.create();
+                            alert.show();
+
 
                             FragmentManager fm = _regFragment.getActivity()
                                     .getSupportFragmentManager();
@@ -195,6 +247,12 @@ public class RegistrationFragmentController implements IEventListener, View.OnCl
                         NotifierFactory.getInstance().getNotifier
                                 (NotifierFactory.EVENT_NOTIFIER_TEACHER);
                 event1.unRegisterListener(this);
+                AlertDialog.Builder dlgAlert = new AlertDialog.Builder(_regFragment.getActivity());
+                dlgAlert.setMessage("There is some problem for Registration!");
+
+                dlgAlert.setPositiveButton("OK", null);
+                dlgAlert.setCancelable(true);
+                dlgAlert.create().show();
 
 
                 break;
@@ -216,7 +274,18 @@ public class RegistrationFragmentController implements IEventListener, View.OnCl
                 _regFragment.showOrHideProgressBar(false);
                 //_rePointFragment.showNetworkToast(false);
                 break;
-            case EventTypes.EVENT_UI_REGISTRATION_CONFLICT:
+            case EventTypes.EVENT_UI_INVALID_INPUT:
+
+                EventNotifier event3 =
+                        NotifierFactory.getInstance().getNotifier
+                                (NotifierFactory.EVENT_NOTIFIER_TEACHER);
+                event3.unRegisterListener(this);
+                _regFragment.showOrHideProgressBar(false);
+                _regFragment.invalidinputMessage(false);
+
+
+                break;
+            case EventTypes.EVENT_UI_BAD_REQUEST:
 
 
                 EventNotifier event2 =
@@ -225,11 +294,33 @@ public class RegistrationFragmentController implements IEventListener, View.OnCl
                 event2.unRegisterListener(this);
 
                 _regFragment.getActivity().runOnUiThread(new Runnable() {
+
+
                     @Override
                     public void run() {
-                        Toast.makeText(MainApplication.getContext(),
-                                "You are already registered member of SmartTeacher!",
-                                Toast.LENGTH_LONG).show();
+                        AlertDialog alert;
+                        AlertDialog.Builder builder = new AlertDialog.Builder(
+                                _regFragment.getActivity());
+                        builder.setTitle("You are already registered member of SmartTeacher!");
+                        builder.setCancelable(false);
+
+                        builder.setPositiveButton("Ok",
+                                new DialogInterface.OnClickListener() {
+
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        // TODO Auto-generated method stub
+                                        _loadFragment(R.id.Registration_fragment_layout, new LoginFragment());
+
+                                    }
+                                });
+
+                        alert = builder.create();
+                        alert.show();
+                        FragmentManager fm = _regFragment.getActivity()
+                                .getSupportFragmentManager();
+                        fm.popBackStack("LoginFragment", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+
                     }
                 });
                 break;
@@ -242,6 +333,15 @@ public class RegistrationFragmentController implements IEventListener, View.OnCl
         return EventState.EVENT_PROCESSED;
 
 
+    }
+
+    private void _loadFragment(int id, Fragment fragment) {
+
+        FragmentManager fm = _regFragment.getActivity().getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.replace(id, fragment);
+        ft.addToBackStack("LoginFragment");
+        ft.commitAllowingStateLoss();
     }
 
 

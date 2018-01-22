@@ -16,10 +16,11 @@
             android:id="@+id/yes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="9dp"
             android:layout_weight="1"
             android:text=""
             android:textColor="@color/black_solid"
+            android:buttonTint="@color/black_solid"
             />
 
 

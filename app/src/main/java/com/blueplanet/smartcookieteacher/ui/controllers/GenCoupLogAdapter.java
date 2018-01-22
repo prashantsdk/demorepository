@@ -1,6 +1,9 @@
 package com.blueplanet.smartcookieteacher.ui.controllers;
 
 import android.content.Context;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,8 +13,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.blueplanet.smartcookieteacher.MainApplication;
 import com.blueplanet.smartcookieteacher.R;
+import com.blueplanet.smartcookieteacher.customcomponents.CustomButton;
+import com.blueplanet.smartcookieteacher.featurecontroller.DrawerFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.GenerateCouLogFeatureController;
+import com.blueplanet.smartcookieteacher.featurecontroller.GenerateCouponFeatureController;
+import com.blueplanet.smartcookieteacher.models.GenerateCoupon;
 import com.blueplanet.smartcookieteacher.models.GenerateCouponLog;
+import com.blueplanet.smartcookieteacher.ui.CouponRedeemFragment;
+import com.blueplanet.smartcookieteacher.ui.GenCouponReedemFragment;
 import com.blueplanet.smartcookieteacher.ui.GenerateCoupFragment;
 import java.util.ArrayList;
 
@@ -26,6 +35,7 @@ public class GenCoupLogAdapter extends BaseAdapter {
     private final String _TAG = this.getClass().getSimpleName();
     private TextView _txtcoupName, txtPoint, _txtValidity, txtcode, _txtcoupCode, txtIsshu;
     private ImageView _imgcoupBuy;
+    private CustomButton _btnredeem;
 
     public GenCoupLogAdapter(GenerateCoupFragment coupon_log                             ) {
 
@@ -56,7 +66,7 @@ public class GenCoupLogAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
             LayoutInflater inflatorInflater = (LayoutInflater) MainApplication
 
@@ -81,9 +91,26 @@ public class GenCoupLogAdapter extends BaseAdapter {
 
                 _txtValidity = (TextView) convertView.findViewById(R.id.txtValidity_Date);
                 _txtValidity.setText(couLog.get(position).get_generate_validity_date());
+                _btnredeem = (CustomButton) convertView.findViewById(R.id.btn_generate);
+                _btnredeem.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        _coupon_log.getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+
+                                GenerateCouponLog coupon = couLog.get(position);
+                                GenerateCouLogFeatureController.getInstance().set_coupLog(coupon);
+                                _loadFragment(R.id.content_frame, new GenCouponReedemFragment());
+                            }
+                        });
+
+
+                    }
+                });
+
 
             }
-
 
         }
 
@@ -97,6 +124,14 @@ public class GenCoupLogAdapter extends BaseAdapter {
 
         }
         return false;
+    }
+    private void _loadFragment(int id, Fragment fragment) {
+        DrawerFeatureController.getInstance().setIsFragmentOpenedFromDrawer(false);
+        FragmentManager fm = _coupon_log.getActivity().getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.replace(id, fragment);
+        ft.addToBackStack(fragment.getTag());
+        ft.commitAllowingStateLoss();
     }
 
     @Override

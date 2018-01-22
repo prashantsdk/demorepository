@@ -52,6 +52,8 @@ public class GetAllSubject extends SmartCookieTeacherService {
             requestBody.put(WebserviceConstants.KEY_TID, _teacherID);
             requestBody.put(WebserviceConstants.KEY_SCHOOLID, _schoolID);
 
+
+
         } catch (JSONException e) {
             e.printStackTrace();
         } catch (Exception ex) {

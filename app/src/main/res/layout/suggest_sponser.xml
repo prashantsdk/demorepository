@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/oval_white_background"
+                android:orientation="vertical"
+                android:padding="5dp">
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="40sp"
+                    android:orientation="vertical">
+
+
+                    <RelativeLayout
+                        android:id="@+id/profile_fragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:visibility="visible">
+
+                        <ScrollView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+
+                                <android.support.design.widget.TextInputLayout
+                                    android:id="@+id/input_suggest_vendor_name"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    >
+
+                                    <EditText
+                                        android:id="@+id/etxt_suggest_vendor_name"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="@dimen/edittext_height"
+                                        android:background="@null"
+                                        android:ems="10"
+                                        android:gravity="center_vertical"
+                                        android:hint="Sponsor Name *"
+                                        android:inputType="textCapWords|textPersonName"
+                                        android:paddingLeft="5dp"
+                                        android:textSize="@dimen/etextsize"
+                                        />
+                                </android.support.design.widget.TextInputLayout>
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/gray_line"
+                                    android:background="@android:color/darker_gray"></View>
+                                <android.support.design.widget.TextInputLayout
+                                    android:id="@+id/input_suggest_vendor_catagory"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    >
+
+                                    <EditText
+                                        android:id="@+id/etxt_suggest_vendor_catagory"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="@dimen/edittext_height"
+                                        android:background="@null"
+                                        android:ems="10"
+                                        android:focusableInTouchMode="false"
+                                        android:gravity="center_vertical"
+                                        android:hint="Select Sponsor Catagory *"
+                                        android:inputType="textCapWords|textPersonName"
+                                        android:paddingLeft="5dp"
+                                        android:textSize="@dimen/etextsize"
+                                        />
+                                </android.support.design.widget.TextInputLayout>
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/gray_line"
+                                    android:background="@android:color/darker_gray"></View>
+                                <android.support.design.widget.TextInputLayout
+                                    android:id="@+id/input_suggest_vendor_email_adress"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    >
+
+                                    <EditText
+                                        android:id="@+id/etxt_suggest_vendor_email_adress"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="@dimen/edittext_height"
+                                        android:background="@null"
+                                        android:ems="10"
+                                        android:gravity="center_vertical"
+                                        android:hint="Email"
+                                        android:inputType="textEmailAddress"
+                                        android:paddingLeft="5dp"
+                                        android:textSize="@dimen/etextsize"
+                                        />
+                                </android.support.design.widget.TextInputLayout>
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/gray_line"
+                                    android:background="@android:color/darker_gray"></View>
+                                <android.support.design.widget.TextInputLayout
+                                    android:id="@+id/input_suggest_vendor_phone_number"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+
+                                    <EditText
+                                        android:id="@+id/etxt_suggest_vendor_phone_number"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="@dimen/edittext_height"
+                                        android:background="@null"
+                                        android:ems="10"
+                                        android:gravity="center_vertical"
+                                        android:hint="Phone *"
+                                        android:inputType="number"
+                                        android:maxLength="10"
+                                        android:paddingLeft="5dp"
+                                        android:textSize="@dimen/etextsize"
+                                        />
+                                </android.support.design.widget.TextInputLayout>
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/gray_line"
+                                    android:background="@android:color/darker_gray"></View>
+                                <android.support.design.widget.TextInputLayout
+                                    android:id="@+id/input_suggest_vendor_address"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+
+                                    <EditText
+                                        android:id="@+id/etxt_suggest_vendor_address"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="@dimen/edittext_height"
+                                        android:background="@null"
+                                        android:ems="10"
+                                        android:gravity="center_vertical"
+                                        android:hint="Address *"
+                                        android:inputType="textCapWords|textPersonName"
+                                        android:paddingLeft="5dp"
+                                        android:textSize="@dimen/etextsize"
+                                        />
+                                </android.support.design.widget.TextInputLayout>
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/gray_line"
+                                    android:background="@android:color/darker_gray"></View>
+
+                                <android.support.design.widget.TextInputLayout
+                                    android:id="@+id/input_suggest_vendor_city"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+
+                                    <EditText
+                                        android:id="@+id/etxt_suggest_vendor_city"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="@dimen/edittext_height"
+                                        android:background="@null"
+                                        android:ems="10"
+                                        android:gravity="center_vertical"
+                                        android:hint="City"
+                                        android:inputType="textCapWords|textPersonName"
+                                        android:paddingLeft="5dp"
+                                        android:textSize="@dimen/etextsize"
+                                        />
+                                </android.support.design.widget.TextInputLayout>
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/gray_line"
+                                    android:background="@android:color/darker_gray"></View>
+
+                                <android.support.design.widget.TextInputLayout
+                                    android:id="@+id/input_suggest_vendor_state"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+
+                                    <EditText
+                                        android:id="@+id/etxt_suggest_vendor_state"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="@dimen/edittext_height"
+                                        android:background="@null"
+                                        android:ems="10"
+                                        android:gravity="center_vertical"
+                                        android:hint="State"
+                                        android:inputType="textCapWords|textPersonName"
+                                        android:paddingLeft="5dp"
+                                        android:textSize="@dimen/etextsize"
+                                        />
+                                </android.support.design.widget.TextInputLayout>
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/gray_line"
+                                    android:background="@android:color/darker_gray"></View>
+
+                                <android.support.design.widget.TextInputLayout
+                                    android:id="@+id/input_suggest_vendor_country"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+
+                                    <EditText
+                                        android:id="@+id/etxt_suggest_vendor_country"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="@dimen/edittext_height"
+                                        android:background="@null"
+                                        android:ems="10"
+                                        android:gravity="center_vertical"
+                                        android:hint="Country"
+                                        android:inputType="textCapWords|textPersonName"
+                                        android:paddingLeft="5dp"
+                                        android:textSize="@dimen/etextsize"
+                                        />
+                                </android.support.design.widget.TextInputLayout>
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/gray_line"
+                                    android:background="@android:color/darker_gray"></View>
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+
+
+                                    <CheckBox
+                                        android:id="@+id/chk_suggest_vendor_loc"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="45dp"
+                                        android:text="Use Current Location As Vendor Location" />
+
+                                </LinearLayout>
+                            </LinearLayout>
+                        </ScrollView>
+
+
+
+                    </RelativeLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3.5"
+                        android:orientation="vertical">
+                        <Button
+                            android:id="@+id/btn_suggest_new_sponsor"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/Main_button_height"
+                            android:layout_gravity="center"
+                            android:layout_margin="25dp"
+                            android:background="@color/colorPrimaryDark"
+                            android:gravity="center"
+                            android:text="Suggest Now"
+
+                            android:textColor="@color/cl_white"
+                            android:textSize="@dimen/etextsize" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/img_suggest_sponsor"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_centerHorizontal="true"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/logo"/>
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+
+    <include layout="@layout/progressview"></include>
+
+</RelativeLayout>

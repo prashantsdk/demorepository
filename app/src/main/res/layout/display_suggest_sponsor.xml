@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <HorizontalScrollView
+        android:id="@+id/horizontalScroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:id="@+id/horizontalScroll_linear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="380dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="2dp"
+                android:background="@drawable/border"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingBottom="8dp"
+                android:paddingTop="8dp">
+
+                <RelativeLayout
+                    android:id="@+id/linlay_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp">
+                    <ImageView
+                        android:id="@+id/imageView1"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/loc_red" />
+
+
+                    <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                        android:id="@+id/tv_month"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="3dp"
+                        android:text=""
+                        android:textColor="#ffffff"
+                        android:textSize="8sp" />
+
+
+                    <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                        android:id="@+id/txtDateReward"
+                        style="@style/Login_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/greenp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="16dp"
+                        android:gravity="center"
+                        android:text=""
+                        android:textColor="#000000"
+                        android:textSize="17dp" />
+                </RelativeLayout>
+
+
+                <TextView
+                    android:id="@+id/txtSuggestName"
+                    android:layout_width="110dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="6dp"
+                    android:gravity="center"
+                    android:text="sayali"
+                    android:textColor="#000000"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txtSuggAddress"
+                    android:layout_width="70dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="16dp"
+                    android:gravity="center"
+                    android:text="gg"
+                    android:textColor="#000000"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <!--  android:layout_weight="1" -->
+                <!-- android:layout_weight="1" -->
+                <!-- width=100dp  6-1-17-->
+                <ImageView
+                    android:id="@+id/imgsuglike"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="25dp"
+                    android:src="@drawable/btnlikeselector" />
+
+                <TextView
+                    android:id="@+id/txtsuggestedvend"
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="2"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+                <!--  android:layout_weight="1" -->
+                <!-- android:layout_weight="1" -->
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </HorizontalScrollView>
+</RelativeLayout>

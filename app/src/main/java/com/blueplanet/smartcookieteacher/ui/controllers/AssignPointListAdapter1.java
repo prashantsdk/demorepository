@@ -58,6 +58,7 @@ public class AssignPointListAdapter1 extends BaseAdapter {
     @Override
     public int getCount() {
         if (_ActivityListPopulated(_activityList)) {
+
             return _activityList.size();
         }
         return 0;
@@ -83,7 +84,6 @@ public class AssignPointListAdapter1 extends BaseAdapter {
                     .getContext().getSystemService(
                             Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflatorInflater.inflate(R.layout.new_assignpoint, null
-
 
             );
         }
@@ -120,7 +120,6 @@ public class AssignPointListAdapter1 extends BaseAdapter {
 
                         }
 
-
                         _textView[position].setChecked(true);
                         _textView[position].setTextColor(_assignPointFragment.getResources().getColor(R.color.red_solid));
 
@@ -130,12 +129,8 @@ public class AssignPointListAdapter1 extends BaseAdapter {
                             ActivityListFeatureController.getInstance().
                                     setSeletedActivityId(activityId);
                         }
-
-
                     }
                 });
-
-
             }
         }
         return convertView;

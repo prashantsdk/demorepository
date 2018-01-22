@@ -119,12 +119,13 @@ public class TeacherPointService extends Service {
 					JSONObject jsonObject = responseData.optJSONObject(i);
 
 					int tgreen = jsonObject.optInt(WebserviceConstants.KEY_GREEN_POINT);
+					int twater = jsonObject.optInt(WebserviceConstants.KEY_WATER_POINT);
 					int tblue = jsonObject.optInt(WebserviceConstants.KEY_BLUE_POINT);
 					int tbrown = jsonObject.optInt(WebserviceConstants.KEY_BROWN_POINT);
-					int twater = jsonObject.optInt(WebserviceConstants.KEY_WATER_POINT);
 
 
-					points = new TeacherDashbordPoint(tgreen, tblue, tbrown, twater);
+
+					points = new TeacherDashbordPoint(tgreen,twater, tblue, tbrown );
 					DashboardFeatureController.getInstance().savePointIntoDB(points);
 
 

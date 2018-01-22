@@ -1,5 +1,7 @@
 package com.blueplanet.smartcookieteacher.ui.controllers;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -8,8 +10,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.view.View.OnClickListener;
+import android.widget.Toast;
 
+import com.blueplanet.smartcookieteacher.MainApplication;
 import com.blueplanet.smartcookieteacher.R;
 import com.blueplanet.smartcookieteacher.communication.ServerResponse;
 import com.blueplanet.smartcookieteacher.featurecontroller.DrawerFeatureController;
@@ -17,8 +23,12 @@ import com.blueplanet.smartcookieteacher.featurecontroller.LoginFeatureControlle
 import com.blueplanet.smartcookieteacher.featurecontroller.StudentFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.SubjectFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.subFeaturecontroller;
+import com.blueplanet.smartcookieteacher.models.LoginDetailModel;
 import com.blueplanet.smartcookieteacher.models.Student;
 import com.blueplanet.smartcookieteacher.models.Teacher;
+import com.blueplanet.smartcookieteacher.models.TestPro;
+import com.blueplanet.smartcookieteacher.models.TestProduction;
+import com.blueplanet.smartcookieteacher.network.NetworkManager;
 import com.blueplanet.smartcookieteacher.notification.EventNotifier;
 import com.blueplanet.smartcookieteacher.notification.EventState;
 import com.blueplanet.smartcookieteacher.notification.EventTypes;
@@ -26,6 +36,8 @@ import com.blueplanet.smartcookieteacher.notification.IEventListener;
 import com.blueplanet.smartcookieteacher.notification.ListenerPriority;
 import com.blueplanet.smartcookieteacher.notification.NotifierFactory;
 import com.blueplanet.smartcookieteacher.ui.AssignPointFragment;
+import com.blueplanet.smartcookieteacher.ui.RegistrationActivity;
+import com.blueplanet.smartcookieteacher.ui.SearchStudentFragment;
 import com.blueplanet.smartcookieteacher.ui.StudentListFragment;
 import com.blueplanet.smartcookieteacher.webservices.WebserviceConstants;
 
@@ -36,7 +48,7 @@ import java.util.ArrayList;
  * Created by 1311 on 25-11-2015.
  */
 public class StudentListFragmentController implements IEventListener,
-        AbsListView.OnScrollListener, AdapterView.OnItemClickListener {
+        AbsListView.OnScrollListener, AdapterView.OnItemClickListener,OnClickListener {
     private StudentListFragment _StudentListFragment;
     private View _View;
     private final String _TAG = this.getClass().getSimpleName();
@@ -67,7 +79,7 @@ public class StudentListFragmentController implements IEventListener,
         if (_teacher != null) {
             _teacherId = _teacher.get_tId();
             _schoolId = _teacher.get_tSchool_id();
-            _fetchSubjectFromServer(_teacherId, _schoolId);
+            //_fetchSubjectFromServer(_teacherId, _schoolId);
         }
     }
 
@@ -93,7 +105,7 @@ public class StudentListFragmentController implements IEventListener,
      * function to show student list if already present
      */
     private void _updateUI() {
-        _StudentListFragment.showOrHideProgressBar(false);
+       // _StudentListFragment.showOrHideProgressBar(false);
         _StudentListFragment.setVisibilityOfListView(true);
 
     }
@@ -146,7 +158,7 @@ public class StudentListFragmentController implements IEventListener,
                 eventNotifier.unRegisterListener(this);
 
                 if (errorCode == WebserviceConstants.SUCCESS) {
-                    _StudentListFragment.showOrHideProgressBar(false);
+
                     /**
                      * get student list before refreshing listview avoid runtime exception
                      */
@@ -162,7 +174,7 @@ public class StudentListFragmentController implements IEventListener,
                         NotifierFactory.getInstance().getNotifier
                                 (NotifierFactory.EVENT_NOTIFIER_STUDENT);
                 event1.unRegisterListener(this);
-
+                _StudentListFragment.showOrHideProgressBar(false);
                 _StudentListFragment.showNoStudentListMessage(false);
                 break;
 
@@ -214,7 +226,6 @@ public class StudentListFragmentController implements IEventListener,
                     if (_lastInputId != -1 && !(TextUtils.isEmpty(_teacherId)) && !(TextUtils.isEmpty(_schoolId))) {
                         Log.i(_TAG, "Student list webservice called");
                         _registerStudentEventListeners();
-
                         StudentFeatureController.getInstance().getStudentListFromServer(_teacherId, _schoolId, _lastInputId);
                         Log.i(_TAG, "Students webservice called");
 
@@ -234,6 +245,7 @@ public class StudentListFragmentController implements IEventListener,
         return false;
 
     }
+
 
     @Override
     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
@@ -273,4 +285,20 @@ public class StudentListFragmentController implements IEventListener,
         ft.addToBackStack("StudentListFragment");
         ft.commit();
     }
+    @Override
+    public void onClick(View view) {
+
+        int id = view.getId();
+
+        switch (id) {
+            case R.id.websearch:
+                _loadFragment(R.id.content_frame, new SearchStudentFragment());
+                break;
+
+            default:
+                break;
+        }
+
+    }
+
 }

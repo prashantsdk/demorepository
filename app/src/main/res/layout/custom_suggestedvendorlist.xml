@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:background="@drawable/list_item_selector"
+    android:clickable="true"
+    android:orientation="vertical"
+    android:padding="10dp" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <RelativeLayout
+            android:layout_width="50dp"
+            android:layout_height="match_parent" >
+
+            <ImageView
+                android:id="@+id/imageView1"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/location_black" />
+
+            <TextView
+                android:id="@+id/txtvendorid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/imageView1"
+                android:layout_alignParentLeft="true"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:visibility="gone" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1" 
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txtsuggestedvendorName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    
+                    android:layout_marginTop="15dip"
+                    android:scaleY="1.2"
+                    android:text="Automobile Repair Shop"
+                    android:textColor="#000000"
+                    android:textSize="14sp"
+                    android:textStyle="normal"
+                    
+                     />
+
+                <TextView
+                    android:id="@+id/txtsuggestedVendorAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Telephone Exchange Square,Nagpur Auto Service"
+                    android:textColor="#6B6B6B"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="3.5" >
+
+                <LinearLayout
+                    android:id="@+id/linearLayout1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_above="@+id/txtsuggestedvendorkm"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:gravity="center" >
+
+                    <ImageView
+                        android:id="@+id/imgsuggestedvendorlike"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/btnlikeselector" />
+
+                    <TextView
+                        android:id="@+id/txtsuggestedvendorlikes"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="2"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/txtsuggestedvendorkm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:maxLength="7"
+                    android:scaleY="1.2"
+                    android:text="10.00 Km"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="#000000"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

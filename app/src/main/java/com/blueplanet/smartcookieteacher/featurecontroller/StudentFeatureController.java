@@ -151,6 +151,7 @@ public class StudentFeatureController implements IEventListener {
     }
     public void deletestudentFromDB(String userName){
         IPersistence persistObj = PersistenceFactory.get(SmartTeacherDatabaseMasterTable.Tables.STUDENTLIST);
+
         persistObj.delete(userName);
     }
     public int getLastInputId() {

@@ -3,18 +3,25 @@ package com.blueplanet.smartcookieteacher.ui;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageInstaller;
 import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.content.res.Configuration;
+import android.media.tv.TvInputService;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.service.textservice.SpellCheckerService;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.telephony.TelephonyManager;
 import android.text.format.DateFormat;
 import android.text.format.Formatter;
+import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
@@ -48,15 +55,23 @@ import com.blueplanet.smartcookieteacher.models.TestPro;
 import com.blueplanet.smartcookieteacher.models.User;
 import com.blueplanet.smartcookieteacher.notification.IEventListener;
 import com.blueplanet.smartcookieteacher.ui.controllers.LoginFragmentController;
-import com.blueplanet.smartcookieteacher.utils.SmartCookieSharedPreferences;
-import com.blueplanet.smartcookieteacher.webservices.WebserviceConstants;
+
+import com.facebook.CallbackManager;
+import com.facebook.FacebookSdk;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 
 import java.lang.reflect.Method;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.Enumeration;
+
+import me.msfjarvis.apprate.AppRate;
 
 import static android.view.View.*;
 
@@ -68,7 +83,7 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
 
     private View _view;
     private CustomEditText _etUserName, _etPassword;
-    private Button _btnLogin, _btnsignup, btnRegis;
+    private Button _btnLogin, _btnsignup, btnRegis,btnfb;
     private RelativeLayout _rlProgressbar;
     private ProgressBar _progressbar;
     private CustomTextView _tvPleaseWait, txtp;
@@ -85,22 +100,36 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
     String[] userOption = {"Select Login Type", "Email", "Mobile-No", "EmployeeID", "MemberID"};
     String[] numberOptn = {"+91", "+1"};
     private LinearLayout ll_userphone, ll_phone, ll_prn, ll_ID, _l1memberID;
+
     public int _urlTP = 0;
     private final String _TAG = this.getClass().getSimpleName();
     private String selState, str;
 
-    GPSTracker   gpsTracker;;
+    GPSTracker   gpsTracker;
     double latitude = 0.0, longitude = 0.0;
     public static final int PERMISSION_REQUEST_CODE=23;
     String[] LOC_PERMISSIONS = {Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION};
     EditText etUserMobile;
     Date d = new Date();
-
+    public CallbackManager callbackManager = CallbackManager.Factory.create();
+    public static final int RC_SIGN_IN = 9001;
+    public static Context context;
+    Context pContext;
+    //private CallbackManager callbackManager;
+    //
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+
+
+
         _view = inflater.inflate(R.layout.mobile_teacher_login, null);
+
+        FacebookSdk.sdkInitialize(getActivity());
+        context=this.getActivity();
         _initUI();
+
         _loginFragmentController = new LoginFragmentController(this, _view);
 
 
@@ -157,6 +186,7 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
             final String userName = user.getUserName();
             final String passowrd = user.getPassword1();
 
+
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -187,11 +217,14 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
 
         _btnLogin = (Button) _view.findViewById(R.id.btn_login);
         btnRegis = (Button) _view.findViewById(R.id.btnRegis);
+        btnfb = (Button) _view.findViewById(R.id.btnfacebook);
         _rlProgressbar = (RelativeLayout) _view
                 .findViewById(R.id.rl_progressBar);
         _progressbar = (ProgressBar) _view.findViewById(R.id.progressbar);
         _tvPleaseWait = (CustomTextView) _view.findViewById(R.id.tv_please_wait);
         txtp = (CustomTextView) _view.findViewById(R.id.tv_forgotPassword);
+
+
         //_btnsignup=(Button)_view.findViewById(R.id.btn_signup);
         // _btnsignup = (CustomButton) _view.findViewById(R.id.btn_signup);
         _rememberMe = (CheckBox) _view.findViewById(R.id.cb_remember_me);
@@ -199,6 +232,8 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
         _production = (CustomTextView) _view.findViewById(R.id.txtproduction);
         _dev = (CustomTextView) _view.findViewById(R.id.txtDev);
         tv_forgotPassword = (CustomTextView) _view.findViewById(R.id.tv_forgotPassword);
+
+
         spinner = (Spinner) _view.findViewById(R.id.spinner);
         spinnerPhone = (Spinner) _view.findViewById(R.id.spinnerPhone);
         ll_userphone = (LinearLayout) _view.findViewById(R.id.ll_username);
@@ -218,6 +253,9 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
 
         _btnLogin.setOnClickListener(_loginFragmentController);
         btnRegis.setOnClickListener(_loginFragmentController);
+      //
+      //
+       btnfb.setOnClickListener(_loginFragmentController);
         //_btnsignup.setOnClickListener(_loginFragmentController);
 
 
@@ -229,6 +267,7 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
 
         // _btnproduction.setOnClickListener(_loginFragmentController);
         tv_forgotPassword.setOnClickListener(_loginFragmentController);
+
         spinner.setOnItemSelectedListener(_loginFragmentController);
         spinnerPhone.setOnItemSelectedListener(this);
         //  etxtpoints.setOnClickListener(_loginFragmentController);
@@ -262,6 +301,7 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
 
     public void showGCMsmassage(final boolean visibility) {
         getActivity().runOnUiThread(new Runnable() {
+
             @Override
             public void run() {
                 if (visibility) {
@@ -302,7 +342,6 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
             ll_prn.setVisibility(View.INVISIBLE);
             ll_ID.setVisibility(View.GONE);
             _l1memberID.setVisibility(View.INVISIBLE);
-
             ll_phone.requestFocus();
 
             //   LoginFeatureController.getInstance().setUserEmailType(false);
@@ -370,8 +409,23 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
     }
 
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RC_SIGN_IN) {
+            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            _loginFragmentController.handleSignInResult(result);
+        }else {
+
+            callbackManager.onActivityResult(requestCode, resultCode, data);
+        }
+
+    }
     public void showNetworkToast(final boolean isNetworkAvailable) {
-        getActivity().runOnUiThread(new Runnable() {
+        getActivity().runOnUiThread(new Runnable()
+
+
+        {
             @Override
             public void run() {
                 if (isNetworkAvailable) {
@@ -402,6 +456,7 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
         });
 
     }
+
 
 
   /*  public void showTestProduction(final boolean tePro) {
@@ -525,6 +580,9 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
         String model = Build.MODEL;
         modelName.set_modelName(model);
 
+
+
+
         if (model.startsWith(manufacturer)) {
             return capitalize(model);
         } else {
@@ -604,6 +662,7 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
     }
 
 
+
     private void requestPermission(){
 
         if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) || ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION)){
@@ -630,7 +689,13 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
                 }
                 break;
         }
-    }}
+    }
+
+
+
+}
+
+
    /* @Override
     public void onClick(View v) {
 

@@ -126,6 +126,14 @@ public class RegistrationFeatureController implements IEventListener {
                         eventNotifierUI.eventNotifyOnThread(EventTypes.EVENT_UI_BAD_REQUEST,
                                 serverResponse);
                     }
+                    else if(statusCode == HTTPConstants.HTTP_INVALID_INPUT){
+                        eventNotifierUI =
+
+                                NotifierFactory.getInstance().getNotifier(
+                                        NotifierFactory.EVENT_NOTIFIER_TEACHER);
+                        eventNotifierUI.eventNotifyOnThread(EventTypes.EVENT_UI_INVALID_INPUT,
+                                serverResponse);
+                    }
                     else {
 
                         eventNotifierUI =

@@ -3,6 +3,7 @@ package com.blueplanet.smartcookieteacher.ui;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -27,12 +28,16 @@ import com.blueplanet.smartcookieteacher.customcomponents.CustomButton;
 import com.blueplanet.smartcookieteacher.customcomponents.CustomTextView;
 import com.blueplanet.smartcookieteacher.featurecontroller.AssignPointFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.LoginFeatureController;
+import com.blueplanet.smartcookieteacher.featurecontroller.SearchStudentFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.StudentFeatureController;
+import com.blueplanet.smartcookieteacher.models.SearchStudent;
 import com.blueplanet.smartcookieteacher.models.Student;
 import com.blueplanet.smartcookieteacher.models.Teacher;
 import com.blueplanet.smartcookieteacher.ui.controllers.AssignPointFragmentController;
 import com.blueplanet.smartcookieteacher.ui.controllers.AssignPointListAdapter;
 import com.blueplanet.smartcookieteacher.ui.controllers.StudentListGalleryAdapter;
+import com.blueplanet.smartcookieteacher.utils.IImageLoader;
+import com.blueplanet.smartcookieteacher.utils.SmartCookieImageLoader;
 
 
 import java.util.ArrayList;
@@ -47,7 +52,7 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
     private CustomTextView _tvPleaseWait;
     private Gallery _gallery;
     private SeekBar seekpointsbar;
-    private CustomTextView _txtstuName, _txtGeneralText, _txtSports, _txtArt, _txtOptionSelected, _txtStudy;
+    private CustomTextView _txtstuName, _txtGeneralText, _txtSports, _txtArt, _txtOptionSelected, _txtStudy,txtbackbutton;
     private AssignPointFragmentController _assignPointFragmentController = null;
     private StudentListGalleryAdapter _galleryAdapter = null;
     private AssignPointListAdapter _adapter = null;
@@ -64,13 +69,14 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
     private String selState, str;
     private final String _TAG = this.getClass().getSimpleName();
     private EditText _txt_gradePoint,_txtMark,_comment;
-
+    private SearchStudent _sestu;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         _view = inflater.inflate(R.layout.assign_point_to_student, null);
 
         _initUI();
+        txtbackbutton.setVisibility((View.GONE));
         ArrayAdapter aa = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item, userOption);
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(aa);
@@ -79,7 +85,7 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
         phone.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner1.setAdapter(phone);
 
-
+        showOrHideProgressBar(false);
         ArrayAdapter color = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item, spinnerColor);
         phone.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnercolr.setAdapter(color);
@@ -90,6 +96,8 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
         _galleryAdapter = new StudentListGalleryAdapter(this, _assignPointFragmentController, _view);
 
         _registerUIListeners();
+       // _setStudentDetailsOnUI();
+
         _setSeletedStudentOnGallery();
         _setTeacherNameOnUI();
         return _view;
@@ -98,10 +106,8 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
     private void _initUI() {
 
         _txtstuName = (CustomTextView) _view.findViewById(R.id.txtStudname_AssignPoints);
-        _rlProgressbar = (RelativeLayout) _view
-                .findViewById(R.id.rl_progressBar);
-        _progressbar = (ProgressBar) _view.findViewById(R.id.progressbar);
-        _tvPleaseWait = (CustomTextView) _view.findViewById(R.id.tv_please_wait);
+
+
         _gallery = (Gallery) _view.findViewById(R.id.galleryslider);
         _txtGeneralText = (CustomTextView) _view.findViewById(R.id.txtGeneralAssignPoints);
         _txtSports = (CustomTextView) _view.findViewById(R.id.txtSportsAssingnedPoints);
@@ -109,6 +115,7 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
         _txtStudy = (CustomTextView) _view.findViewById(R.id.txtStudyAssignPoints);
 
         _txtOptionSelected = (CustomTextView) _view.findViewById(R.id.txtoptionselected);
+        txtbackbutton = (CustomTextView) _view.findViewById(R.id.txtbackbutton);
         _rl4Option = (RelativeLayout) _view.findViewById(R.id.rel4Option);
         seekpointsbar = (SeekBar) _view.findViewById(R.id.seekassigpoints);
         _btnSubmit = (CustomButton) _view.findViewById(R.id.btnsubmitassignpoints);
@@ -126,6 +133,10 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
         _txt_gradePoint = (EditText) _view.findViewById(R.id.txt_gradePoint);
         _comment = (EditText) _view.findViewById(R.id.txt_comment);
         _txtMark= (EditText) _view.findViewById(R.id.txt_markPoint);
+        _rlProgressbar = (RelativeLayout) _view
+                .findViewById(R.id.rl_progressBar);
+        _progressbar = (ProgressBar) _view.findViewById(R.id.progressbar);
+        _tvPleaseWait = (CustomTextView) _view.findViewById(R.id.tv_please_wait);
     }
 
     /**
@@ -139,6 +150,7 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
         _txtArt.setOnClickListener(_assignPointFragmentController);
         _txtStudy.setOnClickListener(_assignPointFragmentController);
         _txtOptionSelected.setOnClickListener(_assignPointFragmentController);
+        txtbackbutton.setOnClickListener(_assignPointFragmentController);
         seekpointsbar.setOnSeekBarChangeListener(_assignPointFragmentController);
         _btnSubmit.setOnClickListener(_assignPointFragmentController);
         spinner.setOnItemSelectedListener(this);
@@ -147,13 +159,13 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
     }
 
     private void _setSeletedStudentOnGallery() {
-        final Student student = StudentFeatureController.getInstance().getSelectedStudent();
-        ArrayList<Student> studentList = StudentFeatureController.getInstance().getStudentList();
+        final SearchStudent student = SearchStudentFeatureController.getInstance().get_selectedSearchStudent();
+        ArrayList<SearchStudent> studentList = SearchStudentFeatureController.getInstance().getSearchedTeacher();
 
         if (studentList != null && studentList.size() > 0 && student != null) {
-            for (Student s : studentList) {
-                String prn1 = student.get_stdPRN().toString();
-                String prn2 = s.get_stdPRN().toString();
+            for (SearchStudent s : studentList) {
+                String prn1 = student.get_searchPrn().toString();
+                String prn2 = s.get_searchPrn().toString();
                 if (prn1.equalsIgnoreCase(prn2)) {
                     _gallery.setSelection(studentList.indexOf(s));
                 }
@@ -162,12 +174,41 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
         }
 
     }
+    private void _setStudentDetailsOnUI() {
+
+        _sestu = SearchStudentFeatureController.getInstance().get_selectedSearchStudent();
+
+        if (_sestu != null) {
+            getActivity().runOnUiThread(new Runnable() {
+
+                @Override
+                public void run() {
+
+                    _setStudNameUI(_sestu);
+
+
+
+                }
+            });
+
+        }
+
+    }
 
     /**
      * function to set student name on UI
      *
-     * @param name
+     *
      */
+    public void _setStudNameUI(SearchStudent student) {
+        String name = student.get_studentname();
+        if (!(TextUtils.isEmpty(name)) && name.equalsIgnoreCase("null")) {
+            _txtstuName.setText("N/A");
+        } else {
+            _txtstuName.setText(name);
+
+        }
+    }
     public void setStudentNameOnUI(final String name) {
         getActivity().runOnUiThread(new Runnable() {
             @Override
@@ -178,7 +219,22 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
         });
 
     }
+    public void setserStudentNameOnUI(final SearchStudent student) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                String name = student.get_studentname();
+                if (!(TextUtils.isEmpty(name)) && name.equalsIgnoreCase("null")) {
+                    _txtstuName.setText("N/A");
+                } else {
+                    _txtstuName.setText(name);
 
+                }
+
+            }
+        });
+
+    }
 
     private void _setTeacherNameOnUI() {
 
@@ -213,8 +269,6 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
                     _rlProgressbar.setVisibility(View.GONE);
                     _progressbar.setVisibility(View.GONE);
                     _tvPleaseWait.setVisibility(View.GONE);
-
-
                 }
             }
         });
@@ -316,6 +370,20 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
 
 
     }
+    public void showNoAssignPontListMessage(final boolean flag) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (flag == false) {
+                    Toast.makeText(getActivity().getApplicationContext(),
+                            getActivity().getString(R.string.no_point_to_asign),
+                            Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+
+    }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -335,6 +403,7 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
             }
         });
     }
+
 
 
     public void onDestroy() {

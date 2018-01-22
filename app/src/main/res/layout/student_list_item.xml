@@ -39,7 +39,7 @@
 
 
             <LinearLayout
-                android:id="@+id/ll_2"
+                android:id="@+id/ll_3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/txt_studentName"
@@ -66,13 +66,15 @@
 
 
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/ll_23"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/ll_2"
+                android:layout_below="@+id/ll_3"
                 android:layout_marginTop="7dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="visible">
 
                 <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
                     style="@style/Login_title"

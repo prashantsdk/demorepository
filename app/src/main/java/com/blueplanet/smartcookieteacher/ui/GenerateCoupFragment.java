@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.blueplanet.smartcookieteacher.R;
 import com.blueplanet.smartcookieteacher.customcomponents.CustomTextView;
@@ -85,7 +86,22 @@ private View _view;
             }
         });
     }
+    public void showGCMsmassage(final boolean visibility) {
+        getActivity().runOnUiThread(new Runnable() {
 
+            @Override
+            public void run() {
+                if (visibility) {
+
+                } else {
+                    Toast.makeText(getActivity(), "Sorry! There is no coupons", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+        });
+
+
+    }
     public void setVisibilityOfListView(final boolean visibility) {
         getActivity().runOnUiThread(new Runnable() {
             @Override

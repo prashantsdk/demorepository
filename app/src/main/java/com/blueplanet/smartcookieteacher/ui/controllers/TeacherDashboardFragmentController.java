@@ -39,7 +39,10 @@ import java.util.ArrayList;
 /**
  * Created by 1311 on 16-12-2015.
  */
-public class TeacherDashboardFragmentController implements IEventListener, AbsListView.OnScrollListener, AdapterView.OnItemClickListener, View.OnClickListener {
+public class
+
+
+        TeacherDashboardFragmentController implements IEventListener, AbsListView.OnScrollListener, AdapterView.OnItemClickListener, View.OnClickListener {
 
     private TeacherDashboardFragment _teacherDashboardFragment;
     private View _view;

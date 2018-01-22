@@ -118,7 +118,7 @@ public class GenerateCouponFragmentController implements View.OnClickListener, I
         switch (id) {
             case R.id.etxtpoints:
                 Log.i(_TAG, "ON clicked");
-                final CharSequence[] items = {"100", "200", "300", "400",
+                final CharSequence[] items = {"50","100", "200", "300", "400",
                         "500", "600", "700", "800", "900", "1000"};
 
                 _showData(items, "Select Points", null, null);

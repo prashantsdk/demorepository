@@ -14,6 +14,7 @@ public class WebserviceConstants {
     public static final String KEY_STATUS_MESSAGE = "responseMessage";
     public static final String KEY_POSTS = "posts";
 
+
     //Constant Related to GCM
     public static final String KEY_GCM = "KEY_GCM";
     public static final String IS_GCM_REGISTERED = "IS_GCM_REGISTERED";
@@ -22,7 +23,7 @@ public class WebserviceConstants {
     /**
      * constants for all webservices
      */
-    public static final String HTTP_BASE_URL = "http://";
+    public static final String HTTP_BASE_URL = "https://";
     // public static final String BASE_URL = "tsmartcookies.bpsi.us/Version2/";
 
     public static String BASE_URL = "smartcookie.in/core/Version2/";
@@ -30,7 +31,7 @@ public class WebserviceConstants {
     public static String BASE_URL3 = "dev.smartcookie.in/core/Version2/";
     public static String BASE_URL2 = "smartcookie.in/core/Version2/";
 
-    public static final String IMAGE_BASE_URL = "http://smartcookie.in/core/";
+    public static final String IMAGE_BASE_URL = "https://dev.smartcookie.in/core/";
 
 
     //public static final String TEACHER_LOGIN = "login_teacher.php";
@@ -63,6 +64,7 @@ public class WebserviceConstants {
     public static final String SPONSOR_LOCATION_URL = "display_sponsor_bydistance.php";
     //public static final String MAP_SERVICE_API = "map_service_API.php";
     public static final String MAP_SERVICE_API = "map_service_API_V2.php";
+   // public static final String MAP_SERVICE_API = "get_sponsors_location.php";
     public static final String ALL_SUBJECT_WEB_SERVICE = "teacher_ws.php?f=teacherallsubjects";
     public static final String LOGOUT_WEB_SERVICE = "logout_teacher_API.php";
     public static final String REQUEST_WEB_SERVICE = "request_other_student.php";
@@ -82,6 +84,10 @@ public class WebserviceConstants {
     public static final String DECLINE_STUDENT_REQUEST = "decline_request_for_points_from_students.php";
     public static final String ERROE_LOG_WEB_SERVICE = "error_log_ws_v1.php";
     public static final String SEND_REQUEST_WEB_SERVICE = "send_request_to_join_smartcookie.php";
+
+    public static final String SEARCH_STUDENT_OF_COLLAGE = "search_student_ws.php";
+    //school
+    public static final String SETUDENTASS = "school_Admin_login_API.php";
 
 
     /**
@@ -181,7 +187,7 @@ public class WebserviceConstants {
     public static final String KEY_SIMGPATH = "std_img_path";
     public static final String KEY_STUDENT_TOTAL_COUNT = "total_count";
     public static final String KEY_STUDENT_SUBCODE = "Subject_ID";
-    public static final String KEY_STUDENT_SUBNAME = "Subject_name";
+    public static final String KEY_STUDENT_SUBNAME = "subjec_name";
     public static final String KEY_COORDINATOR = "is_coordinator";
 
 
@@ -216,8 +222,6 @@ public class WebserviceConstants {
     public static final String KEY_USER_STATE = "user_state";
     public static final String KEY_USER_COUNTRY = "user_country";
     public static final String KEY_USER_EDUCTION = "user_education";
-
-
     public static final String KEY_USER_EXPERIENCE = "user_experience";
 
     /**
@@ -774,5 +778,39 @@ public class WebserviceConstants {
     public static final String KEY_SEND_REQUEST_PLATFORM= "platform_source";
     public static final String KEY_SEND_REQUEST_SENDSTATUS= "request_status";
     public static final String KEY_SEND_REQUEST_INVITATYION_SENDER_NAME= "invitation_sender_name";
+
+    // SEARCH STUDENT OF COLLAGE WEB SERVICE
+
+    public static final String SEARCH_KEY= "student_key";
+    public static final String OFFSET= "offset";
+
+    public static final String SEARCH_KEY_STUDENT_COMP_NAME= "std_complete_name";
+    public static final String SEARCH_KEY_SCHOOL_ID= "school_id";
+    public static final String SEARCH_KEY_PRN= "std_PRN";
+    public static final String SEARCH_KEY_IMG= "std_img_path";
+    public static final String SEARCH_KEY_CLASS= "std_class";
+    public static final String SEARCH_KEY_DEPART= "std_dept";
+    public static final String SEARCH_KEY_BRANCH= "std_branch";
+
+    public static final String KEY_USER_NAME = "Admin_Name";
+    public static final String KEY_USER_GPASS = "Admin_Pass";
+
+//new registration parameter
+
+
+    public static final String KEY_USER_MID = "User_Meid";
+    public static final String KEY_USER_COMPNAME = "User_Complete_Name";
+    public static final String KEY_USER_REG_FNAME = "User_FName";
+    public static final String KEY_USER_REG_lNAME = "User_LName";
+    public static final String KEY_USER_REG_ADDRESS = "User_address";
+    public static final String KEY_USER_REG_CITY = "User_city";
+    public static final String KEY_USER_REG_COUNTEY = "User_country";
+    public static final String KEY_USER_REG_STATE = "state";
+    public static final String KEY_USER_REG_PHONE = "User_Phone";
+    public static final String KEY_USER_REG_PASSWARD = "User_password";
+    public static final String KEY_USER_REG_COUNTRYCODE = "CountryCode";
+    public static final String KEY_USER_REG_EMAIL = "User_email";
+    public static final String KEY_USER_REG_IMGPATH = "User_Image_Path";
+    public static final String KEY_USER_REG_IMGNAME = "User_Image_Name";
 
 }

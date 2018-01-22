@@ -14,22 +14,19 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.text.Html;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import com.blueplanet.smartcookieteacher.DatabaseManager.SQLDatabaseManager;
+import com.blueplanet.smartcookieteacher.DatabaseManager.IPersistence;
+import com.blueplanet.smartcookieteacher.DatabaseManager.PersistenceFactory;
+import com.blueplanet.smartcookieteacher.DatabaseManager.SmartTeacherDatabaseMasterTable;
 import com.blueplanet.smartcookieteacher.communication.ServerResponse;
-import com.blueplanet.smartcookieteacher.featurecontroller.ActivityListFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.DrawerFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.LoginFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.LogoutFeatureController;
-import com.blueplanet.smartcookieteacher.featurecontroller.SubjectAllFeatureController;
 import com.blueplanet.smartcookieteacher.models.Teacher;
 import com.blueplanet.smartcookieteacher.notification.EventNotifier;
 import com.blueplanet.smartcookieteacher.notification.EventState;
@@ -38,21 +35,15 @@ import com.blueplanet.smartcookieteacher.notification.IEventListener;
 import com.blueplanet.smartcookieteacher.notification.ListenerPriority;
 import com.blueplanet.smartcookieteacher.notification.NotifierFactory;
 import com.blueplanet.smartcookieteacher.ui.AcceptRequestFragment;
-import com.blueplanet.smartcookieteacher.ui.AddCartFragment;
-import com.blueplanet.smartcookieteacher.ui.AdminFragment;
 import com.blueplanet.smartcookieteacher.ui.AllLogFragment;
 import com.blueplanet.smartcookieteacher.ui.AllSubjectFragment;
-import com.blueplanet.smartcookieteacher.ui.BluePointFragment;
-import com.blueplanet.smartcookieteacher.ui.BuyCouponLogFragment;
-import com.blueplanet.smartcookieteacher.ui.CoordinatorFragment;
 import com.blueplanet.smartcookieteacher.ui.DisplayCategorieFragment;
-import com.blueplanet.smartcookieteacher.ui.DisplaySubjectFragment;
-import com.blueplanet.smartcookieteacher.ui.GenerateCoupFragment;
 import com.blueplanet.smartcookieteacher.ui.GenerateCouponFragment;
 
 
 import com.blueplanet.smartcookieteacher.ui.MapActivity;
 
+import com.blueplanet.smartcookieteacher.ui.SearchStudentFragment;
 import com.blueplanet.smartcookieteacher.ui.SendRequestFragment;
 import com.blueplanet.smartcookieteacher.ui.SharePointFragment;
 import com.blueplanet.smartcookieteacher.ui.SoftRewardFragment;
@@ -60,9 +51,7 @@ import com.blueplanet.smartcookieteacher.ui.StudentListFragment;
 import com.blueplanet.smartcookieteacher.ui.SugestSponserFragment;
 import com.blueplanet.smartcookieteacher.ui.SyncFragment;
 import com.blueplanet.smartcookieteacher.ui.TeacherDashboardFragment;
-import com.blueplanet.smartcookieteacher.ui.TeacherProfileFragment;
 import com.blueplanet.smartcookieteacher.ui.TeacherSubjectFragment;
-import com.blueplanet.smartcookieteacher.ui.controllers.BuyCouLogFragmentController;
 import com.blueplanet.smartcookieteacher.ui.customactionbar.CustomDrawerAdapter;
 import com.blueplanet.smartcookieteacher.ui.customactionbar.DrawerItem;
 import com.blueplanet.smartcookieteacher.utils.SmartCookieSharedPreferences;
@@ -97,6 +86,8 @@ public class AfterLoginActivity extends FragmentActivity implements IEventListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.after_login_activity);
+
+
         _teacher = LoginFeatureController.getInstance().getTeacher();
         mTitle = getTitle();
         mDrawerTitle = "Smart Cookie Program";
@@ -128,8 +119,8 @@ public class AfterLoginActivity extends FragmentActivity implements IEventListen
 
         _dataList.add(new DrawerItem("Suggest Vendor", R.drawable.coupon));
         _dataList.add(new DrawerItem("Accept Request", R.drawable.coupon));
-        _dataList.add(new DrawerItem("Send Request", R.drawable.coupon));
-        _dataList.add(new DrawerItem("Map", R.drawable.coupon));
+        _dataList.add(new DrawerItem("Request To Join", R.drawable.coupon));
+        _dataList.add(new DrawerItem("Sponsor/collage Map", R.drawable.coupon));
         _dataList.add(new DrawerItem("Logout", R.drawable.coupon));
 
 
@@ -313,8 +304,8 @@ public class AfterLoginActivity extends FragmentActivity implements IEventListen
                 // _fragment = new BuyCouponLogFragment();//
 
 
-                _fragment = new DisplaySubjectFragment();
-
+               //sa// _fragment = new DisplaySubjectFragment();
+                _fragment = new SearchStudentFragment();
                 // _fragment = new SoftRewardFragment();
 
                 break;
@@ -332,12 +323,6 @@ public class AfterLoginActivity extends FragmentActivity implements IEventListen
 
                 _fragment = new SoftRewardFragment();
                 //_fragment = new SugestSponserFragment();
-
-
-
-
-
-
 
 
              /*   DrawerFeatureController.getInstance().setIsFragmentOpenedFromDrawer(true);
@@ -414,6 +399,7 @@ public class AfterLoginActivity extends FragmentActivity implements IEventListen
                     _fetchLogoutListFromServer(id);
 
                     LoginFeatureController.getInstance().logOut();
+
                     SmartCookieSharedPreferences.setLoginFlag(false);
                     _startLoginActivity();
                 }
@@ -676,6 +662,7 @@ public class AfterLoginActivity extends FragmentActivity implements IEventListen
                         NotifierFactory.getInstance().getNotifier
                                 (NotifierFactory.EVENT_NOTIFIER_TEACHER);
                 eventNotifier.unRegisterListener(this);
+
 
                 if (errorCode == WebserviceConstants.SUCCESS) {
                     Log.i(_TAG, "hhh");

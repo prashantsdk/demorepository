@@ -10,7 +10,9 @@ import android.widget.ImageView;
 
 
 import com.blueplanet.smartcookieteacher.R;
+import com.blueplanet.smartcookieteacher.featurecontroller.SearchStudentFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.StudentFeatureController;
+import com.blueplanet.smartcookieteacher.models.SearchStudent;
 import com.blueplanet.smartcookieteacher.ui.AssignPointFragment;
 
 import java.util.ArrayList;
@@ -22,7 +24,7 @@ public class StudentListGalleryAdapter extends BaseAdapter {
 
     private com.blueplanet.smartcookieteacher.ui.AssignPointFragment _assignPointFragment = null;
     private com.blueplanet.smartcookieteacher.ui.controllers.AssignPointFragmentController _assignPointController;
-    private ArrayList<com.blueplanet.smartcookieteacher.models.Student> _studentList = null;
+    private ArrayList<SearchStudent> _studentList = null;
     private final String _TAG = this.getClass().getSimpleName();
     private View _view;
     private com.blueplanet.smartcookieteacher.models.Student _student;
@@ -34,7 +36,7 @@ public class StudentListGalleryAdapter extends BaseAdapter {
         _assignPointController = assignPointController;
 
         _view = view;
-        _studentList = StudentFeatureController.getInstance().getStudentList();
+        _studentList = SearchStudentFeatureController.getInstance().getSearchedTeacher();
     }
 
     @Override
@@ -67,13 +69,14 @@ public class StudentListGalleryAdapter extends BaseAdapter {
         if (convertView != null) {
             if (_StudentListPopulated(_studentList)) {
 
-                com.blueplanet.smartcookieteacher.models.Student student = _studentList.get(position);
+               SearchStudent student = _studentList.get(position);
                 ImageView studentImage = (ImageView) convertView.findViewById(R.id.imgStripView);
 
-                String imageurl = student.get_stdImageUrl();
-                if (imageurl != null && imageurl.length() > 0) {
+                //String imageurl = student.get_searchimg();
+                SearchStudent seartudent = SearchStudentFeatureController.getInstance().get_selectedSearchStudent();
+                if (seartudent != null ) {
                     final String imageName = com.blueplanet.smartcookieteacher.webservices.WebserviceConstants.IMAGE_BASE_URL
-                            + imageurl;
+                            + seartudent;
                     Log.i(_TAG, imageName);
 
                     com.blueplanet.smartcookieteacher.utils.SmartCookieImageLoader.getInstance().setImageLoaderData(imageName, studentImage,
@@ -86,7 +89,7 @@ public class StudentListGalleryAdapter extends BaseAdapter {
         return convertView;
     }
 
-    private boolean _StudentListPopulated(ArrayList<com.blueplanet.smartcookieteacher.models.Student> dummyList) {
+    private boolean _StudentListPopulated(ArrayList<SearchStudent> dummyList) {
 
         if (dummyList != null && dummyList.size() > 0) {
             return true;

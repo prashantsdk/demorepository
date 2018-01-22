@@ -166,6 +166,7 @@ public class AssignPointFeatureController implements IEventListener {
     public int eventNotify(int eventType, Object eventObject) {
 
         int eventState = EventState.EVENT_PROCESSED;
+
         EventNotifier eventNotifier =
                 NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_TEACHER);
         eventNotifier.unRegisterListener(this);

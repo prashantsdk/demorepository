@@ -103,5 +103,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + SmartTeacherDatabaseMasterTable.Tables.TEACHERPOINT);
         // create new tables
         onCreate(db);
+
     }
 }

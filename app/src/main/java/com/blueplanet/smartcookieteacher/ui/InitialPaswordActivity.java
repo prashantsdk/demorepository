@@ -111,6 +111,8 @@ public class InitialPaswordActivity extends Activity {
 
     private void inentCall() {
         LoginFeatureController.getInstance().setTypeMode(true);
+
+
         runOnUiThread(new Runnable() {
             @Override
             public void run() {

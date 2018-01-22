@@ -35,7 +35,7 @@ public class BaseActivity extends Activity {
         if (isLoginDone ) {
             _startAfterLoginActivity();
         } else {
-           // SmartCookieSharedPreferences.setLoginFlag(false);
+            //SmartCookieSharedPreferences.setLoginFlag(false);
             _startLoginActivity();
 
         }

@@ -20,7 +20,6 @@ import com.blueplanet.smartcookieteacher.webservices.WebserviceConstants;
 public class UpdateProfileFeatureController implements IEventListener {
 
 
-
     private static UpdateProfileFeatureController _profileFeatureController = null;
     private final String _TAG = this.getClass().getSimpleName();
     public String parentImage = null;
@@ -37,13 +36,13 @@ public class UpdateProfileFeatureController implements IEventListener {
     }
 
 
-    public void updateProfileInfo(String email, String fname, String lname,String dob,String address,String city,String country,
-                                  String gender,String passward,String phone, String state,String studentId,
-                                  String countrycode, String memberID,String Key) {
+    public void updateProfileInfo(String email, String fname, String lname, String dob, String address, String city, String country,
+                                  String gender, String passward, String phone, String state, String studentId,
+                                  String countrycode, String memberID, String Key, String img) {
         EventNotifier eventNotifier =
                 NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_TEACHER);
         eventNotifier.registerListener(this, ListenerPriority.PRIORITY_MEDIUM);
-        UpdateProfile update = new UpdateProfile( email,  fname,  lname,dob,address,city,country,gender,passward,phone,state,studentId,countrycode,memberID,Key);
+        UpdateProfile update = new UpdateProfile(email, fname, lname, dob, address, city, country, gender, passward, phone, state, studentId, countrycode, memberID, Key, img);
         update.send();
     }
 
@@ -61,7 +60,9 @@ public class UpdateProfileFeatureController implements IEventListener {
         Log.i(_TAG, "Error code id:" + errorCode);
         Object responseObject = serverResponse.getResponseObject();
 
+
         switch (eventType) {
+
 
             case EventTypes.EVENT_TEACHER_UPDATE_PROFILE:
                 if (errorCode == WebserviceConstants.SUCCESS) {
@@ -70,6 +71,7 @@ public class UpdateProfileFeatureController implements IEventListener {
 
                     EventNotifier eventNotifierUI =
                             NotifierFactory.getInstance().getNotifier(
+
                                     NotifierFactory.EVENT_NOTIFIER_TEACHER);
                     eventNotifierUI.eventNotifyOnThread(EventTypes.EVENT_TEACHER_UI_UPDATE_PROFILE,
                             serverResponse);

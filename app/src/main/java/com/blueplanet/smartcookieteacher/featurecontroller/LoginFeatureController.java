@@ -235,8 +235,9 @@ public class LoginFeatureController implements IEventListener {
         // RewardPointLogFeatureController.getInstance().deleteRewardFromDB(null);
         BluePointFeatureController.getInstance().deleteBluePointLogFromDB(null);
         ActivityListFeatureController.getInstance().deleteActivityFromDB(null);
-        //GenerateCouLogFeatureController.getInstance().deleteGenerateCoupLogFromDB();
+        GenerateCouLogFeatureController.getInstance()._clearGenerateLogList();
         // BuyCouLogFeatureController.getInstance().deleteBuyLogFromDB(null);
+        GenerateCouponFeatureController.getInstance().clearGenerateCop();
 
     }
 

@@ -42,7 +42,7 @@ public class StudentListAdapter extends BaseAdapter implements TextWatcher {
     private StudentListFragmentController _StudentListFragmentController;
     private ArrayList<Student> _filteredStudentList, _allStudList;
     private final String _TAG = this.getClass().getSimpleName();
-    private CustomTextView _txtName, _txtPrn, txtimage;
+    private CustomTextView _txtName, _txtPrn, txtimage,_txtclass,_txtdepart;
     private ImageView _ivStudentPhoto;
     private CustomEditText txtSearch;
     private boolean _isFiltered = false;
@@ -116,6 +116,8 @@ public class StudentListAdapter extends BaseAdapter implements TextWatcher {
                 _txtPrn = (CustomTextView) convertView
                         .findViewById(R.id.txt_prn);
                 _txtPrn.setText(_filteredStudentList.get(position).get_stdPRN());
+
+
 
                /* _checkBox = (CheckBox) convertView.findViewById(R.id.checkBox);
 

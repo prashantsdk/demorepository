@@ -3,6 +3,8 @@ package com.blueplanet.smartcookieteacher;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -18,11 +20,17 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -31,6 +39,7 @@ import com.blueplanet.smartcookieteacher.customcomponents.CustomButton;
 import com.blueplanet.smartcookieteacher.customcomponents.CustomEditText;
 import com.blueplanet.smartcookieteacher.featurecontroller.LoginFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.UpdateProfileFeatureController;
+import com.blueplanet.smartcookieteacher.models.Student;
 import com.blueplanet.smartcookieteacher.models.Teacher;
 import com.blueplanet.smartcookieteacher.network.NetworkManager;
 import com.blueplanet.smartcookieteacher.notification.EventNotifier;
@@ -47,6 +56,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Calendar;
 
 
 /**
@@ -73,6 +83,17 @@ public class UpdateProfileActivity extends AppCompatActivity implements IEventLi
     Teacher teacher = null;
     private Teacher _teacher;
     String _schoolId;
+    private Spinner spinner, spinnerPhone;
+    String[] numberOptn = {"+91", "+1"};
+
+    private TextView pDisplayDate;
+    private Button pPickDate;
+    private int pYear;
+    private int pMonth;
+    private int pDay;
+    /** This integer will uniquely define the dialog to be used for displaying date picker.*/
+    static final int DATE_DIALOG_ID = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +104,8 @@ public class UpdateProfileActivity extends AppCompatActivity implements IEventLi
         displayBasicInfo();
         _editableFieldsFalse();
         handleButtonClick();
+
+
 
       /*  String user = LoginFeatureController.getInstance().get_emailID();
         String method = LoginFeatureController.getInstance().getMethod();
@@ -107,6 +130,25 @@ public class UpdateProfileActivity extends AppCompatActivity implements IEventLi
         eventNotifier.registerListener(this, ListenerPriority.PRIORITY_MEDIUM);
         LoginFeatureController.getInstance().teacherLogin(userid, userpass, usertypeteacher, colgcode, method, devicetype, devicedetail,
                 platform, ip, countrycode);*/
+
+       /* pDisplayDate = (TextView) findViewById(R.id.displayDate);
+        pPickDate = (Button) findViewById(R.id.pickDate);
+*/
+        /** Listener for click event of the button */
+        /*pPickDate.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                showDialog(DATE_DIALOG_ID);
+            }
+        });*/
+
+        /** Get the current date */
+        final Calendar cal = Calendar.getInstance();
+        pYear = cal.get(Calendar.YEAR);
+        pMonth = cal.get(Calendar.MONTH);
+        pDay = cal.get(Calendar.DAY_OF_MONTH);
+
+        /** Display the current date in the TextView */
+        updateDisplay();
 
     }
 
@@ -226,7 +268,7 @@ public class UpdateProfileActivity extends AppCompatActivity implements IEventLi
 
     private void _handleUpdateEvents() {
 
-        //  String img = getBase64();// ParentProfileFeatureController.getInstance().getParentImage();
+          String img = getBase64();// ParentProfileFeatureController.getInstance().getParentImage();
         // String name = _firstName.getText().toString();
         String dob = _dob.getText().toString();
         //String age = _age.getText().toString();
@@ -238,12 +280,14 @@ public class UpdateProfileActivity extends AppCompatActivity implements IEventLi
         String add = _add.getText().toString();
         String country = _country.getText().toString();
         //String state = _state.getText().toString();
-        // String phone = _phone.getText().toString();
+         String phone = _phone.getText().toString();
         String pas = _pasword.getText().toString();
         // String tid = _pasword.getText().toString();
         String fname = _firstName.getText().toString();
         String lname = _lastName.getText().toString();
-        String phone = "";
+        //
+        //
+        // String phone = "";
         String state = "";
         _schoolId = _teacher.get_tSchool_id();
 
@@ -255,7 +299,8 @@ public class UpdateProfileActivity extends AppCompatActivity implements IEventLi
         _registerListeners();
         //sayali
         UpdateProfileFeatureController.getInstance().updateProfileInfo(email, fname, lname, dob, add, city, country, gender, pas, phone, state, _schoolId,
-                countrycode, _PhoneCode, Key);
+                countrycode, _PhoneCode, Key,img);
+        Toast.makeText(getApplicationContext(), "successfully updated", Toast.LENGTH_LONG).show();
 
 
     }
@@ -286,13 +331,15 @@ public class UpdateProfileActivity extends AppCompatActivity implements IEventLi
         _city = (CustomEditText) findViewById(R.id.edt_city);
         _country = (CustomEditText) findViewById(R.id.edt_country);
         // _state = (CustomEditText) findViewById(R.id.edt_state);
-        //_phone = (CustomEditText) findViewById(R.id.edt_phone);
+        _phone = (CustomEditText) findViewById(R.id.edt_phone);
         _pasword = (CustomEditText) findViewById(R.id.edt_pasword);
 
         _btnUpdate = (CustomButton) findViewById(R.id.btn_update);
         _btnCancel = (CustomButton) findViewById(R.id.btn_cancel);
         _btnAction = (FloatingActionButton) findViewById(R.id.fab_editable);
         _parentImg = (ImageView) findViewById(R.id.Sponsor_image2);
+        spinner = (Spinner) findViewById(R.id.register_spin);
+
 
         //_confirmPas = (CustomEditText) _view.findViewById(R.id.edt_password);
     }
@@ -310,7 +357,7 @@ public class UpdateProfileActivity extends AppCompatActivity implements IEventLi
         _city.setEnabled(true);
         _country.setEnabled(true);
         //_state.setEnabled(true);
-        // _phone.setEnabled(true);
+         _phone.setEnabled(true);
         _pasword.setEnabled(true);
 
 
@@ -329,9 +376,12 @@ public class UpdateProfileActivity extends AppCompatActivity implements IEventLi
         _city.setEnabled(false);
         _country.setEnabled(false);
         //_state.setEnabled(false);
-        // _phone.setEnabled(false);
+         _phone.setEnabled(false);
         _pasword.setEnabled(false);
         _btnUpdate.setEnabled(false);
+        ArrayAdapter aa = new ArrayAdapter(this, android.R.layout.simple_spinner_item, numberOptn);
+        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(aa);
 
 
     }
@@ -378,6 +428,9 @@ public class UpdateProfileActivity extends AppCompatActivity implements IEventLi
             fo.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+
+
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -460,18 +513,33 @@ public class UpdateProfileActivity extends AppCompatActivity implements IEventLi
         startActivityForResult(Intent.createChooser(intent, "Select File"), SELECT_FILE);
     }
 
+
+
     private void displayBasicInfo() {
         // parentInfo = LoginFeatureController.getInstance().getParent();
 
         teacher = LoginFeatureController.getInstance().getTeacher();
         parentId = teacher.get_tId();
-        String first = teacher.get_tName();
+        _setFirstNameOnUI(teacher);
+        _setLastNameOnUI(teacher);
+        _DobNameOnUI(teacher);
+        _GenderNameOnUI(teacher);
+        _EmailNameOnUI(teacher);
+        _AddrNameOnUI(teacher);
+        _cityNameOnUI(teacher);
+        _countryNameOnUI(teacher);
+        passwNameOnUI(teacher);
+        String phone = String.valueOf(teacher.get_tPhone());
+        _phone.setText(phone);
+
+
+       /* String first = teacher.get_tName();
         String lname = teacher.get_tLastName();
         String dob = teacher.get_tDOB();
         int age = teacher.get_tAge();
         String gender = teacher.get_tGender();
-       /* String qual = teacher.get_tQualification();
-        String occu = teacher.get_tQualification();*/
+       *//* String qual = teacher.get_tQualification();
+        String occu = teacher.get_tQualification();*//*
         String eamil = teacher.get_tEmail();
         String add = teacher.get_tAddress();
         String city = teacher.get_tCity();
@@ -495,14 +563,96 @@ public class UpdateProfileActivity extends AppCompatActivity implements IEventLi
 
         //    _state.setText(state);
 
-        //  _phone.setText(phone);
+          _phone.setText(phone);
 
-        _pasword.setText(pas);
-
+        _pasword.setText(pas);*/
+        String img = teacher.get_tPC();
+        String url1 = WebserviceConstants.IMAGE_BASE_URL + img;
         ImageLoader loader = ImageLoader.getInstance();
         loader.displayImage(url1, _parentImg);
 
 
+    }
+
+    private void _setFirstNameOnUI(Teacher teacher) {
+        String first = teacher.get_tName();
+        if (!(TextUtils.isEmpty(first)) && first.equalsIgnoreCase("null")) {
+            _firstName.setText("");
+        } else {
+            _firstName.setText(first);
+        }
+    }
+
+    private void _setLastNameOnUI(Teacher teacher) {
+        String Lirst = teacher.get_tLastName();
+        if (!(TextUtils.isEmpty(Lirst)) && Lirst.equalsIgnoreCase("null")) {
+            _lastName.setText("");
+        } else {
+            _lastName.setText(Lirst);
+        }
+    }
+
+    private void _DobNameOnUI(Teacher teacher) {
+        String dob = teacher.get_tDOB();
+        if (!(TextUtils.isEmpty(dob)) && dob.equalsIgnoreCase("null")) {
+            _dob.setText("");
+        } else {
+            _dob.setText(dob);
+        }
+    }
+
+    private void _GenderNameOnUI(Teacher teacher) {
+        String gender = teacher.get_tGender();
+        if (!(TextUtils.isEmpty(gender)) && gender.equalsIgnoreCase("null")) {
+            _gender.setText("");
+        } else {
+            _gender.setText(gender);
+        }
+    }
+
+    private void _EmailNameOnUI(Teacher teacher) {
+        String email = teacher.get_tEmail();
+        if (!(TextUtils.isEmpty(email)) && email.equalsIgnoreCase("null")) {
+            _email.setText("");
+        } else {
+            _email.setText(email);
+        }
+    }
+
+    private void _AddrNameOnUI(Teacher teacher) {
+        String addre = teacher.get_tAddress();
+        if (!(TextUtils.isEmpty(addre)) && addre.equalsIgnoreCase("null")) {
+            _add.setText("");
+        } else {
+            _add.setText(addre);
+        }
+    }
+
+    private void _cityNameOnUI(Teacher teacher) {
+        String city7 = teacher.get_tCity();
+        if (!(TextUtils.isEmpty(city7)) && city7.equalsIgnoreCase("null")) {
+            _city.setText("");
+        } else {
+            _city.setText(city7);
+        }
+    }
+
+    private void _countryNameOnUI(Teacher teacher) {
+        String contry = teacher.get_tCountry();
+        if (!(TextUtils.isEmpty(contry)) && contry.equalsIgnoreCase("null")) {
+            _country.setText("");
+        } else {
+            _country.setText(contry);
+        }
+    }
+
+    private void passwNameOnUI(Teacher teacher) {
+        String passw = teacher.get_tPassword();
+        if (!(TextUtils.isEmpty(passw)) && passw.equalsIgnoreCase("null")) {
+            _pasword.setText("");
+        } else {
+            _pasword.setText(passw);
+        }
     }
 
 
@@ -535,6 +685,7 @@ public class UpdateProfileActivity extends AppCompatActivity implements IEventLi
                     String code = LoginFeatureController.getInstance().getColgcode();
                     String colgcode = LoginFeatureController.getInstance().getColgcode();
                     String devicedetail = LoginFeatureController.getInstance().getDevicedetail();
+
                     String devicetype = LoginFeatureController.getInstance().getDevicetype();
                     String ip = LoginFeatureController.getInstance().getIp();
                     String platform = LoginFeatureController.getInstance().getPlatfom();
@@ -545,7 +696,7 @@ public class UpdateProfileActivity extends AppCompatActivity implements IEventLi
 
                     ;
                     EventNotifier eventNotifier =
-                            NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_LOGIN);
+                            NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_TEACHER);
                     eventNotifier.registerListener(this, ListenerPriority.PRIORITY_MEDIUM);
                    /* LoginFeatureController.getInstance().teacherLogin(teacherEmail, teacherpassword, usertype, colgcode, method, devicetype, devicedetail,
                             platform, ip, countrycode,latitude,longitude);*/
@@ -695,5 +846,48 @@ public class UpdateProfileActivity extends AppCompatActivity implements IEventLi
         }
 
     }
+    private DatePickerDialog.OnDateSetListener pDateSetListener =
+            new DatePickerDialog.OnDateSetListener() {
+
+                public void onDateSet(DatePicker view, int year,
+                                      int monthOfYear, int dayOfMonth) {
+                    pYear = year;
+                    pMonth = monthOfYear;
+                    pDay = dayOfMonth;
+                    updateDisplay();
+                    displayToast();
+                }
+            };
+
+    /** Updates the date in the TextView */
+    private void updateDisplay() {
+        _dob.setText(
+                new StringBuilder()
+                        // Month is 0 based so add 1i6
+                        .append(pMonth + 1).append("/")
+                        .append(pDay).append("/")
+                        .append(pYear).append(" "));
+    }
+
+    /** Displays a notification when the date is updated */
+    private void displayToast() {
+        Toast.makeText(this, new StringBuilder().append("Date choosen is ").append(pDisplayDate.getText()),  Toast.LENGTH_SHORT).show();
+
+    }
+
+
+    /** Create a new dialog for date picker */
+    @Override
+    protected Dialog onCreateDialog(int id) {
+        switch (id) {
+            case DATE_DIALOG_ID:
+                return new DatePickerDialog(this,
+                        pDateSetListener,
+                        pYear, pMonth, pDay);
+        }
+        return null;
+    }
 }
+
+
 

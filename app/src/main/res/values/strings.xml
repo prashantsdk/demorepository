@@ -37,7 +37,8 @@
     <string name="coupon_add_confirm">Coupon Buy Successfulyl</string>
     <string name="coupon_confirm">Coupon Buy not Successfulyl</string>
     <string name="map_toast">Under Development</string>
-
+    <string name="invalid_input"> Please Fill All The Fields..!!</string>
+    <string name="no_point_to_asign">You do not have sufficient point to assign...! </string>
 
     <string name="str_no_login_response">Some problem occured during logging in. Please check username and password.</string>
     <string name="add_to_cart">Coupon Added To Cart</string>
@@ -51,6 +52,12 @@
     <string name="Request_Accept">Request Accepted Successfully..!!</string>
     <string name="Request_Decline">Request Decline Successfully..!!</string>
     <string name="Request_send">Request Send Successfully..!!</string>
+    <string name="Request_send_problem">There is some problem to send request..!!</string>
+    <string name="Request_send_already_exists">user already exists..!!</string>
+
+    <string name="Request_send_invalid_input">invalid input Please check it"..!!</string>
+
+
 
     <!--drawer strings-->
     <string name="str_my_points">My Points</string>
@@ -65,7 +72,7 @@
     <string name="drawer_open">Open drawer</string>
 
     <string name="drawer_close">Close drawer</string>
-
+    <string name="FACEBOOK_APP_ID">534128653593939</string>
     <!--fonts-->
     <string name="calibri">calibri.ttf</string>.
     <string name="fontawesome_webfont">fontawesome-webfont.ttf</string>
@@ -88,5 +95,6 @@
     <string name="ForgotPassword">Forgot Password?</string>
     <string name="MemberLogin">Member Login</string>
     <string name="Register">Register</string>
+    <string name="arrawback">&#xf060;</string>
 
 </resources>

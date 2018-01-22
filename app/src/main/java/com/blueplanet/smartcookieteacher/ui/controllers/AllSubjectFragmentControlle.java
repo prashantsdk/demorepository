@@ -62,8 +62,7 @@ public class AllSubjectFragmentControlle implements IEventListener, AdapterView.
          */
 
 
-
-           _subjectList = SubjectAllFeatureController.getInstance().get_subjectList();
+        _subjectList = SubjectAllFeatureController.getInstance().get_subjectList();
         //  _subjectList= SubjectFeatureController.getInstance().getSubjectInfoFromDB();
 
         if ((_isSubjectListPopulated(_subjectList))) {
@@ -78,6 +77,7 @@ public class AllSubjectFragmentControlle implements IEventListener, AdapterView.
             if (_teacher != null) {
                 _teacherId = _teacher.get_tId();
                 _schoolId = _teacher.get_tSchool_id();
+
                 int id = _teacher.getId();
                 _fetchSubjectFromServer(_teacherId, _schoolId);
                 //_fetchLogoutListFromServer(id);
@@ -87,6 +87,7 @@ public class AllSubjectFragmentControlle implements IEventListener, AdapterView.
 
 
     }
+
     private void _fetchLogoutListFromServer(int Id) {
 
 

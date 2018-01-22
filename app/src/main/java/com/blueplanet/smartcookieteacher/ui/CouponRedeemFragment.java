@@ -43,7 +43,6 @@ public class CouponRedeemFragment extends Fragment {
     private ImageView _barcodeImage;
     private final String _TAG = this.getClass().getSimpleName();
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         _view = inflater.inflate(R.layout.coupon_redeem, null);

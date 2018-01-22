@@ -373,7 +373,21 @@
                     android:text="SIGN UP"
                     android:textColor="#ffffff"
                     android:textSize="25sp" />
+                <com.blueplanet.smartcookieteacher.customcomponents.CustomButton
+                    android:id="@+id/btnfacebook"
+                    style="@style/login_button_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_below="@+id/btnRegis"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/login_button_selector"
+                    android:gravity="center"
 
+                    android:text="App Rating"
+                    android:visibility="gone"
+                    android:textColor="#ffffff"
+                    android:textSize="25sp" />
 
             </RelativeLayout>
 

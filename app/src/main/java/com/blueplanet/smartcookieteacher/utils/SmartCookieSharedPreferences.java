@@ -3,6 +3,7 @@ package com.blueplanet.smartcookieteacher.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.blueplanet.smartcookieteacher.GlobalInterface;
 import com.blueplanet.smartcookieteacher.webservices.WebserviceConstants;
 
 /**
@@ -43,9 +44,26 @@ public class SmartCookieSharedPreferences {
 
     private static final String USER_ID = "USER_ID";
 
+    private static SharedPreferences _rememberpref;
 
 
     private static final String PASS_PRN = "PASS_PRN";
+    private static final String KEY_USER_NAME = "USERNAME";
+
+    private static final String KEY_PASSWORD = "PASSWORD";
+    private static final String KEY_COLGCODE = "COLGCODE";
+
+
+
+    private static SharedPreferences _rememberPreference;
+
+    /**
+     * Key for offline login
+     */
+    private static final String IS_REMEMBER = "IS_REMEMBER";
+    private static final String REM_PREFERENCE_NAME = "REMEMBERPREFERENCE";
+
+    private static final String KEY_USER_ID = "KEY_USER_ID";
     /**
      * Initialize public class SmartCookieSharedPreferences {
      * . This is one time initialization. It should be done from the
@@ -60,12 +78,19 @@ public class SmartCookieSharedPreferences {
             _sharedPreferences =
                     context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
         }
+        if (_rememberPreference == null) {
+
+
+            _rememberPreference = context.getSharedPreferences(REM_PREFERENCE_NAME, Context.MODE_APPEND);
+        }
         //clear all from phone storage
-        _sharedPreferences.edit().clear().commit();
+       // _sharedPreferences.edit().clear().commit();
     }
 
     public static boolean getLoginFlag() {
         return getBooleanSharedPreference(IS_LOGIN);
+
+
     }
 
     /**
@@ -109,6 +134,11 @@ public class SmartCookieSharedPreferences {
         return getBooleanSharedPreference(REMEMBER_ME_KEY);
     }
 
+    public static void setFbLogin(boolean value) {
+        SharedPreferences.Editor _editor = _rememberpref.edit();
+        _editor.putBoolean(GlobalInterface.FBLOGIN, value);
+        _editor.commit();
+    }
 
     public static void setRememberMeFlag(boolean rememberMeFlag) {
         setBooleanSharedPreference(REMEMBER_ME_KEY, rememberMeFlag);
@@ -143,7 +173,11 @@ public class SmartCookieSharedPreferences {
         boolean flag = _sharedPreferences.getBoolean(key, EMPTY_BOOLEAN_DEFAULT_VALUE);
         return flag;
     }
-
+    public static void setGplusLogin(boolean value) {
+        SharedPreferences.Editor _editor = _rememberpref.edit();
+        _editor.putBoolean(GlobalInterface.GPLUSLOGIN, value);
+        _editor.commit();
+    }
     public static String getStringSharedPreference(String key) {
         String value = _sharedPreferences.getString(key, EMPTY_STRING_DEFAULT_VALUE);
         return value;
@@ -173,5 +207,41 @@ public class SmartCookieSharedPreferences {
         _editor.putBoolean(WebserviceConstants.IS_GCM_REGISTERED, value);
         _editor.commit();
     }
+    public static void setUserNameInSharedPreference(String username) {
+        SharedPreferences.Editor _editor = _rememberPreference.edit();
+        _editor.putString(KEY_USER_NAME, username);
+        _editor.commit();
+    }
 
+    public static void setPasswordInSharedPreference(String password) {
+        SharedPreferences.Editor _editor = _rememberPreference.edit();
+        _editor.putString(KEY_PASSWORD, password);
+        _editor.commit();
+    }
+    public static String getUserNameFromPreference() {
+        String userName = _rememberPreference.getString(KEY_USER_NAME, EMPTY_STRING_DEFAULT_VALUE);
+        return userName;
+    }
+
+
+    public static String getPasswordFromPreference() {
+        String password = _rememberPreference.getString(KEY_PASSWORD, EMPTY_STRING_DEFAULT_VALUE);
+        return password;
+    }
+    public static void Logout() {
+
+        SharedPreferences.Editor editor = _sharedPreferences.edit();
+        editor.clear();
+        editor.commit();
+    }
+    public static void setUserIDInSharedPreference(String username) {
+        SharedPreferences.Editor _editor = _rememberPreference.edit();
+        _editor.putString(KEY_COLGCODE, username);
+        _editor.commit();
+    }
+
+    public static String UserIDInFromPreference() {
+        String password = _rememberPreference.getString(KEY_COLGCODE, EMPTY_STRING_DEFAULT_VALUE);
+        return password;
+    }
 }

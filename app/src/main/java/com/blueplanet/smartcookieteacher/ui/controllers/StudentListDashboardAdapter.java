@@ -33,7 +33,7 @@ public class StudentListDashboardAdapter extends BaseAdapter {
     private TeacherDashboardFragmentController _tTeacherDashboardFragmentController;
     private ArrayList<Student> _studentList;
     private final String _TAG = this.getClass().getSimpleName();
-    private CustomTextView _txtStudentName, _txtClassName;
+    private CustomTextView _txtStudentName, _txtClassName,_txtSubect;
     private ImageView _txtStudentImage;
     private RelativeLayout _rlDashboard;
 
@@ -84,6 +84,7 @@ public class StudentListDashboardAdapter extends BaseAdapter {
                 _txtStudentName.setText(_studentList.get(position).get_stdName());
 
                 _txtClassName = (CustomTextView) convertView.findViewById(R.id.txt_className);
+                _txtSubect=(CustomTextView) convertView.findViewById(R.id.txt_subject_name);
                 //_txtClassName.setText(_studentList.get(position).get_stdClass());
 
 
@@ -95,14 +96,19 @@ public class StudentListDashboardAdapter extends BaseAdapter {
                 }
 
 
+                String subjectName = _studentList.get(position).get_stdsubname();
+                if (!(TextUtils.isEmpty(subjectName)) && subjectName.equalsIgnoreCase("null")) {
+                    _txtSubect.setText("N/A");
+                } else {
+                    _txtSubect.setText(subjectName);
+                }
+
                 String imageurl = _studentList.get(position).get_stdImageUrl();
                 if (imageurl != null && imageurl.length() > 0) {
                     final String imageName = WebserviceConstants.IMAGE_BASE_URL
                            + imageurl;
 
                     //final String imageName = imageurl;
-
-
                     Log.i(_TAG, imageName);
 
                     SmartCookieImageLoader.getInstance().setImageLoaderData(imageName, _txtStudentImage,

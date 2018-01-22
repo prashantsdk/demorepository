@@ -51,11 +51,9 @@ public class MyGcmListenerService extends GcmListenerService {
     public void onMessageReceived(String from, Bundle data) {
         String[] msg;
         String msgType="",Notification="";
-
         String message = data.getString("msg");//msg
         Log.d(TAG, "From: " + from);
         Log.d(TAG, "Message: " + message);
-
         msg=message.split("\\|");
         msgType=msg[0].trim();
         Notification=msg[1].trim();

@@ -9,6 +9,7 @@ import com.blueplanet.smartcookieteacher.communication.ErrorInfo;
 import com.blueplanet.smartcookieteacher.communication.HTTPConstants;
 import com.blueplanet.smartcookieteacher.communication.ServerResponse;
 import com.blueplanet.smartcookieteacher.models.BuyCoupon;
+import com.blueplanet.smartcookieteacher.models.GenerateCoupon;
 import com.blueplanet.smartcookieteacher.models.GenerateCouponLog;
 import com.blueplanet.smartcookieteacher.models.RewardPointLog;
 import com.blueplanet.smartcookieteacher.notification.EventNotifier;
@@ -33,9 +34,18 @@ public class GenerateCouLogFeatureController implements IEventListener {
     private BuyCoupon _selectedCoup = null;
 
 
+
     private ArrayList<GenerateCouponLog> _genCouLog = new ArrayList<>();
     private GenerateCouponLog _coupLog;
     private final String _TAG = this.getClass().getSimpleName();
+
+    public GenerateCouponLog get_coupLog() {
+        return _coupLog;
+    }
+
+    public void set_coupLog(GenerateCouponLog _coupLog) {
+        this._coupLog = _coupLog;
+    }
 
     /**
      * function to get single instance of this class
@@ -99,13 +109,16 @@ public class GenerateCouLogFeatureController implements IEventListener {
         return _genCouLog;
     }
 
-    private void _clearGenerateLogList() {
+    public void _clearGenerateLogList() {
         if (_genCouLog != null && _genCouLog.size() > 0) {
-            _genCouLog.clear();
+            deleteGenerateCoupLogFromDB(null);
+            _genCouLog=null;
+            //_genCouLog.clear();
         }
     }
 
-    public void deleteGenerateCoupLogFromDB(){
+
+    public void deleteGenerateCoupLogFromDB(String userName){
 
         IPersistence persistObj = PersistenceFactory.get(SmartTeacherDatabaseMasterTable.Tables.GENERATECOUPLOG);
         persistObj.delete(null);

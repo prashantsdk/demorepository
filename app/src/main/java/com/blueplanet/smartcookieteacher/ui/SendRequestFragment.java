@@ -123,6 +123,7 @@ public class SendRequestFragment extends Fragment implements AdapterView.OnItemS
 
 
 
+
     }
 
     public void setVisibilityOfListView(final boolean visibility) {

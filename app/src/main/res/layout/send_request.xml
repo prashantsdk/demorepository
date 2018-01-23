@@ -64,26 +64,26 @@
                         android:id="@+id/tableLayout1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_margin="5dp"
                         android:layout_centerVertical="true"
-                        android:layout_marginTop="35dp">
+                        android:layout_margin="5dp"
+                        android:layout_marginTop="35dp"
+                        android:orientation="vertical">
 
                         <LinearLayout
                             android:id="@+id/tableRow4"
-                            android:weightSum="2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="10dp">
+                            android:layout_marginBottom="10dp"
+                            android:weightSum="2">
 
                             <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
                                 android:id="@+id/first"
                                 style="@style/Login_title"
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
+                                android:layout_height="wrap_content"
                                 android:layout_weight="1.3"
                                 android:text="First Name     : "
-                                android:textSize="18sp" />
+                                android:textSize="15sp" />
 
                             <com.blueplanet.smartcookieteacher.customcomponents.CustomEditText
                                 android:id="@+id/edt_first_name"
@@ -91,28 +91,30 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="0.7"
-                                android:background="@null"
                                 android:hint="Enter the first name"
                                 android:inputType="text"
                                 android:maxLength="35"
                                 android:singleLine="true"
-                                android:textSize="18sp" />
+                                android:imeOptions="actionNext"
+                                android:nextFocusForward="@+id/edt_middle_name"
+
+                                android:textSize="15sp" />
                         </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="10dp"
-                            android:weightSum="2"
-                            android:visibility="visible">
+                            android:visibility="visible"
+                            android:weightSum="2">
 
                             <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
                                 style="@style/Login_title"
-                                android:layout_weight="1.3"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_weight="1.3"
                                 android:text="Middle Name : "
-                                android:textSize="18sp" />
+                                android:textSize="15sp" />
 
                             <com.blueplanet.smartcookieteacher.customcomponents.CustomEditText
                                 android:id="@+id/edt_middle_name"
@@ -120,27 +122,30 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="0.7"
-                                android:background="@null"
-                                android:maxLength="35"
                                 android:digits="asdfghjklpoiuytrewqzxcvbnmABCDEFGHIGKLMNOPQRSTUVWXYZ"
                                 android:hint="Enter the middle name"
-                                android:textSize="18sp" />
+                                android:inputType="text"
+                                android:maxLength="35"
+                                android:singleLine="true"
+                                android:imeOptions="actionNext"
+                                android:nextFocusForward="@+id/edt_last"
+
+                                android:textSize="15sp" />
                         </LinearLayout>
 
                         <LinearLayout
-                            android:weightSum="2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="10dp">
+                            android:layout_marginBottom="10dp"
+                            android:weightSum="2">
 
                             <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
                                 style="@style/Login_title"
-                                android:layout_weight="1.3"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginRight="10dp"
+                                android:layout_weight="1.3"
                                 android:text="Last Name     : "
-                                android:textSize="18sp" />
+                                android:textSize="15sp" />
 
                             <com.blueplanet.smartcookieteacher.customcomponents.CustomEditText
                                 android:id="@+id/edt_last"
@@ -148,12 +153,15 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="0.7"
-                                android:background="@null"
-                                android:maxLength="35"
                                 android:digits="asdfghjklpoiuytrewqzxcvbnmABCDEFGHIGKLMNOPQRSTUVWXYZ"
-
                                 android:hint="Enter the last name"
-                                android:textSize="18sp" />
+                                android:inputType="text"
+                                android:maxLength="35"
+                                android:singleLine="true"
+                                android:imeOptions="actionNext"
+                                android:nextFocusForward="@+id/edt_email"
+
+                                android:textSize="15sp" />
 
                             <!--   <com.blueplanet.smartcookieteacher.customcomponents.CustomEditText
                                    android:id="@+id/edt_last"
@@ -169,20 +177,19 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:weightSum="2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="10dp"
-                            android:visibility="gone">
+                            android:visibility="gone"
+                            android:weightSum="2">
 
                             <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
                                 style="@style/Login_title"
-                                android:layout_weight="1.3"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginRight="10dp"
+                                android:layout_weight="1.3"
                                 android:text="Age : "
-                                android:textSize="18sp" />
+                                android:textSize="15sp" />
 
                             <com.blueplanet.smartcookieteacher.customcomponents.CustomEditText
                                 android:id="@+id/edt_age"
@@ -194,23 +201,22 @@
                                 android:digits="0123456789"
                                 android:inputType="number"
                                 android:text=""
-                                android:textSize="18sp" />
+                                android:textSize="15sp" />
                         </LinearLayout>
 
                         <LinearLayout
-                            android:weightSum="2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="10dp">
+                            android:layout_marginBottom="10dp"
+                            android:weightSum="2">
 
                             <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
                                 style="@style/Login_title"
-                                android:layout_weight="1.3"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginRight="10dp"
+                                android:layout_weight="1.3"
                                 android:text="Email               : "
-                                android:textSize="18sp" />
+                                android:textSize="15sp" />
 
                             <com.blueplanet.smartcookieteacher.customcomponents.CustomEditText
                                 android:id="@+id/edt_email"
@@ -218,57 +224,58 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="0.7"
-                                android:background="@null"
-                                android:hint=""
+                                android:singleLine="true"
+                                android:maxLength="254"
+                                android:hint="Enter the email id"
                                 android:inputType="textEmailAddress"
                                 android:text=""
-                                android:textSize="18sp" />
+                                android:textSize="15sp" />
 
 
                         </LinearLayout>
 
                         <LinearLayout
-                            android:weightSum="2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="10dp">
+                            android:layout_marginBottom="10dp"
+                            android:weightSum="2">
 
                             <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
                                 style="@style/Login_title"
-                                android:layout_weight="1.3"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginRight="10dp"
-                                android:text="Select Entity   : "
-                                android:textSize="18sp" />
+                                android:layout_weight="1.3"
+                                android:gravity="center_vertical"
+                                android:text="Select Entity   :"
+                                android:textSize="15sp" />
 
                             <RelativeLayout
                                 android:id="@+id/gsr"
-                                android:layout_weight="1.2"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_below="@+id/tv_login"
+                                android:layout_weight="1.2"
                                 android:background="@drawable/oval_white_background_transparant">
 
                                 <Spinner
-
                                     android:id="@+id/spinner"
-                                    android:layout_width="150dp"
-                                    android:layout_height="45sp"
+                                    android:layout_width="140dp"
+                                    android:layout_height="40dp"
                                     android:layout_gravity="center_horizontal"
                                     android:entries="@array/login_type"
                                     android:visibility="visible" />
+
                             </RelativeLayout>
 
 
                         </LinearLayout>
 
                         <LinearLayout
-                            android:weightSum="2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="10dp"
-                            android:visibility="gone">
+                            android:visibility="gone"
+                            android:weightSum="2">
 
                             <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
                                 style="@style/Login_title"
@@ -284,17 +291,16 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="2"
                                 android:background="@null"
-
                                 android:text=""
                                 android:textSize="18sp" />
                         </LinearLayout>
 
                         <LinearLayout
-                            android:weightSum="2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="10dp"
-                            android:visibility="gone">
+                            android:visibility="gone"
+                            android:weightSum="2">
 
                             <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
                                 style="@style/Login_title"
@@ -310,7 +316,6 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="2"
                                 android:background="@null"
-
                                 android:text=""
                                 android:textSize="18sp" />
                         </LinearLayout>
@@ -319,38 +324,34 @@
                         <LinearLayout
                             android:id="@+id/ll_phone"
                             android:layout_width="match_parent"
-                            android:layout_height="60dp"
+                            android:layout_height="wrap_content"
                             android:layout_below="@+id/gsr"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginRight="20dp"
                             android:layout_marginTop="10dp"
-
                             android:orientation="horizontal"
-                            android:visibility="visible">
+                            android:visibility="visible"
+                            android:weightSum="2">
 
                             <Spinner
                                 android:id="@+id/spinnerPhone"
-                                android:layout_width="70dp"
-                                android:layout_height="50dp"
-                                android:layout_gravity="center_horizontal"
-                                android:layout_marginLeft="8dp"
-                                android:layout_marginTop="11dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1.5"
                                 android:background="@drawable/oval_white"
+                                android:gravity="center_horizontal"
                                 android:visibility="visible" />
 
                             <com.blueplanet.smartcookieteacher.customcomponents.CustomEditText
                                 android:id="@+id/edt_phone"
                                 style="@style/et_username_style"
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_gravity="center_vertical"
-                                android:background="@null"
-                                android:drawablePadding="15sp"
-                                android:hint="Phone"
-                                android:inputType="phone"
-                                android:paddingLeft="20dp"
-                                android:paddingRight="10dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="40dp"
+                                android:layout_weight="0.5"
+                                android:hint="Phone No."
+                                android:inputType="number"
+                                android:maxLength="10"
                                 android:singleLine="true"
+
                                 android:textColor="#393939"
                                 android:textColorHint="#393939"
                                 android:textSize="15sp" />

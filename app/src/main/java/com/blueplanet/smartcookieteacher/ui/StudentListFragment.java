@@ -52,7 +52,7 @@ public class StudentListFragment extends Fragment {
     private View _view;
     private TextView _txt_teacherName;
 
-    private CustomTextView _txtwebsearch;
+    private TextView _txtwebsearch;
     private Teacher _teacher;
 
     @Override
@@ -80,7 +80,7 @@ public class StudentListFragment extends Fragment {
 
         _edtCount = (CustomTextView) _view.findViewById(R.id.count);
       //  _txt_teacherName =(TextView) _view.findViewById(R.id.teacherName);
-        _txtwebsearch =(CustomTextView) _view.findViewById(R.id.websearch);
+        _txtwebsearch =(TextView) _view.findViewById(R.id.websearch);
 
     }
 

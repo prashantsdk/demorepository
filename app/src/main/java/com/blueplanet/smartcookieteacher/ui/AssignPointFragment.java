@@ -3,7 +3,6 @@ package com.blueplanet.smartcookieteacher.ui;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -28,16 +27,12 @@ import com.blueplanet.smartcookieteacher.customcomponents.CustomButton;
 import com.blueplanet.smartcookieteacher.customcomponents.CustomTextView;
 import com.blueplanet.smartcookieteacher.featurecontroller.AssignPointFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.LoginFeatureController;
-import com.blueplanet.smartcookieteacher.featurecontroller.SearchStudentFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.StudentFeatureController;
-import com.blueplanet.smartcookieteacher.models.SearchStudent;
 import com.blueplanet.smartcookieteacher.models.Student;
 import com.blueplanet.smartcookieteacher.models.Teacher;
 import com.blueplanet.smartcookieteacher.ui.controllers.AssignPointFragmentController;
 import com.blueplanet.smartcookieteacher.ui.controllers.AssignPointListAdapter;
 import com.blueplanet.smartcookieteacher.ui.controllers.StudentListGalleryAdapter;
-import com.blueplanet.smartcookieteacher.utils.IImageLoader;
-import com.blueplanet.smartcookieteacher.utils.SmartCookieImageLoader;
 
 
 import java.util.ArrayList;
@@ -69,7 +64,7 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
     private String selState, str;
     private final String _TAG = this.getClass().getSimpleName();
     private EditText _txt_gradePoint,_txtMark,_comment;
-    private SearchStudent _sestu;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -96,8 +91,6 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
         _galleryAdapter = new StudentListGalleryAdapter(this, _assignPointFragmentController, _view);
 
         _registerUIListeners();
-       // _setStudentDetailsOnUI();
-
         _setSeletedStudentOnGallery();
         _setTeacherNameOnUI();
         return _view;
@@ -159,13 +152,13 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
     }
 
     private void _setSeletedStudentOnGallery() {
-        final SearchStudent student = SearchStudentFeatureController.getInstance().get_selectedSearchStudent();
-        ArrayList<SearchStudent> studentList = SearchStudentFeatureController.getInstance().getSearchedTeacher();
+        final Student student = StudentFeatureController.getInstance().getSelectedStudent();
+        ArrayList<Student> studentList = StudentFeatureController.getInstance().getStudentList();
 
         if (studentList != null && studentList.size() > 0 && student != null) {
-            for (SearchStudent s : studentList) {
-                String prn1 = student.get_searchPrn().toString();
-                String prn2 = s.get_searchPrn().toString();
+            for (Student s : studentList) {
+                String prn1 = student.get_stdPRN().toString();
+                String prn2 = s.get_stdPRN().toString();
                 if (prn1.equalsIgnoreCase(prn2)) {
                     _gallery.setSelection(studentList.indexOf(s));
                 }
@@ -174,41 +167,12 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
         }
 
     }
-    private void _setStudentDetailsOnUI() {
-
-        _sestu = SearchStudentFeatureController.getInstance().get_selectedSearchStudent();
-
-        if (_sestu != null) {
-            getActivity().runOnUiThread(new Runnable() {
-
-                @Override
-                public void run() {
-
-                    _setStudNameUI(_sestu);
-
-
-
-                }
-            });
-
-        }
-
-    }
 
     /**
      * function to set student name on UI
      *
-     *
+     * @param name
      */
-    public void _setStudNameUI(SearchStudent student) {
-        String name = student.get_studentname();
-        if (!(TextUtils.isEmpty(name)) && name.equalsIgnoreCase("null")) {
-            _txtstuName.setText("N/A");
-        } else {
-            _txtstuName.setText(name);
-
-        }
-    }
     public void setStudentNameOnUI(final String name) {
         getActivity().runOnUiThread(new Runnable() {
             @Override
@@ -219,22 +183,7 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
         });
 
     }
-    public void setserStudentNameOnUI(final SearchStudent student) {
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                String name = student.get_studentname();
-                if (!(TextUtils.isEmpty(name)) && name.equalsIgnoreCase("null")) {
-                    _txtstuName.setText("N/A");
-                } else {
-                    _txtstuName.setText(name);
 
-                }
-
-            }
-        });
-
-    }
 
     private void _setTeacherNameOnUI() {
 
@@ -363,20 +312,6 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
                 if (flag == false) {
                     Toast.makeText(getActivity().getApplicationContext(),
                             getActivity().getString(R.string.no_activites_available),
-                            Toast.LENGTH_LONG).show();
-                }
-            }
-        });
-
-
-    }
-    public void showNoAssignPontListMessage(final boolean flag) {
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                if (flag == false) {
-                    Toast.makeText(getActivity().getApplicationContext(),
-                            getActivity().getString(R.string.no_point_to_asign),
                             Toast.LENGTH_LONG).show();
                 }
             }

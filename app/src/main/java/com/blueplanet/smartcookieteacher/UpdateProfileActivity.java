@@ -148,7 +148,7 @@ public class UpdateProfileActivity extends AppCompatActivity implements IEventLi
         pDay = cal.get(Calendar.DAY_OF_MONTH);
 
         /** Display the current date in the TextView */
-        updateDisplay();
+      //  updateDisplay();
 
     }
 
@@ -523,6 +523,7 @@ public class UpdateProfileActivity extends AppCompatActivity implements IEventLi
         _setFirstNameOnUI(teacher);
         _setLastNameOnUI(teacher);
         _DobNameOnUI(teacher);
+        //_dob.setText(teacher.get_tDOB());
         _GenderNameOnUI(teacher);
         _EmailNameOnUI(teacher);
         _AddrNameOnUI(teacher);
@@ -854,13 +855,13 @@ public class UpdateProfileActivity extends AppCompatActivity implements IEventLi
                     pYear = year;
                     pMonth = monthOfYear;
                     pDay = dayOfMonth;
-                    updateDisplay();
+                   // updateDisplay();
                     displayToast();
                 }
             };
 
     /** Updates the date in the TextView */
-    private void updateDisplay() {
+  /*  private void updateDisplay() {
         _dob.setText(
                 new StringBuilder()
                         // Month is 0 based so add 1i6
@@ -868,7 +869,7 @@ public class UpdateProfileActivity extends AppCompatActivity implements IEventLi
                         .append(pDay).append("/")
                         .append(pYear).append(" "));
     }
-
+*/
     /** Displays a notification when the date is updated */
     private void displayToast() {
         Toast.makeText(this, new StringBuilder().append("Date choosen is ").append(pDisplayDate.getText()),  Toast.LENGTH_SHORT).show();

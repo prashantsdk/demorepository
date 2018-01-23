@@ -340,7 +340,7 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
             ll_userphone.setVisibility(View.INVISIBLE);
             ll_phone.setVisibility(View.VISIBLE);
             ll_prn.setVisibility(View.INVISIBLE);
-            ll_ID.setVisibility(View.GONE);
+            ll_ID.setVisibility(View.VISIBLE);
             _l1memberID.setVisibility(View.INVISIBLE);
             ll_phone.requestFocus();
 

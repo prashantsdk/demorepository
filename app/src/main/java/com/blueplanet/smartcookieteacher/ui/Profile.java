@@ -41,7 +41,7 @@ public class Profile extends FragmentActivity {
     private String country;
     private String emailId;
     private String password;
-    private int phoneno;
+    private String phoneno;
     private String imagepath;
     //private CircleImageView _image;
     private ProgressBar progressbar;
@@ -109,7 +109,8 @@ public class Profile extends FragmentActivity {
             country = _teacher.get_tCountry();
             emailId = _teacher.get_tEmail();
             phoneno = _teacher.get_tPhone();
-            final String number = ((Integer.toString(phoneno)));
+           // final String number = ((Integer.toString(phoneno)));
+            String number = phoneno;
             imagepath = _teacher.get_tPC();
 
             runOnUiThread(new Runnable() {
@@ -126,7 +127,7 @@ public class Profile extends FragmentActivity {
                     _email.setText(emailId);
                     compony_name.setText(spnsorname);
                     sp_address.setText(address);
-                    _mobile.setText(number);
+                    _mobile.setText(phoneno);
 
 
                    /* if (imagepath != null && imagepath.length() > 0) {

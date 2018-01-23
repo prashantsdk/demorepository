@@ -176,7 +176,7 @@ public class TeacherLoginTabel extends TableOperations implements IPersistence {
                   teacher =
                             new Teacher(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5), cursor.getString(6),
                                     cursor.getString(7), cursor.getInt(8), cursor.getString(9), cursor.getString(10), cursor.getString(11), cursor.getString(12), cursor.getString(13), cursor.getString(14), cursor.getString(15), cursor.getString(16), cursor.getInt(17), cursor.getString(18),
-                                    cursor.getString(19), cursor.getString(20), cursor.getString(21), cursor.getString(22), cursor.getString(23), cursor.getString(24), cursor.getInt(25), cursor.getInt(26), cursor.getInt(27), cursor.getInt(28), cursor.getInt(29), cursor.getString(30),cursor.getInt(31),
+                                    cursor.getString(19), cursor.getString(20), cursor.getString(21), cursor.getString(22), cursor.getString(23), cursor.getString(24), cursor.getString(25), cursor.getInt(26), cursor.getInt(27), cursor.getInt(28), cursor.getInt(29), cursor.getString(30),cursor.getInt(31),
                                     cursor.getInt(32),cursor.getString(33),cursor.getString(34),cursor.getString(35),cursor.getString(36),cursor.getString(37),cursor.getString(38),cursor.getInt(39),cursor.getString(40),cursor.getString(41),cursor.getString(42),cursor.getString(43));
 
                 } while ( cursor.moveToNext () );

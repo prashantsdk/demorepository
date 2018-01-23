@@ -298,7 +298,7 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
                         String mobileno = etUserMobile.getText().toString();
                         String password = etPassword.getText().toString();
                         String code = "91";
-
+                        String collgcode = etprn.getText().toString();
 
                         //String selStatephone = (String) spinner.getSelectedItem();
                         // LoginFeatureController.getInstance().set_userName(username);
@@ -316,7 +316,7 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
                         if (!TextUtils.isEmpty(mobileno) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(usertype) || !TextUtils.isEmpty(colgCode) && mobileno.equalsIgnoreCase("0")) {
                             //  SmartCookieSharedPreferences.setLoginFlag(true);
 
-                            _teacherLogin(mobileno, password, usertype, colgCode, method, devicetype, device_details, platform_OS, ip_address, code, latitude, longitude);
+                            _teacherLogin(mobileno, password, usertype, collgcode, method, devicetype, device_details, platform_OS, ip_address, code, latitude, longitude);
 
                         } else if (TextUtils.isEmpty(mobileno) && TextUtils.isEmpty(password)) {
                             Toast.makeText(MainApplication.getContext(),

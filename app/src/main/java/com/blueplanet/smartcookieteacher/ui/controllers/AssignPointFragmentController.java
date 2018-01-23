@@ -22,10 +22,8 @@ import com.blueplanet.smartcookieteacher.customcomponents.CustomTextView;
 import com.blueplanet.smartcookieteacher.featurecontroller.ActivityListFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.AssignPointFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.LoginFeatureController;
-import com.blueplanet.smartcookieteacher.featurecontroller.SearchStudentFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.StudentFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.subFeaturecontroller;
-import com.blueplanet.smartcookieteacher.models.SearchStudent;
 import com.blueplanet.smartcookieteacher.models.Student;
 import com.blueplanet.smartcookieteacher.models.SubNameCode;
 import com.blueplanet.smartcookieteacher.models.Teacher;
@@ -58,7 +56,6 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
     private ArrayList<Student> _stusubList;
     private String _teacherId, _schoolId;
     private ArrayList<Student> _studentList = null;
-    private ArrayList<SearchStudent> _studentSearchList = null;
     private GridView _lvActivities = null;
     //private AssignPointListAdapter _adapter = null;
     private AssignPointListAdapter1 _adapter = null;
@@ -71,7 +68,6 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
     private final String _TAG = this.getClass().getSimpleName();
     private String selectedActivityId;
     private String selectedSubjectId;
-    private CustomTextView _txtstuName;
     private String _activityType = null;
     private ArrayList<String> a = new ArrayList<String>();
     private ArrayList<Student> subName;
@@ -88,7 +84,7 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
 
     private EditText _txt_gradePoint, txt_point2, txtMark, _comment;
     private CustomTextView  txtbackbutton;
-    private SearchStudent _student;
+
 
     public AssignPointFragmentController(AssignPointFragment assignPointFragment, View view) {
 
@@ -102,11 +98,10 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
         txt_mark = (EditText) _view.findViewById(R.id.txt_point1);
         _comment = (EditText) _view.findViewById(R.id.txt_comment);
         _txt_gradePoint = (EditText) _view.findViewById(R.id.txt_gradePoint);
-        _txtstuName = (CustomTextView) _view.findViewById(R.id.txtStudname_AssignPoints);
 
         txtMark = (EditText) _view.findViewById(R.id.txt_markPoint);
         txt_point2 = (EditText) _view.findViewById(R.id.txt_point2);
-        _studentSearchList = SearchStudentFeatureController.getInstance().getSearchedTeacher();
+        _studentList = StudentFeatureController.getInstance().getStudentList();
         txtbackbutton = (CustomTextView) _view.findViewById(R.id.txtbackbutton);
 
         _teacher = LoginFeatureController.getInstance().getTeacher();
@@ -171,7 +166,7 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
 
 
                         // _assignPointFragment.showOrHideRl4Option(false);
-                     //   imgCircle.setVisibility(View.VISIBLE);
+                        //   imgCircle.setVisibility(View.VISIBLE);
                         _rl4Option.setVisibility(View.GONE);
 
                         // _activityList = ActivityListFeatureController.
@@ -195,9 +190,9 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
                     @Override
                     public void run() {
                         txtbackbutton.setVisibility((View.VISIBLE));
-                       //12/2017// imgCircle.setImageResource(R.drawable.sportassign);
+                        //12/2017// imgCircle.setImageResource(R.drawable.sportassign);
                         // _assignPointFragment.showOrHideRl4Option(false);
-                       //12/2017// imgCircle.setVisibility(View.VISIBLE);
+                        //12/2017// imgCircle.setVisibility(View.VISIBLE);
                         _rl4Option.setVisibility(View.GONE);
 
                         // _activityList = ActivityListFeatureController.
@@ -223,9 +218,9 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
                     @Override
                     public void run() {
                         txtbackbutton.setVisibility((View.VISIBLE));
-                       //12/2017// imgCircle.setImageResource(R.drawable.artassign);
+                        //12/2017// imgCircle.setImageResource(R.drawable.artassign);
                         // _assignPointFragment.showOrHideRl4Option(false);
-                       // imgCircle.setVisibility(View.VISIBLE);
+                        // imgCircle.setVisibility(View.VISIBLE);
                         _rl4Option.setVisibility(View.GONE);
 
 
@@ -264,11 +259,11 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
                     @Override
                     public void run() {
                         txtbackbutton.setVisibility((View.VISIBLE));
-                       // imgCircle.setImageResource(R.drawable.studyassign);
+                        // imgCircle.setImageResource(R.drawable.studyassign);
 
 
                         // _assignPointFragment.showOrHideRl4Option(false);
-                       // imgCircle.setVisibility(View.VISIBLE);
+                        // imgCircle.setVisibility(View.VISIBLE);
                         _rl4Option.setVisibility(View.GONE);
                        /*_subList = SubjectFeatureController.getInstance().get_subjectList();
                         _subAdapter = new AssignPointSubjectAdapter(_assignPointFragment,
@@ -339,7 +334,7 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
 
               }*/
 
-                SearchStudent student = SearchStudentFeatureController.getInstance().get_selectedSearchStudent();
+                Student student = AssignPointFeatureController.getInstance().get_selectedStudent();
                 selectedActivityId = ActivityListFeatureController.getInstance().getSeletedActivityId();
                 ////selectedSubjectId = SubjectFeatureController.getInstance().get_seletedSubjectId();
                 selectedSubjectId = AssignPointFeatureController.getInstance().get_seletedSubjectId();
@@ -353,7 +348,7 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
                             ) {
                         if (selectedSubjectId != null) {
 
-                            String prnNO = student.get_searchPrn();
+                            String prnNO = student.get_stdPRN();
                             Log.i(_TAG, "Value of prn is: " + prnNO);
                             String methodID = "1";
                             String activityId = "";
@@ -451,7 +446,7 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
                         if (selectedActivityId != null) {
                             String pointtype = spinnercolr.getSelectedItem().toString();
 
-                            String prnNO = student.get_searchPrn();
+                            String prnNO = student.get_stdPRN();
 
                             Log.i(_TAG, "Value of prn is: " + prnNO);
                             String methodID = "1";
@@ -734,9 +729,9 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
 
                 if (errorCode == WebserviceConstants.SUCCESS) {
 
-                    SearchStudent s = SearchStudentFeatureController.getInstance().get_selectedSearchStudent();
+                    Student s = StudentFeatureController.getInstance().getSelectedStudent();
 
-                    prn = s.get_searchPrn();
+                    prn = s.get_stdPRN();
                     subFeaturecontroller.getInstance().fetchSubjectFromServer(_teacherId, _schoolId, prn);
                 }
                 break;
@@ -775,18 +770,9 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
                 eventNotifier4.unRegisterListener(this);
 
                 if (errorCode == WebserviceConstants.SUCCESS) {
-                     _assignPointFragment.showOrHideProgressBar(false);
+                    _assignPointFragment.showOrHideProgressBar(false);
                     _assignPointFragment.showpoinSubmitSucessfully(true);
                 }
-                break;
-            case EventTypes.EVENT_UI_NO_TEACHER_ASSIGN_POINT_RECEIVED:
-                EventNotifier event4 =
-                        NotifierFactory.getInstance().getNotifier
-                                (NotifierFactory.EVENT_NOTIFIER_TEACHER);
-                event4.unRegisterListener(this);
-                _assignPointFragment.showOrHideProgressBar(false);
-
-                _assignPointFragment.showNoAssignPontListMessage(false);
                 break;
             default:
                 eventState = EventState.EVENT_IGNORED;
@@ -812,24 +798,22 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-        _studentSearchList = SearchStudentFeatureController.getInstance().getSearchedTeacher();
-        SearchStudent seartudent = SearchStudentFeatureController.getInstance().get_selectedSearchStudent();
+        _studentList = StudentFeatureController.getInstance().getStudentList();
 
-        if (seartudent != null && _studentSearchList.size() > 0) {
-            SearchStudent student = _studentSearchList.get(position);
+        if (_studentList != null && _studentList.size() > 0) {
+            Student student = _studentList.get(position);
             if (student != null) {
 
-                String name = student.get_studentname();
-
-                String txtsubName = student.get_searchdepart();
-                String stuPRN = student.get_searchPrn();
-                String subCode = student.get_searchbran();
+                String name = student.get_stdName();
+                String txtsubName = student.get_stdsubname();
+                String stuPRN = student.get_stdPRN();
+                String subCode = student.get_stdsubcode();
                 a.add(txtsubName);
                 a.add(subCode);
 
                 // int foo = Integer.parseInt(txtsubName);
                 _assignPointFragment.setStudentNameOnUI(name);
-                SearchStudentFeatureController.getInstance().set_selectedSearchStudent(student);
+                AssignPointFeatureController.getInstance().set_selectedStudent(student);
                 //    AssignPointFeatureController.getInstance().set_selectedPrn(stuPRN);
 
 
@@ -840,7 +824,6 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
             }
         }
     }
-
 
     public void clearActivityList() {
 

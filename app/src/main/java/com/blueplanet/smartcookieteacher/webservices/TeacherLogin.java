@@ -4,6 +4,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.blueplanet.smartcookieteacher.MainApplication;
+
 import com.blueplanet.smartcookieteacher.R;
 import com.blueplanet.smartcookieteacher.communication.ErrorInfo;
 import com.blueplanet.smartcookieteacher.communication.HTTPConstants;
@@ -149,10 +150,7 @@ public class TeacherLogin extends SmartCookieTeacherService {
 
                     }
                     String tDOB = jsonObject.optString(WebserviceConstants.KEY_TDOB);
-                    if (TextUtils.isEmpty(tDOB)) {
-                        tLName = null;
 
-                    }
 
                     int tAge = jsonObject.optInt(WebserviceConstants.KEY_TAGE);
                     String tGender = jsonObject.optString(WebserviceConstants.KEY_GENDER);
@@ -164,7 +162,7 @@ public class TeacherLogin extends SmartCookieTeacherService {
 
                     String tDate = jsonObject.optString(WebserviceConstants.KEY_DATE);
                     String tKeyPc = jsonObject.optString(WebserviceConstants.KEY_PC);
-                    int tPhone = jsonObject.optInt(WebserviceConstants.KEY_PHONE);
+                    String tPhone = jsonObject.optString(WebserviceConstants.KEY_PHONE);
 
                     int tLandline = jsonObject.optInt(WebserviceConstants.KEY_TLANDLINE);
                     int tBalancePoint = jsonObject.optInt(WebserviceConstants.KEY_BALANCE_POINT);

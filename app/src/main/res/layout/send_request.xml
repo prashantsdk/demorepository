@@ -91,6 +91,8 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="0.7"
+                                android:digits="asdfghjklpoiuytrewqzxcvbnmABCDEFGHIGKLMNOPQRSTUVWXYZ"
+
                                 android:hint="Enter the first name"
                                 android:inputType="text"
                                 android:maxLength="35"

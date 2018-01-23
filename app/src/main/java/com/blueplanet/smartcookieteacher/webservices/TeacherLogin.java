@@ -149,10 +149,7 @@ public class TeacherLogin extends SmartCookieTeacherService {
 
                     }
                     String tDOB = jsonObject.optString(WebserviceConstants.KEY_TDOB);
-                    if (TextUtils.isEmpty(tDOB)) {
-                        tLName = null;
 
-                    }
 
                     int tAge = jsonObject.optInt(WebserviceConstants.KEY_TAGE);
                     String tGender = jsonObject.optString(WebserviceConstants.KEY_GENDER);

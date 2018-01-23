@@ -32,7 +32,7 @@ public class Teacher {
     private String _tPassword = null;
     private String _tDate = null;
     private String _tPC = null;
-    private int _tPhone = -1;
+    private String _tPhone = null;
     private int _tLandline = -1;
     private int _tUsed_point = -1;
     private int _tBalance_point = -1;
@@ -57,7 +57,7 @@ public class Teacher {
                    String tCurrent_School_Name, String tSchool_id, int tSchool_staff_id, String tDepartment,
                    String tExperience, String tSubject, String tClass, String tQualification, String tAddress,
                    String tCity, String tDOB, int tAge, String tGender, String tCountry, String tEmail,
-                   String tInternal_email, String tPassword, String tDate, String tPC, int tPhone,
+                   String tInternal_email, String tPassword, String tDate, String tPC, String tPhone,
                    int tLandline, int tUsed_point, int tBalance_point, int tUsed_blue_pint, String tBatchId, int tState,
                    int tBalance_blue_pint,
                    String terror_records, String sendStatus, String ttemp_address, String tpermanant_village,
@@ -217,7 +217,7 @@ public class Teacher {
         return _tPC;
     }
 
-    public int get_tPhone() {
+    public String get_tPhone() {
         return _tPhone;
     }
 

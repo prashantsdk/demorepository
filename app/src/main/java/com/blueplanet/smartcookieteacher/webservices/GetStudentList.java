@@ -114,6 +114,7 @@ public class GetStudentList extends SmartCookieTeacherService {
                     String sTeacherName = jsonObject.optString(WebserviceConstants.KEY_SCLASSTEACHERNAME);
                     String sImagePath = jsonObject.optString(WebserviceConstants.KEY_SIMGPATH);
                     int totalStudentCount = jsonObject.optInt(WebserviceConstants.KEY_STUDENT_TOTAL_COUNT);
+
                     String ssubcode = jsonObject.optString(WebserviceConstants.KEY_STUDENT_SUBCODE);
                     String subname = jsonObject.optString(WebserviceConstants.KEY_STUDENT_SUBNAME);
 
@@ -121,7 +122,7 @@ public class GetStudentList extends SmartCookieTeacherService {
 
                     student = new Student(sId, sName, sFname, sSchoolName, sClassName, tMName, SGender,
                             Sdob, sAge, Scity, sEmail, sPRN, sSchoolId, sDate, sDiv, sHobbies, sCountry,
-                            sTeacherName, sImagePath, inputId, totalStudentCount,ssubcode,subname);
+                            sTeacherName, sImagePath, inputId, totalStudentCount);
                     studentList.add(student);
 
 

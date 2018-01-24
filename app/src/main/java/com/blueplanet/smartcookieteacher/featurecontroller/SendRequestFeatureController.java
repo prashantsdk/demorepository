@@ -80,6 +80,7 @@ public class SendRequestFeatureController implements IEventListener {
     @Override
     public int eventNotify(int eventType, Object eventObject) {
         int eventState = EventState.EVENT_PROCESSED;
+
         EventNotifier eventNotifier =
                 NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_TEACHER);
         eventNotifier.unRegisterListener(this);
@@ -87,20 +88,22 @@ public class SendRequestFeatureController implements IEventListener {
         ServerResponse serverResponse = (ServerResponse) eventObject;
         int errorCode = serverResponse.getErrorCode();
         Object responseObject = serverResponse.getResponseObject();
+       // int someConstant = WebserviceConstants.SUCCESS;
 
         EventNotifier eventNotifierUI;
+
         switch (eventType) {
 
             case EventTypes.EVENT_SEND_REQUEST:
 
                 if (errorCode == WebserviceConstants.SUCCESS) {
 
-
                     eventNotifierUI =
                             NotifierFactory.getInstance().getNotifier(
                                     NotifierFactory.EVENT_NOTIFIER_TEACHER);
                     eventNotifierUI.eventNotifyOnThread(EventTypes.EVENT_UI_SEND_REQUEST,
                             serverResponse);
+
                 } else {
                     ErrorInfo errorInfo = (ErrorInfo) responseObject;
                     int statusCode = errorInfo.getErrorCode();

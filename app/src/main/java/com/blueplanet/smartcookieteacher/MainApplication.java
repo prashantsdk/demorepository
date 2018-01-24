@@ -16,6 +16,8 @@ import com.blueplanet.smartcookieteacher.network.NetworkManager;
 import com.blueplanet.smartcookieteacher.ui.GPSTracker;
 import com.blueplanet.smartcookieteacher.utils.SmartCookieImageLoader;
 import com.blueplanet.smartcookieteacher.utils.SmartCookieSharedPreferences;
+import com.devs.acr.AutoErrorReporter;
+
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -34,6 +36,12 @@ public class MainApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
+      /*  AutoErrorReporter.get(this)
+                .setEmailAddresses("sayalir@roseland.com")
+                .setEmailSubject("Auto Crash Report")
+                .start();*/
+
         _context = this;
         NetworkManager.setApplicationContext(this);
         SmartCookieImageLoader.getInstance().initImageLoaderConfiguration(this);
@@ -41,11 +49,7 @@ public class MainApplication extends Application {
         dbHelper = new DatabaseHelper(_context);
         SQLDatabaseManager.getInstance().setApplicationContext(_context);
 
-     /*   AutoErrorReporter.get(this)
-                .setEmailAddresses("sayalir@roseland.com")
-                .setEmailSubject("Auto Crash Report")
-                .start();
-*/
+
     }
 
     public static GPSTracker getGps() {

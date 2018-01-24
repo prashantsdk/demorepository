@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <ScrollView
@@ -43,10 +44,11 @@
                     android:layout_marginRight="20dp"
                     android:layout_marginTop="20dp"
                     android:background="@drawable/username_selector"
+                    android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                     android:drawablePadding="15sp"
                     android:gravity="center_vertical"
                     android:hint="First Name"
-                    android:inputType="text"
+                    android:maxLength="35"
                     android:paddingLeft="20dp"
                     android:paddingRight="10dp"
                     android:paddingTop="5dp"
@@ -64,10 +66,11 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:background="@drawable/username_selector"
+                    android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                     android:drawablePadding="15sp"
                     android:gravity="center_vertical"
                     android:hint="Middle Name"
-                    android:inputType="text"
+                    android:maxLength="35"
                     android:paddingLeft="20dp"
                     android:paddingRight="10dp"
                     android:paddingTop="5dp"
@@ -75,6 +78,7 @@
                     android:textColor="#393939"
                     android:textColorHint="#393939"
                     android:textSize="20sp" />
+
                 <com.blueplanet.smartcookieteacher.customcomponents.CustomEditText
                     android:id="@+id/edt_lastName"
                     style="@style/et_username_style"
@@ -84,10 +88,12 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:background="@drawable/username_selector"
+                    android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                     android:drawablePadding="15sp"
                     android:gravity="center_vertical"
                     android:hint="Last Name"
-                    android:inputType="text"
+                    android:maxLength="35"
+
                     android:paddingLeft="20dp"
                     android:paddingRight="10dp"
                     android:paddingTop="5dp"
@@ -95,6 +101,7 @@
                     android:textColor="#393939"
                     android:textColorHint="#393939"
                     android:textSize="20sp" />
+
                 <LinearLayout
                     android:id="@+id/ll_phone"
                     android:layout_width="match_parent"
@@ -126,8 +133,8 @@
                         android:background="@null"
                         android:drawablePadding="15sp"
                         android:hint="Phone"
+                        android:inputType="number"
                         android:maxLength="10"
-                        android:inputType="phone"
                         android:paddingLeft="20dp"
                         android:paddingRight="10dp"
                         android:singleLine="true"
@@ -135,6 +142,7 @@
                         android:textColorHint="#393939"
                         android:textSize="15sp" />
                 </LinearLayout>
+
                 <com.blueplanet.smartcookieteacher.customcomponents.CustomEditText
                     android:id="@+id/edt_emailId"
                     style="@style/et_username_style"
@@ -147,7 +155,8 @@
                     android:drawablePadding="15sp"
                     android:gravity="center_vertical"
                     android:hint="Email ID"
-                    android:inputType="text"
+                    android:inputType="textEmailAddress"
+                    android:maxLength="254"
                     android:paddingLeft="20dp"
                     android:paddingRight="10dp"
                     android:paddingTop="5dp"
@@ -173,11 +182,9 @@
                     android:paddingLeft="20dp"
                     android:paddingRight="10dp"
                     android:text=""
+                    app:passwordToggleEnabled = "true"
                     android:textColor="#393939"
                     android:textColorHint="#393939"
-
-
-
                     android:textSize="20sp" />
 
                 <com.blueplanet.smartcookieteacher.customcomponents.CustomEditText
@@ -191,15 +198,14 @@
                     android:background="@drawable/username_selector"
                     android:drawablePadding="15sp"
                     android:gravity="center_vertical"
-                  android:visibility="gone"
                     android:inputType="textPassword"
                     android:paddingLeft="20dp"
                     android:paddingRight="10dp"
                     android:text=""
                     android:textColor="#393939"
                     android:textColorHint="#393939"
-                    android:textSize="20sp" />
-
+                    android:textSize="20sp"
+                    android:visibility="gone" />
 
 
                 <com.blueplanet.smartcookieteacher.customcomponents.CustomButton

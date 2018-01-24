@@ -30,6 +30,7 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile files('libs/universal-image-loader-1.8.5-with-sources.jar')
     compile 'com.android.support:appcompat-v7:23.1.1'
+    compile 'com.android.support:design:24.2.0'
 
     compile 'com.github.siyamed:android-shape-imageview:0.9.+@aar'
     compile files('libs/zxing-integration.jar')
@@ -39,13 +40,13 @@ dependencies {
     compile 'com.google.android.gms:play-services-gcm:9.0.2'
     compile 'com.google.android.gms:play-services-auth:9.0.2'
     compile 'com.google.android.gms:play-services-location:9.0.2'
-    compile 'com.android.support:design:23.3.0'
+ //   compile 'com.android.support:design:23.3.0'
     compile 'com.android.support:recyclerview-v7:23.3.0'
     compile 'com.facebook.android:facebook-android-sdk:4.0.0'
     compile 'com.github.MSF-Jarvis:AppRate:v1.2'
 
 
-    //compile 'com.devs:acr:1.0.1'
+    compile 'com.devs:acr:1.0.1'
 
 
 }

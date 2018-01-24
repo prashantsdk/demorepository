@@ -59,7 +59,7 @@ public class Student {
                    String stdClass, String stdAddress, String stdGender, String stdDOB,
                    String stdAge, String stdCity, String stdEmail, String stdPRN,
                    String schoolId, String stdDate, String stdDiv, String stdHobbies,
-                   String stdCountry, String stdClassTeacherName, String stdImageUrl, int inputId, int totalStudentCount,String stdsubcode,String stdsubname ) {
+                   String stdCountry, String stdClassTeacherName, String stdImageUrl, int inputId, int totalStudentCount) {
 
         _id = id;
         _stdName = stdName;
@@ -82,8 +82,8 @@ public class Student {
         _stdImageUrl = stdImageUrl;
         _inputId = inputId;
         _totalStudentCount = totalStudentCount;
-        _stdsubcode=stdsubcode;
-        _stdsubname=stdsubname;
+        //_stdsubcode=stdsubcode;
+      //  _stdsubname=stdsubname;
 
     }
 

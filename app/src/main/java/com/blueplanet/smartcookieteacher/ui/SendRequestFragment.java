@@ -118,11 +118,8 @@ public class SendRequestFragment extends Fragment implements AdapterView.OnItemS
 
     private void _registerUIListeners() {
 
-
         _btnsend.setOnClickListener(_sendRequestController);
-
-
-
+        _btncansel.setOnClickListener(_sendRequestController);
 
     }
 

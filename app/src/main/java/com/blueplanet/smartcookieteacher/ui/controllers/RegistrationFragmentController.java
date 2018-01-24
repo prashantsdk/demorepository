@@ -2,11 +2,12 @@ package com.blueplanet.smartcookieteacher.ui.controllers;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -14,12 +15,8 @@ import android.widget.Toast;
 import com.blueplanet.smartcookieteacher.MainApplication;
 import com.blueplanet.smartcookieteacher.R;
 import com.blueplanet.smartcookieteacher.communication.ServerResponse;
-import com.blueplanet.smartcookieteacher.customcomponents.CustomEditText;
-import com.blueplanet.smartcookieteacher.featurecontroller.LoginFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.RegistrationFeatureController;
-import com.blueplanet.smartcookieteacher.featurecontroller.RewardPointLogFeatureController;
 import com.blueplanet.smartcookieteacher.models.RegisModel;
-import com.blueplanet.smartcookieteacher.models.RewardPointLog;
 import com.blueplanet.smartcookieteacher.network.NetworkManager;
 import com.blueplanet.smartcookieteacher.notification.EventNotifier;
 import com.blueplanet.smartcookieteacher.notification.EventState;
@@ -29,7 +26,7 @@ import com.blueplanet.smartcookieteacher.notification.ListenerPriority;
 import com.blueplanet.smartcookieteacher.notification.NotifierFactory;
 import com.blueplanet.smartcookieteacher.ui.LoginFragment;
 import com.blueplanet.smartcookieteacher.ui.RegistrationFragment;
-import com.blueplanet.smartcookieteacher.ui.RewardPointFragment;
+import com.blueplanet.smartcookieteacher.utils.HelperClass;
 import com.blueplanet.smartcookieteacher.webservices.WebserviceConstants;
 
 /**
@@ -55,6 +52,28 @@ public class RegistrationFragmentController implements IEventListener, View.OnCl
 
         email = (EditText) _view.findViewById(R.id.edt_emailId);
 
+        initListener();
+
+    }
+
+
+    private void initListener() {
+        email.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                HelperClass.Is_Valid_Email(email);
+            }
+        });
     }
 
     private void _registerEventListeners() {
@@ -146,18 +165,23 @@ public class RegistrationFragmentController implements IEventListener, View.OnCl
                     String sourse = "Android";
 
 
+                    if (!TextUtils.isEmpty(Fname) && !TextUtils.isEmpty(Lname) && !validateEmail() || !TextUtils.isEmpty(password)
+                            || !TextUtils.isEmpty(Phone) || !TextUtils.isEmpty(middlename) || !TextUtils.isEmpty(countrycode) || !TextUtils.isEmpty(type)
+                            || !TextUtils.isEmpty(sourse) || !TextUtils.isEmpty(password)) {
 
-                        if (!TextUtils.isEmpty(Fname) && !TextUtils.isEmpty(Lname) && !validateEmail() || !TextUtils.isEmpty(password)
-                                || !TextUtils.isEmpty(Phone) || !TextUtils.isEmpty(middlename) || !TextUtils.isEmpty(countrycode) || !TextUtils.isEmpty(type)
-                                || !TextUtils.isEmpty(sourse)|| !TextUtils.isEmpty(password)) {
+                        if (HelperClass.Is_Valid_Email(email)) {
                             _fetchRegistrationServer(Fname, Lname, Email, password, Phone, middlename, countrycode, type, sourse);
 
+                        } else {
 
-                        } else if (TextUtils.isEmpty(Email) && TextUtils.isEmpty(password)) {
-                            Toast.makeText(MainApplication.getContext(),
-                                    "Please enter your credentials",
-                                    Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainApplication.getContext(),"Invalid Email",Toast.LENGTH_SHORT).show();
                         }
+
+                    } else if (TextUtils.isEmpty(Email) && TextUtils.isEmpty(password)) {
+                        Toast.makeText(MainApplication.getContext(),
+                                "Please enter your credentials",
+                                Toast.LENGTH_SHORT).show();
+                    }
 
 
                 } else {

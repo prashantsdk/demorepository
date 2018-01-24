@@ -2,7 +2,11 @@ package com.blueplanet.smartcookieteacher.utils;
 
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.media.ExifInterface;
+import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
+import android.widget.EditText;
 
 
 import com.blueplanet.smartcookieteacher.R;
@@ -16,7 +20,13 @@ import java.util.Date;
 
 public class HelperClass {
 
-	
+
+
+	static int  ecolor = Color.RED;
+	static ForegroundColorSpan fgcspan;
+	static SpannableStringBuilder ssbuilder;
+	static boolean emailflag = true;
+
 	protected static final String TAG = null;
 
 	public static void OpenAlertDialog(String message,Activity activity) {
@@ -277,6 +287,29 @@ public class HelperClass {
 
 	private double rad2deg(double rad) {
 		return (rad * 180.0 / Math.PI);
+	}
+
+
+
+	public  static boolean Is_Valid_Email(EditText edt) {
+		String estring = "Invalid Email Address.";
+		fgcspan = new ForegroundColorSpan(ecolor);
+		ssbuilder = new SpannableStringBuilder(estring);
+		ssbuilder.setSpan(fgcspan, 0, estring.length(), 0);
+		if (edt.getText().toString().equals("")) {
+			// edt.setError(ssbuilder);
+			emailflag = true;
+		} else if (isEmailValid(edt.getText().toString()) == false) {
+			edt.setError(ssbuilder);
+			emailflag = false;
+		} else {
+			emailflag = true;
+		}
+		return emailflag;
+	}
+
+	static boolean isEmailValid(CharSequence email) {
+		return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
 	}
 
 

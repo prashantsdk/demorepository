@@ -278,7 +278,7 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
                         // LoginFeatureController.getInstance().set_userName(username);
                         //LoginFeatureController.getInstance().set_pasword(password);
 
-                        if (!TextUtils.isEmpty(userName) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(usertype) || !TextUtils.isEmpty(colgCode)) {
+                        if (!TextUtils.isEmpty(userName) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(usertype) && !TextUtils.isEmpty(collgcode)) {
                             //  SmartCookieSharedPreferences.setLoginFlag(true);
 
                             _teacherLogin(userName, password, usertype, collgcode, method, devicetype, device_details, platform_OS, ip_address, countryCode, latitude, longitude);
@@ -313,21 +313,21 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
                                     Toast.LENGTH_SHORT).show();
                         }*/
 
-                        if (!TextUtils.isEmpty(mobileno) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(usertype) || !TextUtils.isEmpty(colgCode) && mobileno.equalsIgnoreCase("0")) {
+                        if (!TextUtils.isEmpty(mobileno) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(usertype) && !TextUtils.isEmpty(collgcode) && mobileno.equalsIgnoreCase("0")) {
                             //  SmartCookieSharedPreferences.setLoginFlag(true);
 
                             _teacherLogin(mobileno, password, usertype, collgcode, method, devicetype, device_details, platform_OS, ip_address, code, latitude, longitude);
 
-                        } else if (TextUtils.isEmpty(mobileno) && TextUtils.isEmpty(password)) {
+                        } else
                             Toast.makeText(MainApplication.getContext(),
                                     "Please enter your credentials",
                                     Toast.LENGTH_SHORT).show();
 
-                            _teacherLogin(mobileno, password, usertype, colgCode, method, devicetype, device_details, platform_OS, ip_address, code, latitude, longitude);
-                        }
+                            //_teacherLogin(mobileno, password, usertype, colgCode, method, devicetype, device_details, platform_OS, ip_address, code, latitude, longitude);
 
 
-                    } else if (usertype.equalsIgnoreCase("EmployeeID")) {
+
+                    }  if (usertype.equalsIgnoreCase("EmployeeID")) {
                         _handleRememberMeClickPrn();
                         String code = etcolgcode.getText().toString();
                         String prn = etprn.getText().toString();
@@ -336,16 +336,14 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
                         // LoginFeatureController.getInstance().set_userName(username);
                         //LoginFeatureController.getInstance().set_pasword(password);
 
-                        if (!TextUtils.isEmpty(prn) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(usertype) || !TextUtils.isEmpty(colgCode)) {
+                        if (!TextUtils.isEmpty(prn) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(usertype) && !TextUtils.isEmpty(code)) {
                             //  SmartCookieSharedPreferences.setLoginFlag(true);
 
                             _teacherLogin(code, password, usertype, prn, method, devicetype, device_details, platform_OS, ip_address, countryCode, latitude, longitude);
-                        } else if (TextUtils.isEmpty(prn) && TextUtils.isEmpty(password)) {
+                        } else {
                             Toast.makeText(MainApplication.getContext(),
                                     "Please enter your credentials",
                                     Toast.LENGTH_SHORT).show();
-                        } else {
-                            _loginFragment.showNetworkToast(false);
                         }
 
                     }
@@ -359,14 +357,12 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
                         // LoginFeatureController.getInstance().set_userName(username);
                         //LoginFeatureController.getInstance().set_pasword(password);
 
-                        if (!TextUtils.isEmpty(userMemberID) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(usertype) || !TextUtils.isEmpty(colgCode)) {
+                        if (!TextUtils.isEmpty(userMemberID) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(usertype) ) {
                             //  SmartCookieSharedPreferences.setLoginFlag(true);
 
                             _teacherLogin(userMemberID, password, usertype, colgCode, method, devicetype, device_details, platform_OS, ip_address, countryCode, latitude, longitude);
-                        } else if (TextUtils.isEmpty(userMemberID) && TextUtils.isEmpty(password)) {
-                            Toast.makeText(MainApplication.getContext(),
-                                    "Please enter your credentials",
-                                    Toast.LENGTH_SHORT).show();
+                        } else {
+
                         }
 
 

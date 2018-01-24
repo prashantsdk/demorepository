@@ -71,7 +71,8 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"
+                    android:screenOrientation="portrait"/>
             </intent-filter>
 
 
@@ -107,7 +108,8 @@
         <!--<activity android:name=".BaseActivity" />
         <activity android:name=".ui.InitialPaswordActivity" />-->
 
-        <activity android:name=".ui.Profile" />
+        <activity android:name=".ui.Profile"
+            android:screenOrientation="portrait"/>
 
         <!-- <activity android:name="com.blueplanet.smartcookieteacher.ui.MapActivity"
              android:label="@string/app_name"
@@ -115,10 +117,12 @@
         <activity
             android:name="com.blueplanet.smartcookieteacher.ui.RegistrationActivity"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:theme="@style/LoginActivityTheme"></activity>
         <activity
             android:name="com.blueplanet.smartcookieteacher.ui.NewMapActivity"
             android:label="@string/app_name"
+
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -134,6 +138,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name="com.blueplanet.smartcookieteacher.AfterLoginActivity"
+            android:screenOrientation="portrait"
             />
         <activity android:name="com.blueplanet.smartcookieteacher.facebook.FacebookShareActivity"
             android:windowSoftInputMode="stateHidden|adjustResize"

@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.blueplanet.smartcookieteacher.MainApplication;
@@ -39,7 +40,7 @@ public class RegistrationFragmentController implements IEventListener, View.OnCl
     private final String _TAG = this.getClass().getSimpleName();
     private RegisModel _register;
     private EditText email;
-
+    private Spinner  spinnerPhone;
     /**
      * constructur for reward list
      */
@@ -51,6 +52,7 @@ public class RegistrationFragmentController implements IEventListener, View.OnCl
         _view = view;
 
         email = (EditText) _view.findViewById(R.id.edt_emailId);
+        spinnerPhone = (Spinner) _view.findViewById(R.id.spinnerPhone);
 
         initListener();
 
@@ -160,16 +162,27 @@ public class RegistrationFragmentController implements IEventListener, View.OnCl
                     String password = tpassword.getText().toString();
                     String Phone = phone.getText().toString();
                     String middlename = middle.getText().toString();
-                    String countrycode = "91";
+
                     String type = "teacher";
                     String sourse = "Android";
+                    String countrycode = spinnerPhone.getSelectedItem().toString();
 
 
-                    if (!TextUtils.isEmpty(Fname) && !TextUtils.isEmpty(Lname) && !validateEmail() || !TextUtils.isEmpty(password)
-                            || !TextUtils.isEmpty(Phone) || !TextUtils.isEmpty(middlename) || !TextUtils.isEmpty(countrycode) || !TextUtils.isEmpty(type)
-                            || !TextUtils.isEmpty(sourse) || !TextUtils.isEmpty(password)) {
+
+                    if ((!TextUtils.isEmpty(Fname)) &&
+                            (!TextUtils.isEmpty(middlename)) &&
+                            (!TextUtils.isEmpty(Lname)) &&
+                            (!TextUtils.isEmpty(Phone)) &&
+                            (!TextUtils.isEmpty(Email)) &&
+                            (!TextUtils.isEmpty(countrycode)) &&
+                            (!TextUtils.isEmpty(password)) &&
+                            (checkPhoneNoLenght(Phone))&&
+                            (checkPasswordLenth(password))&&
+                            (phoneNoShouldNotStartWithZero(Phone,countrycode))) {
 
                         if (HelperClass.Is_Valid_Email(email)) {
+
+
                             _fetchRegistrationServer(Fname, Lname, Email, password, Phone, middlename, countrycode, type, sourse);
 
                         } else {
@@ -177,11 +190,63 @@ public class RegistrationFragmentController implements IEventListener, View.OnCl
                             Toast.makeText(MainApplication.getContext(),"Invalid Email",Toast.LENGTH_SHORT).show();
                         }
 
-                    } else if (TextUtils.isEmpty(Email) && TextUtils.isEmpty(password)) {
+                    } else if (TextUtils.isEmpty(Fname)) {
                         Toast.makeText(MainApplication.getContext(),
-                                "Please enter your credentials",
+                                "Please enter your First Name",
+                                Toast.LENGTH_SHORT).show();
+                    } else if(TextUtils.isEmpty(middlename)){
+                        Toast.makeText(MainApplication.getContext(),
+                                "Please enter your Middle Name",
+                                Toast.LENGTH_SHORT).show();
+                    } else if(TextUtils.isEmpty(Lname)){
+
+                        Toast.makeText(MainApplication.getContext(),
+                                "Please enter your Last Name",
+                                Toast.LENGTH_SHORT).show();
+                    }else if(TextUtils.isEmpty(Phone)){
+
+                        Toast.makeText(MainApplication.getContext(),
+                                "Please enter your Mobile No.",
                                 Toast.LENGTH_SHORT).show();
                     }
+                    else if(TextUtils.isEmpty(Email)){
+                        Toast.makeText(MainApplication.getContext(),
+                                "Please enter your Email id",
+                                Toast.LENGTH_SHORT).show();
+
+                    }
+                    else if(TextUtils.isEmpty(countrycode)){
+                        Toast.makeText(MainApplication.getContext(),
+                                "Please enter your Country code",
+                                Toast.LENGTH_SHORT).show();
+
+                    } else if(TextUtils.isEmpty(password)){
+                        Toast.makeText(MainApplication.getContext(),
+                                "Please enter your Password",
+                                Toast.LENGTH_SHORT).show();
+
+                    } else if((!checkPhoneNoLenght(Phone))){
+                        Toast.makeText(MainApplication.getContext(),
+                                "Mobile number must be 10 digits",
+                                Toast.LENGTH_SHORT).show();
+
+                    } else if((!checkPasswordLenth(password))){
+
+                        Toast.makeText(MainApplication.getContext(),
+                                "Password length must be greater than 7",
+                                Toast.LENGTH_SHORT).show();
+
+                    } else if((!phoneNoShouldNotStartWithZero(Phone, countrycode))){
+                        if (countrycode.equals("+91")) {
+                            Toast.makeText(MainApplication.getContext(),
+                                    "Mobile No.Should not start 0 to 5 digits", Toast.LENGTH_SHORT).show();
+
+                        }
+                        if (countrycode.equals("+1")) {
+                            Toast.makeText(MainApplication.getContext(),
+                                    "Mobile No.Should not start 0 to 1 digits", Toast.LENGTH_SHORT).show();
+
+                        }  }
 
 
                 } else {
@@ -205,6 +270,52 @@ public class RegistrationFragmentController implements IEventListener, View.OnCl
 
         }
     }
+
+    private boolean checkPhoneNoLenght(String mPhone) {
+
+        if (mPhone.length() < 10) {
+            return false;
+        }
+        return true;
+    }
+
+    private boolean checkPasswordLenth(String mPassword){
+
+        if(mPassword.length()<8){
+            return false;
+        }
+        return true;
+    }
+
+    private boolean phoneNoShouldNotStartWithZero(String mPhone, String mCountryCode) {
+
+        boolean flag = false;
+        if (mCountryCode.equals("+91")) {
+            if ((mPhone.startsWith("0")) ||
+                    (mPhone.startsWith("1")) ||
+                    (mPhone.startsWith("2")) ||
+                    (mPhone.startsWith("3")) ||
+                    (mPhone.startsWith("4")) ||
+                    (mPhone.startsWith("5"))) {
+
+                flag = false;
+            } else {
+                flag = true;
+            }
+        }
+        if (mCountryCode.equals("+1")) {
+
+            if ((mPhone.startsWith("0") || (mPhone.startsWith("1")))) {
+                flag = false;
+            } else {
+                flag = true;
+            }
+
+        }
+
+        return flag;
+    }
+
 
     @Override
     public int eventNotify(int eventType, Object eventObject) {

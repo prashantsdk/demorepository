@@ -1,8 +1,11 @@
 package com.blueplanet.smartcookieteacher.ui;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -144,9 +147,44 @@ public class SendRequestFragment extends Fragment implements AdapterView.OnItemS
             @Override
             public void run() {
 
+
+/*
+
                 Toast.makeText(getActivity().getApplicationContext(),
                         getActivity().getString(R.string.Request_send),
                         Toast.LENGTH_LONG).show();
+
+*/
+
+
+
+
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
+
+                // set title
+                alertDialogBuilder.setTitle("Request sent Successfully");
+
+                // set dialog message
+                alertDialogBuilder
+                        .setCancelable(true)
+                        .setPositiveButton("OK",new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                // if this button is clicked, close
+                                // current activity
+                                //getActivity().finish();
+                                dialog.dismiss();
+                            }
+                        });
+
+
+                // create alert dialog
+                AlertDialog alertDialog = alertDialogBuilder.create();
+
+                // show it
+                alertDialog.show();
+
+
+
             }
         });
 
@@ -170,11 +208,41 @@ public class SendRequestFragment extends Fragment implements AdapterView.OnItemS
             @Override
             public void run() {
 
-                Toast.makeText(getActivity().getApplicationContext(),
+                /*Toast.makeText(getActivity().getApplicationContext(),
                         getActivity().getString(R.string.Request_send_already_exists),
                         Toast.LENGTH_LONG).show();
+
+                */
+
+
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
+
+                // set title
+                alertDialogBuilder.setTitle("User already exists");
+
+                // set dialog message
+                alertDialogBuilder
+                        .setCancelable(true)
+                        .setPositiveButton("OK",new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                // if this button is clicked, close
+                                // current activity
+                                //getActivity().finish();
+                                dialog.dismiss();
+                            }
+                        });
+
+
+                // create alert dialog
+                AlertDialog alertDialog = alertDialogBuilder.create();
+
+                // show it
+                alertDialog.show();
             }
         });
+
+
+
 
     }
     public void sendRequestInvalidinput() {
@@ -182,9 +250,24 @@ public class SendRequestFragment extends Fragment implements AdapterView.OnItemS
             @Override
             public void run() {
 
+
+/*
                 Toast.makeText(getActivity().getApplicationContext(),
                         getActivity().getString(R.string.Request_send_invalid_input),
                         Toast.LENGTH_LONG).show();
+                */
+
+
+
+
+
+
+
+
+
+
+
+
             }
         });
 

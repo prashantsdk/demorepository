@@ -53,7 +53,7 @@ public class SendRequestController implements IEventListener, View.OnClickListen
     private ArrayList<ShairPointModel> _sharePointlist;
     private String _teacherId, _schoolId;
     private int _lastInputId = 0;
-    private Spinner spinner, spinner1, spinnercolr;
+    private Spinner spinner, spinner1, spinnercolr, spinnerPhone;
     private CustomEditText _first_name, _middleName, _lastName_, _Email, _phone, _selectTS;
     private CustomTextView _txt_toastMsg;
 
@@ -70,6 +70,7 @@ public class SendRequestController implements IEventListener, View.OnClickListen
         _sharePointlist = SharePointFeatureController.getInstance().get_teachershair();
 
         spinner = (Spinner) _view.findViewById(R.id.spinner);
+        spinnerPhone = (Spinner) _view.findViewById(R.id.spinnerPhone);
         _txt_toastMsg = (CustomTextView) _view.findViewById(R.id.toast_msg);
 
         inItFindViewByIDs();
@@ -112,6 +113,23 @@ public class SendRequestController implements IEventListener, View.OnClickListen
             @Override
             public void afterTextChanged(Editable s) {
                 HelperClass.Is_Valid_Email(_Email);
+            }
+        });
+
+        _phone.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
         });
     }
@@ -186,10 +204,11 @@ public class SendRequestController implements IEventListener, View.OnClickListen
                     String senderEntityId = "103";
 
                     String platform = "android";
-                    String countrycode = "91";
+
                     String requestStatus = "request_sent";
                     _teacherId = String.valueOf(_teacher.getId());
                     String entityType = spinner.getSelectedItem().toString();
+                    String countrycode = spinnerPhone.getSelectedItem().toString();
 
                     String tComplName = _teacher.get_tCompleteName();
 
@@ -200,7 +219,9 @@ public class SendRequestController implements IEventListener, View.OnClickListen
                             (!TextUtils.isEmpty(lname)) &&
                             (!TextUtils.isEmpty(email)) &&
                             (!TextUtils.isEmpty(Phone)) &&
-                            (checkPhoneNoLenght(Phone))) {
+                            (checkPhoneNoLenght(Phone)) &&
+                            (phoneNoShouldNotStartWithZero(Phone, countrycode))
+                            ) {
 
 
                         if (HelperClass.Is_Valid_Email(_Email)) {
@@ -249,11 +270,22 @@ public class SendRequestController implements IEventListener, View.OnClickListen
 
                                 "Please enter Phone No.",
                                 Toast.LENGTH_SHORT).show();
-                    } else if ((checkPhoneNoLenght(Phone))) {
+                    } else if ((!checkPhoneNoLenght(Phone))) {
                         Toast.makeText(MainApplication.getContext(),
 
-                                "Phone no.must be greater than 5 digits",
+                                "Mobile no.must be 10 digits",
                                 Toast.LENGTH_SHORT).show();
+                    } else if ((!phoneNoShouldNotStartWithZero(Phone, countrycode))) {
+                        if (countrycode.equals("+91")) {
+                            Toast.makeText(MainApplication.getContext(),
+                                    "Mobile No.Should not start 0 to 5 digits", Toast.LENGTH_SHORT).show();
+
+                        }
+                        if (countrycode.equals("+1")) {
+                            Toast.makeText(MainApplication.getContext(),
+                                    "Mobile No.Should not start 0 to 1 digits", Toast.LENGTH_SHORT).show();
+
+                        }
                     }
 
 
@@ -283,10 +315,40 @@ public class SendRequestController implements IEventListener, View.OnClickListen
 
     private boolean checkPhoneNoLenght(String mPhone) {
 
-        if (mPhone.length() < 5) {
+        if (mPhone.length() < 10) {
             return false;
         }
         return true;
+    }
+
+
+    private boolean phoneNoShouldNotStartWithZero(String mPhone, String mCountryCode) {
+
+        boolean flag = false;
+        if (mCountryCode.equals("+91")) {
+            if ((mPhone.startsWith("0")) ||
+                    (mPhone.startsWith("1")) ||
+                    (mPhone.startsWith("2")) ||
+                    (mPhone.startsWith("3")) ||
+                    (mPhone.startsWith("4")) ||
+                    (mPhone.startsWith("5"))) {
+
+                flag = false;
+            } else {
+                flag = true;
+            }
+        }
+        if (mCountryCode.equals("+1")) {
+
+            if ((mPhone.startsWith("0") || (mPhone.startsWith("1")))) {
+                flag = false;
+            } else {
+                flag = true;
+            }
+
+        }
+
+        return flag;
     }
 
 

@@ -22,9 +22,9 @@ public class HelperClass {
 
 
 
-	static int  ecolor = Color.RED;
-	static ForegroundColorSpan fgcspan;
-	static SpannableStringBuilder ssbuilder;
+	static int  ecolor = Color.RED,vColor= Color.GREEN;
+	static ForegroundColorSpan fgcspan,vspan;
+	static SpannableStringBuilder ssbuilder,vBuilder;
 	static boolean emailflag = true;
 
 	protected static final String TAG = null;
@@ -293,17 +293,29 @@ public class HelperClass {
 
 	public  static boolean Is_Valid_Email(EditText edt) {
 		String estring = "Invalid Email Address.";
+		String correctMessage="Email is valid";
+
 		fgcspan = new ForegroundColorSpan(ecolor);
+		vspan = new ForegroundColorSpan(vColor);
+
 		ssbuilder = new SpannableStringBuilder(estring);
+		vBuilder = new SpannableStringBuilder(correctMessage);
+
 		ssbuilder.setSpan(fgcspan, 0, estring.length(), 0);
+		vBuilder.setSpan(vspan,0,correctMessage.length(),0);
+
+
 		if (edt.getText().toString().equals("")) {
 			// edt.setError(ssbuilder);
 			emailflag = true;
 		} else if (isEmailValid(edt.getText().toString()) == false) {
 			edt.setError(ssbuilder);
+
 			emailflag = false;
 		} else {
 			emailflag = true;
+			//edt.setText(vBuilder);
+
 		}
 		return emailflag;
 	}

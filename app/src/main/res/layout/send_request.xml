@@ -349,7 +349,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="40dp"
                                 android:layout_weight="0.5"
-                                android:hint="Phone No."
+                                android:hint="Mobile  No."
                                 android:inputType="number"
                                 android:maxLength="10"
                                 android:singleLine="true"

@@ -53,6 +53,8 @@ public class SmartCookieSharedPreferences {
     private static final String KEY_PASSWORD = "PASSWORD";
     private static final String KEY_COLGCODE = "COLGCODE";
 
+    private static final String KEY_TEST = "TEST";
+    private static final String KEY_PRODUCTION = "PRODUCTION";
 
 
     private static SharedPreferences _rememberPreference;
@@ -121,6 +123,7 @@ public class SmartCookieSharedPreferences {
     public static void setPassowrdKey(String password) {
         setStringSharedPreference(PASS_WORD_KEY, password);
     }
+
 
     public static String getPasswordKey() {
         return getStringSharedPreference(PASS_WORD_KEY);
@@ -243,5 +246,16 @@ public class SmartCookieSharedPreferences {
     public static String UserIDInFromPreference() {
         String password = _rememberPreference.getString(KEY_COLGCODE, EMPTY_STRING_DEFAULT_VALUE);
         return password;
+    }
+    public static String  getAppType() {
+        String value = _sharedPreferences.getString(GlobalInterface.APPTYPE, GlobalInterface.PRODUCTION);
+        return value;
+    }
+
+    public static void setAppType(String AppType) {
+        SharedPreferences.Editor _editor = _sharedPreferences.edit();
+
+        _editor.putString(GlobalInterface.APPTYPE, AppType);
+        _editor.commit();
     }
 }

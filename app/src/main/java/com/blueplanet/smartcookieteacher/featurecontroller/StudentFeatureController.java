@@ -99,6 +99,14 @@ public class StudentFeatureController implements IEventListener {
         }
     }
 
+    public Student get_student1() {
+        return _student1;
+    }
+
+    public void set_student1(Student _student1) {
+        this._student1 = _student1;
+    }
+
     public Student getSelectedStudent() {
         return _selectedStudent;
     }

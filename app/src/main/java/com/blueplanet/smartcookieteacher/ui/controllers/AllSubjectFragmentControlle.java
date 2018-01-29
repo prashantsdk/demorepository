@@ -3,6 +3,7 @@ package com.blueplanet.smartcookieteacher.ui.controllers;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -51,21 +52,31 @@ public class AllSubjectFragmentControlle implements IEventListener, AdapterView.
                                        View view) {
         _teacherallSubjectFragment = teacherallSubjectFragment;
         _view = view;
+        _subjectList = SubjectAllFeatureController.getInstance().get_subjectList();
+        _teacher = LoginFeatureController.getInstance().getTeacher();
+        //  _subjectList= SubjectFeatureController.getInstance().getSubjectInfoFromDB();
+        if (_teacher != null) {
 
-
-        if ((NetworkManager.isNetworkAvailable()) == false) {
-            _teacherallSubjectFragment.showNetworkToast(false);
+            _teacher = LoginFeatureController.getInstance().getTeacher();
+            _teacherId = _teacher.get_tId();
+            _schoolId = _teacher.get_tSchool_id();
+            _fetchSubjectFromServer(_teacherId, _schoolId);
         }
 
+
+      /*  if ((NetworkManager.isNetworkAvailable()) == false) {
+            _teacherallSubjectFragment.showNetworkToast(false);
+        }
+*/
         /**
          * check if list is present in db, if not call websertvice
          */
 
 
-        _subjectList = SubjectAllFeatureController.getInstance().get_subjectList();
-        //  _subjectList= SubjectFeatureController.getInstance().getSubjectInfoFromDB();
 
-        if ((_isSubjectListPopulated(_subjectList))) {
+
+
+      /*  if ((_isSubjectListPopulated(_subjectList))) {
 
             Log.i(_TAG, "Subject list got from DB");
             Log.i(_TAG, "Subject list size:" + _subjectList.size());
@@ -84,7 +95,7 @@ public class AllSubjectFragmentControlle implements IEventListener, AdapterView.
 
             }
         }
-
+*/
 
     }
 
@@ -183,7 +194,9 @@ public class AllSubjectFragmentControlle implements IEventListener, AdapterView.
                     _teacherallSubjectFragment.showOrHideProgressBar(false);
                     //_teacherSubjectFragment.setSubjectDataOnUI();
                     _subjectList = SubjectAllFeatureController.getInstance().get_subjectList();
+                    _teacherallSubjectFragment.setVisibilityOfListView(true);
                     _teacherallSubjectFragment.refreshListview();
+
                     //  SaveLoginData();
                 }
                 break;

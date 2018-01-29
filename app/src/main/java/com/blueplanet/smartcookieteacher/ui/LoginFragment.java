@@ -56,6 +56,7 @@ import com.blueplanet.smartcookieteacher.models.User;
 import com.blueplanet.smartcookieteacher.notification.IEventListener;
 import com.blueplanet.smartcookieteacher.ui.controllers.LoginFragmentController;
 
+import com.blueplanet.smartcookieteacher.ui.customactionbar.UserSession;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
 import com.google.android.gms.auth.api.Auth;
@@ -192,6 +193,7 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
                 public void run() {
                     _etUserName.setText(userName);
                     _etPassword.setText(passowrd);
+                    UserSession.setName(userName);
                     _rememberMe.setChecked(true);
 
 

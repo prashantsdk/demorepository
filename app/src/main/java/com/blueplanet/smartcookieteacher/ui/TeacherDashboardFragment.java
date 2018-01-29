@@ -85,7 +85,7 @@ public class TeacherDashboardFragment extends Fragment {
         handler.postDelayed(r, 300);
 
 
-        getActivity().getActionBar().setTitle("Dashboard");
+///        getActivity().getActionBar().setTitle("Dashboard");
         return _view;
     }
 
@@ -270,13 +270,13 @@ public class TeacherDashboardFragment extends Fragment {
 
     }
 
-    @Override
+   /* @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         // TODO Add your menu entries here
         inflater.inflate(R.menu.mywallet, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
-
+*/
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // TODO Auto-generated method stub

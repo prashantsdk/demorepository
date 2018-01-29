@@ -5,13 +5,16 @@ import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
@@ -19,10 +22,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
-import com.blueplanet.smartcookieteacher.DatabaseManager.IPersistence;
-import com.blueplanet.smartcookieteacher.DatabaseManager.PersistenceFactory;
-import com.blueplanet.smartcookieteacher.DatabaseManager.SmartTeacherDatabaseMasterTable;
 import com.blueplanet.smartcookieteacher.communication.ServerResponse;
 import com.blueplanet.smartcookieteacher.featurecontroller.DrawerFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.LoginFeatureController;
@@ -39,10 +40,7 @@ import com.blueplanet.smartcookieteacher.ui.AllLogFragment;
 import com.blueplanet.smartcookieteacher.ui.AllSubjectFragment;
 import com.blueplanet.smartcookieteacher.ui.DisplayCategorieFragment;
 import com.blueplanet.smartcookieteacher.ui.GenerateCouponFragment;
-
-
 import com.blueplanet.smartcookieteacher.ui.MapActivity;
-
 import com.blueplanet.smartcookieteacher.ui.SearchStudentFragment;
 import com.blueplanet.smartcookieteacher.ui.SendRequestFragment;
 import com.blueplanet.smartcookieteacher.ui.SharePointFragment;
@@ -52,102 +50,62 @@ import com.blueplanet.smartcookieteacher.ui.SugestSponserFragment;
 import com.blueplanet.smartcookieteacher.ui.SyncFragment;
 import com.blueplanet.smartcookieteacher.ui.TeacherDashboardFragment;
 import com.blueplanet.smartcookieteacher.ui.TeacherSubjectFragment;
-import com.blueplanet.smartcookieteacher.ui.customactionbar.CustomDrawerAdapter;
-import com.blueplanet.smartcookieteacher.ui.customactionbar.DrawerItem;
+import com.blueplanet.smartcookieteacher.ui.customactionbar.UserSession;
 import com.blueplanet.smartcookieteacher.utils.SmartCookieSharedPreferences;
 import com.blueplanet.smartcookieteacher.webservices.WebserviceConstants;
 
-
 import java.util.ArrayList;
-import java.util.List;
 
 
 /**
  * Created by 1311 on 25-11-2015.
  */
-public class AfterLoginActivity extends FragmentActivity implements IEventListener {
+public class AfterLoginActivity extends AppCompatActivity implements IEventListener, NavigationView.OnNavigationItemSelectedListener {
 
 
+    private final String _TAG = this.getClass().getSimpleName();
+    TextView mTeacherName;
+    NavigationView navigationView;
     private DrawerLayout _drawerLayout;
     private ActionBarDrawerToggle _drawerToggle;
-    private ListView mDrawerList;
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
-    private List<DrawerItem> _dataList;
-    private CustomDrawerAdapter _adapter;
+
+
     private Fragment _fragment;
-    private final String _TAG = this.getClass().getSimpleName();
     private boolean _addtoBackStack = false;
     private ArrayList<String> _fragmentTagList = new ArrayList<>();
     private int _count = 0;
     private Teacher _teacher;
+    private Toolbar toolbar;
+    private View navHeader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.after_login_activity);
+        // Set a Toolbar to replace the ActionBar.
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
 
         _teacher = LoginFeatureController.getInstance().getTeacher();
         mTitle = getTitle();
+
         mDrawerTitle = "Smart Cookie Program";
+
+
         _drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawerList = (ListView) findViewById(R.id.left_drawer);
+
         _drawerLayout.setDrawerShadow(R.drawable.drawer_shadow,
                 GravityCompat.START);
 
-        _dataList = new ArrayList<DrawerItem>();
-        _dataList.add(new DrawerItem(true));
-
-        _dataList.add(new DrawerItem("Dashboard", R.drawable.dashboard));
-        _dataList.add(new DrawerItem("Students List", R.drawable.profile));
-        _dataList.add(new DrawerItem("Teacher Subject",
-                R.drawable.my_subject));
-
-        _dataList.add(new DrawerItem("All Subject", R.drawable.my_subject));
-        //_dataList.add(new DrawerItem("Reward Points Log", R.drawable.reward_point));
-        _dataList.add(new DrawerItem("Buy Coupon", R.drawable.reward_point));
-
-        //_dataList.add(new DrawerItem("ThanQ Points Log", R.drawable.ic_action_about));
-        _dataList.add(new DrawerItem("Generate Coupon", R.drawable.ic_action_about));
-
-        _dataList.add(new DrawerItem("Logs", R.drawable.coupon));
-        _dataList.add(new DrawerItem("Sync", R.drawable.coupon));
-        _dataList.add(new DrawerItem("Share Blue Point", R.drawable.coupon));
-        _dataList.add(new DrawerItem("Add Teacher Subject", R.drawable.coupon));
-        _dataList.add(new DrawerItem("Soft Rewards", R.drawable.coupon));
-
-        _dataList.add(new DrawerItem("Suggest Vendor", R.drawable.coupon));
-        _dataList.add(new DrawerItem("Accept Request", R.drawable.coupon));
-        _dataList.add(new DrawerItem("Request To Join", R.drawable.coupon));
-        _dataList.add(new DrawerItem("Sponsor/collage Map", R.drawable.coupon));
-        _dataList.add(new DrawerItem("Logout", R.drawable.coupon));
-
-
-        // _dataList.add(new DrawerItem("Sponsar Map", R.drawable.coupon));
-        // _dataList.add(new DrawerItem("Coordinator List", R.drawable.coupon));
-
-        // _dataList.add(new DrawerItem("Generate Coupon log", R.drawable.coupon));
-        //_dataList.add(new DrawerItem("sync", R.drawable.coupon));
-        // _dataList.add(new DrawerItem("AdminThanQPointLog", R.drawable.coupon));
-        // _dataList.add(new DrawerItem("Share Blue Points", R.drawable.coupon));
-        //_dataList.add(new DrawerItem("Logout", R.drawable.logout));
-
-        _adapter = new CustomDrawerAdapter(this, R.layout.custom_drawer_item,
-
-
-                _dataList);
-
-        mDrawerList.setAdapter(_adapter);
-
-        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
-
 
         _drawerToggle = new ActionBarDrawerToggle(this, _drawerLayout,
-                R.drawable.ic_navigation_drawer, R.string.drawer_open,
+                toolbar, R.string.drawer_open,
                 R.string.drawer_close) {
             public void onDrawerClosed(View view) {
-                getActionBar().setTitle(
+                getSupportActionBar().setTitle(
                         Html.fromHtml("<font color='#ffffff'>" + mTitle
                                 + "</font>"));
                 invalidateOptionsMenu(); // creates call to
@@ -155,7 +113,7 @@ public class AfterLoginActivity extends FragmentActivity implements IEventListen
             }
 
             public void onDrawerOpened(View drawerView) {
-                getActionBar().setTitle(
+                getSupportActionBar().setTitle(
                         Html.fromHtml("<font color='#ffffff'>" + mDrawerTitle
                                 + "</font>"));
 
@@ -165,34 +123,34 @@ public class AfterLoginActivity extends FragmentActivity implements IEventListen
         };
         _drawerLayout.setDrawerListener(_drawerToggle);
 
-        getActionBar().setDisplayHomeAsUpEnabled(true);
-        getActionBar().setHomeButtonEnabled(true);
-        getActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#545da7")));
+        this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        this.getSupportActionBar().setHomeButtonEnabled(true);
+        this.getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#545da7")));
 
-        if (savedInstanceState == null) {
 
-            if (_dataList.get(0).isList()) {
-                SelectItem(1);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        setUpNavigationHome();
 
-            } else {
-                SelectItem(0);
-            }
-        }
 
+        navigationView.setNavigationItemSelectedListener(this);
+
+        SelectItem(R.id.nav_dashboard);
+    }
+
+    private void setUpNavigationHome() {
+
+        navHeader = navigationView.getHeaderView(0);
+
+        mTeacherName = navHeader.findViewById(R.id.drawer_userName);
+        _teacher = LoginFeatureController.getInstance().getTeacher();
+        mTeacherName.setText(_teacher.get_tCompleteName());
     }
 
     public void SelectItem(int possition) {
 
-        Bundle args = new Bundle();
         switch (possition) {
 
-            case 0:
-                _count = 0;
-                DrawerFeatureController.getInstance().setIsFragmentOpenedFromDrawer(true);
-                // final ActionBar actionBar6 = getActionBar();
-                // actionBar6.setNavigationMode(ActionBar.DISPLAY_HOME_AS_UP);
-                break;
-            case 1:
+            case R.id.nav_dashboard:
                 DrawerFeatureController.getInstance().setIsFragmentOpenedFromDrawer(true);
                 if (_count < 7) {
                     _count = _count + 1;
@@ -201,7 +159,7 @@ public class AfterLoginActivity extends FragmentActivity implements IEventListen
                 _addtoBackStack = false;
                 _fragment = new TeacherDashboardFragment();
                 break;
-            case 2:
+            case R.id.nav_studentlist:
                 DrawerFeatureController.getInstance().setIsFragmentOpenedFromDrawer(true);
                 if (_count < 7) {
                     _count = _count + 1;
@@ -210,7 +168,7 @@ public class AfterLoginActivity extends FragmentActivity implements IEventListen
                 _addtoBackStack = true;
                 _fragment = new StudentListFragment();
                 break;
-            case 3:
+            case R.id.nav_teacher_subject:
                 DrawerFeatureController.getInstance().setIsFragmentOpenedFromDrawer(true);
                 if (_count < 7) {
                     _count = _count + 1;
@@ -221,7 +179,7 @@ public class AfterLoginActivity extends FragmentActivity implements IEventListen
 
                 break;
 
-            case 4:
+            case R.id.nav_teacher_all_subject:
                 DrawerFeatureController.getInstance().setIsFragmentOpenedFromDrawer(true);
                 if (_count < 7) {
                     _count = _count + 1;
@@ -234,7 +192,7 @@ public class AfterLoginActivity extends FragmentActivity implements IEventListen
 
                 break;
 
-            case 5:
+            case R.id.nav_buy_coupon:
                 DrawerFeatureController.getInstance().setIsFragmentOpenedFromDrawer(true);
 
                 if (_count < 7) {
@@ -247,7 +205,7 @@ public class AfterLoginActivity extends FragmentActivity implements IEventListen
                 _fragment = new DisplayCategorieFragment();
                 break;
 
-            case 6:
+            case R.id.nav_generat_coupon:
                 DrawerFeatureController.getInstance().setIsFragmentOpenedFromDrawer(true);
 
                 if (_count < 7) {
@@ -259,7 +217,7 @@ public class AfterLoginActivity extends FragmentActivity implements IEventListen
 
                 _fragment = new GenerateCouponFragment();
                 break;
-            case 7:
+            case R.id.nav_logs:
                 DrawerFeatureController.getInstance().setIsFragmentOpenedFromDrawer(true);
                 if (_count < 7) {
                     _count = _count + 1;
@@ -271,7 +229,7 @@ public class AfterLoginActivity extends FragmentActivity implements IEventListen
 
                 _fragment = new AllLogFragment();
                 break;
-            case 8:
+            case R.id.nav_sync:
                 DrawerFeatureController.getInstance().setIsFragmentOpenedFromDrawer(true);
                 if (_count < 7) {
                     _count = _count + 1;
@@ -282,7 +240,7 @@ public class AfterLoginActivity extends FragmentActivity implements IEventListen
 
                 _fragment = new SyncFragment();
                 break;
-            case 9:
+            case R.id.nav_share_blue_point:
                 DrawerFeatureController.getInstance().setIsFragmentOpenedFromDrawer(true);
                 if (_count < 7) {
                     _count = _count + 1;
@@ -294,7 +252,7 @@ public class AfterLoginActivity extends FragmentActivity implements IEventListen
                 _fragment = new SharePointFragment();
 
                 break;
-            case 10:
+            case R.id.nav_add_teacher_subjects:
                 DrawerFeatureController.getInstance().setIsFragmentOpenedFromDrawer(true);
                 if (_count < 7) {
                     _count = _count + 1;
@@ -304,12 +262,12 @@ public class AfterLoginActivity extends FragmentActivity implements IEventListen
                 // _fragment = new BuyCouponLogFragment();//
 
 
-               //sa// _fragment = new DisplaySubjectFragment();
+                //sa// _fragment = new DisplaySubjectFragment();
                 _fragment = new SearchStudentFragment();
                 // _fragment = new SoftRewardFragment();
 
                 break;
-            case 11:
+            case R.id.nav_soft_rewards:
                 DrawerFeatureController.getInstance().setIsFragmentOpenedFromDrawer(true);
                 if (_count < 7) {
                     _count = _count + 1;
@@ -338,7 +296,7 @@ public class AfterLoginActivity extends FragmentActivity implements IEventListen
               /*  Intent i = new Intent(this, MapActivity.class);
                 startActivity(i);*/
                 break;
-            case 12:
+            case R.id.nav_suggest_vendor:
                 DrawerFeatureController.getInstance().setIsFragmentOpenedFromDrawer(true);
                 if (_count < 7) {
                     _count = _count + 1;
@@ -350,11 +308,11 @@ public class AfterLoginActivity extends FragmentActivity implements IEventListen
 
                 //_fragment = new DisplaySubjectFragment();
 
-              //  _fragment = new SoftRewardFragment();
+                //  _fragment = new SoftRewardFragment();
                 _fragment = new SugestSponserFragment();
 
                 break;
-            case 13:
+            case R.id.nav_accept_request:
                 DrawerFeatureController.getInstance().setIsFragmentOpenedFromDrawer(true);
                 if (_count < 7) {
                     _count = _count + 1;
@@ -370,7 +328,7 @@ public class AfterLoginActivity extends FragmentActivity implements IEventListen
                 _fragment = new AcceptRequestFragment();
 
                 break;
-            case 14:
+            case R.id.nav_request_to_join:
                 DrawerFeatureController.getInstance().setIsFragmentOpenedFromDrawer(true);
                 if (_count < 7) {
                     _count = _count + 1;
@@ -386,11 +344,11 @@ public class AfterLoginActivity extends FragmentActivity implements IEventListen
                 _fragment = new SendRequestFragment();
 
                 break;
-            case 15:
+            case R.id.nav_college_map:
                 Intent i = new Intent(this, MapActivity.class);
                 startActivity(i);
                 break;
-            case 16:
+            case R.id.nav_logout:
 
                 _teacher = LoginFeatureController.getInstance().getTeacher();
 
@@ -463,9 +421,9 @@ public class AfterLoginActivity extends FragmentActivity implements IEventListen
         }
         //write load fragment here
         _manageFragments(_addtoBackStack, false, _fragment);
-        mDrawerList.setItemChecked(possition, true);
-        setTitle(_dataList.get(possition).getItemName());
-        _drawerLayout.closeDrawer(mDrawerList);
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
 
     }
 
@@ -478,7 +436,7 @@ public class AfterLoginActivity extends FragmentActivity implements IEventListen
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // getMenuInflater().inflate(R.menu.menu_main, menu);
+        //getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
@@ -506,22 +464,17 @@ public class AfterLoginActivity extends FragmentActivity implements IEventListen
         _drawerToggle.onConfigurationChanged(newConfig);
     }
 
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-    private class DrawerItemClickListener implements
-            ListView.OnItemClickListener {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position,
-                                long id) {
-
-            SelectItem(position);
-
-        }
+        SelectItem(item.getItemId());
+        return true;
     }
 
     @Override
     public void setTitle(CharSequence title) {
         mTitle = title;
-        getActionBar().setTitle(
+        this.getSupportActionBar().setTitle(
                 Html.fromHtml("<font color='#ffffff'>" + mTitle + "</font>"));
 
 
@@ -575,7 +528,6 @@ public class AfterLoginActivity extends FragmentActivity implements IEventListen
 
         }
     }
-
 
     @Override
     public void onBackPressed() {
@@ -703,5 +655,16 @@ public class AfterLoginActivity extends FragmentActivity implements IEventListen
 
         }
         return EventState.EVENT_PROCESSED;
+    }
+
+    private class DrawerItemClickListener implements
+            ListView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position,
+                                long id) {
+
+            SelectItem(position);
+
+        }
     }
 }

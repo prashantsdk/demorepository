@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_dashboard"
+            android:icon="@drawable/dashboard"
+            android:title="Dashboard" />
+        <item
+            android:id="@+id/nav_studentlist"
+            android:icon="@drawable/profile"
+            android:title="Student List" />
+        <item
+            android:id="@+id/nav_teacher_subject"
+            android:icon="@drawable/my_subject"
+            android:title="Teacher Subjects" />
+
+        <item
+            android:id="@+id/nav_teacher_all_subject"
+            android:icon="@drawable/my_subject"
+            android:title="All Subjects" />
+
+
+        <item
+            android:id="@+id/nav_buy_coupon"
+            android:icon="@drawable/reward_point"
+            android:title="Buy Coupon" />
+
+
+        <item
+            android:id="@+id/nav_generat_coupon"
+            android:icon="@drawable/ic_action_about"
+            android:title="Generate Coupon" />
+
+        <item
+            android:id="@+id/nav_logs"
+            android:icon="@drawable/coupon"
+            android:title="Logs" />
+
+
+
+        <item
+            android:id="@+id/nav_sync"
+            android:icon="@drawable/coupon"
+            android:title="Sync" />
+
+        <item
+            android:id="@+id/nav_share_blue_point"
+            android:icon="@drawable/coupon"
+            android:title="Share Blue Point" />
+
+
+        <item
+            android:id="@+id/nav_add_teacher_subjects"
+            android:icon="@drawable/coupon"
+            android:title="Add Teacher Subject" />
+        <item
+            android:id="@+id/nav_soft_rewards"
+            android:icon="@drawable/coupon"
+            android:title="Soft Rewards" />
+        <item
+            android:id="@+id/nav_suggest_vendor"
+            android:icon="@drawable/coupon"
+            android:title="Suggest Vendor" />
+
+        <item
+            android:id="@+id/nav_accept_request"
+            android:icon="@drawable/coupon"
+            android:title="Accept Request" />
+
+        <item
+            android:id="@+id/nav_request_to_join"
+            android:icon="@drawable/coupon"
+            android:title="Request To Join" />
+
+        <item
+            android:id="@+id/nav_college_map"
+            android:icon="@drawable/coupon"
+            android:title="Sponsor/collage Map" />
+
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/coupon"
+            android:title="Logout" />
+
+
+    </group>
+
+
+</menu>

@@ -1,16 +1,17 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "21.0.1"
+    compileSdkVersion 27
+    buildToolsVersion '27.0.0'
     useLibrary 'org.apache.http.legacy'
 
     defaultConfig {
         applicationId "com.blueplanet.smartcookieteacher"
         minSdkVersion 14
-        targetSdkVersion 23
+        targetSdkVersion 27
         versionCode 26
         versionName "1.15"
+        multiDexEnabled true;
 
     }
     buildTypes {
@@ -19,29 +20,48 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    dexOptions {
+        incremental = true;
+        preDexLibraries = false
+        javaMaxHeapSize "4g" // 2g should be also OK
+    }
+
+    aaptOptions{
+        cruncherEnabled = false
+    }
 }
 
 repositories {
     mavenCentral()
     maven { url "https://jitpack.io" }
+    maven {
+        url 'https://maven.google.com/'
+        name 'Google'
+    }
 }
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile files('libs/universal-image-loader-1.8.5-with-sources.jar')
-    compile 'com.android.support:appcompat-v7:23.1.1'
-    compile 'com.android.support:design:24.2.0'
+   // compile files('libs/universal-image-loader-1.8.5-with-sources.jar')
+    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
+    //compile 'com.android.support:appcompat-v7:23.1.1'
+    compile 'com.android.support:appcompat-v7:27.0.2'
+    compile 'com.android.support:design:27.0.2'
 
+    compile 'com.android.support:support-v4:27.0.0'
     compile 'com.github.siyamed:android-shape-imageview:0.9.+@aar'
     compile files('libs/zxing-integration.jar')
 
-    //compile 'com.google.android.gms:play-services-maps:8.4.0'
     compile 'com.google.android.gms:play-services-maps:9.0.2'
+   // compile 'com.google.android.gms:play-services-maps:11.8.0'
+ //   compile 'com.google.android.gms:play-services-gcm:10.2.1'
     compile 'com.google.android.gms:play-services-gcm:9.0.2'
     compile 'com.google.android.gms:play-services-auth:9.0.2'
     compile 'com.google.android.gms:play-services-location:9.0.2'
- //   compile 'com.android.support:design:23.3.0'
-    compile 'com.android.support:recyclerview-v7:23.3.0'
+
+  //  compile 'com.android.support:recyclerview-v7:24.3.0'
+    compile 'com.android.support:recyclerview-v7:+'
     compile 'com.facebook.android:facebook-android-sdk:4.0.0'
     compile 'com.github.MSF-Jarvis:AppRate:v1.2'
 

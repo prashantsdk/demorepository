@@ -30,8 +30,9 @@ public class CustomDrawerAdapter extends ArrayAdapter<DrawerItem> {
 			List<DrawerItem> listItems) {
 		super(context, layoutResourceID, listItems);
 		this.context = context;
-		this.drawerItemList = listItems;
 		this.layoutResID = layoutResourceID;
+		this.drawerItemList = listItems;
+
 
 	}
 
@@ -45,7 +46,7 @@ public class CustomDrawerAdapter extends ArrayAdapter<DrawerItem> {
 			LayoutInflater inflater = ((Activity) context).getLayoutInflater();
 			drawerHolder = new DrawerItemHolder();
 
-			view = inflater.inflate(layoutResID, parent, false);
+			view = inflater.inflate(layoutResID,null);
 			drawerHolder.ItemName = (TextView) view
 					.findViewById(R.id.drawer_itemName);
 			drawerHolder.icon = (ImageView) view.findViewById(R.id.drawer_icon);
@@ -53,9 +54,9 @@ public class CustomDrawerAdapter extends ArrayAdapter<DrawerItem> {
 					.findViewById(R.id.drawerList);
 			drawerHolder.itemLayout = (LinearLayout) view
 					.findViewById(R.id.itemLayout);
-			drawerHolder.spinnerLayout = (LinearLayout) view
+			/*drawerHolder.spinnerLayout = (LinearLayout) view
 					.findViewById(R.id.spinnerLayout);
-
+*/
 			view.setTag(drawerHolder);
 
 		} else {
@@ -67,7 +68,7 @@ public class CustomDrawerAdapter extends ArrayAdapter<DrawerItem> {
 		if (dItem.isList()) {
 
 			drawerHolder.itemLayout.setVisibility(LinearLayout.INVISIBLE);
-			drawerHolder.spinnerLayout.setVisibility(LinearLayout.VISIBLE);
+			//drawerHolder.spinnerLayout.setVisibility(LinearLayout.VISIBLE);
 			List<Employee> userList = new ArrayList<Employee>();
 			userList.add(new Employee(UserSession.getBmp(), UserSession
 					.getName()));
@@ -87,13 +88,13 @@ public class CustomDrawerAdapter extends ArrayAdapter<DrawerItem> {
 			});
 		}else if (dItem.getItemName().toString().equals("My Accounts")) {
 			drawerHolder.itemLayout.setVisibility(LinearLayout.VISIBLE);
-			drawerHolder.spinnerLayout.setVisibility(LinearLayout.VISIBLE);
+			//drawerHolder.spinnerLayout.setVisibility(LinearLayout.VISIBLE);
 			ArrayAdapter<String> menu=new ArrayAdapter<String>(context, R.layout.custom_menu);
 			drawerHolder.listinfo.setAdapter(menu);
 			
 		} else {
 
-			drawerHolder.spinnerLayout.setVisibility(LinearLayout.INVISIBLE);
+			//drawerHolder.spinnerLayout.setVisibility(LinearLayout.INVISIBLE);
 			drawerHolder.itemLayout.setVisibility(LinearLayout.VISIBLE);
 
 			drawerHolder.icon.setImageDrawable(view.getResources().getDrawable(
@@ -109,7 +110,7 @@ public class CustomDrawerAdapter extends ArrayAdapter<DrawerItem> {
 		TextView ItemName;
 		ImageView icon;
 		LinearLayout itemLayout, spinnerLayout;
-		ListView listinfo,listmenu;
+		ListView listinfo;
 		// Spinner spinner;
 	}
 }

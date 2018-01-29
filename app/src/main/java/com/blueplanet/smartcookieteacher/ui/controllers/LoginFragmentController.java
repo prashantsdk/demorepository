@@ -226,7 +226,7 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
         switch (id) {
             case R.id.btn_login:
                 StudentFeatureController.getInstance().deletestudentFromDB(null);
-                // _handleRememberMeClick();
+                //_handleRememberMeClick();
                 // create class object
 
                 _loginFragment.hideSoftKeyboard();
@@ -282,7 +282,7 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
                             //  SmartCookieSharedPreferences.setLoginFlag(true);
 
                             _teacherLogin(userName, password, usertype, collgcode, method, devicetype, device_details, platform_OS, ip_address, countryCode, latitude, longitude);
-                        } else if (TextUtils.isEmpty(userName) && TextUtils.isEmpty(password)) {
+                        } else {
                             Toast.makeText(MainApplication.getContext(),
                                     "Please enter your credentials",
                                     Toast.LENGTH_SHORT).show();
@@ -423,12 +423,15 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
 
             case R.id.txttest:
                 // _loginFragment.showTestProduction(false);
-                TestPro testpro1 = new TestPro();
+
+               TestPro testpro1 = new TestPro();
                 WebserviceConstants.BASE_URL = WebserviceConstants.BASE_URL1;
                 testpro1.set_url(WebserviceConstants.BASE_URL);
                 String a1 = testpro1.get_url();
                 Toast.makeText(_loginFragment.getActivity(), "Testing",
                         Toast.LENGTH_LONG).show();
+
+
                 break;
             case R.id.tv_forgotPassword:
                 EditText etUserName = (EditText) _view.findViewById(R.id.edt_username);
@@ -502,6 +505,7 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
         }
 
     }
+
     public static void rateApp(Context context) {
         try {
             context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + context.getPackageName())));

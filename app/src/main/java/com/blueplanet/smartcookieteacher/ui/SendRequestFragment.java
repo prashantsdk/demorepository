@@ -110,8 +110,6 @@ public class SendRequestFragment extends Fragment implements AdapterView.OnItemS
                     _rlProgressbar.setVisibility(View.GONE);
                     _progressbar.setVisibility(View.GONE);
 
-
-
                     _tvPleaseWait.setVisibility(View.GONE);
                 }
             }

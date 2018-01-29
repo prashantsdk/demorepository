@@ -24,6 +24,8 @@ import com.blueplanet.smartcookieteacher.customcomponents.CustomTextView;
 import com.blueplanet.smartcookieteacher.featurecontroller.DashboardFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.DrawerFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.LoginFeatureController;
+import com.blueplanet.smartcookieteacher.featurecontroller.StudentFeatureController;
+import com.blueplanet.smartcookieteacher.models.Student;
 import com.blueplanet.smartcookieteacher.models.Teacher;
 import com.blueplanet.smartcookieteacher.models.TeacherDashbordPoint;
 import com.blueplanet.smartcookieteacher.models.TestPro;
@@ -36,6 +38,8 @@ import com.blueplanet.smartcookieteacher.webservices.WebserviceConstants;
 
 
 import com.github.siyamed.shapeimageview.HexagonImageView;
+
+import java.util.ArrayList;
 
 /**
  * Created by 1311 on 14-12-2015.
@@ -57,6 +61,8 @@ public class TeacherDashboardFragment extends Fragment {
     private CustomTextView _tvPleaseWait;
     private Runnable r;
     private Handler handler = null;
+    private ArrayList<Student> _studentList = null;
+    private CustomTextView _edtCount;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -66,13 +72,12 @@ public class TeacherDashboardFragment extends Fragment {
         _initUI();
 
         _controller = new TeacherDashboardFragmentController(this, _view);
-
         _StudentListDashboardAdapter = new StudentListDashboardAdapter(this, _controller);
 
 
         _setTeacherDetailsOnUI();
         _registerUIListeners();
-
+        //_showDataOnUI();
 
         handler = new Handler();
         r = new Runnable() {
@@ -102,7 +107,7 @@ public class TeacherDashboardFragment extends Fragment {
 
         _lvStudentList = (ListView) _view.findViewById(R.id.lv_studentDashboard);
         _testpro = (CustomTextView) _view.findViewById(R.id.testproduction);
-
+        _edtCount = (CustomTextView) _view.findViewById(R.id.txt_studentcount);
         _rlProgressbar = (RelativeLayout) _view
                 .findViewById(R.id.rl_progressBar);
         _progressbar = (ProgressBar) _view.findViewById(R.id.progressbar);
@@ -130,7 +135,23 @@ public class TeacherDashboardFragment extends Fragment {
         _teabluepoint.setOnClickListener(_controller);
 
     }
+    public void _showDataOnUI() {
 
+        _studentList = StudentFeatureController.getInstance().getStudentList();
+        if (_studentList != null && _studentList.size() > 0) {
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    int totalCount = _studentList.get(0).getTotalCount();
+                    _edtCount.setText(String.valueOf(totalCount));
+                    Log.i(_TAG, "Total Count" + _edtCount);
+
+
+                }
+            });
+        }
+
+    }
     private void _setTeacherDetailsOnUI() {
 
         _teacher = LoginFeatureController.getInstance().getTeacher();

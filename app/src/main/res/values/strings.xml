@@ -89,7 +89,7 @@
 
     <!--login screen-->
     <string name="username">Username</string>
-    <string name="password">*******</string>
+    <string name="password">Passward</string>
     <string name="Login">LOGIN</string>
     <string name="signup">SIGN UP</string>
     <string name="ForgotPassword">Forgot Password?</string>

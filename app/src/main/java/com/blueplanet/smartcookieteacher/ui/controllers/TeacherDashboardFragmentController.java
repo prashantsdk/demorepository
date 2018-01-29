@@ -50,6 +50,7 @@ public class
     private Teacher _teacher;
     private ArrayList<Student> _studentList = null;
     private String _teacherId, _schoolId;
+    private  Student stu;
 
 
     public TeacherDashboardFragmentController(TeacherDashboardFragment teacherFragment,
@@ -215,8 +216,11 @@ public class
                    int id = StudentFeatureController.getInstance().getLastInputId();
 
                     _studentList = StudentFeatureController.getInstance().getStudentList();
+
+
                     if (!(_isStudentListPopulated(_studentList))) {
                         _fetchStudentListFromServer(_teacherId, _schoolId, id);
+
                     }
 
                 }
@@ -248,6 +252,7 @@ public class
                      */
                     _studentList = StudentFeatureController.getInstance().getStudentList();
                     _teacherDashboardFragment.refreshListview();
+                    _teacherDashboardFragment._showDataOnUI();
 
 
                 }

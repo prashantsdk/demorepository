@@ -20,8 +20,8 @@
                 style="@style/Login_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-              android:layout_marginTop="5dp"
                 android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
                 android:text="Student"
                 android:textColor="#000000"
                 android:textSize="16sp" />
@@ -30,12 +30,12 @@
                 android:id="@+id/teacher_img"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
+                android:layout_below="@+id/testproduction"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
                 android:adjustViewBounds="true"
-                android:src="@drawable/logo"
-                android:layout_below="@+id/testproduction"
                 android:scaleType="centerInside"
+                android:src="@drawable/logo"
                 app:siBorderColor="#00ff00"
                 app:siBorderWidth="3dp" />
 
@@ -46,8 +46,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/teacher_img"
+                android:layout_marginLeft="27dp"
                 android:layout_marginTop="4dp"
-              android:layout_marginLeft="27dp"
                 android:text="Teacher"
                 android:textColor="#000000"
                 android:textSize="12sp" />
@@ -115,7 +115,7 @@
         <LinearLayout
             android:id="@+id/rl_2"
             android:layout_width="match_parent"
-            android:layout_height="110dp"
+            android:layout_height="100dp"
             android:layout_below="@+id/rl_1"
             android:weightSum="100">
 
@@ -228,6 +228,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/rela_image"
+
                 android:layout_weight="25">
 
                 <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
@@ -259,28 +260,39 @@
 
         </LinearLayout>
 
+
         <RelativeLayout
             android:id="@+id/rl_3"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_below="@+id/rl_2">
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_below="@+id/rl_2"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="3dp"
+            android:layout_centerHorizontal="true"
+            android:orientation="horizontal"
+            android:textSize="10sp">
 
             <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
-                android:id="@+id/text_aterpoint"
+                android:id="@+id/studentlist"
                 style="@style/Login_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:text="Student List  :"
+                android:text=" StudentList Count  : "
+
                 android:textColor="#000000"
-                android:textSize="16sp" />
+                android:textSize="17sp" />
 
-
-
+            <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                android:id="@+id/txt_studentcount"
+                style="@style/Login_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+             android:layout_toRightOf="@+id/studentlist"
+                android:text=""
+                android:textColor="#000000"
+                android:textSize="17sp" />
         </RelativeLayout>
-
 
         <ListView
             android:id="@+id/lv_studentDashboard"

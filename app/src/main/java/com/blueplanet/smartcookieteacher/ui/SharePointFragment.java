@@ -51,6 +51,7 @@ public class SharePointFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         _view = inflater.inflate(R.layout.shairpoint_item, null);
         _initUI();
+        getActivity().setTitle("Share Blue Points");
         _shairpointtController = new SharePointFragmentController(this, _view);
         _adapter = new TeacherSharePointAdapter(this,_view);
 

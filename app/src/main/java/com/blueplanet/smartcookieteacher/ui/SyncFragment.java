@@ -40,6 +40,7 @@ public class SyncFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         _view = inflater.inflate(R.layout.sync_activity, null);
         _initUI();
+        getActivity().setTitle("Sync");
         _controller = new SyncFragmentController(this, _view);
 
         _registerUIListeners();

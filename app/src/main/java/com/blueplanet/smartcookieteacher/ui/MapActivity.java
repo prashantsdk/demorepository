@@ -132,6 +132,7 @@ public class MapActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map_new);
         init_toolbar();
+       setTitle("Sponsor/College Map");
 
         setNavigationDrawer();
         teacher = LoginFeatureController.getInstance().getTeacher();

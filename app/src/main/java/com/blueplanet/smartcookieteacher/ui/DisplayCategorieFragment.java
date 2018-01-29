@@ -41,6 +41,7 @@ public class DisplayCategorieFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         _view = inflater.inflate(R.layout.display_categorie, null);
         _initUI();
+        getActivity().setTitle("Buy Coupon");
         _displayCategorieFragmentController = new DisplayCategorieFragmentController(this, _view);
         _couponAdapter = new DisplayCouponAdapter(this, _displayCategorieFragmentController);
 

@@ -51,6 +51,7 @@ public class AcceptRequestFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         _view = inflater.inflate(R.layout.request_request_item, null);
         _initUI();
+        getActivity().setTitle("Accept Request");
         _Controller = new AcceptRequestController(this, _view);
         _adapter = new AcceptRequestAdapter(this,_view);
 

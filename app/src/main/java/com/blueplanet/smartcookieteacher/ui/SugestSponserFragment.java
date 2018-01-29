@@ -58,6 +58,7 @@ public class SugestSponserFragment extends android.support.v4.app.Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         _view = inflater.inflate(R.layout.suggest_sponsor, null);
        _initUI();
+        getActivity().setTitle("Suggest Vendor");
         setHasOptionsMenu(true);
         _controller = new SuggestSponsorController(this, _view);
         _Adapter = new SuggestSponserAdapter(this);

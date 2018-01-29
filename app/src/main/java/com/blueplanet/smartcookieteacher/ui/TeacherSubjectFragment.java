@@ -37,6 +37,7 @@ public class TeacherSubjectFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         _view = inflater.inflate(R.layout.teacher_subject_list, null);
         _initUI();
+        getActivity().setTitle("Teacher Subjects");
         _sListFragmentController = new TeacherSubjectFragmentController(this, _view);
         _adapter = new TeacherSubjectAdapter(this);
         _registerUIListeners();

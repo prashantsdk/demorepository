@@ -9,8 +9,8 @@ android {
         applicationId "com.blueplanet.smartcookieteacher"
         minSdkVersion 14
         targetSdkVersion 27
-        versionCode 26
-        versionName "1.15"
+        versionCode 27
+        versionName "1.16"
         multiDexEnabled true;
 
     }
@@ -29,6 +29,11 @@ android {
 
     aaptOptions{
         cruncherEnabled = false
+    }
+
+    lintOptions{
+        checkReleaseBuilds false
+        abortOnError false
     }
 }
 

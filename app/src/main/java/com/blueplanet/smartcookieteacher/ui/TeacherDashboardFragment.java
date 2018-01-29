@@ -73,7 +73,7 @@ public class TeacherDashboardFragment extends Fragment {
 
         _controller = new TeacherDashboardFragmentController(this, _view);
         _StudentListDashboardAdapter = new StudentListDashboardAdapter(this, _controller);
-
+        getActivity().setTitle("Dashboard");
 
         _setTeacherDetailsOnUI();
         _registerUIListeners();
@@ -291,13 +291,12 @@ public class TeacherDashboardFragment extends Fragment {
 
     }
 
-   /* @Override
+    @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         // TODO Add your menu entries here
         inflater.inflate(R.menu.mywallet, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
-*/
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // TODO Auto-generated method stub

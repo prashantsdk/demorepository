@@ -64,6 +64,7 @@ public class SendRequestFragment extends Fragment implements AdapterView.OnItemS
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         _view = inflater.inflate(R.layout.send_request, null);
         _initUI();
+        getActivity().setTitle("Request to join");
         _sendRequestController = new SendRequestController(this, _view);
         _registerUIListeners();
 

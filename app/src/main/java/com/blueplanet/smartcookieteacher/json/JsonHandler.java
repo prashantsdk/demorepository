@@ -13,6 +13,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
 
 /**
@@ -27,13 +28,16 @@ public class JsonHandler {
     try {
         // Create parameters JSONObject
 
+        HostnameVerifier hostnameVerifier = org.apache.http.conn.ssl.SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER;
 
         // Open connection to URL and perform POST request.
         URL url = new URL(Url);
-        HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+        HttpsURLConnection.setDefaultHostnameVerifier(hostnameVerifier);
+        HttpsURLConnection urlConnection = (HttpsURLConnection) url.openConnection();
         urlConnection.setDoOutput(true); // Set Http method to POST
       //  urlConnection.setChunkedStreamingMode(0); // Use default chunk size
         urlConnection.setRequestMethod("POST");
+
         urlConnection.setRequestProperty("Content-Type", "application/json");
         urlConnection.setRequestProperty("Accept", "application/json");
         // Write serialized JSON data to output stream.

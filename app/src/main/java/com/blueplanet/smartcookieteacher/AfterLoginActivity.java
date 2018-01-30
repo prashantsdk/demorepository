@@ -143,6 +143,8 @@ public class AfterLoginActivity extends AppCompatActivity implements IEventListe
 
         mTeacherName = navHeader.findViewById(R.id.drawer_userName);
         _teacher = LoginFeatureController.getInstance().getTeacher();
+
+
         mTeacherName.setText(_teacher.get_tCompleteName());
     }
 

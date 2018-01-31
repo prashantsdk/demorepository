@@ -57,16 +57,12 @@ import com.blueplanet.smartcookieteacher.notification.NotifierFactory;
 import com.blueplanet.smartcookieteacher.ui.GPSTracker;
 import com.blueplanet.smartcookieteacher.ui.LoginFragment;
 import com.blueplanet.smartcookieteacher.ui.RegistrationActivity;
-
-import com.blueplanet.smartcookieteacher.ui.RegistrationFragment;
-import com.blueplanet.smartcookieteacher.utils.HelperClass;
 import com.blueplanet.smartcookieteacher.utils.SmartCookieSharedPreferences;
 import com.blueplanet.smartcookieteacher.webservices.WebserviceConstants;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
@@ -77,15 +73,12 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
-
-import me.msfjarvis.apprate.AppRate;
 
 
 /**
@@ -113,7 +106,7 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
     GoogleCloudMessaging gcm;
     String[] social_name;
     URL social_profile_pic = null;
-    private  String packageName= "com.example.sayali.callreminder";
+    private String packageName = "com.example.sayali.callreminder";
 
     /**
      * constructor
@@ -273,7 +266,6 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
                         SmartCookieSharedPreferences.setUserIDInSharedPreference(collgcode);*/
 
 
-
                         //String selStatephone = (String) spinner.getSelectedItem();
                         // LoginFeatureController.getInstance().set_userName(username);
                         //LoginFeatureController.getInstance().set_pasword(password);
@@ -323,11 +315,11 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
                                     "Please enter your credentials",
                                     Toast.LENGTH_SHORT).show();
 
-                            //_teacherLogin(mobileno, password, usertype, colgCode, method, devicetype, device_details, platform_OS, ip_address, code, latitude, longitude);
+                        //_teacherLogin(mobileno, password, usertype, colgCode, method, devicetype, device_details, platform_OS, ip_address, code, latitude, longitude);
 
 
-
-                    }  if (usertype.equalsIgnoreCase("EmployeeID")) {
+                    }
+                    if (usertype.equalsIgnoreCase("EmployeeID")) {
                         _handleRememberMeClickPrn();
                         String code = etcolgcode.getText().toString();
                         String prn = etprn.getText().toString();
@@ -357,7 +349,7 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
                         // LoginFeatureController.getInstance().set_userName(username);
                         //LoginFeatureController.getInstance().set_pasword(password);
 
-                        if (!TextUtils.isEmpty(userMemberID) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(usertype) ) {
+                        if (!TextUtils.isEmpty(userMemberID) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(usertype)) {
                             //  SmartCookieSharedPreferences.setLoginFlag(true);
 
                             _teacherLogin(userMemberID, password, usertype, colgCode, method, devicetype, device_details, platform_OS, ip_address, countryCode, latitude, longitude);
@@ -412,6 +404,7 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
                 WebserviceConstants.BASE_URL = WebserviceConstants.BASE_URL2;
                 //WebserviceConstants.BASE_URL = WebserviceConstants.BASE_URL2;
                 testpro.set_url(WebserviceConstants.BASE_URL);
+                testpro.setImageURL(WebserviceConstants.IMAGE_BASE_URL_PRODUCTION);
                 String a = testpro.get_url();
                 Toast.makeText(_loginFragment.getActivity(), "Production",
                         Toast.LENGTH_LONG).show();
@@ -424,9 +417,10 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
             case R.id.txttest:
                 // _loginFragment.showTestProduction(false);
 
-               TestPro testpro1 = new TestPro();
+                TestPro testpro1 = new TestPro();
                 WebserviceConstants.BASE_URL = WebserviceConstants.BASE_URL1;
                 testpro1.set_url(WebserviceConstants.BASE_URL);
+                testpro1.setImageURL(WebserviceConstants.IMAGE_BASE_URL_TEST);
                 String a1 = testpro1.get_url();
                 Toast.makeText(_loginFragment.getActivity(), "Testing",
                         Toast.LENGTH_LONG).show();
@@ -599,7 +593,7 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
 
                 if (errorCode == WebserviceConstants.SUCCESS) {
                     Log.i(_TAG, "In EVENT_UI_LOGIN_SUCCESSFUL");
-                   // SmartCookieSharedPreferences.setLoginFlag(true);
+                    // SmartCookieSharedPreferences.setLoginFlag(true);
 
                     SaveLoginData();
                     _loginFragment.showOrHideProgressBar(false);
@@ -928,8 +922,6 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
                         } catch (MalformedURLException e) {
                             e.printStackTrace();
 
-                        } catch (IOException e) {
-                            e.printStackTrace();
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -994,9 +986,6 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
                 Log.i("profile_pic", social_profile_pic + "");
                 str_social_profile_pic = social_profile_pic.toString();
             } catch (MalformedURLException e) {
-                e.printStackTrace();
-                SmartCookieSharedPreferences.setGplusLogin(false);
-            } catch (IOException e) {
                 e.printStackTrace();
                 SmartCookieSharedPreferences.setGplusLogin(false);
             } catch (Exception e) {
@@ -1090,9 +1079,11 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
         private final static int DAYS_UNTIL_PROMPT = 3;
         private final static int LAUNCHES_UNTIL_PROMPT = 7;
 
-        public  void app_launched(Context mContext) {
+        public void app_launched(Context mContext) {
             SharedPreferences prefs = mContext.getSharedPreferences("apprater", 0);
-            if (prefs.getBoolean("dontshowagain", false)) { return ; }
+            if (prefs.getBoolean("dontshowagain", false)) {
+                return;
+            }
 
             SharedPreferences.Editor editor = prefs.edit();
 

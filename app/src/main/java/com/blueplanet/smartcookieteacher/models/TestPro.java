@@ -7,6 +7,8 @@ public class TestPro {
 
     private String _url = null;
 
+    private String ImageURL = null;
+
 
     public TestPro() {
 
@@ -19,5 +21,13 @@ public class TestPro {
 
    public void set_url(String _url) {
         this._url = _url;
+    }
+
+    public String getImageURL() {
+        return ImageURL;
+    }
+
+    public void setImageURL(String imageURL) {
+        ImageURL = imageURL;
     }
 }

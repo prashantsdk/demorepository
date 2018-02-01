@@ -84,12 +84,14 @@ public class SuggestSponsorController implements IEventListener {
 
         }}
 
+
    /*     if (_teacher != null) {
             _teacherId = _teacher.get_tId();
 
             _schoolId = _teacher.get_tSchool_id();
             _fetchBlueListFromServer(_teacherId, _schoolId);
         }*/
+
 
     }
 

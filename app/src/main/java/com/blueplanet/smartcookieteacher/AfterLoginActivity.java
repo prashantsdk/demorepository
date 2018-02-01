@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -21,6 +22,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -53,6 +55,9 @@ import com.blueplanet.smartcookieteacher.ui.TeacherSubjectFragment;
 import com.blueplanet.smartcookieteacher.ui.customactionbar.UserSession;
 import com.blueplanet.smartcookieteacher.utils.SmartCookieSharedPreferences;
 import com.blueplanet.smartcookieteacher.webservices.WebserviceConstants;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.github.siyamed.shapeimageview.CircularImageView;
 
 import java.util.ArrayList;
 
@@ -79,6 +84,7 @@ public class AfterLoginActivity extends AppCompatActivity implements IEventListe
     private Teacher _teacher;
     private Toolbar toolbar;
     private View navHeader;
+    private CircularImageView mProfileImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,8 +148,32 @@ public class AfterLoginActivity extends AppCompatActivity implements IEventListe
         navHeader = navigationView.getHeaderView(0);
 
         mTeacherName = navHeader.findViewById(R.id.drawer_userName);
+        mProfileImage = navHeader.findViewById(R.id.user_icon);
+
         _teacher = LoginFeatureController.getInstance().getTeacher();
-        mTeacherName.setText(_teacher.get_tCompleteName());
+
+
+        if(_teacher.get_tCompleteName().equals("")||_teacher.get_tCompleteName().equals(null)){
+            mTeacherName.setText("Name not available");
+        }else {
+            mTeacherName.setText(_teacher.get_tCompleteName());
+        }
+        if(_teacher.get_tPC().equals("")||_teacher.get_tPC().equals(null)){
+
+
+        } else {
+            String temp =WebserviceConstants.IMAGE_BASE_URL_PRODUCTION+ _teacher.get_tPC().toString();
+
+            Uri  uri = Uri.parse(temp);
+            Glide.with(AfterLoginActivity.this)
+                    .load(uri)
+                    .thumbnail(0.5f)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(mProfileImage);
+
+        }
+
+
     }
 
     public void SelectItem(int possition) {

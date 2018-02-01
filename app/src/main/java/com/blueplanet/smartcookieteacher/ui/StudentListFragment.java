@@ -59,6 +59,7 @@ public class StudentListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         _view = inflater.inflate(R.layout.fragment_student, null);
         _initUI();
+        getActivity().setTitle("Student List");
         _sListFragmentController = new StudentListFragmentController(this, _view);
         _studentAdapter = new StudentListAdapter(this, _sListFragmentController, _view);
         _showDataOnUI();

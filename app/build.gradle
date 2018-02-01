@@ -9,8 +9,8 @@ android {
         applicationId "com.blueplanet.smartcookieteacher"
         minSdkVersion 14
         targetSdkVersion 27
-        versionCode 26
-        versionName "1.15"
+        versionCode 27
+        versionName "1.16"
         multiDexEnabled true;
 
     }
@@ -21,14 +21,19 @@ android {
         }
     }
 
-    dexOptions {
+   /* dexOptions {
         incremental = true;
         preDexLibraries = false
         javaMaxHeapSize "4g" // 2g should be also OK
-    }
+    }*/
 
     aaptOptions{
         cruncherEnabled = false
+    }
+
+    lintOptions{
+        checkReleaseBuilds false
+        abortOnError false
     }
 }
 
@@ -64,9 +69,11 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:+'
     compile 'com.facebook.android:facebook-android-sdk:4.0.0'
     compile 'com.github.MSF-Jarvis:AppRate:v1.2'
-
+    compile 'com.github.bumptech.glide:glide:3.8.0'
+    compile 'com.github.siyamed:android-shape-imageview:0.9.+@aar'
 
     compile 'com.devs:acr:1.0.1'
+    compile 'com.android.support:multidex:1.0.1'
 
 
 }

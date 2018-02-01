@@ -33,9 +33,15 @@ public class WebserviceConstants {
 
     public static final String IMAGE_BASE_URL = "https://dev.smartcookie.in/core/";
 
+    public static final String IMAGE_BASE_URL_TEST ="https://test.smartcookie.in/core/";
+
+    public static final String IMAGE_BASE_URL_PRODUCTION ="https://smartcookie.in/core/";
+
 
     //public static final String TEACHER_LOGIN = "login_teacher.php";
     //public static final String TEACHER_LOGIN = "login_teacher2.php";
+
+
     public static final String TEACHER_LOGIN = "login_teacher_V4.php";
     public static final String GET_STUDENT_INFO = "getStudentInfo.php";
     public static final String REGISTRATION = "teacher_registration.php";

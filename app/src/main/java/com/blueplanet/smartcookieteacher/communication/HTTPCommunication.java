@@ -14,8 +14,10 @@ import org.apache.http.conn.scheme.PlainSocketFactory;
 import org.apache.http.conn.scheme.Scheme;
 import org.apache.http.conn.scheme.SchemeRegistry;
 import org.apache.http.conn.ssl.SSLSocketFactory;
+import org.apache.http.conn.ssl.X509HostnameVerifier;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.conn.SingleClientConnManager;
 import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.CoreProtocolPNames;
@@ -39,6 +41,7 @@ import java.security.cert.X509Certificate;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
@@ -54,6 +57,8 @@ public class HTTPCommunication {
 
     private DefaultHttpClient _httpClient = null;
 
+
+
     private final int CONNECTION_TIMEOUT = 60000;
 
     public final static int MAX_RETRIES = 2;
@@ -68,7 +73,17 @@ public class HTTPCommunication {
      * Private default constructor
      */
     public HTTPCommunication() {
+
         _httpClient = new DefaultHttpClient();
+
+        HostnameVerifier hostnameVerifier = org.apache.http.conn.ssl.SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER;
+        SchemeRegistry registry = new SchemeRegistry();
+        SSLSocketFactory socketFactory = SSLSocketFactory.getSocketFactory();
+        socketFactory.setHostnameVerifier((X509HostnameVerifier) hostnameVerifier);
+        registry.register(new Scheme("https", socketFactory, 443));
+        SingleClientConnManager mgr = new SingleClientConnManager(_httpClient.getParams(), registry);
+
+
         // _httpClient = AndroidHttpClient.newInstance( "Android" );
         _httpClient.getParams().setParameter(HttpConnectionParams.CONNECTION_TIMEOUT,
                 CONNECTION_TIMEOUT);

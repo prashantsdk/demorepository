@@ -38,6 +38,7 @@ public class AllSubjectFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         _view = inflater.inflate(R.layout.all_sub, null);
         _initUI();
+        getActivity().setTitle("All Subjects");
         _sListFragmentController = new AllSubjectFragmentControlle(this, _view);
         _adapter = new TeacherAllSubAdapter(this);
         _registerUIListeners();

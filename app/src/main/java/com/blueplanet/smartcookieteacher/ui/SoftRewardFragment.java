@@ -50,6 +50,7 @@ public class SoftRewardFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         _view = inflater.inflate(R.layout.soft_reward_item, null);
         _initUI();
+        getActivity().setTitle("Soft Rewards");
         _softRewardContoller = new SofrRewardController(this, _view);
         _adapter = new SoftRewardAdapter(this,_view);
 

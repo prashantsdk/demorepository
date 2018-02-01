@@ -40,6 +40,7 @@ public class AllLogFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         _view = inflater.inflate(R.layout.all_logs_layout, null);
         _initUI();
+        getActivity().setTitle("Logs");
         _controller = new AllLogFragmentController(this, _view);
 
         _registerUIListeners();

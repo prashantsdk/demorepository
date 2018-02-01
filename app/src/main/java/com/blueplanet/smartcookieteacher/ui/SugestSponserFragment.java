@@ -1,7 +1,5 @@
 package com.blueplanet.smartcookieteacher.ui;
 
-import android.app.Fragment;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -11,33 +9,18 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.blueplanet.smartcookieteacher.R;
-import com.blueplanet.smartcookieteacher.customcomponents.CustomButton;
 import com.blueplanet.smartcookieteacher.customcomponents.CustomTextView;
-import com.blueplanet.smartcookieteacher.featurecontroller.DashboardFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.DrawerFeatureController;
-import com.blueplanet.smartcookieteacher.featurecontroller.GenerateCouponFeatureController;
-import com.blueplanet.smartcookieteacher.featurecontroller.LoginFeatureController;
-import com.blueplanet.smartcookieteacher.models.GenerateCoupon;
 import com.blueplanet.smartcookieteacher.models.Teacher;
-import com.blueplanet.smartcookieteacher.models.TeacherDashbordPoint;
-import com.blueplanet.smartcookieteacher.ui.controllers.BluePointAdapter;
-import com.blueplanet.smartcookieteacher.ui.controllers.BluePointFragmentController;
 import com.blueplanet.smartcookieteacher.ui.controllers.SuggestSponserAdapter;
 import com.blueplanet.smartcookieteacher.ui.controllers.SuggestSponsorController;
-
-import java.util.ArrayList;
 
 
 /**
@@ -57,11 +40,12 @@ public class SugestSponserFragment extends android.support.v4.app.Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         _view = inflater.inflate(R.layout.suggest_sponsor, null);
-       _initUI();
+        _initUI();
+        getActivity().setTitle("Suggest Vendor");
         setHasOptionsMenu(true);
         _controller = new SuggestSponsorController(this, _view);
         _Adapter = new SuggestSponserAdapter(this);
-        getActivity().setTitle("Suggest Vendor");
+
         _registerUIListeners();
 
 
@@ -96,23 +80,23 @@ public class SugestSponserFragment extends android.support.v4.app.Fragment {
     }
 
 
-  /*  public void showOrHideProgressBar(final boolean visibility) {
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                if (visibility) {
-                    _rlProgressbar.setVisibility(View.VISIBLE);
-                    _progressbar.setVisibility(View.VISIBLE);
-                    _tvPleaseWait.setVisibility(View.VISIBLE);
-                } else {
-                    _rlProgressbar.setVisibility(View.GONE);
-                    _progressbar.setVisibility(View.GONE);
-                    _tvPleaseWait.setVisibility(View.GONE);
-                }
-            }
-        });
+    /*  public void showOrHideProgressBar(final boolean visibility) {
+          getActivity().runOnUiThread(new Runnable() {
+              @Override
+              public void run() {
+                  if (visibility) {
+                      _rlProgressbar.setVisibility(View.VISIBLE);
+                      _progressbar.setVisibility(View.VISIBLE);
+                      _tvPleaseWait.setVisibility(View.VISIBLE);
+                  } else {
+                      _rlProgressbar.setVisibility(View.GONE);
+                      _progressbar.setVisibility(View.GONE);
+                      _tvPleaseWait.setVisibility(View.GONE);
+                  }
+              }
+          });
 
-    }*/
+      }*/
    /* public void setDashboardDataOnUI() {
 
         _teacherDashbordPoint = DashboardFeatureController.getInstance().getTeacherpoint();
@@ -129,12 +113,14 @@ public class SugestSponserFragment extends android.support.v4.app.Fragment {
             });
         }
     }*/
-  @Override
-  public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-      // TODO Add your menu entries here
-      inflater.inflate(R.menu.mywallet, menu);
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        // TODO Add your menu entries here
+
+    /*  inflater.inflate(R.menu.mywallet, menu);
       super.onCreateOptionsMenu(menu, inflater);
-  }
+      */
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -148,6 +134,7 @@ public class SugestSponserFragment extends android.support.v4.app.Fragment {
         }
         return super.onOptionsItemSelected(item);
     }
+
     public void showNetworkToast(final boolean isNetworkAvailable) {
         getActivity().runOnUiThread(new Runnable() {
             @Override
@@ -166,6 +153,7 @@ public class SugestSponserFragment extends android.support.v4.app.Fragment {
 
 
     }
+
     private void _loadFragment(int id, android.support.v4.app.Fragment fragment) {
 
         DrawerFeatureController.getInstance().setIsFragmentOpenedFromDrawer(false);
@@ -222,8 +210,8 @@ public class SugestSponserFragment extends android.support.v4.app.Fragment {
             _controller.clear();
             _controller = null;
         }
-        if(_Adapter !=null){
-            _Adapter=null;
+        if (_Adapter != null) {
+            _Adapter = null;
 
         }
     }

@@ -345,8 +345,10 @@ public class AfterLoginActivity extends AppCompatActivity implements IEventListe
 
                 break;
             case R.id.nav_college_map:
-                Intent i = new Intent(this, MapActivity.class);
+               Intent i = new Intent(this, MapActivity.class);
                 startActivity(i);
+
+
                 break;
             case R.id.nav_logout:
 

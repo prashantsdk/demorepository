@@ -6,7 +6,7 @@
         android:icon="@drawable/profile"
         android:title="Add"
         android:orderInCategory="1"
-        android:showAsAction="never" />
+        android:showAsAction="always" />
 
 
 </menu>

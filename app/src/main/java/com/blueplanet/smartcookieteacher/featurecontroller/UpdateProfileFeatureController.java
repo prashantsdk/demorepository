@@ -5,6 +5,7 @@ import android.util.Log;
 import com.blueplanet.smartcookieteacher.communication.ErrorInfo;
 import com.blueplanet.smartcookieteacher.communication.HTTPConstants;
 import com.blueplanet.smartcookieteacher.communication.ServerResponse;
+import com.blueplanet.smartcookieteacher.models.NewRegistrationModel;
 import com.blueplanet.smartcookieteacher.notification.EventNotifier;
 import com.blueplanet.smartcookieteacher.notification.EventState;
 import com.blueplanet.smartcookieteacher.notification.EventTypes;
@@ -23,7 +24,7 @@ public class UpdateProfileFeatureController implements IEventListener {
     private static UpdateProfileFeatureController _profileFeatureController = null;
     private final String _TAG = this.getClass().getSimpleName();
     public String parentImage = null;
-
+private NewRegistrationModel remodel=null;
     private UpdateProfileFeatureController() {
 
     }
@@ -46,6 +47,9 @@ public class UpdateProfileFeatureController implements IEventListener {
         update.send();
     }
 
+    public NewRegistrationModel getRemodel() {
+        return remodel;
+    }
 
     @Override
     public int eventNotify(int eventType, Object eventObject) {

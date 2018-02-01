@@ -631,6 +631,7 @@ public class WebserviceConstants {
     public static final String KEY_TEACHER_USERIMG_BASE64 = "User_imagebase64";
     public static final String KEY_TEACHER_USERIMG = "User_Image";
     public static final String KEY_TEACHER_UPDATE_FIRST_NAME = "User_FName";
+ public static final String KEY_TEACHER_UPDATE_MIDDLE_NAME = "User_MName";
     public static final String KEY_TEACHER_UPDATE_LAST_NAME = "User_LName";
 
     public static final String KEY_TEACHER_UPDATE_DOB = "User_dob";
@@ -798,19 +799,21 @@ public class WebserviceConstants {
 //new registration parameter
 
 
-    public static final String KEY_USER_MID = "User_Meid";
-    public static final String KEY_USER_COMPNAME = "User_Complete_Name";
-    public static final String KEY_USER_REG_FNAME = "User_FName";
-    public static final String KEY_USER_REG_lNAME = "User_LName";
-    public static final String KEY_USER_REG_ADDRESS = "User_address";
-    public static final String KEY_USER_REG_CITY = "User_city";
-    public static final String KEY_USER_REG_COUNTEY = "User_country";
+    public static final String KEY_USER_MID = "id";
+    public static final String KEY_USER_COMPNAME = "t_complete_name";
+    public static final String KEY_USER_REG_FNAME = "t_name";
+    public static final String KEY_USER_REG_lNAME = "t_lastname";
+    public static final String KEY_USER_REG_ADDRESS = "t_address";
+    public static final String KEY_USER_REG_CITY = "t_city";
+    public static final String KEY_USER_REG_COUNTEY = "t_country";
     public static final String KEY_USER_REG_STATE = "state";
-    public static final String KEY_USER_REG_PHONE = "User_Phone";
-    public static final String KEY_USER_REG_PASSWARD = "User_password";
+    public static final String KEY_USER_REG_PHONE = "t_phone";
+    public static final String KEY_USER_REG_PASSWARD = "t_password";
     public static final String KEY_USER_REG_COUNTRYCODE = "CountryCode";
-    public static final String KEY_USER_REG_EMAIL = "User_email";
-    public static final String KEY_USER_REG_IMGPATH = "User_Image_Path";
+    public static final String KEY_USER_REG_EMAIL = "t_email";
+    public static final String KEY_USER_REG_IMGPATH = "t_pc";
     public static final String KEY_USER_REG_IMGNAME = "User_Image_Name";
+
+
 
 }

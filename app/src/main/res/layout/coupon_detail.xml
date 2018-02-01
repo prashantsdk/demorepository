@@ -8,7 +8,7 @@
     android:padding="2dp"
     tools:context=".MainActivity">
 
-    <AutoCompleteTextView
+  <!--  <AutoCompleteTextView
         android:id="@+id/txtTextSearch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,7 +17,7 @@
         android:imeOptions="actionDone">
 
         <requestFocus />
-    </AutoCompleteTextView>
+    </AutoCompleteTextView>-->
 
     <ListView
         android:id="@+id/lstData"

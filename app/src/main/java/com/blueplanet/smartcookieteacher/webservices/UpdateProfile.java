@@ -27,7 +27,7 @@ import java.util.ArrayList;
 public class UpdateProfile extends SmartCookieTeacherService {
 
     private String _pId, _name, _phone, _country, _state, _city, _gender, _dob, _add, _pas, _qual, _occup, _img, _passward, _address;
-    private String _email, _tid, _fname, _lname,_studentId,_countrycode,_memberID,_Key;
+    private String _email, _tid, _fname, _lname,_studentId,_countrycode,_memberID,_Key,_mname;
     private final String _TAG = this.getClass().getSimpleName();
 
     /**
@@ -35,11 +35,12 @@ public class UpdateProfile extends SmartCookieTeacherService {
      *
      * @param
      */
-    public UpdateProfile(String email, String fname, String lname, String dob, String address, String city, String country,
+    public UpdateProfile(String email, String fname, String mname,String lname, String dob, String address, String city, String country,
                          String gender, String passward, String phone, String state,String studentId,String countrycode,
                          String memberID,String Key,String img) {
         _email = email;
         _fname = fname;
+        _mname=mname;
         _lname = lname;
         _dob = dob;
         _address = address;
@@ -54,6 +55,7 @@ public class UpdateProfile extends SmartCookieTeacherService {
         _memberID=memberID;
         _Key=Key;
         _img=img;
+
 
     }
 
@@ -74,6 +76,7 @@ public class UpdateProfile extends SmartCookieTeacherService {
             requestBody.put(WebserviceConstants.KEY_TEACHER_EMAIL, _email);
             //   requestBody.put(WebserviceConstants.KEY_TEACHER_UPDATE_ID, _tid);
             requestBody.put(WebserviceConstants.KEY_TEACHER_UPDATE_FIRST_NAME, _fname);
+            requestBody.put(WebserviceConstants.KEY_TEACHER_UPDATE_MIDDLE_NAME, _mname);
             requestBody.put(WebserviceConstants.KEY_TEACHER_UPDATE_LAST_NAME, _lname);
 
             requestBody.put(WebserviceConstants.KEY_TEACHER_UPDATE_DOB, _dob);

@@ -63,6 +63,7 @@ public class TeacherDashboardFragment extends Fragment {
     private Handler handler = null;
     private ArrayList<Student> _studentList = null;
     private CustomTextView _edtCount;
+    private Student stu=null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -138,6 +139,7 @@ public class TeacherDashboardFragment extends Fragment {
     public void _showDataOnUI() {
 
         _studentList = StudentFeatureController.getInstance().getStudentList();
+
         if (_studentList != null && _studentList.size() > 0) {
             getActivity().runOnUiThread(new Runnable() {
                 @Override
@@ -204,7 +206,6 @@ public class TeacherDashboardFragment extends Fragment {
 
                     String bluepoint = String.valueOf(_teacherDashbordPoint.get_bluepoint());
                     _teabluepoint.setText(bluepoint);
-
 
                     String brownpoint = String.valueOf(_teacherDashbordPoint.get_brownpoint());
                     _teabrownpoint.setText(brownpoint);

@@ -39,6 +39,7 @@ import com.blueplanet.smartcookieteacher.customcomponents.CustomButton;
 import com.blueplanet.smartcookieteacher.customcomponents.CustomEditText;
 import com.blueplanet.smartcookieteacher.featurecontroller.LoginFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.UpdateProfileFeatureController;
+import com.blueplanet.smartcookieteacher.models.NewRegistrationModel;
 import com.blueplanet.smartcookieteacher.models.Student;
 import com.blueplanet.smartcookieteacher.models.Teacher;
 import com.blueplanet.smartcookieteacher.network.NetworkManager;
@@ -85,7 +86,6 @@ public class UpdateProfileActivity extends AppCompatActivity implements IEventLi
     String _schoolId;
     private Spinner spinner, spinnerPhone;
     String[] numberOptn = {"+91", "+1"};
-
     private TextView pDisplayDate;
     private Button pPickDate;
     private int pYear;
@@ -93,6 +93,7 @@ public class UpdateProfileActivity extends AppCompatActivity implements IEventLi
     private int pDay;
     /** This integer will uniquely define the dialog to be used for displaying date picker.*/
     static final int DATE_DIALOG_ID = 0;
+    NewRegistrationModel regmodel=null;
 
 
     @Override
@@ -101,6 +102,7 @@ public class UpdateProfileActivity extends AppCompatActivity implements IEventLi
         setContentView(R.layout.parent_profile);
         _initUI();
         _teacher = LoginFeatureController.getInstance().getTeacher();
+        regmodel=UpdateProfileFeatureController.getInstance().getRemodel();
         displayBasicInfo();
         _editableFieldsFalse();
         handleButtonClick();
@@ -267,6 +269,7 @@ public class UpdateProfileActivity extends AppCompatActivity implements IEventLi
     }
 
     private void _handleUpdateEvents() {
+        regmodel=UpdateProfileFeatureController.getInstance().getRemodel();
 
           String img = getBase64();// ParentProfileFeatureController.getInstance().getParentImage();
         // String name = _firstName.getText().toString();
@@ -301,11 +304,16 @@ public class UpdateProfileActivity extends AppCompatActivity implements IEventLi
         UpdateProfileFeatureController.getInstance().updateProfileInfo(email, fname, lname, dob, add, city, country, gender, pas, phone, state, _schoolId,
                 countrycode, _PhoneCode, Key,img);
         Toast.makeText(getApplicationContext(), "successfully updated", Toast.LENGTH_LONG).show();
+        String ffname = regmodel.get_fname();
+        _firstName.setText(ffname);
+        String uaddress=regmodel.get_address();
+        _add.setText(uaddress);
 
 
     }
 
     private void _registerListeners() {
+
         EventNotifier eventNotifier =
                 NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_TEACHER);
         eventNotifier.registerListener(this, ListenerPriority.PRIORITY_MEDIUM);

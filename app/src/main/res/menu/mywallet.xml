@@ -8,11 +8,7 @@
         android:icon="@drawable/profile"
         android:title="Add"
         android:orderInCategory="1"
-<<<<<<< HEAD
-        android:showAsAction="always" />
-=======
         app:showAsAction="ifRoom" />
->>>>>>> 088f135999b13bba2875be03fa53d2c0048de57c
 
 
 </menu>

@@ -37,13 +37,13 @@ private NewRegistrationModel remodel=null;
     }
 
 
-    public void updateProfileInfo(String email, String fname, String lname, String dob, String address, String city, String country,
+    public void updateProfileInfo(String email, String fname,String mname, String lname, String dob, String address, String city, String country,
                                   String gender, String passward, String phone, String state, String studentId,
                                   String countrycode, String memberID, String Key, String img) {
         EventNotifier eventNotifier =
                 NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_TEACHER);
         eventNotifier.registerListener(this, ListenerPriority.PRIORITY_MEDIUM);
-        UpdateProfile update = new UpdateProfile(email, fname, lname, dob, address, city, country, gender, passward, phone, state, studentId, countrycode, memberID, Key, img);
+        UpdateProfile update = new UpdateProfile(email, fname,mname,lname, dob, address, city, country, gender, passward, phone, state, studentId, countrycode, memberID, Key, img);
         update.send();
     }
 

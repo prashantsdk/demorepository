@@ -298,10 +298,10 @@ public class UpdateProfileActivity extends AppCompatActivity implements IEventLi
         int memberID = _teacher.getId();
         String _PhoneCode = String.valueOf(memberID);
         String Key = "member-id";
-
+String mname="";
         _registerListeners();
         //sayali
-        UpdateProfileFeatureController.getInstance().updateProfileInfo(email, fname, lname, dob, add, city, country, gender, pas, phone, state, _schoolId,
+        UpdateProfileFeatureController.getInstance().updateProfileInfo(email, fname,mname, lname, dob, add, city, country, gender, pas, phone, state, _schoolId,
                 countrycode, _PhoneCode, Key,img);
         Toast.makeText(getApplicationContext(), "successfully updated", Toast.LENGTH_LONG).show();
         String ffname = regmodel.get_fname();

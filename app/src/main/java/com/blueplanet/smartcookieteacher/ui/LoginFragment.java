@@ -4,31 +4,17 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageInstaller;
 import android.content.pm.PackageManager;
-import android.content.pm.Signature;
 import android.content.res.Configuration;
-import android.media.tv.TvInputService;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
-import android.service.textservice.SpellCheckerService;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.telephony.TelephonyManager;
-import android.text.format.DateFormat;
 import android.text.format.Formatter;
-import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Display;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -46,16 +32,13 @@ import android.widget.Toast;
 
 import com.blueplanet.smartcookieteacher.MainApplication;
 import com.blueplanet.smartcookieteacher.R;
-import com.blueplanet.smartcookieteacher.customcomponents.CustomButton;
 import com.blueplanet.smartcookieteacher.customcomponents.CustomEditText;
 import com.blueplanet.smartcookieteacher.customcomponents.CustomTextView;
 import com.blueplanet.smartcookieteacher.featurecontroller.LoginFeatureController;
 import com.blueplanet.smartcookieteacher.models.LoginDetailModel;
 import com.blueplanet.smartcookieteacher.models.TestPro;
 import com.blueplanet.smartcookieteacher.models.User;
-import com.blueplanet.smartcookieteacher.notification.IEventListener;
 import com.blueplanet.smartcookieteacher.ui.controllers.LoginFragmentController;
-
 import com.blueplanet.smartcookieteacher.ui.customactionbar.UserSession;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
@@ -66,15 +49,11 @@ import java.lang.reflect.Method;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.Enumeration;
 
-import me.msfjarvis.apprate.AppRate;
-
-import static android.view.View.*;
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
 
 
 /**
@@ -84,7 +63,7 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
 
     private View _view;
     private CustomEditText _etUserName, _etPassword;
-    private Button _btnLogin, _btnsignup, btnRegis,btnfb;
+    private Button _btnLogin, _btnsignup, btnRegis, btnfb;
     private RelativeLayout _rlProgressbar;
     private ProgressBar _progressbar;
     private CustomTextView _tvPleaseWait, txtp;
@@ -94,7 +73,7 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
     private TestPro testpro;
     public User url;
     public String strurl;
-    private CustomTextView _test, _production, tv_forgotPassword,_dev;
+    private CustomTextView _test, _production, tv_forgotPassword, _dev;
     private EditText etxtpoints;
     private ImageView imgclearpoints;
     private Spinner spinner, spinnerPhone;
@@ -106,9 +85,9 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
     private final String _TAG = this.getClass().getSimpleName();
     private String selState, str;
 
-    GPSTracker   gpsTracker;
+    GPSTracker gpsTracker;
     double latitude = 0.0, longitude = 0.0;
-    public static final int PERMISSION_REQUEST_CODE=23;
+    public static final int PERMISSION_REQUEST_CODE = 23;
     String[] LOC_PERMISSIONS = {Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION};
     EditText etUserMobile;
     Date d = new Date();
@@ -123,12 +102,10 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 
-
-
         _view = inflater.inflate(R.layout.mobile_teacher_login, null);
 
         FacebookSdk.sdkInitialize(getActivity());
-        context=this.getActivity();
+        context = this.getActivity();
         _initUI();
 
         _loginFragmentController = new LoginFragmentController(this, _view);
@@ -146,7 +123,7 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
 
         try {
             MainApplication.enableGPS();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -255,9 +232,9 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
 
         _btnLogin.setOnClickListener(_loginFragmentController);
         btnRegis.setOnClickListener(_loginFragmentController);
-      //
-      //
-       btnfb.setOnClickListener(_loginFragmentController);
+        //
+        //
+        btnfb.setOnClickListener(_loginFragmentController);
         //_btnsignup.setOnClickListener(_loginFragmentController);
 
 
@@ -359,7 +336,7 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
 
         } else if (selState.equalsIgnoreCase("MemberID")) {
             ll_prn.setVisibility(View.INVISIBLE);
-            ll_ID.setVisibility(View.GONE);
+            ll_ID.setVisibility(View.VISIBLE);
             ll_userphone.setVisibility(View.INVISIBLE);
             ll_phone.setVisibility(View.INVISIBLE);
             _l1memberID.setVisibility(View.VISIBLE);
@@ -417,12 +394,13 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
         if (requestCode == RC_SIGN_IN) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             _loginFragmentController.handleSignInResult(result);
-        }else {
+        } else {
 
             callbackManager.onActivityResult(requestCode, resultCode, data);
         }
 
     }
+
     public void showNetworkToast(final boolean isNetworkAvailable) {
         getActivity().runOnUiThread(new Runnable()
 
@@ -583,8 +561,6 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
         modelName.set_modelName(model);
 
 
-
-
         if (model.startsWith(manufacturer)) {
             return capitalize(model);
         } else {
@@ -650,9 +626,9 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
         return null;
     }
 
-    private boolean checkPermission(){
+    private boolean checkPermission() {
         int result = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION);
-        if (result == PackageManager.PERMISSION_GRANTED){
+        if (result == PackageManager.PERMISSION_GRANTED) {
 
             return true;
 
@@ -664,10 +640,9 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
     }
 
 
+    private void requestPermission() {
 
-    private void requestPermission(){
-
-        if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) || ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION)){
+        if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) || ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION)) {
 
             Toast.makeText(getActivity(), "GPS permission allows us to access location data. Please allow in App Settings for additional functionality.", Toast.LENGTH_LONG).show();
 
@@ -676,6 +651,7 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
             ActivityCompat.requestPermissions(getActivity(), LOC_PERMISSIONS, PERMISSION_REQUEST_CODE);
         }
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
@@ -692,7 +668,6 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
                 break;
         }
     }
-
 
 
 }

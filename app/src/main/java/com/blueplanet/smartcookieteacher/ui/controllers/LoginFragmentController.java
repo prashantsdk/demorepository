@@ -270,13 +270,13 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
                         // LoginFeatureController.getInstance().set_userName(username);
                         //LoginFeatureController.getInstance().set_pasword(password);
 
-                        if (!TextUtils.isEmpty(userName) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(usertype) && !TextUtils.isEmpty(collgcode)) {
+                        if ((!TextUtils.isEmpty(userName)) && (!TextUtils.isEmpty(password)) && (!TextUtils.isEmpty(usertype)) && (!TextUtils.isEmpty(collgcode))) {
                             //  SmartCookieSharedPreferences.setLoginFlag(true);
 
                             _teacherLogin(userName, password, usertype, collgcode, method, devicetype, device_details, platform_OS, ip_address, countryCode, latitude, longitude);
                         } else {
                             Toast.makeText(MainApplication.getContext(),
-                                    "Please enter your credentials",
+                                    "Please enter your all login credentials",
                                     Toast.LENGTH_SHORT).show();
                           /*  SmartCookieSharedPreferences.setUserNameInSharedPreference("");
                             SmartCookieSharedPreferences.setPasswordInSharedPreference("");
@@ -305,14 +305,14 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
                                     Toast.LENGTH_SHORT).show();
                         }*/
 
-                        if (!TextUtils.isEmpty(mobileno) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(usertype) && !TextUtils.isEmpty(collgcode) && mobileno.equalsIgnoreCase("0")) {
+                        if ((!TextUtils.isEmpty(mobileno)) && (!TextUtils.isEmpty(password)) && (!TextUtils.isEmpty(usertype)) && (!TextUtils.isEmpty(collgcode)) && (!mobileno.equals("0"))) {
                             //  SmartCookieSharedPreferences.setLoginFlag(true);
 
                             _teacherLogin(mobileno, password, usertype, collgcode, method, devicetype, device_details, platform_OS, ip_address, code, latitude, longitude);
 
                         } else
                             Toast.makeText(MainApplication.getContext(),
-                                    "Please enter your credentials",
+                                    "Please enter your all login credentials",
                                     Toast.LENGTH_SHORT).show();
 
                         //_teacherLogin(mobileno, password, usertype, colgCode, method, devicetype, device_details, platform_OS, ip_address, code, latitude, longitude);
@@ -328,13 +328,13 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
                         // LoginFeatureController.getInstance().set_userName(username);
                         //LoginFeatureController.getInstance().set_pasword(password);
 
-                        if (!TextUtils.isEmpty(prn) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(usertype) && !TextUtils.isEmpty(code)) {
+                        if ((!TextUtils.isEmpty(prn)) && (!TextUtils.isEmpty(password)) && (!TextUtils.isEmpty(usertype)) && (!TextUtils.isEmpty(code))) {
                             //  SmartCookieSharedPreferences.setLoginFlag(true);
 
                             _teacherLogin(code, password, usertype, prn, method, devicetype, device_details, platform_OS, ip_address, countryCode, latitude, longitude);
                         } else {
                             Toast.makeText(MainApplication.getContext(),
-                                    "Please enter your credentials",
+                                    "Please enter your all login credentials",
                                     Toast.LENGTH_SHORT).show();
                         }
 
@@ -343,17 +343,21 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
                         _handleRememberMeClick();
                         String userMemberID = etMemberId.getText().toString();
                         password = etPassword.getText().toString();
-
+                        String collgcode = etprn.getText().toString();
 
                         //String selStatephone = (String) spinner.getSelectedItem();
                         // LoginFeatureController.getInstance().set_userName(username);
                         //LoginFeatureController.getInstance().set_pasword(password);
 
-                        if (!TextUtils.isEmpty(userMemberID) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(usertype)) {
+                        if ((!TextUtils.isEmpty(userMemberID)) && (!TextUtils.isEmpty(collgcode)) &&(!TextUtils.isEmpty(password)) && (!TextUtils.isEmpty(usertype))) {
                             //  SmartCookieSharedPreferences.setLoginFlag(true);
 
-                            _teacherLogin(userMemberID, password, usertype, colgCode, method, devicetype, device_details, platform_OS, ip_address, countryCode, latitude, longitude);
+                            _teacherLogin(userMemberID, password, usertype, collgcode, method, devicetype, device_details, platform_OS, ip_address, countryCode, latitude, longitude);
                         } else {
+
+                            Toast.makeText(MainApplication.getContext(),
+                                    "Please enter your all login credentials",
+                                    Toast.LENGTH_SHORT).show();
 
                         }
 
@@ -754,15 +758,19 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
 /*
         EditText etUserName = (EditText) _view.findViewById(R.id.edt_username);
         EditText etPassword = (EditText) _view.findViewById(R.id.edt_password);*/
+
         CheckBox cbRememberMe = (CheckBox) _view.findViewById(R.id.cb_remember_me);
         EditText etPassword = (EditText) _view.findViewById(R.id.edt_password);
 
         EditText etUserMobile = (EditText) _view.findViewById(R.id.edt_phone);
+
        /* String userName = etUserName.getText().toString();
         String password = etPassword.getText().toString();*/
 
         String mobileno = etUserMobile.getText().toString();
         String password = etPassword.getText().toString();
+
+
         String code = "91";
         String prn = "";
 

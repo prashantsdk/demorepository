@@ -7,6 +7,8 @@ import com.blueplanet.smartcookieteacher.DatabaseManager.SmartTeacherDatabaseMas
 import com.blueplanet.smartcookieteacher.DatabaseManager.TableOperations;
 import com.blueplanet.smartcookieteacher.models.User;
 
+import org.apache.http.cookie.SM;
+
 import java.util.ArrayList;
 
 public class UserTable extends TableOperations implements IPersistence {
@@ -20,7 +22,8 @@ public class UserTable extends TableOperations implements IPersistence {
     private final String[] _allUsers = {
             SmartTeacherDatabaseMasterTable.User.USER_NAME,
             SmartTeacherDatabaseMasterTable.User.USER_PASSWORD,
-            SmartTeacherDatabaseMasterTable.User.REMEMBER_ME };
+            SmartTeacherDatabaseMasterTable.User.REMEMBER_ME,
+            SmartTeacherDatabaseMasterTable.User.PRN_VALUE};
 
     @Override
     public ContentValues prepare ( Object obj ) {
@@ -30,6 +33,7 @@ public class UserTable extends TableOperations implements IPersistence {
         values.put ( SmartTeacherDatabaseMasterTable.User.USER_NAME, userInfo.getUserName () );
         values.put ( SmartTeacherDatabaseMasterTable.User.USER_PASSWORD, userInfo.getPassword1() );
         values.put ( SmartTeacherDatabaseMasterTable.User.REMEMBER_ME, userInfo.isRememberMe() );
+        values.put(SmartTeacherDatabaseMasterTable.User.PRN_VALUE,userInfo.get_prn());
 
         return values;
 
@@ -62,9 +66,9 @@ public class UserTable extends TableOperations implements IPersistence {
             if ( cursor.moveToFirst () ) {
                 do {
 
-                    boolean rememberMe = Boolean.parseBoolean(cursor.getString(2));
+                   // boolean rememberMe = Boolean.parseBoolean(cursor.getString(2));
                     userObj =
-                            new User( cursor.getString ( 0 ), cursor.getString ( 1 ), rememberMe ,cursor.getString ( 2 ));
+                            new User( cursor.getString ( 0 ), cursor.getString ( 1 ), cursor.getString(2) ,cursor.getString ( 3 ));
                 } while ( cursor.moveToNext () );
             }
         }

@@ -92,7 +92,6 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
     private EditText etxtpoints;
     private ImageView imgclearpoints;
     private Spinner spinner, spinnerPhone;
-    GPSTracker gps;
     private String password;
     GPSTracker gpsTracker;
     private Teacher _teacher;
@@ -106,7 +105,6 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
     GoogleCloudMessaging gcm;
     String[] social_name;
     URL social_profile_pic = null;
-    private String packageName = "com.example.sayali.callreminder";
 
     /**
      * constructor
@@ -226,7 +224,7 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
                 if (NetworkManager.isNetworkAvailable()) {
                     LoginDetailModel model = new LoginDetailModel();
 
-                    EditText etUserName = (EditText) _view.findViewById(R.id.edt_username);
+                    EditText etUserName = (EditText) _view.findViewById(R.id.edt_username_login);
                     EditText etPassword = (EditText) _view.findViewById(R.id.edt_password);
                     EditText etUserMobile = (EditText) _view.findViewById(R.id.edt_phone);
                     EditText etcolgcode = (EditText) _view.findViewById(R.id.edt_colgCode);
@@ -253,7 +251,7 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
 
 
                     if (usertype.equalsIgnoreCase("Email")) {
-                        _handleRememberMeClick();
+                        _handleRememberMeEmail();
                         String userName = etUserName.getText().toString();
                         LoginFeatureController.getInstance().setEmail(userName);
 
@@ -285,7 +283,7 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
 
 
                     } else if (usertype.equalsIgnoreCase("Mobile-No")) {
-                        _handleRememberMeClickEmp();
+                        _handleRememberMeMobileNo();
                         password = "";
                         String mobileno = etUserMobile.getText().toString();
                         String password = etPassword.getText().toString();
@@ -340,7 +338,7 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
 
                     }
                     if (usertype.equalsIgnoreCase("MemberID")) {
-                        _handleRememberMeClick();
+                        _handleRememberMeMemberID();
                         String userMemberID = etMemberId.getText().toString();
                         password = etPassword.getText().toString();
                         String collgcode = etprn.getText().toString();
@@ -432,7 +430,7 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
 
                 break;
             case R.id.tv_forgotPassword:
-                EditText etUserName = (EditText) _view.findViewById(R.id.edt_username);
+                EditText etUserName = (EditText) _view.findViewById(R.id.edt_username_login);
                 String userName = etUserName.getText().toString();
                 String entity = "2";
 
@@ -715,28 +713,30 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
     }
 
 
-    private void _handleRememberMeClick() {
+    private void _handleRememberMeEmail() {
 
-        EditText etUserName = (EditText) _view.findViewById(R.id.edt_username);
+        EditText etUserName = (EditText) _view.findViewById(R.id.edt_username_login);
         EditText etPassword = (EditText) _view.findViewById(R.id.edt_password);
+        EditText etPrnNo = _view.findViewById(R.id.edt_Id);
         CheckBox cbRememberMe = (CheckBox) _view.findViewById(R.id.cb_remember_me);
 
         String userName = etUserName.getText().toString();
         String password = etPassword.getText().toString();
-        String prn = "";
+        String prn =  etPrnNo.getText().toString();
         if (cbRememberMe.isChecked()) {
             Log.i(_TAG, "In remember me checked");
 
             SmartCookieSharedPreferences.setRememberMeFlag(true);
             SmartCookieSharedPreferences.setUserName(userName);
             SmartCookieSharedPreferences.setPassowrdKey(password);
+            SmartCookieSharedPreferences.setPRNKey(prn);
             SmartCookieSharedPreferences.setLoginFlag(true);
             LoginFeatureController.getInstance().deleteUserFromDB(null);
 
             /**
              * save user data into DB
              */
-            User user = new User(userName, password, true, prn);
+            User user = new User(userName, password, "true", prn,"1","2");
             LoginFeatureController.getInstance().saveUserDataIntoDB(user);
         } else {
 
@@ -753,7 +753,7 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
 
     }
 
-    private void _handleRememberMeClickEmp() {
+    private void _handleRememberMeMobileNo() {
 
 /*
         EditText etUserName = (EditText) _view.findViewById(R.id.edt_username);
@@ -761,7 +761,7 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
 
         CheckBox cbRememberMe = (CheckBox) _view.findViewById(R.id.cb_remember_me);
         EditText etPassword = (EditText) _view.findViewById(R.id.edt_password);
-
+        EditText etPrnNo = _view.findViewById(R.id.edt_Id);
         EditText etUserMobile = (EditText) _view.findViewById(R.id.edt_phone);
 
        /* String userName = etUserName.getText().toString();
@@ -769,10 +769,11 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
 
         String mobileno = etUserMobile.getText().toString();
         String password = etPassword.getText().toString();
+        String prn = etPrnNo.getText().toString();
 
 
         String code = "91";
-        String prn = "";
+
 
         if (cbRememberMe.isChecked()) {
             Log.i(_TAG, "In remember me checked");
@@ -784,7 +785,7 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
             /**
              * save user data into DB
              */
-            User user = new User(mobileno, password, true, prn);
+            User user = new User(mobileno, password, "true", prn,"1");
             LoginFeatureController.getInstance().saveUserDataIntoDB(user);
         } else {
 
@@ -802,13 +803,10 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
     }
 
     private void _handleRememberMeClickPrn() {
-/*
-        EditText etUserName = (EditText) _view.findViewById(R.id.edt_username);
-        EditText etPassword = (EditText) _view.findViewById(R.id.edt_password);*/
+
         CheckBox cbRememberMe = (CheckBox) _view.findViewById(R.id.cb_remember_me);
 
         EditText etPassword = (EditText) _view.findViewById(R.id.edt_password);
-
         EditText etcolgcode = (EditText) _view.findViewById(R.id.edt_colgCode);
         EditText etprn = (EditText) _view.findViewById(R.id.edt_Id);
 
@@ -819,8 +817,8 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
         if (cbRememberMe.isChecked()) {
             Log.i(_TAG, "In remember me checked");
             SmartCookieSharedPreferences.setRememberMeFlag(true);
-            SmartCookieSharedPreferences.setUserName(prn);
-            SmartCookieSharedPreferences.setPRNKey(code);
+            SmartCookieSharedPreferences.setUserName(code);
+            SmartCookieSharedPreferences.setPRNKey(prn);
             SmartCookieSharedPreferences.setPassowrdKey(password);
 
             SmartCookieSharedPreferences.setLoginFlag(true);
@@ -828,7 +826,48 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
             /**
              * save user data into DB
              */
-            User user = new User(code, prn, true, password);
+            User user = new User(code, password, "true" ,prn);
+            LoginFeatureController.getInstance().saveUserDataIntoDB(user);
+        } else {
+
+            Log.i(_TAG, "In remember me un-checked");
+            SmartCookieSharedPreferences.setRememberMeFlag(false);
+            SmartCookieSharedPreferences.setUserName("");
+            SmartCookieSharedPreferences.setPassowrdKey("");
+
+            /**
+             * delete user data into DB
+             */
+            LoginFeatureController.getInstance().deleteUserFromDB(prn);
+        }
+
+    }
+
+    private void _handleRememberMeMemberID() {
+
+        CheckBox cbRememberMe = (CheckBox) _view.findViewById(R.id.cb_remember_me);
+
+        EditText etPassword = (EditText) _view.findViewById(R.id.edt_password);
+        EditText etcolgcode = (EditText) _view.findViewById(R.id.edt_memberid);
+        EditText etprn = (EditText) _view.findViewById(R.id.edt_Id);
+
+        String code = etcolgcode.getText().toString();
+        String prn = etprn.getText().toString();
+        String password = etPassword.getText().toString();
+
+        if (cbRememberMe.isChecked()) {
+            Log.i(_TAG, "In remember me checked");
+            SmartCookieSharedPreferences.setRememberMeFlag(true);
+            SmartCookieSharedPreferences.setUserName(code);
+            SmartCookieSharedPreferences.setPRNKey(prn);
+            SmartCookieSharedPreferences.setPassowrdKey(password);
+
+            SmartCookieSharedPreferences.setLoginFlag(true);
+            LoginFeatureController.getInstance().deleteUserFromDB(null);
+            /**
+             * save user data into DB
+             */
+            User user = new User(code, password, "true" ,prn,"1","2","3");
             LoginFeatureController.getInstance().saveUserDataIntoDB(user);
         } else {
 
@@ -848,11 +887,17 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-        _loginFragment.showType(position);
-        //_loginFragment.showTypePhone(position);
+        if(position>0){
+            _loginFragment.showType(position);
+            _loginFragment._isRememberMeClicked(position);
+
+        }
+      //_loginFragment.showTypePhone(position);
         // _loginFragment.showTypePhone(position);
 
     }
+
+
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {

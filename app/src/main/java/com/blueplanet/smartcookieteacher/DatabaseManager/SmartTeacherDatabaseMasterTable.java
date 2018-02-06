@@ -14,11 +14,21 @@ public class SmartTeacherDatabaseMasterTable {
      *
      *
      */
+
     public static final String CREATE_USER = "CREATE TABLE IF NOT EXISTS "
             + Tables.USER + "("
             + User.USER_NAME + " TEXT NOT NULL UNIQUE PRIMARY KEY COLLATE NOCASE,"
             + User.USER_PASSWORD + " TEXT NOT NULL,"
-            + User.REMEMBER_ME + " TEXT" + ");";
+            + User.REMEMBER_ME + " TEXT,"
+            + User.PRN_VALUE + " TEXT"+ ");";
+
+
+   /* public static final String CREATE_USER = "CREATE TABLE IF NOT EXISTS "
+            + Tables.USER + "("
+            + User.USER_NAME + " TEXT,"
+            + User.USER_PASSWORD + " TEXT,"
+            + User.REMEMBER_ME + " TEXT,"
+            + User.PRN_VALUE + " TEXT"+ ");";*/
 
     /**
      * create teacher info query
@@ -174,6 +184,7 @@ public class SmartTeacherDatabaseMasterTable {
         String USER_NAME = "user_name";
         String USER_PASSWORD = "user_password";
         String REMEMBER_ME = "remember_me";
+        String PRN_VALUE ="prn_number";
     }
 
     //table added to store User details.

@@ -62,7 +62,7 @@ import static android.view.View.VISIBLE;
 public class LoginFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
     private View _view;
-    private CustomEditText _etUserName, _etPassword;
+    private CustomEditText _etEmailId, _etPassword, _edtPrn, _edtEmployeeID, _edtMobileNo, _edtMemberId;
     private Button _btnLogin, _btnsignup, btnRegis, btnfb;
     private RelativeLayout _rlProgressbar;
     private ProgressBar _progressbar;
@@ -144,7 +144,7 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
         isTabletDevice(getActivity());
         isTablet(getContext());
         _registerUIListeners();
-        _isRememberMeClicked();
+
         isTabletDevice();
         return _view;
     }
@@ -152,47 +152,152 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
     /**
      * function to implement remember me functionality
      */
-    private void _isRememberMeClicked() {
-        // boolean rememberMe = SmartCookieSharedPreferences.getRememberMeFlag();
+    public void _isRememberMeClicked(int position) {
 
-            /*final String userName = SmartCookieSharedPreferences.getUserName();
-            final String passowrd = SmartCookieSharedPreferences.getPasswordKey();*/
 
         user = LoginFeatureController.getInstance().getUserInfoFromDB();
 
+
+
         if (user != null) {
-            final String userName = user.getUserName();
-            final String passowrd = user.getPassword1();
+
+            String passowrd = user.getPassword1();
+
+            String prn = user.get_prn();
+
+            String checkRemberMe = user.isRememberMe();
+
+            if (position == 1) {
+
+                Toast.makeText(getActivity(), "Email Id", Toast.LENGTH_SHORT).show();
+
+                final String userEmaiId = user.getUserEmailId();
 
 
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    _etUserName.setText(userName);
+                if (checkRemberMe.equals("true")) {
+
+                    _etEmailId.setText(userEmaiId);
                     _etPassword.setText(passowrd);
+                    _edtPrn.setText(prn);
+                    UserSession.setName(userEmaiId);
+                    _rememberMe.setChecked(true);
+
+                }
+
+                if (checkRemberMe.equals("false")) {
+
+                    _etEmailId.setText(userEmaiId);
+                    _etPassword.setText("");
+                    _edtPrn.setText("");
+                    UserSession.setName("");
+                    _rememberMe.setChecked(false);
+
+                }
+
+
+            }
+            if (position == 2) {
+                Toast.makeText(getActivity(), "Mobile No.", Toast.LENGTH_SHORT).show();
+
+
+                final String userMobileNo = user.getUserMobileNo();
+
+                if (checkRemberMe.equals("true")) {
+
+                    _edtMobileNo.setText(userMobileNo);
+                    _etPassword.setText(passowrd);
+                    _edtPrn.setText(prn);
+                    UserSession.setName(userMobileNo);
+                    _rememberMe.setChecked(true);
+
+                }
+
+                if (checkRemberMe.equals("false")) {
+
+                    _edtMobileNo.setText(userMobileNo);
+                    _etPassword.setText("");
+                    _edtPrn.setText("");
+                    UserSession.setName("");
+                    _rememberMe.setChecked(false);
+
+                }
+
+
+            }
+            if (position == 3) {
+                Toast.makeText(getActivity(), "Employee id", Toast.LENGTH_SHORT).show();
+
+                final String userName = user.getUserName();
+
+                if (checkRemberMe.equals("true")) {
+
+                    _edtEmployeeID.setText(userName);
+                    _etPassword.setText(passowrd);
+                    _edtPrn.setText(prn);
                     UserSession.setName(userName);
                     _rememberMe.setChecked(true);
 
+                }
+
+                if (checkRemberMe.equals("false")) {
+
+                    _edtEmployeeID.setText("");
+                    _etPassword.setText("");
+                    _edtPrn.setText("");
+                    UserSession.setName("");
+                    _rememberMe.setChecked(false);
 
                 }
-            });
-        } else {
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    _etUserName.setText("");
-                    _etPassword.setText("");
-                    _rememberMe.setChecked(false);
+
+
+            }
+            if (position == 4) {
+                Toast.makeText(getActivity(), "Member Id", Toast.LENGTH_SHORT).show();
+
+
+                final String userMemberId = user.getMemberId();
+                if (checkRemberMe.equals("true")) {
+
+                    _edtMemberId.setText(userMemberId);
+                    _etPassword.setText(passowrd);
+                    _edtPrn.setText(prn);
+                    UserSession.setName(userMemberId);
+                    _rememberMe.setChecked(true);
+
                 }
-            });
+
+                if (checkRemberMe.equals("false")) {
+
+                    _edtMemberId.setText(userMemberId);
+                    _etPassword.setText("");
+                    _edtPrn.setText("");
+                    UserSession.setName("");
+                    _rememberMe.setChecked(false);
+
+                }
+
+
+            }
+
+
         }
     }
 
+
     private void _initUI() {
 
-        _etUserName = (CustomEditText) _view.findViewById(R.id.edt_username);
+        _etEmailId = (CustomEditText) _view.findViewById(R.id.edt_username_login);
+
+        _edtEmployeeID = _view.findViewById(R.id.edt_colgCode);
+
+        _edtMobileNo = _view.findViewById(R.id.edt_phone);
+
+        _edtMemberId = _view.findViewById(R.id.edt_memberid);
+
 
         _etPassword = (CustomEditText) _view.findViewById(R.id.edt_password);
+
+        _edtPrn = _view.findViewById(R.id.edt_Id);
 
         _btnLogin = (Button) _view.findViewById(R.id.btn_login);
         btnRegis = (Button) _view.findViewById(R.id.btnRegis);
@@ -331,7 +436,7 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
             ll_phone.setVisibility(View.INVISIBLE);
             _l1memberID.setVisibility(View.INVISIBLE);
 
-
+            ll_prn.requestFocus();
             //LoginFeatureController.getInstance().setUserEmailType(false);
 
         } else if (selState.equalsIgnoreCase("MemberID")) {
@@ -482,6 +587,8 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+
         this.showTypePhone(position);
     }
 

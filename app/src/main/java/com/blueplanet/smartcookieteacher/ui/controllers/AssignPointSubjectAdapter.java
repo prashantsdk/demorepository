@@ -15,6 +15,7 @@ import com.blueplanet.smartcookieteacher.featurecontroller.AssignPointFeatureCon
 import com.blueplanet.smartcookieteacher.models.SubNameCode;
 import com.blueplanet.smartcookieteacher.ui.AssignPointFragment;
 
+import java.security.PrivateKey;
 import java.util.ArrayList;
 
 
@@ -28,6 +29,7 @@ public class AssignPointSubjectAdapter extends BaseAdapter {
 
     private final String _TAG = this.getClass().getSimpleName();
     private CustomTextView _textView[];
+
 
     public AssignPointSubjectAdapter(AssignPointFragment assignPointFragment,
                                      AssignPointFragmentController assignPointFragmentController,

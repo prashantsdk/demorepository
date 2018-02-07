@@ -319,7 +319,20 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
 
 
     }
+    public void showNoAListMessage(final boolean flag) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (flag == false) {
+                    Toast.makeText(getActivity().getApplicationContext(),
+                            getActivity().getString(R.string.pointsno),
+                            Toast.LENGTH_LONG).show();
+                }
+            }
+        });
 
+
+    }
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         //Inflater inflater1(R.menu.upload_product_coupon,menu);

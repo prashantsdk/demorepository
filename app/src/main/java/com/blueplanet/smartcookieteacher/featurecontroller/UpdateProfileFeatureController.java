@@ -5,7 +5,9 @@ import android.util.Log;
 import com.blueplanet.smartcookieteacher.communication.ErrorInfo;
 import com.blueplanet.smartcookieteacher.communication.HTTPConstants;
 import com.blueplanet.smartcookieteacher.communication.ServerResponse;
+import com.blueplanet.smartcookieteacher.models.Buy_Coupon_log;
 import com.blueplanet.smartcookieteacher.models.NewRegistrationModel;
+import com.blueplanet.smartcookieteacher.models.Teacher;
 import com.blueplanet.smartcookieteacher.notification.EventNotifier;
 import com.blueplanet.smartcookieteacher.notification.EventState;
 import com.blueplanet.smartcookieteacher.notification.EventTypes;
@@ -14,6 +16,9 @@ import com.blueplanet.smartcookieteacher.notification.ListenerPriority;
 import com.blueplanet.smartcookieteacher.notification.NotifierFactory;
 import com.blueplanet.smartcookieteacher.webservices.UpdateProfile;
 import com.blueplanet.smartcookieteacher.webservices.WebserviceConstants;
+
+import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Created by Sayali on 3/23/2017.
@@ -25,6 +30,7 @@ public class UpdateProfileFeatureController implements IEventListener {
     private final String _TAG = this.getClass().getSimpleName();
     public String parentImage = null;
 private NewRegistrationModel remodel=null;
+
     private UpdateProfileFeatureController() {
 
     }
@@ -53,40 +59,34 @@ private NewRegistrationModel remodel=null;
 
     @Override
     public int eventNotify(int eventType, Object eventObject) {
-        int eventState = EventState.EVENT_PROCESSED;
-        EventNotifier eventNotifierReviews =
-                NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_TEACHER);
-        eventNotifierReviews.unRegisterListener(this);
 
-        Log.i(_TAG, " " + eventType);
+        int eventState = EventState.EVENT_PROCESSED;
+        EventNotifier eventNotifier =
+                NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_TEACHER);
+        eventNotifier.unRegisterListener(this);
+
         ServerResponse serverResponse = (ServerResponse) eventObject;
         int errorCode = serverResponse.getErrorCode();
-        Log.i(_TAG, "Error code id:" + errorCode);
         Object responseObject = serverResponse.getResponseObject();
-
-
+        EventNotifier eventNotifierUI;
         switch (eventType) {
-
-
             case EventTypes.EVENT_TEACHER_UPDATE_PROFILE:
+
                 if (errorCode == WebserviceConstants.SUCCESS) {
-                    Log.i(_TAG, "In success ");
-                    /**success*/
-
-                    EventNotifier eventNotifierUI =
+                    remodel = (NewRegistrationModel) responseObject;
+                    eventNotifierUI =
                             NotifierFactory.getInstance().getNotifier(
-
                                     NotifierFactory.EVENT_NOTIFIER_TEACHER);
                     eventNotifierUI.eventNotifyOnThread(EventTypes.EVENT_TEACHER_UI_UPDATE_PROFILE,
                             serverResponse);
-
                 } else {
+
                     ErrorInfo errorInfo = (ErrorInfo) responseObject;
                     int statusCode = errorInfo.getErrorCode();
-                    Log.i(_TAG, "In failure ");
+
                     if (statusCode == HTTPConstants.HTTP_COM_NO_CONTENT) {
 
-                        EventNotifier eventNotifierUI =
+                        eventNotifierUI =
                                 NotifierFactory.getInstance().getNotifier(
                                         NotifierFactory.EVENT_NOTIFIER_TEACHER);
                         eventNotifierUI.eventNotifyOnThread(EventTypes.EVENT_TEACHER_UI_NOT_UPDATE_PROFILE,
@@ -94,7 +94,7 @@ private NewRegistrationModel remodel=null;
 
                     } else if (statusCode == HTTPConstants.HTTP_COMM_ERR_BAD_REQUEST) {
 
-                        EventNotifier eventNotifierUI =
+                        eventNotifierUI =
                                 NotifierFactory.getInstance().getNotifier(
                                         NotifierFactory.EVENT_NOTIFIER_TEACHER);
                         eventNotifierUI.eventNotifyOnThread(EventTypes.EVENT_UI_BAD_REQUEST,
@@ -102,26 +102,23 @@ private NewRegistrationModel remodel=null;
 
                     } else {
 
-                        EventNotifier eventNotifierUI =
+                        eventNotifierUI =
                                 NotifierFactory.getInstance().getNotifier(
                                         NotifierFactory.EVENT_NOTIFIER_TEACHER);
                         eventNotifierUI.eventNotifyOnThread(EventTypes.EVENT_UI_UNAUTHORIZED,
                                 serverResponse);
                     }
-                }
 
+                }
                 break;
 
-
-            /**success*/
 
             default:
                 eventState = EventState.EVENT_IGNORED;
                 break;
 
         }
-        return EventState.EVENT_PROCESSED;
-
+        return 0;
     }
 
 

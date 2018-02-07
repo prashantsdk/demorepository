@@ -57,15 +57,17 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
 
 /**
  * Created by AviK297 on 7/15/2016.
  */
-public class UpdateProfileActivity extends AppCompatActivity implements IEventListener {
+public class UpdateProfileActivity extends AppCompatActivity implements IEventListener, View.OnClickListener {
 
-    private CustomEditText _firstName, _lastName, _dob, _age, _gender, _qual, _occup, _email, _add, _country, _city, _state, _phone, _pasword, _confirmPas;
+    private CustomEditText _firstName, _middle, _lastName, _dob, _age, _gender, _qual, _occup, _email, _add, _country, _city, _state, _phone, _pasword, _confirmPas;
     private CustomButton _btnUpdate, _btnCancel;
     private FloatingActionButton _btnAction;
     private ImageView _parentImg;
@@ -91,9 +93,15 @@ public class UpdateProfileActivity extends AppCompatActivity implements IEventLi
     private int pYear;
     private int pMonth;
     private int pDay;
-    /** This integer will uniquely define the dialog to be used for displaying date picker.*/
+    Calendar myCalendar = Calendar.getInstance();
+
+
+    String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+    /**
+     * This integer will uniquely define the dialog to be used for displaying date picker.
+     */
     static final int DATE_DIALOG_ID = 0;
-    NewRegistrationModel regmodel=null;
+    NewRegistrationModel regmodel = null;
 
 
     @Override
@@ -102,7 +110,7 @@ public class UpdateProfileActivity extends AppCompatActivity implements IEventLi
         setContentView(R.layout.parent_profile);
         _initUI();
         _teacher = LoginFeatureController.getInstance().getTeacher();
-        regmodel=UpdateProfileFeatureController.getInstance().getRemodel();
+        regmodel = UpdateProfileFeatureController.getInstance().getRemodel();
         displayBasicInfo();
         _editableFieldsFalse();
         handleButtonClick();
@@ -150,7 +158,7 @@ public class UpdateProfileActivity extends AppCompatActivity implements IEventLi
         pDay = cal.get(Calendar.DAY_OF_MONTH);
 
         /** Display the current date in the TextView */
-      //  updateDisplay();
+        //  updateDisplay();
 
     }
 
@@ -191,6 +199,18 @@ public class UpdateProfileActivity extends AppCompatActivity implements IEventLi
                 }
             }
         });
+
+        _dob.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                new DatePickerDialog(UpdateProfileActivity.this, date, myCalendar
+                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
+
     }
 
     private void requestPermission() {
@@ -269,9 +289,9 @@ public class UpdateProfileActivity extends AppCompatActivity implements IEventLi
     }
 
     private void _handleUpdateEvents() {
-        regmodel=UpdateProfileFeatureController.getInstance().getRemodel();
+        regmodel = UpdateProfileFeatureController.getInstance().getRemodel();
 
-          String img = getBase64();// ParentProfileFeatureController.getInstance().getParentImage();
+        String img = getBase64();// ParentProfileFeatureController.getInstance().getParentImage();
         // String name = _firstName.getText().toString();
         String dob = _dob.getText().toString();
         //String age = _age.getText().toString();
@@ -283,11 +303,13 @@ public class UpdateProfileActivity extends AppCompatActivity implements IEventLi
         String add = _add.getText().toString();
         String country = _country.getText().toString();
         //String state = _state.getText().toString();
-         String phone = _phone.getText().toString();
+
+        String phone = _phone.getText().toString();
         String pas = _pasword.getText().toString();
         // String tid = _pasword.getText().toString();
         String fname = _firstName.getText().toString();
         String lname = _lastName.getText().toString();
+        String mname = _middle.getText().toString();
         //
         //
         // String phone = "";
@@ -298,16 +320,22 @@ public class UpdateProfileActivity extends AppCompatActivity implements IEventLi
         int memberID = _teacher.getId();
         String _PhoneCode = String.valueOf(memberID);
         String Key = "member-id";
-String mname="";
+
         _registerListeners();
         //sayali
-        UpdateProfileFeatureController.getInstance().updateProfileInfo(email, fname,mname, lname, dob, add, city, country, gender, pas, phone, state, _schoolId,
-                countrycode, _PhoneCode, Key,img);
-        Toast.makeText(getApplicationContext(), "successfully updated", Toast.LENGTH_LONG).show();
-        String ffname = regmodel.get_fname();
-        _firstName.setText(ffname);
-        String uaddress=regmodel.get_address();
-        _add.setText(uaddress);
+        // onClick of button perform this simplest code.
+        if (email.matches(emailPattern))
+        {
+            UpdateProfileFeatureController.getInstance().updateProfileInfo(email, fname, mname, lname, dob, add, city, country, gender, pas, phone, state, _schoolId,
+                    countrycode, _PhoneCode, Key, img);
+           // Toast.makeText(getApplicationContext(), "successfully updated", Toast.LENGTH_LONG).show();
+        }
+        else
+        {
+            Toast.makeText(getApplicationContext(),"Invalid email address", Toast.LENGTH_SHORT).show();
+        }
+
+
 
 
     }
@@ -328,6 +356,7 @@ String mname="";
         // _layout = (CoordinatorLayout) findViewById(R.id.pro);
         //  progrees = (ProgressBar) findViewById(R.id.progress5);
         _firstName = (CustomEditText) findViewById(R.id.edt_first_name);
+        _middle = (CustomEditText) findViewById(R.id.edt_middle_name);
         _lastName = (CustomEditText) findViewById(R.id.edt_last_name);
         _dob = (CustomEditText) findViewById(R.id.edt_dob);
         //  _age = (CustomEditText) findViewById(R.id.edt_age);
@@ -354,6 +383,7 @@ String mname="";
 
     private void _editableFieldsTrue() {
         _firstName.setEnabled(true);
+        _middle.setEnabled(true);
         _lastName.setEnabled(true);
         _dob.setEnabled(true);
         //  _age.setEnabled(true);
@@ -365,7 +395,7 @@ String mname="";
         _city.setEnabled(true);
         _country.setEnabled(true);
         //_state.setEnabled(true);
-         _phone.setEnabled(true);
+        _phone.setEnabled(true);
         _pasword.setEnabled(true);
 
 
@@ -373,6 +403,7 @@ String mname="";
 
     private void _editableFieldsFalse() {
         _firstName.setEnabled(false);
+        _middle.setEnabled(true);
         _lastName.setEnabled(false);
         _dob.setEnabled(false);
         // _age.setEnabled(false);
@@ -384,7 +415,7 @@ String mname="";
         _city.setEnabled(false);
         _country.setEnabled(false);
         //_state.setEnabled(false);
-         _phone.setEnabled(false);
+        _phone.setEnabled(false);
         _pasword.setEnabled(false);
         _btnUpdate.setEnabled(false);
         ArrayAdapter aa = new ArrayAdapter(this, android.R.layout.simple_spinner_item, numberOptn);
@@ -436,7 +467,6 @@ String mname="";
             fo.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-
 
 
         } catch (IOException e) {
@@ -522,13 +552,13 @@ String mname="";
     }
 
 
-
     private void displayBasicInfo() {
         // parentInfo = LoginFeatureController.getInstance().getParent();
 
         teacher = LoginFeatureController.getInstance().getTeacher();
         parentId = teacher.get_tId();
         _setFirstNameOnUI(teacher);
+        _setMiddleNameOnUI(teacher);
         _setLastNameOnUI(teacher);
         _DobNameOnUI(teacher);
         //_dob.setText(teacher.get_tDOB());
@@ -589,6 +619,15 @@ String mname="";
             _firstName.setText("");
         } else {
             _firstName.setText(first);
+        }
+    }
+
+    private void _setMiddleNameOnUI(Teacher teacher) {
+        String middle = teacher.get_tMiddleName();
+        if (!(TextUtils.isEmpty(middle)) && middle.equalsIgnoreCase("null")) {
+            _middle.setText("");
+        } else {
+            _middle.setText(middle);
         }
     }
 
@@ -678,43 +717,31 @@ String mname="";
         switch (eventType) {
 
 
-            case EventTypes.EVENT_PROFILE_UI_SUCCESSFUL:
+            case EventTypes.EVENT_TEACHER_UI_UPDATE_PROFILE:
                 EventNotifier eventsponsorlist =
                         NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_TEACHER);
                 eventsponsorlist.unRegisterListener(this);
                 if (errorCode == WebserviceConstants.SUCCESS) {
                     //Sayali
+
+                    regmodel = UpdateProfileFeatureController.getInstance().getRemodel();
                     Log.i(_TAG, "Value of reg is: ");
                     showProfileUpdateMsg(true);
 
-                    showProfileUpdateMsg(true);
-                    showOrHideLoadingSpinner(true);
-                    String user = LoginFeatureController.getInstance().get_emailID();
-                    String method = LoginFeatureController.getInstance().getMethod();
-                    String code = LoginFeatureController.getInstance().getColgcode();
-                    String colgcode = LoginFeatureController.getInstance().getColgcode();
-                    String devicedetail = LoginFeatureController.getInstance().getDevicedetail();
 
-                    String devicetype = LoginFeatureController.getInstance().getDevicetype();
-                    String ip = LoginFeatureController.getInstance().getIp();
-                    String platform = LoginFeatureController.getInstance().getPlatfom();
-                    String usertype = LoginFeatureController.getInstance().get_emailID();
-                    String countrycode = "";
-                    String teacherEmail = LoginFeatureController.getInstance().getEmail();
-                    String teacherpassword = LoginFeatureController.getInstance().getPassword();
+                   // showOrHideLoadingSpinner(true);
 
-                    ;
+
                     EventNotifier eventNotifier =
                             NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_TEACHER);
                     eventNotifier.registerListener(this, ListenerPriority.PRIORITY_MEDIUM);
-                   /* LoginFeatureController.getInstance().teacherLogin(teacherEmail, teacherpassword, usertype, colgcode, method, devicetype, devicedetail,
-                            platform, ip, countrycode,latitude,longitude);*/
+
                 } else {
                     showProfileUpdateMsg(false);
                 }
                 break;
 
-            case EventTypes.EVENT_PROFILE_UI_NO_SUCCESSFUL:
+            case EventTypes.EVENT_TEACHER_UI_NOT_UPDATE_PROFILE:
                 EventNotifier eventnosponsorlist =
                         NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_TEACHER);
                 eventnosponsorlist.unRegisterListener(this);
@@ -799,7 +826,8 @@ String mname="";
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    Toast.makeText(getApplicationContext(), "Profile Updated Successfully", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Profile Updated Successfully", Toast.LENGTH_SHORT)
+                    .show();
 
                 }
             });
@@ -855,46 +883,32 @@ String mname="";
         }
 
     }
-    private DatePickerDialog.OnDateSetListener pDateSetListener =
-            new DatePickerDialog.OnDateSetListener() {
 
-                public void onDateSet(DatePicker view, int year,
-                                      int monthOfYear, int dayOfMonth) {
-                    pYear = year;
-                    pMonth = monthOfYear;
-                    pDay = dayOfMonth;
-                   // updateDisplay();
-                    displayToast();
-                }
-            };
+    DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 
-    /** Updates the date in the TextView */
-  /*  private void updateDisplay() {
-        _dob.setText(
-                new StringBuilder()
-                        // Month is 0 based so add 1i6
-                        .append(pMonth + 1).append("/")
-                        .append(pDay).append("/")
-                        .append(pYear).append(" "));
-    }
-*/
-    /** Displays a notification when the date is updated */
-    private void displayToast() {
-        Toast.makeText(this, new StringBuilder().append("Date choosen is ").append(pDisplayDate.getText()),  Toast.LENGTH_SHORT).show();
-
-    }
-
-
-    /** Create a new dialog for date picker */
-    @Override
-    protected Dialog onCreateDialog(int id) {
-        switch (id) {
-            case DATE_DIALOG_ID:
-                return new DatePickerDialog(this,
-                        pDateSetListener,
-                        pYear, pMonth, pDay);
+        @Override
+        public void onDateSet(DatePicker view, int year, int monthOfYear,
+                              int dayOfMonth) {
+            // TODO Auto-generated method stub
+            myCalendar.set(Calendar.YEAR, year);
+            myCalendar.set(Calendar.MONTH, monthOfYear);
+            myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            updateLabel();
         }
-        return null;
+
+    };
+
+    private void updateLabel() {
+        String myFormat = "MM/dd/yy"; //In which you need put here
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+
+        _dob.setText(sdf.format(myCalendar.getTime()));
+    }
+
+    @Override
+    public void onClick(View view) {
+
+
     }
 }
 

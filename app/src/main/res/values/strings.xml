@@ -28,8 +28,9 @@
     <string name="point_assign_successfully">Points successfully assigned</string>
     <string name="point_is_not_avaliable">You do not have point to assign</string>
     <string name="no_activites_available">No Activites available</string>
+    <string name="pointsno">insufficient points to assign</string>
     <string name="coupon_buy">Coupon Buy successfully</string>
-    <string name="coupon_add">Coupon Add successfully</string>
+    <string name="coupon_add">Added to cart</string>
     <string name="coupon_buy_toast">Coupon Added to cart successfully</string>
     <string name="coupon_buy_unsuccessful">Sorry...You do not have sufficient points to buy coupon!</string>
     <string name="no_coupon">Sorry...Their is no coupon for buy !</string>

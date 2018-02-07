@@ -117,9 +117,9 @@ public class UpdateProfile extends SmartCookieTeacherService {
         int statusCode = -1;
         String statusMessage = null;
         Log.i(_TAG, "In parseResponse" + responseJSONString.toString());
-        NewRegistrationModel _regmodel = null;
+       // NewRegistrationModel _regmodel = null;
 
-        ArrayList<NewRegistrationModel> reglist = new ArrayList<>();
+        //ArrayList<NewRegistrationModel> reglist = new ArrayList<>();
         try {
             objResponseJSON = new JSONObject(responseJSONString);
             String obj = objResponseJSON.toString();
@@ -128,7 +128,7 @@ public class UpdateProfile extends SmartCookieTeacherService {
                     objResponseJSON.getString(WebserviceConstants.KEY_STATUS_MESSAGE);
 
             Log.i(_TAG, responseJSONString.toString());
-
+            NewRegistrationModel _regmodel = null;
             if (statusCode == HTTPConstants.HTTP_COMM_SUCCESS) {
                 // success
                 JSONArray responseData = objResponseJSON.optJSONArray(WebserviceConstants.KEY_POSTS);
@@ -137,6 +137,7 @@ public class UpdateProfile extends SmartCookieTeacherService {
                     String userIdname = jsonObject.optString(WebserviceConstants.KEY_USER_MID);
                     String compname = jsonObject.optString(WebserviceConstants.KEY_USER_COMPNAME);
                     String fname = jsonObject.optString(WebserviceConstants.KEY_USER_REG_FNAME);
+                    String mname = jsonObject.optString(WebserviceConstants.KEY_USER_REG_MNAME);
                     String lname = jsonObject.optString(WebserviceConstants.KEY_USER_REG_lNAME);
                     String address = jsonObject.optString(WebserviceConstants.KEY_USER_REG_ADDRESS);
                     String city = jsonObject.optString(WebserviceConstants.KEY_USER_REG_CITY);
@@ -149,13 +150,10 @@ public class UpdateProfile extends SmartCookieTeacherService {
                     String imgpath = jsonObject.optString(WebserviceConstants.KEY_USER_REG_IMGPATH);
                     String imgname = jsonObject.optString(WebserviceConstants.KEY_USER_REG_IMGNAME);
 
-
-
-                    _regmodel = new NewRegistrationModel(userIdname,compname, fname, lname,address,city,country,state,phone,regpassward,countryucode,email,imgpath,imgname);
-                    reglist.add(_regmodel);
+                    _regmodel = new NewRegistrationModel(userIdname,compname, fname, mname,lname,address,city,country,state,phone,regpassward,countryucode,email,imgpath,imgname);
 
                 }
-                responseObject = new ServerResponse(errorCode, reglist);
+                responseObject = new ServerResponse(errorCode, _regmodel);
 
             } else {
                 // failure

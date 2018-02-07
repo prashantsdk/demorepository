@@ -10,6 +10,7 @@ public class NewRegistrationModel {
     private String  _userIdname = null;
     private String _compname = null;
     private String _fname = null;
+    private String _mname = null;
     private String _lname = null;
     private String _address = null;
     private String _city = null;
@@ -24,12 +25,13 @@ public class NewRegistrationModel {
     private String _imgname = null;
 
 
-    public NewRegistrationModel(String userIdname,String compname,String fname,String lname,String address,String city,String country,String state,String phone,
+    public NewRegistrationModel(String userIdname,String compname,String fname,String mname,String lname,String address,String city,String country,String state,String phone,
                                 String regpassward,String countryucode,String email,String imgpath,String imgname){
 
         _userIdname=userIdname;
         _compname=compname;
         _fname=fname;
+        _mname=mname;
         _lname=lname;
         _address=address;
         _city=city;
@@ -98,5 +100,9 @@ public class NewRegistrationModel {
 
     public String get_imgname() {
         return _imgname;
+    }
+
+    public String get_mname() {
+        return _mname;
     }
 }

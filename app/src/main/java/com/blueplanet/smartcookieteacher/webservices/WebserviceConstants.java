@@ -80,7 +80,7 @@ public class WebserviceConstants {
     public static final String SOFT_REWARD_PURCHASE = "purchase_soft_rewards_teacher.php";
     public static final String PURCHASEWATERPOINTS = "purchase_water_point_student.php";
     public static final String TEACHER_DISPLAY_SUBJECT_WEB_SERVICE = "display_school_subject_for_teacher.php";
-    public static final String TEACHER_UPDATE_PROFILE = "update_teacher_profile_webservice.php";
+    public static final String TEACHER_UPDATE_PROFILE = "update_teacher_profile_webservice_V1.php";
     public static final String TEACHER_ADD_SUBJECT = "wsforaddsub.php";
 
     public static final String STUDENT_SUGGEST_SPONSOR_LIST = "suggested_sponsors.php";
@@ -808,6 +808,7 @@ public class WebserviceConstants {
     public static final String KEY_USER_MID = "id";
     public static final String KEY_USER_COMPNAME = "t_complete_name";
     public static final String KEY_USER_REG_FNAME = "t_name";
+ public static final String KEY_USER_REG_MNAME = "t_middlename";
     public static final String KEY_USER_REG_lNAME = "t_lastname";
     public static final String KEY_USER_REG_ADDRESS = "t_address";
     public static final String KEY_USER_REG_CITY = "t_city";

@@ -197,8 +197,6 @@ public class EventTypes {
     public static final int EVENT_UI_SUGGESTED_SPONSOR_RESPONCE_RECIEVED= 266;
     public static final int EVENT_UI_NO_SUGGESTED_SPONSOR_RESPONCE_RECIEVED = 267;
 
-
-
     public static final int EVENT_SUGGEST_NEW_SPONSOR_RESPONCE_RECIEVED = 268;
     public static final int EVENT_UI_SUGGEST_NEW_SPONSOR_RESPONCE_RECIEVED= 269;
     public static final int EVENT_UI_NO_SUGGEST_NEW_SPONSOR_RESPONCE_RECIEVED = 270;

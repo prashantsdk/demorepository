@@ -23,8 +23,6 @@
                 android:layout_marginTop="50dp"
                 android:background="#ECECEC">
 
-
-
                 <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
                     android:id="@+id/tv_login"
                     style="@style/Login_title"

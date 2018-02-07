@@ -76,13 +76,12 @@
 
 
                     <com.blueplanet.smartcookieteacher.customcomponents.CustomEditText
-                        android:id="@+id/edt_username"
+                        android:id="@+id/edt_username_login"
                         style="@style/et_username_style"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center_vertical"
                         android:layout_marginTop="5dp"
-                        android:background="@null"
                         android:drawablePadding="15sp"
                         android:hint="Email"
                         android:paddingBottom="5dp"
@@ -128,7 +127,7 @@
                         android:layout_gravity="center_vertical"
                         android:background="@null"
                         android:drawablePadding="15sp"
-                        android:hint="Phone"
+                        android:hint="Mobile No."
                         android:inputType="phone"
                         android:paddingLeft="20dp"
                         android:paddingRight="10dp"
@@ -190,7 +189,6 @@
                         android:layout_height="match_parent"
                         android:layout_gravity="center_vertical"
                         android:layout_marginTop="5dp"
-                        android:background="@null"
                         android:drawablePadding="15sp"
                         android:hint="EmployeeID"
                         android:paddingBottom="5dp"
@@ -214,7 +212,7 @@
                     android:layout_marginRight="20dp"
                     android:background="@drawable/username_selector"
                     android:orientation="horizontal"
-                    android:visibility="gone">
+                    android:visibility="visible">
 
                     <com.blueplanet.smartcookieteacher.customcomponents.CustomEditText
                         android:id="@+id/edt_Id"
@@ -223,7 +221,6 @@
                         android:layout_height="match_parent"
                         android:layout_gravity="center_vertical"
                         android:layout_marginTop="5dp"
-                        android:background="@null"
                         android:drawablePadding="15sp"
                         android:hint="InstituteID"
                         android:paddingBottom="5dp"
@@ -261,7 +258,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginTop="5dp"
-                        android:background="@null"
                         android:drawablePadding="15sp"
                         android:hint="@string/password"
                         android:inputType="textPassword"

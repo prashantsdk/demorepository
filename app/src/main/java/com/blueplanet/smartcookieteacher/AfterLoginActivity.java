@@ -150,28 +150,34 @@ public class AfterLoginActivity extends AppCompatActivity implements IEventListe
         mTeacherName = navHeader.findViewById(R.id.drawer_userName);
         mProfileImage = navHeader.findViewById(R.id.user_icon);
 
-        _teacher = LoginFeatureController.getInstance().getTeacher();
+       // _teacher = LoginFeatureController.getInstance().getTeacher();
 
-
-        if(_teacher.get_tCompleteName().equals("")||_teacher.get_tCompleteName().equals(null)){
-            mTeacherName.setText("Name not available");
-        }else {
-            mTeacherName.setText(_teacher.get_tCompleteName());
-        }
-        if(_teacher.get_tPC().equals("")||_teacher.get_tPC().equals(null)){
-
+        if(_teacher == null){
 
         } else {
-            String temp =WebserviceConstants.IMAGE_BASE_URL_PRODUCTION+ _teacher.get_tPC().toString();
 
-            Uri  uri = Uri.parse(temp);
-            Glide.with(AfterLoginActivity.this)
-                    .load(uri)
-                    .thumbnail(0.5f)
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .into(mProfileImage);
+            if(_teacher.get_tCompleteName().equals("")||_teacher.get_tCompleteName().equals(null)){
+                mTeacherName.setText("Name not available");
+            }else {
+                mTeacherName.setText(_teacher.get_tCompleteName());
+            }
+            if(_teacher.get_tPC().equals("")||_teacher.get_tPC().equals(null)){
 
+
+            } else {
+                String temp =WebserviceConstants.IMAGE_BASE_URL_PRODUCTION+ _teacher.get_tPC().toString();
+
+                Uri  uri = Uri.parse(temp);
+                Glide.with(AfterLoginActivity.this)
+                        .load(uri)
+                        .thumbnail(0.5f)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .into(mProfileImage);
+
+            }
         }
+
+
 
 
     }

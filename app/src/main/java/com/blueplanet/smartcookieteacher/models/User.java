@@ -11,16 +11,27 @@ public class User {
 
     private String _userName = null;
 
+    private String userEmailId = null;
+    private String typeOne ="1";
+    private String userMobileNo = null;
+    private String typeTwo = "2";
+    private String memberId = null;
+    private String typeThree ="3";
+
+
     private String _password = null;
     private String _prn = null;
+    private String _rememberMe = null;
 
-    private boolean _rememberMe = false;
+
 
 
     public User(){
 
     }
-    public User(String userName, String password, boolean rememberMe,String prn) {
+
+
+    public User(String userName, String password, String rememberMe, String prn) {
         _userName = userName;
         _password = password;
         _rememberMe = rememberMe;
@@ -28,7 +39,42 @@ public class User {
 
     }
 
-    public boolean isRememberMe() {
+    public User(String emailId,String password,String rememberMe,String prn,String typeOne,String typeTwo){
+
+        userEmailId = emailId;
+        _password = password;
+        _rememberMe = rememberMe;
+        _prn=prn;
+        this.typeOne = typeOne;
+        this.typeTwo = typeTwo;
+
+
+    }
+
+    public User(String mobileNo,String password,String rememberMe,String prn,String typeOne){
+
+        userMobileNo = mobileNo;
+        _password = password;
+        _rememberMe = rememberMe;
+        _prn=prn;
+        this.typeOne = typeOne;
+    }
+
+
+    public User(String memberId,String password,String rememberMe,String prn,String typeOne,String typeTwo,String typeThree){
+
+        this.memberId = memberId;
+        _password = password;
+        _rememberMe = rememberMe;
+        _prn=prn;
+        this.typeOne = typeOne;
+        this.typeTwo = typeTwo;
+        this.typeThree = typeThree;
+    }
+
+
+
+    public String isRememberMe() {
         return _rememberMe;
     }
 
@@ -42,5 +88,19 @@ public class User {
 
     public String get_prn() {
         return _prn;
+    }
+
+
+
+    public String getUserEmailId() {
+        return userEmailId;
+    }
+
+    public String getUserMobileNo() {
+        return userMobileNo;
+    }
+
+    public String getMemberId() {
+        return memberId;
     }
 }

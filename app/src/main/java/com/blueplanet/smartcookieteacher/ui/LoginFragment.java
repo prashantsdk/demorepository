@@ -4,31 +4,17 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageInstaller;
 import android.content.pm.PackageManager;
-import android.content.pm.Signature;
 import android.content.res.Configuration;
-import android.media.tv.TvInputService;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
-import android.service.textservice.SpellCheckerService;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.telephony.TelephonyManager;
-import android.text.format.DateFormat;
 import android.text.format.Formatter;
-import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Display;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -46,16 +32,13 @@ import android.widget.Toast;
 
 import com.blueplanet.smartcookieteacher.MainApplication;
 import com.blueplanet.smartcookieteacher.R;
-import com.blueplanet.smartcookieteacher.customcomponents.CustomButton;
 import com.blueplanet.smartcookieteacher.customcomponents.CustomEditText;
 import com.blueplanet.smartcookieteacher.customcomponents.CustomTextView;
 import com.blueplanet.smartcookieteacher.featurecontroller.LoginFeatureController;
 import com.blueplanet.smartcookieteacher.models.LoginDetailModel;
 import com.blueplanet.smartcookieteacher.models.TestPro;
 import com.blueplanet.smartcookieteacher.models.User;
-import com.blueplanet.smartcookieteacher.notification.IEventListener;
 import com.blueplanet.smartcookieteacher.ui.controllers.LoginFragmentController;
-
 import com.blueplanet.smartcookieteacher.ui.customactionbar.UserSession;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
@@ -66,15 +49,11 @@ import java.lang.reflect.Method;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.Enumeration;
 
-import me.msfjarvis.apprate.AppRate;
-
-import static android.view.View.*;
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
 
 
 /**
@@ -83,8 +62,8 @@ import static android.view.View.*;
 public class LoginFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
     private View _view;
-    private CustomEditText _etUserName, _etPassword;
-    private Button _btnLogin, _btnsignup, btnRegis,btnfb;
+    private CustomEditText _etEmailId, _etPassword, _edtPrn, _edtEmployeeID, _edtMobileNo, _edtMemberId;
+    private Button _btnLogin, _btnsignup, btnRegis, btnfb;
     private RelativeLayout _rlProgressbar;
     private ProgressBar _progressbar;
     private CustomTextView _tvPleaseWait, txtp;
@@ -94,7 +73,7 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
     private TestPro testpro;
     public User url;
     public String strurl;
-    private CustomTextView _test, _production, tv_forgotPassword,_dev;
+    private CustomTextView _test, _production, tv_forgotPassword, _dev;
     private EditText etxtpoints;
     private ImageView imgclearpoints;
     private Spinner spinner, spinnerPhone;
@@ -106,9 +85,9 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
     private final String _TAG = this.getClass().getSimpleName();
     private String selState, str;
 
-    GPSTracker   gpsTracker;
+    GPSTracker gpsTracker;
     double latitude = 0.0, longitude = 0.0;
-    public static final int PERMISSION_REQUEST_CODE=23;
+    public static final int PERMISSION_REQUEST_CODE = 23;
     String[] LOC_PERMISSIONS = {Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION};
     EditText etUserMobile;
     Date d = new Date();
@@ -123,12 +102,10 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 
-
-
         _view = inflater.inflate(R.layout.mobile_teacher_login, null);
 
         FacebookSdk.sdkInitialize(getActivity());
-        context=this.getActivity();
+        context = this.getActivity();
         _initUI();
 
         _loginFragmentController = new LoginFragmentController(this, _view);
@@ -146,7 +123,7 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
 
         try {
             MainApplication.enableGPS();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -167,7 +144,7 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
         isTabletDevice(getActivity());
         isTablet(getContext());
         _registerUIListeners();
-        _isRememberMeClicked();
+
         isTabletDevice();
         return _view;
     }
@@ -175,47 +152,152 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
     /**
      * function to implement remember me functionality
      */
-    private void _isRememberMeClicked() {
-        // boolean rememberMe = SmartCookieSharedPreferences.getRememberMeFlag();
+    public void _isRememberMeClicked(int position) {
 
-            /*final String userName = SmartCookieSharedPreferences.getUserName();
-            final String passowrd = SmartCookieSharedPreferences.getPasswordKey();*/
 
         user = LoginFeatureController.getInstance().getUserInfoFromDB();
 
+
+
         if (user != null) {
-            final String userName = user.getUserName();
-            final String passowrd = user.getPassword1();
+
+            String passowrd = user.getPassword1();
+
+            String prn = user.get_prn();
+
+            String checkRemberMe = user.isRememberMe();
+
+            if (position == 1) {
+
+                Toast.makeText(getActivity(), "Email Id", Toast.LENGTH_SHORT).show();
+
+                final String userEmaiId = user.getUserEmailId();
 
 
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    _etUserName.setText(userName);
+                if (checkRemberMe.equals("true")) {
+
+                    _etEmailId.setText(userEmaiId);
                     _etPassword.setText(passowrd);
+                    _edtPrn.setText(prn);
+                    UserSession.setName(userEmaiId);
+                    _rememberMe.setChecked(true);
+
+                }
+
+                if (checkRemberMe.equals("false")) {
+
+                    _etEmailId.setText(userEmaiId);
+                    _etPassword.setText("");
+                    _edtPrn.setText("");
+                    UserSession.setName("");
+                    _rememberMe.setChecked(false);
+
+                }
+
+
+            }
+            if (position == 2) {
+                Toast.makeText(getActivity(), "Mobile No.", Toast.LENGTH_SHORT).show();
+
+
+                final String userMobileNo = user.getUserMobileNo();
+
+                if (checkRemberMe.equals("true")) {
+
+                    _edtMobileNo.setText(userMobileNo);
+                    _etPassword.setText(passowrd);
+                    _edtPrn.setText(prn);
+                    UserSession.setName(userMobileNo);
+                    _rememberMe.setChecked(true);
+
+                }
+
+                if (checkRemberMe.equals("false")) {
+
+                    _edtMobileNo.setText(userMobileNo);
+                    _etPassword.setText("");
+                    _edtPrn.setText("");
+                    UserSession.setName("");
+                    _rememberMe.setChecked(false);
+
+                }
+
+
+            }
+            if (position == 3) {
+                Toast.makeText(getActivity(), "Employee id", Toast.LENGTH_SHORT).show();
+
+                final String userName = user.getUserName();
+
+                if (checkRemberMe.equals("true")) {
+
+                    _edtEmployeeID.setText(userName);
+                    _etPassword.setText(passowrd);
+                    _edtPrn.setText(prn);
                     UserSession.setName(userName);
                     _rememberMe.setChecked(true);
 
+                }
+
+                if (checkRemberMe.equals("false")) {
+
+                    _edtEmployeeID.setText("");
+                    _etPassword.setText("");
+                    _edtPrn.setText("");
+                    UserSession.setName("");
+                    _rememberMe.setChecked(false);
 
                 }
-            });
-        } else {
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    _etUserName.setText("");
-                    _etPassword.setText("");
-                    _rememberMe.setChecked(false);
+
+
+            }
+            if (position == 4) {
+                Toast.makeText(getActivity(), "Member Id", Toast.LENGTH_SHORT).show();
+
+
+                final String userMemberId = user.getMemberId();
+                if (checkRemberMe.equals("true")) {
+
+                    _edtMemberId.setText(userMemberId);
+                    _etPassword.setText(passowrd);
+                    _edtPrn.setText(prn);
+                    UserSession.setName(userMemberId);
+                    _rememberMe.setChecked(true);
+
                 }
-            });
+
+                if (checkRemberMe.equals("false")) {
+
+                    _edtMemberId.setText(userMemberId);
+                    _etPassword.setText("");
+                    _edtPrn.setText("");
+                    UserSession.setName("");
+                    _rememberMe.setChecked(false);
+
+                }
+
+
+            }
+
+
         }
     }
 
+
     private void _initUI() {
 
-        _etUserName = (CustomEditText) _view.findViewById(R.id.edt_username);
+        _etEmailId = (CustomEditText) _view.findViewById(R.id.edt_username_login);
+
+        _edtEmployeeID = _view.findViewById(R.id.edt_colgCode);
+
+        _edtMobileNo = _view.findViewById(R.id.edt_phone);
+
+        _edtMemberId = _view.findViewById(R.id.edt_memberid);
+
 
         _etPassword = (CustomEditText) _view.findViewById(R.id.edt_password);
+
+        _edtPrn = _view.findViewById(R.id.edt_Id);
 
         _btnLogin = (Button) _view.findViewById(R.id.btn_login);
         btnRegis = (Button) _view.findViewById(R.id.btnRegis);
@@ -255,9 +337,9 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
 
         _btnLogin.setOnClickListener(_loginFragmentController);
         btnRegis.setOnClickListener(_loginFragmentController);
-      //
-      //
-       btnfb.setOnClickListener(_loginFragmentController);
+        //
+        //
+        btnfb.setOnClickListener(_loginFragmentController);
         //_btnsignup.setOnClickListener(_loginFragmentController);
 
 
@@ -354,12 +436,12 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
             ll_phone.setVisibility(View.INVISIBLE);
             _l1memberID.setVisibility(View.INVISIBLE);
 
-
+            ll_prn.requestFocus();
             //LoginFeatureController.getInstance().setUserEmailType(false);
 
         } else if (selState.equalsIgnoreCase("MemberID")) {
             ll_prn.setVisibility(View.INVISIBLE);
-            ll_ID.setVisibility(View.GONE);
+            ll_ID.setVisibility(View.VISIBLE);
             ll_userphone.setVisibility(View.INVISIBLE);
             ll_phone.setVisibility(View.INVISIBLE);
             _l1memberID.setVisibility(View.VISIBLE);
@@ -417,12 +499,13 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
         if (requestCode == RC_SIGN_IN) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             _loginFragmentController.handleSignInResult(result);
-        }else {
+        } else {
 
             callbackManager.onActivityResult(requestCode, resultCode, data);
         }
 
     }
+
     public void showNetworkToast(final boolean isNetworkAvailable) {
         getActivity().runOnUiThread(new Runnable()
 
@@ -504,6 +587,8 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+
         this.showTypePhone(position);
     }
 
@@ -583,8 +668,6 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
         modelName.set_modelName(model);
 
 
-
-
         if (model.startsWith(manufacturer)) {
             return capitalize(model);
         } else {
@@ -650,9 +733,9 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
         return null;
     }
 
-    private boolean checkPermission(){
+    private boolean checkPermission() {
         int result = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION);
-        if (result == PackageManager.PERMISSION_GRANTED){
+        if (result == PackageManager.PERMISSION_GRANTED) {
 
             return true;
 
@@ -664,10 +747,9 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
     }
 
 
+    private void requestPermission() {
 
-    private void requestPermission(){
-
-        if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) || ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION)){
+        if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) || ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION)) {
 
             Toast.makeText(getActivity(), "GPS permission allows us to access location data. Please allow in App Settings for additional functionality.", Toast.LENGTH_LONG).show();
 
@@ -676,6 +758,7 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
             ActivityCompat.requestPermissions(getActivity(), LOC_PERMISSIONS, PERMISSION_REQUEST_CODE);
         }
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
@@ -692,7 +775,6 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
                 break;
         }
     }
-
 
 
 }

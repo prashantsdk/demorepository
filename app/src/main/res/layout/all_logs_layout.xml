@@ -86,7 +86,7 @@
                         android:layout_weight="3"
                         android:background="#CC04B404"
                         android:textColor="#ffffff"
-                        android:text="Admain ThanQ Point Log"
+                        android:text="Admin ThanQ Point Log"
                         android:visibility="visible" />
                 </LinearLayout>
 

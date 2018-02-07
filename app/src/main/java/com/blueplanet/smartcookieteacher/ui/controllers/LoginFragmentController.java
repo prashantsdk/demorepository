@@ -92,7 +92,6 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
     private EditText etxtpoints;
     private ImageView imgclearpoints;
     private Spinner spinner, spinnerPhone;
-    GPSTracker gps;
     private String password;
     GPSTracker gpsTracker;
     private Teacher _teacher;
@@ -106,7 +105,6 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
     GoogleCloudMessaging gcm;
     String[] social_name;
     URL social_profile_pic = null;
-    private String packageName = "com.example.sayali.callreminder";
 
     /**
      * constructor
@@ -226,7 +224,7 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
                 if (NetworkManager.isNetworkAvailable()) {
                     LoginDetailModel model = new LoginDetailModel();
 
-                    EditText etUserName = (EditText) _view.findViewById(R.id.edt_username);
+                    EditText etUserName = (EditText) _view.findViewById(R.id.edt_username_login);
                     EditText etPassword = (EditText) _view.findViewById(R.id.edt_password);
                     EditText etUserMobile = (EditText) _view.findViewById(R.id.edt_phone);
                     EditText etcolgcode = (EditText) _view.findViewById(R.id.edt_colgCode);
@@ -253,7 +251,7 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
 
 
                     if (usertype.equalsIgnoreCase("Email")) {
-                        _handleRememberMeClick();
+                        _handleRememberMeEmail();
                         String userName = etUserName.getText().toString();
                         LoginFeatureController.getInstance().setEmail(userName);
 
@@ -270,13 +268,13 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
                         // LoginFeatureController.getInstance().set_userName(username);
                         //LoginFeatureController.getInstance().set_pasword(password);
 
-                        if (!TextUtils.isEmpty(userName) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(usertype) && !TextUtils.isEmpty(collgcode)) {
+                        if ((!TextUtils.isEmpty(userName)) && (!TextUtils.isEmpty(password)) && (!TextUtils.isEmpty(usertype)) && (!TextUtils.isEmpty(collgcode))) {
                             //  SmartCookieSharedPreferences.setLoginFlag(true);
 
                             _teacherLogin(userName, password, usertype, collgcode, method, devicetype, device_details, platform_OS, ip_address, countryCode, latitude, longitude);
                         } else {
                             Toast.makeText(MainApplication.getContext(),
-                                    "Please enter your credentials",
+                                    "Please enter your all login credentials",
                                     Toast.LENGTH_SHORT).show();
                           /*  SmartCookieSharedPreferences.setUserNameInSharedPreference("");
                             SmartCookieSharedPreferences.setPasswordInSharedPreference("");
@@ -285,7 +283,7 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
 
 
                     } else if (usertype.equalsIgnoreCase("Mobile-No")) {
-                        _handleRememberMeClickEmp();
+                        _handleRememberMeMobileNo();
                         password = "";
                         String mobileno = etUserMobile.getText().toString();
                         String password = etPassword.getText().toString();
@@ -305,14 +303,14 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
                                     Toast.LENGTH_SHORT).show();
                         }*/
 
-                        if (!TextUtils.isEmpty(mobileno) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(usertype) && !TextUtils.isEmpty(collgcode) && mobileno.equalsIgnoreCase("0")) {
+                        if ((!TextUtils.isEmpty(mobileno)) && (!TextUtils.isEmpty(password)) && (!TextUtils.isEmpty(usertype)) && (!TextUtils.isEmpty(collgcode)) && (!mobileno.equals("0"))) {
                             //  SmartCookieSharedPreferences.setLoginFlag(true);
 
                             _teacherLogin(mobileno, password, usertype, collgcode, method, devicetype, device_details, platform_OS, ip_address, code, latitude, longitude);
 
                         } else
                             Toast.makeText(MainApplication.getContext(),
-                                    "Please enter your credentials",
+                                    "Please enter your all login credentials",
                                     Toast.LENGTH_SHORT).show();
 
                         //_teacherLogin(mobileno, password, usertype, colgCode, method, devicetype, device_details, platform_OS, ip_address, code, latitude, longitude);
@@ -328,32 +326,36 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
                         // LoginFeatureController.getInstance().set_userName(username);
                         //LoginFeatureController.getInstance().set_pasword(password);
 
-                        if (!TextUtils.isEmpty(prn) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(usertype) && !TextUtils.isEmpty(code)) {
+                        if ((!TextUtils.isEmpty(prn)) && (!TextUtils.isEmpty(password)) && (!TextUtils.isEmpty(usertype)) && (!TextUtils.isEmpty(code))) {
                             //  SmartCookieSharedPreferences.setLoginFlag(true);
 
                             _teacherLogin(code, password, usertype, prn, method, devicetype, device_details, platform_OS, ip_address, countryCode, latitude, longitude);
                         } else {
                             Toast.makeText(MainApplication.getContext(),
-                                    "Please enter your credentials",
+                                    "Please enter your all login credentials",
                                     Toast.LENGTH_SHORT).show();
                         }
 
                     }
                     if (usertype.equalsIgnoreCase("MemberID")) {
-                        _handleRememberMeClick();
+                        _handleRememberMeMemberID();
                         String userMemberID = etMemberId.getText().toString();
                         password = etPassword.getText().toString();
-
+                        String collgcode = etprn.getText().toString();
 
                         //String selStatephone = (String) spinner.getSelectedItem();
                         // LoginFeatureController.getInstance().set_userName(username);
                         //LoginFeatureController.getInstance().set_pasword(password);
 
-                        if (!TextUtils.isEmpty(userMemberID) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(usertype)) {
+                        if ((!TextUtils.isEmpty(userMemberID)) && (!TextUtils.isEmpty(collgcode)) &&(!TextUtils.isEmpty(password)) && (!TextUtils.isEmpty(usertype))) {
                             //  SmartCookieSharedPreferences.setLoginFlag(true);
 
-                            _teacherLogin(userMemberID, password, usertype, colgCode, method, devicetype, device_details, platform_OS, ip_address, countryCode, latitude, longitude);
+                            _teacherLogin(userMemberID, password, usertype, collgcode, method, devicetype, device_details, platform_OS, ip_address, countryCode, latitude, longitude);
                         } else {
+
+                            Toast.makeText(MainApplication.getContext(),
+                                    "Please enter your all login credentials",
+                                    Toast.LENGTH_SHORT).show();
 
                         }
 
@@ -428,7 +430,7 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
 
                 break;
             case R.id.tv_forgotPassword:
-                EditText etUserName = (EditText) _view.findViewById(R.id.edt_username);
+                EditText etUserName = (EditText) _view.findViewById(R.id.edt_username_login);
                 String userName = etUserName.getText().toString();
                 String entity = "2";
 
@@ -711,28 +713,30 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
     }
 
 
-    private void _handleRememberMeClick() {
+    private void _handleRememberMeEmail() {
 
-        EditText etUserName = (EditText) _view.findViewById(R.id.edt_username);
+        EditText etUserName = (EditText) _view.findViewById(R.id.edt_username_login);
         EditText etPassword = (EditText) _view.findViewById(R.id.edt_password);
+        EditText etPrnNo = _view.findViewById(R.id.edt_Id);
         CheckBox cbRememberMe = (CheckBox) _view.findViewById(R.id.cb_remember_me);
 
         String userName = etUserName.getText().toString();
         String password = etPassword.getText().toString();
-        String prn = "";
+        String prn =  etPrnNo.getText().toString();
         if (cbRememberMe.isChecked()) {
             Log.i(_TAG, "In remember me checked");
 
             SmartCookieSharedPreferences.setRememberMeFlag(true);
             SmartCookieSharedPreferences.setUserName(userName);
             SmartCookieSharedPreferences.setPassowrdKey(password);
+            SmartCookieSharedPreferences.setPRNKey(prn);
             SmartCookieSharedPreferences.setLoginFlag(true);
             LoginFeatureController.getInstance().deleteUserFromDB(null);
 
             /**
              * save user data into DB
              */
-            User user = new User(userName, password, true, prn);
+            User user = new User(userName, password, "true", prn,"1","2");
             LoginFeatureController.getInstance().saveUserDataIntoDB(user);
         } else {
 
@@ -749,22 +753,27 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
 
     }
 
-    private void _handleRememberMeClickEmp() {
+    private void _handleRememberMeMobileNo() {
 
 /*
         EditText etUserName = (EditText) _view.findViewById(R.id.edt_username);
         EditText etPassword = (EditText) _view.findViewById(R.id.edt_password);*/
+
         CheckBox cbRememberMe = (CheckBox) _view.findViewById(R.id.cb_remember_me);
         EditText etPassword = (EditText) _view.findViewById(R.id.edt_password);
-
+        EditText etPrnNo = _view.findViewById(R.id.edt_Id);
         EditText etUserMobile = (EditText) _view.findViewById(R.id.edt_phone);
+
        /* String userName = etUserName.getText().toString();
         String password = etPassword.getText().toString();*/
 
         String mobileno = etUserMobile.getText().toString();
         String password = etPassword.getText().toString();
+        String prn = etPrnNo.getText().toString();
+
+
         String code = "91";
-        String prn = "";
+
 
         if (cbRememberMe.isChecked()) {
             Log.i(_TAG, "In remember me checked");
@@ -776,7 +785,7 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
             /**
              * save user data into DB
              */
-            User user = new User(mobileno, password, true, prn);
+            User user = new User(mobileno, password, "true", prn,"1");
             LoginFeatureController.getInstance().saveUserDataIntoDB(user);
         } else {
 
@@ -794,13 +803,10 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
     }
 
     private void _handleRememberMeClickPrn() {
-/*
-        EditText etUserName = (EditText) _view.findViewById(R.id.edt_username);
-        EditText etPassword = (EditText) _view.findViewById(R.id.edt_password);*/
+
         CheckBox cbRememberMe = (CheckBox) _view.findViewById(R.id.cb_remember_me);
 
         EditText etPassword = (EditText) _view.findViewById(R.id.edt_password);
-
         EditText etcolgcode = (EditText) _view.findViewById(R.id.edt_colgCode);
         EditText etprn = (EditText) _view.findViewById(R.id.edt_Id);
 
@@ -811,8 +817,8 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
         if (cbRememberMe.isChecked()) {
             Log.i(_TAG, "In remember me checked");
             SmartCookieSharedPreferences.setRememberMeFlag(true);
-            SmartCookieSharedPreferences.setUserName(prn);
-            SmartCookieSharedPreferences.setPRNKey(code);
+            SmartCookieSharedPreferences.setUserName(code);
+            SmartCookieSharedPreferences.setPRNKey(prn);
             SmartCookieSharedPreferences.setPassowrdKey(password);
 
             SmartCookieSharedPreferences.setLoginFlag(true);
@@ -820,7 +826,48 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
             /**
              * save user data into DB
              */
-            User user = new User(code, prn, true, password);
+            User user = new User(code, password, "true" ,prn);
+            LoginFeatureController.getInstance().saveUserDataIntoDB(user);
+        } else {
+
+            Log.i(_TAG, "In remember me un-checked");
+            SmartCookieSharedPreferences.setRememberMeFlag(false);
+            SmartCookieSharedPreferences.setUserName("");
+            SmartCookieSharedPreferences.setPassowrdKey("");
+
+            /**
+             * delete user data into DB
+             */
+            LoginFeatureController.getInstance().deleteUserFromDB(prn);
+        }
+
+    }
+
+    private void _handleRememberMeMemberID() {
+
+        CheckBox cbRememberMe = (CheckBox) _view.findViewById(R.id.cb_remember_me);
+
+        EditText etPassword = (EditText) _view.findViewById(R.id.edt_password);
+        EditText etcolgcode = (EditText) _view.findViewById(R.id.edt_memberid);
+        EditText etprn = (EditText) _view.findViewById(R.id.edt_Id);
+
+        String code = etcolgcode.getText().toString();
+        String prn = etprn.getText().toString();
+        String password = etPassword.getText().toString();
+
+        if (cbRememberMe.isChecked()) {
+            Log.i(_TAG, "In remember me checked");
+            SmartCookieSharedPreferences.setRememberMeFlag(true);
+            SmartCookieSharedPreferences.setUserName(code);
+            SmartCookieSharedPreferences.setPRNKey(prn);
+            SmartCookieSharedPreferences.setPassowrdKey(password);
+
+            SmartCookieSharedPreferences.setLoginFlag(true);
+            LoginFeatureController.getInstance().deleteUserFromDB(null);
+            /**
+             * save user data into DB
+             */
+            User user = new User(code, password, "true" ,prn,"1","2","3");
             LoginFeatureController.getInstance().saveUserDataIntoDB(user);
         } else {
 
@@ -840,11 +887,17 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-        _loginFragment.showType(position);
-        //_loginFragment.showTypePhone(position);
+        if(position>0){
+            _loginFragment.showType(position);
+            _loginFragment._isRememberMeClicked(position);
+
+        }
+      //_loginFragment.showTypePhone(position);
         // _loginFragment.showTypePhone(position);
 
     }
+
+
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {

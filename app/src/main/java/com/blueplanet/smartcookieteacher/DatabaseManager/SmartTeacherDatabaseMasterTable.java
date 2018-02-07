@@ -185,6 +185,10 @@ public class SmartTeacherDatabaseMasterTable {
         String USER_PASSWORD = "user_password";
         String REMEMBER_ME = "remember_me";
         String PRN_VALUE ="prn_number";
+
+        String USER_MOBILE_NO="user_mobile_no";
+        String USER_EMAIL_ID="user_email_id";
+        String USER_MEMBER_ID="user_member_id";
     }
 
     //table added to store User details.

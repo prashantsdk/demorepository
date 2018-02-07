@@ -23,7 +23,13 @@ public class UserTable extends TableOperations implements IPersistence {
             SmartTeacherDatabaseMasterTable.User.USER_NAME,
             SmartTeacherDatabaseMasterTable.User.USER_PASSWORD,
             SmartTeacherDatabaseMasterTable.User.REMEMBER_ME,
-            SmartTeacherDatabaseMasterTable.User.PRN_VALUE};
+            SmartTeacherDatabaseMasterTable.User.PRN_VALUE
+
+           /* SmartTeacherDatabaseMasterTable.User.USER_EMAIL_ID,
+            SmartTeacherDatabaseMasterTable.User.USER_MOBILE_NO,
+            SmartTeacherDatabaseMasterTable.User.USER_MEMBER_ID
+            */
+            };
 
     @Override
     public ContentValues prepare ( Object obj ) {
@@ -35,6 +41,10 @@ public class UserTable extends TableOperations implements IPersistence {
         values.put ( SmartTeacherDatabaseMasterTable.User.REMEMBER_ME, userInfo.isRememberMe() );
         values.put(SmartTeacherDatabaseMasterTable.User.PRN_VALUE,userInfo.get_prn());
 
+       /* values.put(SmartTeacherDatabaseMasterTable.User.USER_EMAIL_ID,userInfo.getUserEmailId());
+        values.put(SmartTeacherDatabaseMasterTable.User.USER_MOBILE_NO,userInfo.getUserMobileNo());
+        values.put(SmartTeacherDatabaseMasterTable.User.USER_MEMBER_ID,userInfo.getMemberId());
+*/
         return values;
 
 

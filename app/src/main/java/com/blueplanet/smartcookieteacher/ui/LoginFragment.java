@@ -40,6 +40,7 @@ import com.blueplanet.smartcookieteacher.models.TestPro;
 import com.blueplanet.smartcookieteacher.models.User;
 import com.blueplanet.smartcookieteacher.ui.controllers.LoginFragmentController;
 import com.blueplanet.smartcookieteacher.ui.customactionbar.UserSession;
+import com.blueplanet.smartcookieteacher.utils.SmartCookieSharedPreferences;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
 import com.google.android.gms.auth.api.Auth;
@@ -155,38 +156,31 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
     public void _isRememberMeClicked(int position) {
 
 
-        user = LoginFeatureController.getInstance().getUserInfoFromDB();
-
-
-
-        if (user != null) {
-
-            String passowrd = user.getPassword1();
-
-            String prn = user.get_prn();
-
-            String checkRemberMe = user.isRememberMe();
-
             if (position == 1) {
 
                 Toast.makeText(getActivity(), "Email Id", Toast.LENGTH_SHORT).show();
 
-                final String userEmaiId = user.getUserEmailId();
+
+                boolean checkBoxValue = SmartCookieSharedPreferences.getEmailRemberMe();
+                String userEmaild = SmartCookieSharedPreferences.getEmailID();
+                String userEmailPrn = SmartCookieSharedPreferences.getEmailPrn();
+                String userEmailPassword = SmartCookieSharedPreferences.getEmailPasword();
 
 
-                if (checkRemberMe.equals("true")) {
 
-                    _etEmailId.setText(userEmaiId);
-                    _etPassword.setText(passowrd);
-                    _edtPrn.setText(prn);
-                    UserSession.setName(userEmaiId);
+
+                if (checkBoxValue) {
+
+                    _etEmailId.setText(userEmaild);
+                    _etPassword.setText(userEmailPassword);
+                    _edtPrn.setText(userEmailPrn);
+                    UserSession.setName(userEmaild);
                     _rememberMe.setChecked(true);
 
-                }
+                } else{
 
-                if (checkRemberMe.equals("false")) {
 
-                    _etEmailId.setText(userEmaiId);
+                    _etEmailId.setText("");
                     _etPassword.setText("");
                     _edtPrn.setText("");
                     UserSession.setName("");
@@ -200,21 +194,26 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
                 Toast.makeText(getActivity(), "Mobile No.", Toast.LENGTH_SHORT).show();
 
 
-                final String userMobileNo = user.getUserMobileNo();
+                String  remberMeFlag = SmartCookieSharedPreferences.getMobileRemberMe();
+                String mobileNo = SmartCookieSharedPreferences.getMobileNo();
+                String mobilePrn = SmartCookieSharedPreferences.getMobilePrn();
+                String MobilePassword = SmartCookieSharedPreferences.getMobilePassword();
 
-                if (checkRemberMe.equals("true")) {
 
-                    _edtMobileNo.setText(userMobileNo);
-                    _etPassword.setText(passowrd);
-                    _edtPrn.setText(prn);
-                    UserSession.setName(userMobileNo);
+
+                if (remberMeFlag.equals("true")) {
+
+                    _edtMobileNo.setText(mobileNo);
+                    _etPassword.setText(MobilePassword);
+                    _edtPrn.setText(mobilePrn);
+                    UserSession.setName(mobileNo);
                     _rememberMe.setChecked(true);
 
                 }
 
-                if (checkRemberMe.equals("false")) {
+                if (remberMeFlag.equals("false")) {
 
-                    _edtMobileNo.setText(userMobileNo);
+                    _edtMobileNo.setText("");
                     _etPassword.setText("");
                     _edtPrn.setText("");
                     UserSession.setName("");
@@ -224,51 +223,73 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
 
 
             }
+
+
             if (position == 3) {
                 Toast.makeText(getActivity(), "Employee id", Toast.LENGTH_SHORT).show();
 
-                final String userName = user.getUserName();
 
-                if (checkRemberMe.equals("true")) {
 
-                    _edtEmployeeID.setText(userName);
-                    _etPassword.setText(passowrd);
-                    _edtPrn.setText(prn);
-                    UserSession.setName(userName);
-                    _rememberMe.setChecked(true);
+                user = LoginFeatureController.getInstance().getUserInfoFromDB();
+
+
+                if (user != null) {
+
+                    String passowrd = user.getPassword1();
+
+                    String prn = user.get_prn();
+
+                    String checkRemberMe = user.isRememberMe();
+
+
+                    final String userName = user.getUserName();
+
+                    if (checkRemberMe.equals("true")) {
+
+                        _edtEmployeeID.setText(userName);
+                        _etPassword.setText(passowrd);
+                        _edtPrn.setText(prn);
+                        UserSession.setName(userName);
+                        _rememberMe.setChecked(true);
+
+                    }
+
+                    if (checkRemberMe.equals("false")) {
+
+                        _edtEmployeeID.setText("");
+                        _etPassword.setText("");
+                        _edtPrn.setText("");
+                        UserSession.setName("");
+                        _rememberMe.setChecked(false);
+
+                    }
 
                 }
-
-                if (checkRemberMe.equals("false")) {
-
-                    _edtEmployeeID.setText("");
-                    _etPassword.setText("");
-                    _edtPrn.setText("");
-                    UserSession.setName("");
-                    _rememberMe.setChecked(false);
-
-                }
-
 
             }
+
             if (position == 4) {
                 Toast.makeText(getActivity(), "Member Id", Toast.LENGTH_SHORT).show();
 
 
-                final String userMemberId = user.getMemberId();
+                String checkRemberMe = SmartCookieSharedPreferences.getMemberIdRemberMe();
+                String memberId = SmartCookieSharedPreferences.getMemberId();
+                String memberPrn = SmartCookieSharedPreferences.getMemberPrn();
+                String memberPassword  = SmartCookieSharedPreferences.getMemberPassword();
+
                 if (checkRemberMe.equals("true")) {
 
-                    _edtMemberId.setText(userMemberId);
-                    _etPassword.setText(passowrd);
-                    _edtPrn.setText(prn);
-                    UserSession.setName(userMemberId);
+                    _edtMemberId.setText(memberId);
+                    _etPassword.setText(memberPassword);
+                    _edtPrn.setText(memberPrn);
+                    UserSession.setName(memberId);
                     _rememberMe.setChecked(true);
 
                 }
 
                 if (checkRemberMe.equals("false")) {
 
-                    _edtMemberId.setText(userMemberId);
+                    _edtMemberId.setText("");
                     _etPassword.setText("");
                     _edtPrn.setText("");
                     UserSession.setName("");
@@ -281,7 +302,7 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
 
 
         }
-    }
+
 
 
     private void _initUI() {

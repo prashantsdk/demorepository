@@ -34,7 +34,7 @@ public class SmartCookieSharedPreferences {
      */
     private static final String IS_LOGIN = "IS_LOGIN";
 
-    private static final String IS_TEST= "IS_TEST";
+    private static final String IS_TEST = "IS_TEST";
 
     private static final String REMEMBER_ME_KEY = "REMEMBER_ME_KEY";
 
@@ -66,6 +66,39 @@ public class SmartCookieSharedPreferences {
     private static final String REM_PREFERENCE_NAME = "REMEMBERPREFERENCE";
 
     private static final String KEY_USER_ID = "KEY_USER_ID";
+
+
+    /*PRASHANT CHANGES*/
+    private static final String EMAIL_REMEMBER_ME = "IS_EMAIL_REMBER_ME";
+    private static final String EMAIL_USER_EMAIL = "LOGIN_EMAIL_ID";
+    private static final String EMAIL_USER_PRN = "EMAIL_PRN";
+    private static final String EMAIL_USER_PASSWORD = "EMAIL_PASSWORD";
+
+
+    private static boolean EMAIL_EMPATY_BOOLEAN_VALUE = false;
+
+    private static String EMAIL_EMPATY_STRING_VALUE = "";
+
+
+    private static final String MOBILE_REMEMBER_ME ="IS_MOBILE_REMBER_ME";
+    private static final String MOBILE_USER_MOBILE ="LOGIN_MOBILE_NO";
+    private static final String MOBILE_USER_PRN="MOBILE_PRN";
+    private static final String MOBILE_USER_PASSWORD="MOBILE_PASSWORD";
+
+    private static String MOBILE_EMPTY_STRING_VALUE= "";
+
+
+
+    private static final String MEMBERID_REMBER_ME="IS_MEMBER_ID";
+    private static final String MEMBERID_USER_MEMBER_ID="LOGIN_MEMBER_ID";
+    private static final String MEMBERID_USER_MEMBER_PRN="MEMBER_PRN";
+    private static final String MEMBERID_USER_MEMBER_PASSWORD="MEMBER_PASSWORD";
+
+
+    private static  String MEMBER_EMPTY_STRING_VALUE="";
+
+
+
     /**
      * Initialize public class SmartCookieSharedPreferences {
      * . This is one time initialization. It should be done from the
@@ -86,7 +119,7 @@ public class SmartCookieSharedPreferences {
             _rememberPreference = context.getSharedPreferences(REM_PREFERENCE_NAME, Context.MODE_APPEND);
         }
         //clear all from phone storage
-       // _sharedPreferences.edit().clear().commit();
+        // _sharedPreferences.edit().clear().commit();
     }
 
     public static boolean getLoginFlag() {
@@ -103,6 +136,7 @@ public class SmartCookieSharedPreferences {
 
 
     }
+
     public static void setTestProduction(boolean Flag) {
         setBooleanSharedPreference(IS_TEST, Flag);
     }
@@ -147,9 +181,11 @@ public class SmartCookieSharedPreferences {
         setBooleanSharedPreference(REMEMBER_ME_KEY, rememberMeFlag);
 
     }
+
     public static void setPRNKey(String PRN) {
         setStringSharedPreference(PASS_PRN, PRN);
     }
+
     /**
      * Retrieves encrypted key-value and adds to SharedPreferences list.
      *
@@ -176,11 +212,13 @@ public class SmartCookieSharedPreferences {
         boolean flag = _sharedPreferences.getBoolean(key, EMPTY_BOOLEAN_DEFAULT_VALUE);
         return flag;
     }
+
     public static void setGplusLogin(boolean value) {
         SharedPreferences.Editor _editor = _rememberpref.edit();
         _editor.putBoolean(GlobalInterface.GPLUSLOGIN, value);
         _editor.commit();
     }
+
     public static String getStringSharedPreference(String key) {
         String value = _sharedPreferences.getString(key, EMPTY_STRING_DEFAULT_VALUE);
         return value;
@@ -191,7 +229,6 @@ public class SmartCookieSharedPreferences {
         _editor.putString(key, value);
         _editor.commit();
     }
-
 
 
     public static String getGCMSharedPreference(String key) {
@@ -210,6 +247,7 @@ public class SmartCookieSharedPreferences {
         _editor.putBoolean(WebserviceConstants.IS_GCM_REGISTERED, value);
         _editor.commit();
     }
+
     public static void setUserNameInSharedPreference(String username) {
         SharedPreferences.Editor _editor = _rememberPreference.edit();
         _editor.putString(KEY_USER_NAME, username);
@@ -221,6 +259,7 @@ public class SmartCookieSharedPreferences {
         _editor.putString(KEY_PASSWORD, password);
         _editor.commit();
     }
+
     public static String getUserNameFromPreference() {
         String userName = _rememberPreference.getString(KEY_USER_NAME, EMPTY_STRING_DEFAULT_VALUE);
         return userName;
@@ -231,12 +270,14 @@ public class SmartCookieSharedPreferences {
         String password = _rememberPreference.getString(KEY_PASSWORD, EMPTY_STRING_DEFAULT_VALUE);
         return password;
     }
+
     public static void Logout() {
 
         SharedPreferences.Editor editor = _sharedPreferences.edit();
         editor.clear();
         editor.commit();
     }
+
     public static void setUserIDInSharedPreference(String username) {
         SharedPreferences.Editor _editor = _rememberPreference.edit();
         _editor.putString(KEY_COLGCODE, username);
@@ -247,7 +288,8 @@ public class SmartCookieSharedPreferences {
         String password = _rememberPreference.getString(KEY_COLGCODE, EMPTY_STRING_DEFAULT_VALUE);
         return password;
     }
-    public static String  getAppType() {
+
+    public static String getAppType() {
         String value = _sharedPreferences.getString(GlobalInterface.APPTYPE, GlobalInterface.PRODUCTION);
         return value;
     }
@@ -258,4 +300,181 @@ public class SmartCookieSharedPreferences {
         _editor.putString(GlobalInterface.APPTYPE, AppType);
         _editor.commit();
     }
+
+
+
+
+    /*PRASHANT CHANGES */
+
+
+    // COMMAN METHODS TO SET BOOLEAN AND STRING VALUE
+    public static void setEmailRemberMeBoolean(String remberMeStringValue, boolean remberMEFlage) {
+
+        SharedPreferences.Editor _editor = _sharedPreferences.edit();
+        _editor.putBoolean(remberMeStringValue, remberMEFlage);
+        _editor.commit();
+    }
+
+
+    public static void setEmailRemberMeString(String key, String value) {
+
+        SharedPreferences.Editor _editor = _sharedPreferences.edit();
+        _editor.putString(key, value);
+        _editor.commit();
+
+    }
+
+    public static void setMobileRemberMeString(String key,String value){
+        SharedPreferences.Editor _editor = _sharedPreferences.edit();
+        _editor.putString(key,value);
+        _editor.commit();
+    }
+
+
+    public static void setMemberIdRemberMeString(String key,String value){
+
+        SharedPreferences.Editor _editor = _sharedPreferences.edit();
+        _editor.putString(key,value);
+        _editor.commit();
+    }
+
+    //SET THE INDIVUAL VALUE
+
+
+    public static void setMemberIDRemberMe(String remberMe){
+
+        setMemberIdRemberMeString(MEMBERID_REMBER_ME,remberMe);
+    }
+
+    public static void setMemberIdMemberId(String memberID){
+        setMemberIdRemberMeString(MEMBERID_USER_MEMBER_ID,memberID);
+    }
+
+    public static void setMemberIdPrn(String memberIdPrn){
+        setMemberIdRemberMeString(MEMBERID_USER_MEMBER_PRN,memberIdPrn);
+    }
+
+    public static void setMemberIdPassword(String memberIdPassword){
+        setMemberIdRemberMeString(MEMBERID_USER_MEMBER_PASSWORD,memberIdPassword);
+    }
+    public static void setMobileRemberMe(String remberMe){
+        setMobileRemberMeString(MOBILE_REMEMBER_ME,remberMe);
+    }
+
+    public static void setMobileNo(String mobileNo){
+        setMobileRemberMeString(MOBILE_USER_MOBILE,mobileNo);
+    }
+
+    public static void setMobilePrn(String mobilePrn){
+        setMobileRemberMeString(MOBILE_USER_PRN,mobilePrn);
+    }
+
+    public static void setMobilePassword(String mobilePassword){
+        setMobileRemberMeString(MOBILE_USER_PASSWORD,mobilePassword);
+    }
+    public static void setEmailRememberMe(boolean rememberMe) {
+        setEmailRemberMeBoolean(EMAIL_REMEMBER_ME, rememberMe);
+    }
+
+
+    public static void setEmailID(String emailID) {
+        setEmailRemberMeString(EMAIL_USER_EMAIL, emailID);
+    }
+
+    public static void setEmailPrn(String emailPrn) {
+        setEmailRemberMeString(EMAIL_USER_PRN, emailPrn);
+
+    }
+
+    public static void setEmailPassword(String emailPassword) {
+
+        setEmailRemberMeString(EMAIL_USER_PASSWORD, emailPassword);
+    }
+
+
+
+    //COMMAN METHOF TO GET STRING AND BOOLEAN VALUE
+
+
+    public static String getMemberRemberString(String key){
+        String value = _sharedPreferences.getString(key,MEMBER_EMPTY_STRING_VALUE);
+        return value;
+    }
+
+
+    public static boolean getEmailRemberMeBoolean(String key) {
+
+        boolean flag = _sharedPreferences.getBoolean(key, EMAIL_EMPATY_BOOLEAN_VALUE);
+        return flag;
+    }
+
+
+
+    public static String getEmailRemberMeString(String key) {
+
+        String value  =_sharedPreferences.getString(key,EMAIL_EMPATY_STRING_VALUE);
+        return value;
+    }
+
+    public static String getMobileRememberMeString(String key){
+        String value = _sharedPreferences.getString(key,MOBILE_EMPTY_STRING_VALUE);
+        return value;
+    }
+
+
+    //GET INDIVIAUL VALUE
+
+    public static String getMobileRemberMe(){
+        return getEmailRemberMeString(MOBILE_REMEMBER_ME);
+    }
+
+    public static String getMobileNo(){
+        return getMobileRememberMeString(MOBILE_USER_MOBILE);
+    }
+
+    public static String getMobilePrn(){
+        return getMobileRememberMeString(MOBILE_USER_PRN);
+    }
+
+    public static String getMobilePassword(){
+        return getMobileRememberMeString(MOBILE_USER_PASSWORD);
+    }
+
+    public static boolean getEmailRemberMe(){
+        return getEmailRemberMeBoolean(EMAIL_REMEMBER_ME);
+    }
+
+
+    public static String getEmailID(){
+        return getEmailRemberMeString(EMAIL_USER_EMAIL);
+    }
+
+
+    public static String getEmailPrn(){
+        return getEmailRemberMeString(EMAIL_USER_PRN);
+    }
+
+    public static String getEmailPasword(){
+        return getEmailRemberMeString(EMAIL_USER_PASSWORD);
+    }
+
+
+    public static String getMemberIdRemberMe(){
+        return getMemberRemberString(MEMBERID_REMBER_ME);
+    }
+
+    public static String getMemberId(){
+        return getMemberRemberString(MEMBERID_USER_MEMBER_ID);
+    }
+
+    public static String getMemberPrn(){
+        return getMemberRemberString(MEMBERID_USER_MEMBER_PRN);
+
+    }
+
+    public static   String getMemberPassword(){
+        return getMemberRemberString(MEMBERID_USER_MEMBER_PASSWORD);
+    }
+
+
 }

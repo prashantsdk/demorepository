@@ -347,7 +347,7 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
                         // LoginFeatureController.getInstance().set_userName(username);
                         //LoginFeatureController.getInstance().set_pasword(password);
 
-                        if ((!TextUtils.isEmpty(userMemberID)) && (!TextUtils.isEmpty(collgcode)) &&(!TextUtils.isEmpty(password)) && (!TextUtils.isEmpty(usertype))) {
+                        if ((!TextUtils.isEmpty(userMemberID)) && (!TextUtils.isEmpty(collgcode)) && (!TextUtils.isEmpty(password)) && (!TextUtils.isEmpty(usertype))) {
                             //  SmartCookieSharedPreferences.setLoginFlag(true);
 
                             _teacherLogin(userMemberID, password, usertype, collgcode, method, devicetype, device_details, platform_OS, ip_address, countryCode, latitude, longitude);
@@ -722,26 +722,41 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
 
         String userName = etUserName.getText().toString();
         String password = etPassword.getText().toString();
-        String prn =  etPrnNo.getText().toString();
+        String prn = etPrnNo.getText().toString();
+
+
         if (cbRememberMe.isChecked()) {
+
             Log.i(_TAG, "In remember me checked");
 
-            SmartCookieSharedPreferences.setRememberMeFlag(true);
+         /*   SmartCookieSharedPreferences.setRememberMeFlag(true);
             SmartCookieSharedPreferences.setUserName(userName);
             SmartCookieSharedPreferences.setPassowrdKey(password);
             SmartCookieSharedPreferences.setPRNKey(prn);
+            */
+
+            SmartCookieSharedPreferences.setEmailRememberMe(true);
+            SmartCookieSharedPreferences.setEmailID(userName);
+            SmartCookieSharedPreferences.setEmailPassword(password);
+            SmartCookieSharedPreferences.setEmailPrn(prn);
+
             SmartCookieSharedPreferences.setLoginFlag(true);
+
             LoginFeatureController.getInstance().deleteUserFromDB(null);
 
             /**
              * save user data into DB
              */
-            User user = new User(userName, password, "true", prn,"1","2");
+            User user = new User(userName, password, "true", prn, "1", "2");
             LoginFeatureController.getInstance().saveUserDataIntoDB(user);
         } else {
 
             Log.i(_TAG, "In remember me un-checked");
             SmartCookieSharedPreferences.setRememberMeFlag(false);
+
+
+            SmartCookieSharedPreferences.setEmailRememberMe(false);
+
             SmartCookieSharedPreferences.setUserName("");
             SmartCookieSharedPreferences.setPassowrdKey("");
 
@@ -776,21 +791,33 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
 
 
         if (cbRememberMe.isChecked()) {
-            Log.i(_TAG, "In remember me checked");
+
+          /*  Log.i(_TAG, "In remember me checked");
             SmartCookieSharedPreferences.setRememberMeFlag(true);
             SmartCookieSharedPreferences.setUserName(mobileno);
             SmartCookieSharedPreferences.setPassowrdKey(password);
+*/
+
+            SmartCookieSharedPreferences.setMobileRemberMe("true");
+            SmartCookieSharedPreferences.setMobileNo(mobileno);
+            SmartCookieSharedPreferences.setMobilePrn(prn);
+            SmartCookieSharedPreferences.setMobilePassword(password);
+
             SmartCookieSharedPreferences.setLoginFlag(true);
+
             LoginFeatureController.getInstance().deleteUserFromDB(null);
             /**
              * save user data into DB
              */
-            User user = new User(mobileno, password, "true", prn,"1");
+            User user = new User(mobileno, password, "true", prn, "1");
             LoginFeatureController.getInstance().saveUserDataIntoDB(user);
         } else {
 
             Log.i(_TAG, "In remember me un-checked");
             SmartCookieSharedPreferences.setRememberMeFlag(false);
+
+            SmartCookieSharedPreferences.setMobileRemberMe("false");
+
             SmartCookieSharedPreferences.setUserName("");
             SmartCookieSharedPreferences.setPassowrdKey("");
 
@@ -815,6 +842,7 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
         String password = etPassword.getText().toString();
 
         if (cbRememberMe.isChecked()) {
+
             Log.i(_TAG, "In remember me checked");
             SmartCookieSharedPreferences.setRememberMeFlag(true);
             SmartCookieSharedPreferences.setUserName(code);
@@ -822,16 +850,22 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
             SmartCookieSharedPreferences.setPassowrdKey(password);
 
             SmartCookieSharedPreferences.setLoginFlag(true);
+
             LoginFeatureController.getInstance().deleteUserFromDB(null);
+
+
             /**
              * save user data into DB
              */
-            User user = new User(code, password, "true" ,prn);
+
+
+            User user = new User(code, password, "true", prn);
             LoginFeatureController.getInstance().saveUserDataIntoDB(user);
         } else {
 
             Log.i(_TAG, "In remember me un-checked");
             SmartCookieSharedPreferences.setRememberMeFlag(false);
+
             SmartCookieSharedPreferences.setUserName("");
             SmartCookieSharedPreferences.setPassowrdKey("");
 
@@ -856,23 +890,33 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
         String password = etPassword.getText().toString();
 
         if (cbRememberMe.isChecked()) {
-            Log.i(_TAG, "In remember me checked");
+
+         /*   Log.i(_TAG, "In remember me checked");
             SmartCookieSharedPreferences.setRememberMeFlag(true);
             SmartCookieSharedPreferences.setUserName(code);
             SmartCookieSharedPreferences.setPRNKey(prn);
-            SmartCookieSharedPreferences.setPassowrdKey(password);
+            SmartCookieSharedPreferences.setPassowrdKey(password);*/
+
+
+            SmartCookieSharedPreferences.setMemberIDRemberMe("true");
+            SmartCookieSharedPreferences.setMemberIdMemberId(code);
+            SmartCookieSharedPreferences.setMemberIdPrn(prn);
+            SmartCookieSharedPreferences.setMemberIdPassword(password);
 
             SmartCookieSharedPreferences.setLoginFlag(true);
+
             LoginFeatureController.getInstance().deleteUserFromDB(null);
             /**
              * save user data into DB
              */
-            User user = new User(code, password, "true" ,prn,"1","2","3");
+            User user = new User(code, password, "true", prn, "1", "2", "3");
             LoginFeatureController.getInstance().saveUserDataIntoDB(user);
         } else {
 
             Log.i(_TAG, "In remember me un-checked");
             SmartCookieSharedPreferences.setRememberMeFlag(false);
+
+            SmartCookieSharedPreferences.setMemberIDRemberMe("false");
             SmartCookieSharedPreferences.setUserName("");
             SmartCookieSharedPreferences.setPassowrdKey("");
 
@@ -887,16 +931,15 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-        if(position>0){
+        if (position > 0) {
             _loginFragment.showType(position);
             _loginFragment._isRememberMeClicked(position);
 
         }
-      //_loginFragment.showTypePhone(position);
+        //_loginFragment.showTypePhone(position);
         // _loginFragment.showTypePhone(position);
 
     }
-
 
 
     @Override

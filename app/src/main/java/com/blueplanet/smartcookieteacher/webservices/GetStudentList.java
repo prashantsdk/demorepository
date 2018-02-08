@@ -122,7 +122,7 @@ public class GetStudentList extends SmartCookieTeacherService {
 
                     student = new Student(sId, sName, sFname, sSchoolName, sClassName, tMName, SGender,
                             Sdob, sAge, Scity, sEmail, sPRN, sSchoolId, sDate, sDiv, sHobbies, sCountry,
-                            sTeacherName, sImagePath, inputId, totalStudentCount);
+                            sTeacherName, sImagePath, inputId, totalStudentCount,subname);
                     studentList.add(student);
 
 

@@ -127,6 +127,11 @@
                         android:background="@drawable/oval_white"
                         android:visibility="visible" />
 
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+
                     <com.blueplanet.smartcookieteacher.customcomponents.CustomEditText
                         android:id="@+id/edt_phone"
                         style="@style/et_username_style"
@@ -143,6 +148,8 @@
                         android:textColor="#393939"
                         android:textColorHint="#757575"
                         android:textSize="15sp" />
+
+                    </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
 
                 <LinearLayout
@@ -155,6 +162,11 @@
                     android:background="@drawable/username_selector"
                     android:orientation="horizontal"
                     android:visibility="gone">
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
 
                     <com.blueplanet.smartcookieteacher.customcomponents.CustomEditText
                         android:id="@+id/edt_memberid"
@@ -176,6 +188,8 @@
                         android:textColor="#393939"
                         android:textColorHint="#757575"
                         android:textSize="15sp" />
+
+                    </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
 
                 <LinearLayout
@@ -190,6 +204,10 @@
                     android:orientation="horizontal"
                     android:visibility="gone">
 
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
                     <com.blueplanet.smartcookieteacher.customcomponents.CustomEditText
                         android:id="@+id/edt_colgCode"
@@ -209,6 +227,8 @@
                         android:textColor="#393939"
                         android:textColorHint="#757575"
                         android:textSize="15sp" />
+
+                    </android.support.design.widget.TextInputLayout>
 
 
                 </LinearLayout>
@@ -347,7 +367,7 @@
                     android:layout_marginTop="10dp"
                     android:orientation="horizontal"
 
-                    android:visibility="visible">
+                    android:visibility="gone">
 
                     <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
                         android:id="@+id/txtproduction"

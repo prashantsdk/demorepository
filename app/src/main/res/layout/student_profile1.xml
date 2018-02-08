@@ -42,8 +42,8 @@
                     <com.blueplanet.smartcookieteacher.customcomponents.CustomButton
                         android:id="@+id/btn_assignPoints"
                         style="@style/login_button_style"
-                        android:layout_width="130dp"
-                        android:layout_height="60dp"
+                        android:layout_width="140dp"
+                        android:layout_height="70dp"
                         android:layout_below="@+id/iv_studentPhoto"
                         android:text="Assign Points"
                         android:textColor="@color/white_solid"

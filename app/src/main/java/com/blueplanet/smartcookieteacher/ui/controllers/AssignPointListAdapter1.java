@@ -105,8 +105,8 @@ public class AssignPointListAdapter1 extends BaseAdapter {
 
 
                 //      _radioGrup.addView(_textView[position]);
-
                 // _radioGrup.addView(relativeLayout);
+
                 _textView[position].setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -120,8 +120,6 @@ public class AssignPointListAdapter1 extends BaseAdapter {
                         } catch (Exception e) {
 
                         }
-
-
 
                         _textView[position].setTextColor(_assignPointFragment.getResources().getColor(R.color.red_solid));
                         _textView[position].setChecked(true);

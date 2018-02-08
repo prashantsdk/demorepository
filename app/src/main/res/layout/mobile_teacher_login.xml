@@ -75,6 +75,10 @@
                         android:layout_marginLeft="15dp"
                         android:background="@drawable/profileone" />
 
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
 
                     <com.blueplanet.smartcookieteacher.customcomponents.CustomEditText
                         android:id="@+id/edt_username_login"
@@ -94,6 +98,8 @@
                         android:textColor="#393939"
                         android:textColorHint="#757575"
                         android:textSize="20sp" />
+
+                </android.support.design.widget.TextInputLayout>
 
 
                 </LinearLayout>
@@ -218,6 +224,10 @@
                     android:orientation="horizontal"
                     android:visibility="visible">
 
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
                     <com.blueplanet.smartcookieteacher.customcomponents.CustomEditText
                         android:id="@+id/edt_Id"
                         style="@style/et_username_style"
@@ -236,6 +246,8 @@
                         android:textColor="#393939"
                         android:textColorHint="#757575"
                         android:textSize="20sp" />
+
+                    </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
 
                 <LinearLayout

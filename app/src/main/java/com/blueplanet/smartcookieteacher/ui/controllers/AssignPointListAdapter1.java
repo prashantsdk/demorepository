@@ -93,6 +93,7 @@ public class AssignPointListAdapter1 extends BaseAdapter {
 
                 _radioGrup = (RadioGroup) convertView.findViewById(R.id.group);
 
+
                 _textView[position] = (RadioButton) convertView.findViewById(R.id.yes);
 
                 _textView[position].setText(_activityList.get(position).getActivityName());
@@ -120,9 +121,10 @@ public class AssignPointListAdapter1 extends BaseAdapter {
 
                         }
 
-                        _textView[position].setChecked(true);
-                        _textView[position].setTextColor(_assignPointFragment.getResources().getColor(R.color.red_solid));
 
+
+                        _textView[position].setTextColor(_assignPointFragment.getResources().getColor(R.color.red_solid));
+                        _textView[position].setChecked(true);
                         String activityId = _activityList.get(position).getActivityId();
                         Log.i(_TAG, "Activity id is: " + activityId);
                         if (activityId != null) {
@@ -131,6 +133,11 @@ public class AssignPointListAdapter1 extends BaseAdapter {
                         }
                     }
                 });
+
+
+
+
+
             }
         }
         return convertView;

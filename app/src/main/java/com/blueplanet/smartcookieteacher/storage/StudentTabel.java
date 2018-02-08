@@ -44,6 +44,7 @@ public class StudentTabel extends TableOperations implements IPersistence {
             SmartTeacherDatabaseMasterTable.StudentList.STU_IMG,
             SmartTeacherDatabaseMasterTable.StudentList.STU_INPPUTID,
             SmartTeacherDatabaseMasterTable.StudentList.STU_TOTALCOUNT,
+            SmartTeacherDatabaseMasterTable.StudentList.STUD_SUBNAME
             };
 
     @Override
@@ -72,6 +73,7 @@ public class StudentTabel extends TableOperations implements IPersistence {
         values.put(SmartTeacherDatabaseMasterTable.StudentList.STU_IMG, studentInfo.get_stdImageUrl());
         values.put(SmartTeacherDatabaseMasterTable.StudentList.STUD_CLASS_TEACHER_NAME, studentInfo.get_schoolId());
         values.put(SmartTeacherDatabaseMasterTable.StudentList.STU_INPPUTID, studentInfo.getInputId());
+        values.put(SmartTeacherDatabaseMasterTable.StudentList.STUD_SUBNAME,studentInfo.get_stdsubname());
 
         return values;
 
@@ -120,7 +122,7 @@ public class StudentTabel extends TableOperations implements IPersistence {
                             new Student(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5),
                                     cursor.getString(6), cursor.getString(7), cursor.getString(8), cursor.getString(9), cursor.getString(10), cursor.getString(11),
                                     cursor.getString(12), cursor.getString(13), cursor.getString(14), cursor.getString(15), cursor.getString(16), cursor.getString(17),
-                                    cursor.getString(18), cursor.getInt(19), cursor.getInt(20));
+                                    cursor.getString(18), cursor.getInt(19), cursor.getInt(20),cursor.getString(21));
                     list.add(stuobj);
 
 

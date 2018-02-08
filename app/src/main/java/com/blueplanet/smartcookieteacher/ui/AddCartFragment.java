@@ -34,8 +34,6 @@ public class AddCartFragment extends Fragment {
     private ArrayList<AddCart> _couList = new ArrayList<>();
 
 
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         _view = inflater.inflate(R.layout.add_to_cart_item, null);

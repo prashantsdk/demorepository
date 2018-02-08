@@ -90,7 +90,7 @@ public class AddCartAdapter extends BaseAdapter {
                 _txtPoint = (TextView) convertView
                         .findViewById(R.id.txtPoint);
 
-                String cPoint = _coupDetailList.get(position).get_coupoints() + "% OFF";
+                String cPoint = _coupDetailList.get(position).get_coupoints() + " Points";
                 if (TextUtils.isEmpty(cPoint) && cPoint.equalsIgnoreCase("null")) {
                     _txtPoint.setText("0");
                 } else {

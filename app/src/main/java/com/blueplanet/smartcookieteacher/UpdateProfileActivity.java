@@ -102,13 +102,44 @@ public class UpdateProfileActivity extends AppCompatActivity implements IEventLi
      */
     static final int DATE_DIALOG_ID = 0;
     NewRegistrationModel regmodel = null;
+    private int year;
+    private int month;
+    private int day;
+    Calendar c = Calendar.getInstance();
+    private DatePickerDialog.OnDateSetListener pickerListener =
+            new DatePickerDialog.OnDateSetListener() {
 
+                // when dialog box is closed, below method will be called.
+                @Override
+                public void onDateSet(DatePicker view, int selectedYear,
+                                      int selectedMonth, int selectedDay) {
+
+                    year = selectedYear;
+                    month = selectedMonth;
+
+                    day = selectedDay;
+
+                    Calendar cal = Calendar.getInstance();
+                    cal.set(Calendar.YEAR, year);
+                    cal.set(Calendar.MONTH, month);
+
+                    cal.set(Calendar.DAY_OF_MONTH, day);
+                    long diff = (c.getTimeInMillis() - cal.getTimeInMillis())
+                            / (24 * 60 * 60 * 1000);
+                    diff = diff / 365;
+                    // edt_dob.setText(month+"/"+day+"/"+year);
+                    month += 1;
+                    _dob.setText(day + "/" + month + "/" + year);
+
+                }
+            };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.parent_profile);
         _initUI();
+        _InitListeners();
         _teacher = LoginFeatureController.getInstance().getTeacher();
         regmodel = UpdateProfileFeatureController.getInstance().getRemodel();
         displayBasicInfo();
@@ -205,14 +236,21 @@ public class UpdateProfileActivity extends AppCompatActivity implements IEventLi
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                new DatePickerDialog(UpdateProfileActivity.this, date, myCalendar
+              /*  new DatePickerDialog(UpdateProfileActivity.this, date, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();*/
+                // To show current date in the datepicker
+
             }
         });
 
     }
+    private void _InitListeners() {
 
+        _dob.setOnClickListener(this);
+
+
+    }
     private void requestPermission() {
 
 
@@ -328,7 +366,7 @@ public class UpdateProfileActivity extends AppCompatActivity implements IEventLi
         {
             UpdateProfileFeatureController.getInstance().updateProfileInfo(email, fname, mname, lname, dob, add, city, country, gender, pas, phone, state, _schoolId,
                     countrycode, _PhoneCode, Key, img);
-           // Toast.makeText(getApplicationContext(), "successfully updated", Toast.LENGTH_LONG).show();
+            // Toast.makeText(getApplicationContext(), "successfully updated", Toast.LENGTH_LONG).show();
         }
         else
         {
@@ -729,7 +767,7 @@ public class UpdateProfileActivity extends AppCompatActivity implements IEventLi
                     showProfileUpdateMsg(true);
 
 
-                   // showOrHideLoadingSpinner(true);
+                    // showOrHideLoadingSpinner(true);
 
 
                     EventNotifier eventNotifier =
@@ -827,7 +865,7 @@ public class UpdateProfileActivity extends AppCompatActivity implements IEventLi
                 @Override
                 public void run() {
                     Toast.makeText(getApplicationContext(), "Profile Updated Successfully", Toast.LENGTH_SHORT)
-                    .show();
+                            .show();
 
                 }
             });
@@ -884,19 +922,6 @@ public class UpdateProfileActivity extends AppCompatActivity implements IEventLi
 
     }
 
-    DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
-
-        @Override
-        public void onDateSet(DatePicker view, int year, int monthOfYear,
-                              int dayOfMonth) {
-            // TODO Auto-generated method stub
-            myCalendar.set(Calendar.YEAR, year);
-            myCalendar.set(Calendar.MONTH, monthOfYear);
-            myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-            updateLabel();
-        }
-
-    };
 
     private void updateLabel() {
         String myFormat = "MM/dd/yy"; //In which you need put here

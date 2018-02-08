@@ -181,7 +181,7 @@ public class CouponDetailFragmentController implements IEventListener, OnClickLi
                 alertDialog2.setCancelable(false);
                 _couponPoints = _coupon.get_points_per_product();
                // alertDialog2.setMessage(_couponPoints + " Item Added Successfully To Cart..!!");
-                alertDialog2.setMessage(" Do you want to add this item to card..!!");
+                alertDialog2.setMessage(" Do you want to add this item to cart?");
                 alertDialog2.setPositiveButton("YES",
                         new DialogInterface.OnClickListener() {
 

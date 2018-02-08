@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.text.InputType;
 import android.text.format.Formatter;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -317,6 +318,7 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
 
 
         _etPassword = (CustomEditText) _view.findViewById(R.id.edt_password);
+
 
         _edtPrn = _view.findViewById(R.id.edt_Id);
 

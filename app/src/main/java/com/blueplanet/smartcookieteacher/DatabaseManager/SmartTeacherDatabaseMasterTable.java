@@ -114,7 +114,9 @@ public class SmartTeacherDatabaseMasterTable {
             + StudentList.STUD_CLASS_TEACHER_NAME + " TEXT,"
             + StudentList.STU_IMG + " TEXT,"
             + StudentList.STU_INPPUTID + " TEXT,"
-            + StudentList.STU_TOTALCOUNT + " TEXT" + ");";
+            + StudentList.STU_TOTALCOUNT + " TEXT,"
+            + StudentList.STUD_SUBNAME + " TEXT" + ");";
+
 
 
     public static final String CREATE_SUBJECT = "CREATE TABLE IF NOT EXISTS " + Tables.SUBJECT +
@@ -288,6 +290,8 @@ public class SmartTeacherDatabaseMasterTable {
         String STU_FATHERNAME = "fatherName";
         String STU_INPPUTID = "inputid";
         String STU_CITY = "city";
+
+        String STUD_SUBNAME= "subjectname";
     }
 
     public interface Subject {

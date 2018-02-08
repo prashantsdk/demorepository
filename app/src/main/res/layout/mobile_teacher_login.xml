@@ -84,13 +84,14 @@
                         android:layout_marginTop="5dp"
                         android:drawablePadding="15sp"
                         android:hint="Email"
+                        android:background="@null"
                         android:paddingBottom="5dp"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:paddingTop="5dp"
                         android:singleLine="true"
                         android:textColor="#393939"
-                        android:textColorHint="#393939"
+                        android:textColorHint="#757575"
                         android:textSize="20sp" />
 
 
@@ -133,7 +134,7 @@
                         android:paddingRight="10dp"
                         android:singleLine="true"
                         android:textColor="#393939"
-                        android:textColorHint="#393939"
+                        android:textColorHint="#757575"
                         android:textSize="15sp" />
                 </LinearLayout>
 
@@ -158,6 +159,7 @@
                         android:background="@null"
                         android:drawablePadding="15sp"
                         android:hint="Member ID"
+                        android:backgroundTint="@null"
 
                         android:paddingBottom="5dp"
                         android:paddingLeft="10dp"
@@ -165,7 +167,7 @@
                         android:paddingTop="5dp"
                         android:singleLine="true"
                         android:textColor="#393939"
-                        android:textColorHint="#393939"
+                        android:textColorHint="#757575"
                         android:textSize="15sp" />
                 </LinearLayout>
 
@@ -195,9 +197,10 @@
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:paddingTop="5dp"
+                        android:background="@null"
                         android:singleLine="true"
                         android:textColor="#393939"
-                        android:textColorHint="#393939"
+                        android:textColorHint="#757575"
                         android:textSize="15sp" />
 
 
@@ -222,6 +225,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginTop="5dp"
                         android:drawablePadding="15sp"
+                        android:background="@null"
                         android:hint="InstituteID"
                         android:paddingBottom="5dp"
                         android:paddingLeft="10dp"
@@ -229,8 +233,8 @@
                         android:paddingTop="5dp"
                         android:singleLine="true"
                         android:textColor="#393939"
-                        android:textColorHint="#393939"
-                        android:textSize="15sp" />
+                        android:textColorHint="#757575"
+                        android:textSize="20sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -260,13 +264,14 @@
                         android:layout_marginTop="5dp"
                         android:drawablePadding="15sp"
                         android:hint="@string/password"
+                        android:background="@null"
                         android:inputType="textPassword"
                         android:paddingBottom="5dp"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:singleLine="true"
                         android:textColor="#393939"
-                        android:textColorHint="#393939"
+                        android:textColorHint="#757575"
                         android:textSize="20sp" />
 
                 </LinearLayout>

@@ -10,8 +10,8 @@
     <permission
         android:name="com.blueplanet.smartcookieteacher.permission.MAPS_RECEIVE"
         android:protectionLevel="signature" />
-    <uses-permission android:name="com.blueplanet.smartcookieteacher.permission.MAPS_RECEIVE" />
 
+    <uses-permission android:name="com.blueplanet.smartcookieteacher.permission.MAPS_RECEIVE" />
     <uses-permission android:name="android.permission.ACCESS_GPS" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -23,11 +23,14 @@
         tools:node="remove" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
-    <!-- <permission
+    <!--
+         <permission
          android:name="com.nas.cruzer.permission.MAPS_RECEIVE"
-         android:protectionLevel="signature" />-->
+         android:protectionLevel="signature" />
+    -->
 
-    <!-- <uses-permission android:name="com.nas.cruzer.permission.MAPS_RECEIVE" />-->
+
+    <!-- <uses-permission android:name="com.nas.cruzer.permission.MAPS_RECEIVE" /> -->
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -37,18 +40,15 @@
     <!-- Required to show current location -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
     <uses-permission
         android:name="com.blueplanet.smartcookieteacher.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 
-
     <!-- Required OpenGL ES 2.0. for Maps V2 -->
     <uses-feature
         android:glEsVersion="0x00020000"
         android:required="true" />
-
     <uses-feature
         android:name="android.hardware.location"
         android:required="true" />
@@ -56,7 +56,7 @@
         android:name="android.hardware.location.gps"
         android:required="true" />
 
-
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:name=".MainApplication"
@@ -66,35 +66,34 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme1">
-
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-       <!-- <meta-data
+        <!--
+            <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyA7xWh0S20ij5ijGSqqjJdcMzFwowfCfjQ" />
--->
+        -->
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyABPhkrObwRTEdZNg7-QGStV9dwm4uFUB0" />
 
-
-        <!--AIzaSyA7xWh0S20ij5ijGSqqjJdcMzFwowfCfjQ-->           // SmartStudent Api key
-        <!--AIzaSyDHz0ChjrIwDPFcFXLu_5Kt3rccp_U0OSI-->         // SmartTeacher Api Key
-
+        <!-- AIzaSyA7xWh0S20ij5ijGSqqjJdcMzFwowfCfjQ -->
+        // SmartStudent Api key
+        <!-- AIzaSyDHz0ChjrIwDPFcFXLu_5Kt3rccp_U0OSI -->
+        // SmartTeacher Api Key
         <activity
             android:name=".BaseActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category
                     android:name="android.intent.category.LAUNCHER"
                     android:screenOrientation="portrait" />
             </intent-filter>
-
-
         </activity>
 
         <receiver
@@ -109,60 +108,61 @@
             </intent-filter>
         </receiver>
 
-
         <!-- [START gcm_listener] -->
         <service
-            android:name="com.blueplanet.smartcookieteacher.gcm.MyGcmListenerService"
+            android:name=".gcm.MyGcmListenerService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-
             </intent-filter>
         </service>
+
         <activity
             android:name=".LoginActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <!--<activity android:name=".BaseActivity" />
-        <activity android:name=".ui.InitialPaswordActivity" />-->
+        <!--
+        <activity android:name=".BaseActivity" />
+        <activity android:name=".ui.InitialPaswordActivity" />
+        -->
 
         <activity
             android:name=".ui.Profile"
             android:screenOrientation="portrait" />
 
-        <!-- <activity android:name="com.blueplanet.smartcookieteacher.ui.MapActivity"
+        <!--
+             <activity android:name="com.blueplanet.smartcookieteacher.ui.MapActivity"
              android:label="@string/app_name"
-             android:theme="@style/LoginActivityTheme"/>-->
+             android:theme="@style/LoginActivityTheme"/>
+        -->
         <activity
-            android:name="com.blueplanet.smartcookieteacher.ui.RegistrationActivity"
-            android:label="@string/app_name"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity
-            android:name="com.blueplanet.smartcookieteacher.ui.NewMapActivity"
-            android:label="@string/app_name"
-
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name="com.blueplanet.smartcookieteacher.ui.MapActivity"
-            android:label="@string/app_name"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity
-            android:name="com.blueplanet.smartcookieteacher.UpdateProfileActivity"
+            android:name=".ui.RegistrationActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.blueplanet.smartcookieteacher.AfterLoginActivity"
+            android:name=".ui.NewMapActivity"
+            android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.blueplanet.smartcookieteacher.facebook.FacebookShareActivity"
-            android:windowSoftInputMode="stateHidden|adjustResize"></activity>
+            android:name=".ui.MapActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".UpdateProfileActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".AfterLoginActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".facebook.FacebookShareActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
 
         <receiver
             android:name=".network.NetworkReceiver"
@@ -172,11 +172,14 @@
             </intent-filter>
         </receiver>
 
-        <service android:name=".services.TeacherPointService"></service>
+        <service android:name=".services.TeacherPointService" />
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/FACEBOOK_APP_ID" />
+
+
+
     </application>
 
 </manifest>

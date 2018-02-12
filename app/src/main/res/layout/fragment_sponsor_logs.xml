@@ -1,0 +1,19 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.blueplanet.smartcookieteacher.ui.SponsorLogs">
+
+
+    <ListView
+
+        android:id="@+id/listviewSponsorMap"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@null"
+        android:dividerHeight="1dp">
+
+    </ListView>
+
+
+</LinearLayout>

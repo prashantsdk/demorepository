@@ -649,7 +649,9 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
 
 
                 _loginFragment.showOrHideProgressBar(false);
-                _loginFragment.showLoginErrorMessage();
+
+                //_loginFragment.showLoginErrorMessage();
+                _loginFragment.showLoginConflictError();
                 break;
             case EventTypes.EVENT_UI_FORGET_PEASSWARD:
                 EventNotifier eventNotifier3 =

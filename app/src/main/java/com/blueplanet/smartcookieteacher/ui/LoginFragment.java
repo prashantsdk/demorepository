@@ -564,7 +564,18 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
         });
 
     }
+    public void showLoginConflictError() {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
 
+                Toast.makeText(getActivity().getApplicationContext(),
+                        getActivity().getString(R.string.Login_Conflict_Occur),
+                        Toast.LENGTH_LONG).show();
+            }
+        });
+
+    }
 
 
   /*  public void showTestProduction(final boolean tePro) {

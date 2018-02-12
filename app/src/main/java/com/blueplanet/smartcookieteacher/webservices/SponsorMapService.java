@@ -73,6 +73,8 @@ public class SponsorMapService extends SmartCookieTeacherService {
             requestBody.put(WebserviceConstants.KEY_DISTANCE_TYPE, range_type);
 
 
+
+
         } catch (JSONException jsonException) {
             jsonException.printStackTrace();
         } catch (Exception e) {
@@ -120,6 +122,7 @@ public class SponsorMapService extends SmartCookieTeacherService {
                     String SPONSOR_DISTANCE = jsonObject.optString(WebserviceConstants.KEY_SPONSOR_DISTANCEE);
                     String KEY_SPONSOR_CATEGORY = jsonObject.optString(WebserviceConstants.KEY_SPONSOR_CATEGORYY);
                     String KEY_SPONSOR_IMG_PATH = jsonObject.optString(WebserviceConstants.KEY_SPONSOR_IMG_PATHH);
+
                     try {
                         SPONSOR_DISTANCE=SPONSOR_DISTANCE.substring(0,3);
                         if (SPONSOR_DISTANCE.endsWith(".")){
@@ -138,6 +141,8 @@ public class SponsorMapService extends SmartCookieTeacherService {
                     sponsorOnMapModel=new SponsorOnMapModel(KEY_SPONSOR_ID,SPONSOR_NAME,SPONSOR_ADDRESS,SPONSOR_CITY,SPONSOR_COUNTRY,
                                                     SPONSOR_LAT,SPONSOR_LONG,SPONSOR_DISTANCE,KEY_SPONSOR_CATEGORY,KEY_SPONSOR_IMG_PATH);
                    arr_Sponsorlist.add(sponsorOnMapModel);
+
+
                 }
                 Log.i(_TAG, "" + sponsorOnMapModel);
                 /**

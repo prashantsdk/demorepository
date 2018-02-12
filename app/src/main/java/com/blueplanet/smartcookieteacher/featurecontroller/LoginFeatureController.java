@@ -297,6 +297,19 @@ public class LoginFeatureController implements IEventListener {
         switch (eventType) {
             case EventTypes.EVENT_LOGIN_SUCCESSFUL:
 
+                if(errorCode == -1){
+                    SmartCookieSharedPreferences.setLoginFlag(false);
+                    eventNotifierUI =
+                            NotifierFactory.getInstance().getNotifier(
+                                    NotifierFactory.EVENT_NOTIFIER_LOGIN);
+                    eventNotifierUI.eventNotifyOnThread(EventTypes.EVENT_CONFLCTLOGIN_RESPONSE,
+                            serverResponse);
+
+
+                } else {
+
+
+
                 if (errorCode == WebserviceConstants.SUCCESS) {
                     _teacher = (Teacher) responseObject;
                     SmartCookieSharedPreferences.setLoginFlag(true);
@@ -354,6 +367,8 @@ public class LoginFeatureController implements IEventListener {
                         eventNotifierUI.eventNotifyOnThread(EventTypes.EVENT_UI_UNAUTHORIZED,
                                 serverResponse);
                     }
+                }
+
                 }
                 break;
             case EventTypes.EVENT_FORGET_PEASSWARD:

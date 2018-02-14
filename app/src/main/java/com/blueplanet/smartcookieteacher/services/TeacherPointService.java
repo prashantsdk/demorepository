@@ -126,6 +126,8 @@ public class TeacherPointService extends Service {
 
 
 					points = new TeacherDashbordPoint(tgreen,twater, tblue, tbrown );
+
+
 					DashboardFeatureController.getInstance().savePointIntoDB(points);
 
 

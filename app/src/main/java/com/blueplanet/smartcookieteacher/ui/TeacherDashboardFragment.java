@@ -65,6 +65,8 @@ public class TeacherDashboardFragment extends Fragment {
     private CustomTextView _edtCount;
     private Student stu=null;
 
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.i(_TAG, "In onCreateView of  TeacherDashboardFragment");

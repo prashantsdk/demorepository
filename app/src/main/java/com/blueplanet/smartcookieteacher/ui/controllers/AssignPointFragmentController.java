@@ -1,7 +1,6 @@
 package com.blueplanet.smartcookieteacher.ui.controllers;
 
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
@@ -11,7 +10,6 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.Spinner;
@@ -23,6 +21,7 @@ import com.blueplanet.smartcookieteacher.communication.ServerResponse;
 import com.blueplanet.smartcookieteacher.customcomponents.CustomTextView;
 import com.blueplanet.smartcookieteacher.featurecontroller.ActivityListFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.AssignPointFeatureController;
+import com.blueplanet.smartcookieteacher.featurecontroller.DashboardFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.LoginFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.StudentFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.subFeaturecontroller;
@@ -30,6 +29,7 @@ import com.blueplanet.smartcookieteacher.models.Student;
 import com.blueplanet.smartcookieteacher.models.SubNameCode;
 import com.blueplanet.smartcookieteacher.models.Teacher;
 import com.blueplanet.smartcookieteacher.models.TeacherActivity;
+import com.blueplanet.smartcookieteacher.models.TeacherDashbordPoint;
 import com.blueplanet.smartcookieteacher.models.TeacherSubject;
 import com.blueplanet.smartcookieteacher.notification.EventNotifier;
 import com.blueplanet.smartcookieteacher.notification.EventState;
@@ -39,9 +39,7 @@ import com.blueplanet.smartcookieteacher.notification.ListenerPriority;
 import com.blueplanet.smartcookieteacher.notification.NotifierFactory;
 import com.blueplanet.smartcookieteacher.ui.ApplicationConstants;
 import com.blueplanet.smartcookieteacher.ui.AssignPointFragment;
-import com.blueplanet.smartcookieteacher.utils.HelperClass;
 import com.blueplanet.smartcookieteacher.webservices.WebserviceConstants;
-
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -86,7 +84,7 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
     private EditText txt_mark;
 
     private EditText _txt_gradePoint, txt_point2, txtMark, _comment;
-    private CustomTextView  txtbackbutton;
+    private CustomTextView txtbackbutton;
 
 
     public AssignPointFragmentController(AssignPointFragment assignPointFragment, View view) {
@@ -120,7 +118,6 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
 
             _teacherId = _teacher.get_tId();
             _schoolId = _teacher.get_tSchool_id();
-
 
 
             //  selprn = AssignPointFeatureController.getInstance().get_selectedPrn();
@@ -343,6 +340,13 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
                 selectedSubjectId = AssignPointFeatureController.getInstance().get_seletedSubjectId();
 
 
+                TeacherDashbordPoint point = DashboardFeatureController.getInstance().getTeacherpoint();
+
+                int greenPoints = point.get_greenpoint();
+                int brownPoints = point.get_brownpoint();
+                int waterPoints = point.get_waterpoint();
+
+
                 Log.i(_TAG, "Selected subject is : " + selectedSubjectId);
                 boolean isStudyClicked = AssignPointFeatureController.getInstance().isStudyClicked();
 
@@ -372,10 +376,16 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
                             if (logintype.equals(WebserviceConstants.VAL_USER_TYPE_GUGMENT)) {
                                 if (rewardValue != null) {
                                     methodID = "1";
+                                    if (greenPoints < Integer.parseInt(rewardValue)) {
 
-                                    _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
-                                            activityId, selectedSubjectId, rewardValue, date, pointtype, commentPoint);
-                                    clearActivityList();
+
+                                        _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
+                                                activityId, selectedSubjectId, rewardValue, date, pointtype, commentPoint);
+                                        clearActivityList();
+                                    } else {
+
+                                        Toast.makeText(_assignPointFragment.getActivity(), "Insufficient green points", Toast.LENGTH_SHORT).show();
+                                    }
                                 } else {
                                     Toast.makeText(_assignPointFragment.getActivity().getApplicationContext(),
                                             _assignPointFragment.getActivity().getString(R.string.select_activity),
@@ -383,7 +393,7 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
 
                                 }
                             } else if (logintype.equals(WebserviceConstants.VAL_USER_TYPE_MARK)) {
-                                if(45 > Integer.parseInt(rewardValue1) &&  Integer.parseInt(rewardValue1) > 35 ) {
+                                if (45 > Integer.parseInt(rewardValue1) && Integer.parseInt(rewardValue1) > 35) {
 
 
                                     //rewardValue1=Integer.parseInt("30");
@@ -445,10 +455,11 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
 
                     }
                 } else {
-                    if (student != null
-                            ) {
+                    if (student != null) {
 
                         if (selectedActivityId != null) {
+
+
                             String pointtype = spinnercolr.getSelectedItem().toString();
 
                             String prnNO = student.get_stdPRN();
@@ -476,10 +487,17 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
                                 methodID = "1";
                                 if (selectedActivityId != null && rewardValue != null) {
 
+                                    if (greenPoints > Integer.parseInt(rewardValue)) {
 
-                                    _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
-                                            selectedActivityId, subjectId, rewardValue, date, pointtype, commentPoint);
-                                    clearActivityList();
+
+                                        _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
+                                                selectedActivityId, subjectId, rewardValue, date, pointtype, commentPoint);
+                                        clearActivityList();
+                                    } else {
+
+                                        Toast.makeText(_assignPointFragment.getActivity(),
+                                                "Insufficient green points", Toast.LENGTH_SHORT).show();
+                                    }
                                 } else {
                                     Toast.makeText(_assignPointFragment.getActivity().getApplicationContext(),
                                             _assignPointFragment.getActivity().getString(R.string.select_activity),
@@ -531,8 +549,6 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
 
                                     }
                                 } else if (grade.equals(WebserviceConstants.VAL_USER_TYPE_GRADE_C)) {
-
-
 
 
                                     methodID = "3";
@@ -612,11 +628,12 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
 
             @Override
             public void afterTextChanged(Editable s) {
-               // HelperClass.Is_Valid_Email(txtMark);
+                // HelperClass.Is_Valid_Email(txtMark);
                 txt_point.setText("30");
             }
         });
     }
+
     private boolean _isAcivityPopulated(ArrayList<TeacherActivity> list) {
         if (list != null && list.size() > 0) {
             return true;
@@ -805,6 +822,8 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
                 event4.unRegisterListener(this);
                 _assignPointFragment.showOrHideProgressBar(false);
                 _assignPointFragment.showNoAListMessage(false);
+
+
                 break;
             default:
                 eventState = EventState.EVENT_IGNORED;
@@ -813,7 +832,6 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
         }
 
         return EventState.EVENT_PROCESSED;
-
 
 
     }

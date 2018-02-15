@@ -95,7 +95,7 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
 
 
         spinnerColor[0] ="Greenpoint "+ Integer.toString(point.get_greenpoint());
-        spinnerColor[1]= "Sponser  "+ Integer.toString(point.get_brownpoint());
+        spinnerColor[1]= "Sponsor  "+ Integer.toString(point.get_brownpoint());
         spinnerColor[2] ="Waterpoint  "+  Integer.toString(point.get_waterpoint());
 
 
@@ -508,7 +508,7 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
 
 
         spinnerColor[0] ="Greenpoint "+ Integer.toString(point.get_greenpoint());
-        spinnerColor[1]= "Sponser  "+ Integer.toString(point.get_brownpoint());
+        spinnerColor[1]= "Sponsor  "+ Integer.toString(point.get_brownpoint());
         spinnerColor[2] ="Waterpoint  "+  Integer.toString(point.get_waterpoint());
 
 

@@ -80,9 +80,8 @@ public class AssignPointListAdapter1 extends BaseAdapter {
 
 
         if (convertView == null) {
-            LayoutInflater inflatorInflater = (LayoutInflater) MainApplication
-                    .getContext().getSystemService(
-                            Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater inflatorInflater = (LayoutInflater) MainApplication.getContext().getSystemService(
+                    Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflatorInflater.inflate(R.layout.new_assignpoint, null
 
             );
@@ -95,7 +94,6 @@ public class AssignPointListAdapter1 extends BaseAdapter {
 
 
                 _textView[position] = (RadioButton) convertView.findViewById(R.id.yes);
-
                 _textView[position].setText(_activityList.get(position).getActivityName());
 
 

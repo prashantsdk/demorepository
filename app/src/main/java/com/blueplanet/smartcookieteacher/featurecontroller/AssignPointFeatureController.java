@@ -24,9 +24,9 @@ public class AssignPointFeatureController implements IEventListener {
 
     private static AssignPointFeatureController _assignPointFeatureController = null;
 
-    private final String _TAG = this.getClass().getSimpleName();
+
     private Student _selectedStudent;
-    private String _selectedSubject = null;
+
 
     public String get_emailID() {
         return _emailID;
@@ -38,9 +38,7 @@ public class AssignPointFeatureController implements IEventListener {
 
     private String _emailID = null;
 
-    public String get_selectColor() {
-        return _selectColor;
-    }
+
 
     public void set_selectColor(String _selectColor) {
         this._selectColor = _selectColor;
@@ -49,9 +47,7 @@ public class AssignPointFeatureController implements IEventListener {
     private String _selectColor = null;
 
 
-    public String get_grade() {
-        return _grade;
-    }
+
 
     public void set_grade(String _grade) {
         this._grade = _grade;
@@ -61,9 +57,6 @@ public class AssignPointFeatureController implements IEventListener {
 
     private String _seletedSubjectId = null;
 
-    public ArrayList<String> get_selectedSubjsct() {
-        return _selectedSubjsct;
-    }
 
     public void set_selectedSubjsct(ArrayList<String> _selectedSubjsct) {
         this._selectedSubjsct = _selectedSubjsct;
@@ -72,22 +65,11 @@ public class AssignPointFeatureController implements IEventListener {
     private ArrayList<String> _selectedSubjsct;
 
 
-    private String _selectedSubName;
     private boolean _isStudyClicked = false;
 
 
 
-    public ArrayList<Student> get_selestusubList() {
 
-
-        return _selestusubList;
-    }
-
-    public void set_selestusubList(ArrayList<Student> _selestusubList) {
-        this._selestusubList = _selestusubList;
-    }
-
-    private ArrayList<Student> _selestusubList;
 
 
     /**
@@ -136,13 +118,8 @@ public class AssignPointFeatureController implements IEventListener {
     public void set_selectedStudent(Student selectedStudent) {
         _selectedStudent = selectedStudent;
     }
-    public String get_selectedSubject() {
-        return _selectedSubject;
-    }
 
-    public void set_selectedSubject(String _selectedSubject) {
-        this._selectedSubject = _selectedSubject;
-    }
+
     public String get_seletedSubjectId() {
         return _seletedSubjectId;
 

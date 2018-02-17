@@ -213,6 +213,7 @@ public class ActivityListFeatureController implements IEventListener {
         int errorCode = serverResponse.getErrorCode();
         Object responseObject = serverResponse.getResponseObject();
 
+
         EventNotifier eventNotifierUI;
         switch (eventType) {
 

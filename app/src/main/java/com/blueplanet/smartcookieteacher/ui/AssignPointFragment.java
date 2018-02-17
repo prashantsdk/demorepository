@@ -22,7 +22,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.blueplanet.smartcookieteacher.MainApplication;
 import com.blueplanet.smartcookieteacher.R;
 import com.blueplanet.smartcookieteacher.customcomponents.CustomButton;
 import com.blueplanet.smartcookieteacher.customcomponents.CustomTextView;
@@ -59,10 +58,11 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
     private CustomButton _btnSubmit;
     private TextView _txt_teacherName;
     private Teacher _teacher, pointsTeacher;
-    String[] userOption = {"Judgement", "Marks", "Grade", "Percentile"};
+    // String[] userOption = {"Judgement", "Marks", "Grade", "Percentile"};
+    String[] userOption = {"Judgement", "Grade"};
     String[] numberOptn = {"A", "B", "C", "D"};
 
-    String[] spinnerColor = new String[3];
+    String[] spinnerColor = new String[2];
     //String[] spinnerColor ;
 
     private Spinner spinner, spinner1, spinnercolr;
@@ -91,13 +91,12 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
 
         }
 
-         TeacherDashbordPoint point = DashboardFeatureController.getInstance().getTeacherpoint();
+        TeacherDashbordPoint point = DashboardFeatureController.getInstance().getTeacherpoint();
 
 
-        spinnerColor[0] ="Greenpoint "+ Integer.toString(point.get_greenpoint());
-        spinnerColor[1]= "Sponsor  "+ Integer.toString(point.get_brownpoint());
-        spinnerColor[2] ="Waterpoint  "+  Integer.toString(point.get_waterpoint());
-
+        spinnerColor[0] = "Greenpoint " + Integer.toString(point.get_greenpoint());
+        // spinnerColor[1]= "Sponsor  "+ Integer.toString(point.get_brownpoint());
+        spinnerColor[1] = "Waterpoint  " + Integer.toString(point.get_waterpoint());
 
 
         ArrayAdapter aa = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item, userOption);
@@ -322,6 +321,16 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
                     Toast.makeText(getActivity().getApplicationContext(),
                             getActivity().getString(R.string.point_assign_successfully),
                             Toast.LENGTH_LONG).show();
+
+                    pointsTeacher = LoginFeatureController.getInstance().getTeacher();
+
+                    if (pointsTeacher != null && NetworkManager.isNetworkAvailable()) {
+                        _teacherId = pointsTeacher.get_tId();
+                        _schoolId = pointsTeacher.get_tSchool_id();
+                        DashboardFeatureController.getInstance().fetchTeacherPointFromServer(_teacherId, _schoolId);
+
+                    }
+
                 } else {
                     Toast.makeText(getActivity().getApplicationContext(),
                             getActivity().getString(R.string.point_is_not_avaliable),
@@ -354,9 +363,16 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
             @Override
             public void run() {
                 if (flag == false) {
+
+                   /*
                     Toast.makeText(getActivity().getApplicationContext(),
                             getActivity().getString(R.string.pointsno),
+                            Toast.LENGTH_LONG).show();*/
+
+                    Toast.makeText(getActivity(), "Invalid response from web service",
                             Toast.LENGTH_LONG).show();
+
+
                 }
             }
         });
@@ -498,7 +514,17 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
         spinnercolr.setSelection(position);
         selState = spinnercolr.getSelectedItem().toString();
 
-     //   Toast.makeText(getActivity(),"Hello",Toast.LENGTH_SHORT).show();
+        //   Toast.makeText(getActivity(),"Hello",Toast.LENGTH_SHORT).show();
+
+
+        pointsTeacher = LoginFeatureController.getInstance().getTeacher();
+
+        if (pointsTeacher != null && NetworkManager.isNetworkAvailable()) {
+            _teacherId = pointsTeacher.get_tId();
+            _schoolId = pointsTeacher.get_tSchool_id();
+            DashboardFeatureController.getInstance().fetchTeacherPointFromServer(_teacherId, _schoolId);
+
+        }
 
 
         DashboardFeatureController.getInstance().fetchTeacherPointFromServer(_teacherId, _schoolId);
@@ -507,9 +533,9 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
         TeacherDashbordPoint point = DashboardFeatureController.getInstance().getTeacherpoint();
 
 
-        spinnerColor[0] ="Greenpoint "+ Integer.toString(point.get_greenpoint());
-        spinnerColor[1]= "Sponsor  "+ Integer.toString(point.get_brownpoint());
-        spinnerColor[2] ="Waterpoint  "+  Integer.toString(point.get_waterpoint());
+        spinnerColor[0] = "Greenpoint " + Integer.toString(point.get_greenpoint());
+        // spinnerColor[1]= "Sponsor  "+ Integer.toString(point.get_brownpoint());
+        spinnerColor[1] = "Waterpoint  " + Integer.toString(point.get_waterpoint());
 
 
         AssignPointFeatureController.getInstance().set_selectColor(selState);

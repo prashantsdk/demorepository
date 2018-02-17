@@ -316,6 +316,7 @@
                                 android:id="@+id/spinnercolor"
                                 android:layout_width="match_parent"
                                 android:layout_height="40sp"
+                                android:textColor="#FFFFFF"
                                 android:layout_gravity="center_horizontal"
                                 android:visibility="visible" />
                         </LinearLayout>
@@ -345,6 +346,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:textColor="#FFFFFF"
                             android:background="@drawable/oval_white_background_transparant">
 
                             <Spinner
@@ -352,6 +354,7 @@
                                 android:id="@+id/spinner"
                                 android:layout_width="match_parent"
                                 android:layout_height="40sp"
+
                                 android:layout_gravity="center_horizontal"
                                 android:visibility="visible" />
                         </LinearLayout>

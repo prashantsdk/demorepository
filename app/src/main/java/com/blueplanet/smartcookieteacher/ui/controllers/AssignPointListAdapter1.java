@@ -82,9 +82,7 @@ public class AssignPointListAdapter1 extends BaseAdapter {
         if (convertView == null) {
             LayoutInflater inflatorInflater = (LayoutInflater) MainApplication.getContext().getSystemService(
                     Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflatorInflater.inflate(R.layout.new_assignpoint, null
-
-            );
+            convertView = inflatorInflater.inflate(R.layout.new_assignpoint, null,false);
         }
         if (convertView != null) {
             if (_activityList != null && _activityList.size() > 0) {

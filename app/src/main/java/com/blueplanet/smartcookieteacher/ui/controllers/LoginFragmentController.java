@@ -1114,10 +1114,11 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
                 try {
                     if (gcm == null) {
 
-                        if(_loginFragment.getActivity() != null) {
+                       /* if(_loginFragment.getActivity() != null) {
+
 
                             gcm = GoogleCloudMessaging.getInstance(_loginFragment.getActivity());
-                        }
+                        }*/
                     }
 
                     String Gcm_Id = "";

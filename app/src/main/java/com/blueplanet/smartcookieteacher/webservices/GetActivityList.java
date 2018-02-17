@@ -42,7 +42,7 @@ public class GetActivityList extends SmartCookieTeacherService {
     @Override
     protected String formRequest() {
         return WebserviceConstants.HTTP_BASE_URL +
-                WebserviceConstants.BASE_URL + WebserviceConstants.TEACHER_ACIVITY;
+                WebserviceConstants.BASE_URL1 + WebserviceConstants.TEACHER_ACIVITY;
     }
 
     @Override

@@ -8,15 +8,15 @@
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <LinearLayout
-                android:orientation="vertical"
                 android:id="@+id/relay3"
                 android:layout_width="match_parent"
-                android:layout_height="350dp">
+                android:layout_height="350dp"
+                android:orientation="vertical">
 
                 <RelativeLayout
                     android:id="@+id/rl_1"
@@ -51,51 +51,107 @@
 
                 </RelativeLayout>
 
-                <TextView
-                    android:id="@+id/txtcoupon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/rl_1"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="3dp"
-                    android:text="SMART COOKIE COUPON"
-                    android:textColor="#4A8B3B"
-                    android:textSize="15dp" />
-
-                <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
-                    android:id="@+id/greenpoint"
-                    style="@style/Login_title"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_below="@+id/txtcoupon"
-                    android:layout_centerInParent="true"
-                    android:layout_margin="1dp"
-                    android:background="@drawable/blue_point"
-                    android:gravity="center"
-                    android:text="A"
-                    android:textColor="#FFFFFF"
-                    android:textSize="17sp" />
-
-                <TextView
-                    android:id="@+id/txtmypoint"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/greenpoint"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="3dp"
-                    android:text="MY POINTS"
-                    android:textColor="#000000"
-                    android:textSize="15dp" />
 
                 <LinearLayout
-                    android:orientation="horizontal"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:id="@+id/txtcoupon"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/rl_1"
+                        android:layout_marginTop="3dp"
+                        android:gravity="center"
+                        android:text="SMART COOKIE COUPON"
+                        android:textColor="#4A8B3B"
+                        android:textSize="15sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:weightSum="3"
+                        android:layout_margin="10dp"
+                        android:orientation="horizontal">
+
+
+                       <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                            android:id="@+id/greenpoint"
+                            style="@style/Login_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+
+                           android:layout_margin="1dp"
+                            android:background="@drawable/blue_point"
+                            android:gravity="center"
+                            android:text="A"
+                            android:textColor="#FFFFFF"
+
+                            android:textSize="17sp" />
+
+
+
+                        <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                            android:id="@+id/generate_water_points"
+                            style="@style/Login_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+
+                            android:layout_margin="1dp"
+                            android:background="@drawable/water_point"
+                            android:gravity="center"
+                            android:text="A"
+                            android:textColor="#FFFFFF"
+
+                            android:textSize="17sp" />
+
+                        <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                            android:id="@+id/generate_brown"
+                            style="@style/Login_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+
+                            android:layout_margin="1dp"
+                            android:background="@drawable/brown_point"
+                            android:gravity="center"
+                            android:text="A"
+                            android:textColor="#FFFFFF"
+
+                            android:textSize="17sp" />
+
+
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/txtmypoint"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:layout_marginTop="3dp"
+                        android:gravity="center"
+                        android:text="MY POINTS"
+                        android:textColor="#000000"
+                        android:textSize="15sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
                     android:id="@+id/txtgenerate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/txtmypoint"
                     android:layout_marginLeft="30dp"
                     android:layout_marginTop="2dp"
+                    android:orientation="horizontal"
                     android:visibility="visible">
+
 
                     <TextView
                         android:layout_width="wrap_content"

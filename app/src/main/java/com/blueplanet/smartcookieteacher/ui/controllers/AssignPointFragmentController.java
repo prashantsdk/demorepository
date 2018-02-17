@@ -12,6 +12,7 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.Spinner;
@@ -98,6 +99,8 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
 
     boolean resultFlag = false;
 
+    boolean activityResultFlag = false;
+
     SubNameCode _namesub = null;
 
     ArrayList<SubNameCode> subNameCodelist = new ArrayList<>();
@@ -131,19 +134,45 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
             String id = _teacher.get_tId();
             _fetchActivityListFromServer(_schoolId);
 
-
-            ;
-
-
-            //  selprn = AssignPointFeatureController.getInstance().get_selectedPrn();
-          /* Student s = StudentFeatureController.getInstance().getSelectedStudent();
-           prn=s.get_stdPRN();
-           subFeaturecontroller.getInstance().fetchSubjectFromServer(_teacherId, _schoolId,prn);*/
-
         }
+
+
         _activityList = ActivityListFeatureController.getInstance().getActivitylistInfoFromDB(_activityType);
 
 
+    }
+
+    private class FetachActivityListFromServer extends  AsyncTask<Void,Void,Void>{
+
+
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+
+            mProgressDialog = new ProgressDialog(_assignPointFragment.getActivity());
+            mProgressDialog.setMessage("Loading...");
+            mProgressDialog.setIndeterminate(false);
+            mProgressDialog.show();
+
+        }
+
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+
+
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            mProgressDialog.dismiss();
+
+
+        }
     }
 
     private boolean _isActivityListPopulated(ArrayList<TeacherActivity> list) {
@@ -1214,7 +1243,7 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
 
                     String response = js.getJSONfromURL(
                             WebserviceConstants.HTTP_BASE_URL +
-                                    WebserviceConstants.BASE_URL + WebserviceConstants.SUBWEBSERVICE, jsonObjSend);
+                                    WebserviceConstants.BASE_URL1 + WebserviceConstants.SUBWEBSERVICE, jsonObjSend);
 
 
                     if (response != null) {

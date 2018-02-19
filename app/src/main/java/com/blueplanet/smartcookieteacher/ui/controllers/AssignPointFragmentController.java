@@ -12,7 +12,6 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.Spinner;
@@ -27,6 +26,9 @@ import com.blueplanet.smartcookieteacher.featurecontroller.AssignPointFeatureCon
 import com.blueplanet.smartcookieteacher.featurecontroller.DashboardFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.LoginFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.StudentFeatureController;
+import com.blueplanet.smartcookieteacher.models.ArtActivity;
+import com.blueplanet.smartcookieteacher.models.GeneralActivity;
+import com.blueplanet.smartcookieteacher.models.SportActivity;
 import com.blueplanet.smartcookieteacher.models.Student;
 import com.blueplanet.smartcookieteacher.models.SubNameCode;
 import com.blueplanet.smartcookieteacher.models.Teacher;
@@ -67,6 +69,11 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
     private GridView _lvActivities = null;
     //private AssignPointListAdapter _adapter = null;
     private AssignPointListAdapter1 _adapter = null;
+
+    private GeneralActivitListAdapter generalActivitListAdapter = null;
+    private SportListAdapter sportListAdapter = null;
+    private ArtActivityListAdapter artActivityListAdapter = null;
+
     private AssignPointSubjectAdapter _subAdapter;
     private AssignPointSubjectAdapter1 _subadapter;
     private SeekBar seekpointsbar;
@@ -106,6 +113,11 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
     ArrayList<SubNameCode> subNameCodelist = new ArrayList<>();
 
 
+    private ArrayList<ArtActivity> artActivities = new ArrayList<>();
+    private ArrayList<GeneralActivity> generalActivities = new ArrayList<>();
+    private ArrayList<SportActivity> sportActivities = new ArrayList<>();
+
+
     public AssignPointFragmentController(AssignPointFragment assignPointFragment, View view) {
 
         _assignPointFragment = assignPointFragment;
@@ -132,17 +144,19 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
             _teacherId = _teacher.get_tId();
             _schoolId = _teacher.get_tSchool_id();
             String id = _teacher.get_tId();
-            _fetchActivityListFromServer(_schoolId);
+           // _fetchActivityListFromServer(_schoolId);
+
+            new FetachActivityListFromServer().execute();
 
         }
 
 
-        _activityList = ActivityListFeatureController.getInstance().getActivitylistInfoFromDB(_activityType);
+       // _activityList = ActivityListFeatureController.getInstance().getActivitylistInfoFromDB(_activityType);
 
 
     }
 
-    private class FetachActivityListFromServer extends  AsyncTask<Void,Void,Void>{
+    private class FetachActivityListFromServer extends AsyncTask<Void, Void, Void> {
 
 
         protected void onPreExecute() {
@@ -160,6 +174,64 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
         @Override
         protected Void doInBackground(Void... voids) {
 
+            artActivities.clear();
+            sportActivities.clear();
+            generalActivities.clear();
+
+            if (_teacher != null) {
+                _teacherId = _teacher.get_tId();
+                _schoolId = _teacher.get_tSchool_id();
+                String id = _teacher.get_tId();
+                // _fetchActivityListFromServer(_schoolId);
+
+                JSONObject jsonObjSend = new JSONObject();
+                try {
+                    jsonObjSend.put(WebserviceConstants.KEY_SCHOOLID, _schoolId);
+
+                    String response = js.getJSONfromURL(
+                            WebserviceConstants.HTTP_BASE_URL +
+                                    WebserviceConstants.BASE_URL1 + WebserviceConstants.TEACHER_ACIVITY, jsonObjSend);
+
+
+                    if (response != null) {
+                        JSONObject json = new JSONObject(response);
+
+                        JSONArray responseData = json.optJSONArray(WebserviceConstants.KEY_POSTS);
+                        for (int i = 0; i < responseData.length(); i++) {
+                            JSONObject jsonObject = responseData.optJSONObject(i);
+
+                            String sc_id = jsonObject.optString(WebserviceConstants.KEY_SC_ID);
+                            String sc_list = jsonObject.optString(WebserviceConstants.KEY_SC_LIST);
+                            String activityType = jsonObject.optString(WebserviceConstants.KEY_ACTIVITY_TYPE);
+
+                            if (activityType.equals("Arts")) {
+                                ArtActivity artActivity = new ArtActivity(sc_id, sc_list);
+                                artActivities.add(artActivity);
+                            }
+                            if (activityType.equals("Sports")) {
+                                SportActivity sportActivity = new SportActivity(sc_id, sc_list);
+                                sportActivities.add(sportActivity);
+                            }
+
+                            if (activityType.equals("General Activity")) {
+                                GeneralActivity generalActivity = new GeneralActivity(sc_id, sc_list);
+                                generalActivities.add(generalActivity);
+                            }
+
+
+                        }
+                        activityResultFlag = true;
+
+
+                    } else {
+                        activityResultFlag = false;
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
 
 
             return null;
@@ -170,6 +242,23 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
             super.onPostExecute(aVoid);
 
             mProgressDialog.dismiss();
+
+
+            if (activityResultFlag == false) {
+
+                Toast.makeText(_assignPointFragment.getActivity(), "Activity List not available", Toast.LENGTH_SHORT).show();
+
+            }
+           /* if (artActivities.size() < 0) {
+
+                Toast.makeText(_assignPointFragment.getActivity(),"Art Activity list is empty",Toast.LENGTH_SHORT).show();
+            }
+            if (sportActivities.size() < 0) {
+
+            }
+            if (generalActivities.size() < 0) {
+
+            }*/
 
 
         }
@@ -207,21 +296,21 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
                         txtbackbutton.setVisibility((View.VISIBLE));
 
 
-                        //    imgCircle.setImageResource(R.drawable.genassign);
-
-
-                        // _assignPointFragment.showOrHideRl4Option(false);
-                        //   imgCircle.setVisibility(View.VISIBLE);
                         _rl4Option.setVisibility(View.GONE);
 
-                        // _activityList = ActivityListFeatureController.
-                        // getInstance().getGeneralActivityList();
-                        _adapter = new AssignPointListAdapter1(_assignPointFragment,
+                     /*   _adapter = new AssignPointListAdapter1(_assignPointFragment,
                                 AssignPointFragmentController.this, _activityList);
+*/
 
-                        _lvActivities.setAdapter(_adapter);
+                        // _lvActivities.setAdapter(_adapter);
+
+                        generalActivitListAdapter = new GeneralActivitListAdapter(_assignPointFragment,
+                                AssignPointFragmentController.this, generalActivities);
+
+
+                        _lvActivities.setAdapter(generalActivitListAdapter);
                         _lvActivities.setVisibility(View.VISIBLE);
-                        //_lvActivities.setOnItemClickListener(AssignPointFragmentController.this);
+
                     }
                 });
 
@@ -235,19 +324,23 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
                     @Override
                     public void run() {
                         txtbackbutton.setVisibility((View.VISIBLE));
-                        //12/2017// imgCircle.setImageResource(R.drawable.sportassign);
-                        // _assignPointFragment.showOrHideRl4Option(false);
-                        //12/2017// imgCircle.setVisibility(View.VISIBLE);
+
+
                         _rl4Option.setVisibility(View.GONE);
 
-                        // _activityList = ActivityListFeatureController.
-                        //    getInstance().get_sportsActivityList();
-                        _adapter = new AssignPointListAdapter1(_assignPointFragment,
+
+                     /*   _adapter = new AssignPointListAdapter1(_assignPointFragment,
                                 AssignPointFragmentController.this, _activityList);
 
                         _lvActivities.setAdapter(_adapter);
+                        */
+
+                        sportListAdapter = new SportListAdapter(_assignPointFragment,
+                                AssignPointFragmentController.this, sportActivities);
+
+                        _lvActivities.setAdapter(sportListAdapter);
+
                         _lvActivities.setVisibility(View.VISIBLE);
-                        //_lvActivities.setOnItemClickListener(AssignPointFragmentController.this);
 
 
                     }
@@ -264,21 +357,26 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
                     public void run() {
 
                         txtbackbutton.setVisibility((View.VISIBLE));
-                        //12/2017// imgCircle.setImageResource(R.drawable.artassign);
-                        // _assignPointFragment.showOrHideRl4Option(false);
-                        // imgCircle.setVisibility(View.VISIBLE);
+
                         _rl4Option.setVisibility(View.GONE);
 
 
-                        //  _activityList = ActivityListFeatureController.
-                        //   getInstance().get_artActivityList();
-                        _adapter = new AssignPointListAdapter1(_assignPointFragment,
+
+                       /* _adapter = new AssignPointListAdapter1(_assignPointFragment,
 
                                 AssignPointFragmentController.this, _activityList);
 
                         _lvActivities.setAdapter(_adapter);
+                        */
+
+
+                        artActivityListAdapter = new ArtActivityListAdapter(_assignPointFragment,
+
+                                AssignPointFragmentController.this, artActivities);
+
+                        _lvActivities.setAdapter(artActivityListAdapter);
+
                         _lvActivities.setVisibility(View.VISIBLE);
-                        // _lvActivities.setOnItemClickListener(AssignPointFragmentController.this);
 
 
                     }
@@ -362,7 +460,7 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
                 Log.i(_TAG, "Selected subject is : " + selectedSubjectId);
                 boolean isStudyClicked = AssignPointFeatureController.getInstance().isStudyClicked();
 
-                if (false) {
+                if (isStudyClicked) {
                     if (student != null /*&& !(TextUtils.isEmpty(selectedSubjectId)*/
                             ) {
                         if (selectedSubjectId != null) {
@@ -1225,6 +1323,7 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
         @Override
         protected Void doInBackground(Void... voids) {
 
+            subNameCodelist.clear();
             if (_teacher != null) {
                 _teacherId = _teacher.get_tId();
                 _schoolId = _teacher.get_tSchool_id();
@@ -1303,7 +1402,7 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
             }
             if (resultFlag == false) {
 
-                Toast.makeText(_assignPointFragment.getActivity(), "Server error subject list can not come", Toast.LENGTH_SHORT).show();
+                Toast.makeText(_assignPointFragment.getActivity(), "Study subject list not available", Toast.LENGTH_LONG).show();
 
             }
 

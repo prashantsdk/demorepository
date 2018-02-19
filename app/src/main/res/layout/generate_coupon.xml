@@ -73,26 +73,23 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:weightSum="3"
                         android:layout_margin="10dp"
-                        android:orientation="horizontal">
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:weightSum="3">
 
 
-                       <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                        <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
                             android:id="@+id/greenpoint"
                             style="@style/Login_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-
-
-                           android:layout_margin="1dp"
+                            android:layout_margin="10dp"
                             android:background="@drawable/blue_point"
                             android:gravity="center"
                             android:text="A"
                             android:textColor="#FFFFFF"
-
                             android:textSize="17sp" />
-
 
 
                         <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
@@ -100,14 +97,11 @@
                             style="@style/Login_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-
-
-                            android:layout_margin="1dp"
+                            android:layout_margin="10dp"
                             android:background="@drawable/water_point"
                             android:gravity="center"
                             android:text="A"
                             android:textColor="#FFFFFF"
-
                             android:textSize="17sp" />
 
                         <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
@@ -115,16 +109,12 @@
                             style="@style/Login_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-
-
-                            android:layout_margin="1dp"
+                            android:layout_margin="10dp"
                             android:background="@drawable/brown_point"
                             android:gravity="center"
                             android:text="A"
                             android:textColor="#FFFFFF"
-
                             android:textSize="17sp" />
-
 
 
                     </LinearLayout>
@@ -144,31 +134,32 @@
 
                 <LinearLayout
                     android:id="@+id/txtgenerate"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/txtmypoint"
-                    android:layout_marginLeft="30dp"
+                   android:weightSum="2"
                     android:layout_marginTop="2dp"
                     android:orientation="horizontal"
                     android:visibility="visible">
 
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
                         android:text="Select Point :"
+                        android:layout_weight="1"
 
                         android:textColor="#000000"
-                        android:textSize="20dp" />
+                        android:textSize="20sp" />
 
                     <RelativeLayout
+                        android:layout_weight="1"
                         android:id="@+id/gsr"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="120dp"
-                        android:layout_marginRight="35dp"
                         android:layout_marginTop="11dp"
+                        android:layout_gravity="center"
                         android:background="@drawable/oval_white_background_transparant">
 
                         <Spinner

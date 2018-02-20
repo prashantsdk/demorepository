@@ -135,9 +135,9 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
         CheckBox cbRememberMe = (CheckBox) _view.findViewById(R.id.cb_remember_me);
 
 
-        if (checkPlayServices()) {
+       /* if (checkPlayServices()) {
             registerInBackground();
-        }
+        }*/
 
 
         if ((NetworkManager.isNetworkAvailable()) == false) {

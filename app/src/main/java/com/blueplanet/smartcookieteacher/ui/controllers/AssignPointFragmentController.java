@@ -144,14 +144,14 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
             _teacherId = _teacher.get_tId();
             _schoolId = _teacher.get_tSchool_id();
             String id = _teacher.get_tId();
-           // _fetchActivityListFromServer(_schoolId);
+            // _fetchActivityListFromServer(_schoolId);
 
             new FetachActivityListFromServer().execute();
 
         }
 
 
-       // _activityList = ActivityListFeatureController.getInstance().getActivitylistInfoFromDB(_activityType);
+        // _activityList = ActivityListFeatureController.getInstance().getActivitylistInfoFromDB(_activityType);
 
 
     }
@@ -444,6 +444,9 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
 
               }*/
 
+                selectedActivityId = "";
+                selectedSubjectId = "";
+
                 Student student = AssignPointFeatureController.getInstance().get_selectedStudent();
                 selectedActivityId = ActivityListFeatureController.getInstance().getSeletedActivityId();
                 ////selectedSubjectId = SubjectFeatureController.getInstance().get_seletedSubjectId();
@@ -475,9 +478,18 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
                             String date = getDate();
                             Log.i(_TAG, "Value of date is: " + date);
                             String grade = spinner1.getSelectedItem().toString();
-                            String pointtype = spinnercolr.getSelectedItem().toString();
+
+                            String temp = spinnercolr.getSelectedItem().toString();
 
                             logintype = spinner.getSelectedItem().toString();
+
+
+
+                            String[] pointTypeArray = temp.split(" ");
+
+                            String pointtype = pointTypeArray[0];
+
+
                             String rewardValue = txt_point.getText().toString();
                             String rewardValue1 = txt_mark.getText().toString();
                             String rewardValue2 = txt_point2.getText().toString();
@@ -490,7 +502,7 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
                             if (logintype.equals(WebserviceConstants.VAL_USER_TYPE_GUGMENT)) {
                                 if (!rewardValue.isEmpty()) {
                                     methodID = "1";
-                                    if (greenPoints < Integer.parseInt(rewardValue)) {
+                                    if (greenPoints > Integer.parseInt(rewardValue)) {
 
 
                                         _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
@@ -582,6 +594,8 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
                             String[] pointTypeArray = pointtype.split(" ");
 
                             String finalPointType = pointTypeArray[0];
+
+
                             String prnNO = student.get_stdPRN();
 
                             Log.i(_TAG, "Value of prn is: " + prnNO);

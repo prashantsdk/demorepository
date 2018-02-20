@@ -8,6 +8,7 @@
         android:layout_height="match_parent">
 
         <LinearLayout
+            android:layout_margin="10dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -15,25 +16,22 @@
             <LinearLayout
                 android:id="@+id/relay3"
                 android:layout_width="match_parent"
-                android:layout_height="350dp"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <RelativeLayout
+                    android:visibility="gone"
                     android:id="@+id/rl_1"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="40dp"
                     android:gravity="center">
 
                     <RelativeLayout
                         android:id="@+id/ll_username"
                         android:layout_width="match_parent"
-                        android:layout_height="80dp"
+                        android:layout_height="40dp"
                         android:layout_below="@+id/tv_login"
-                        android:layout_marginLeft="8dp"
-                        android:layout_marginRight="8dp"
-                        android:layout_marginTop="5dp"
                         android:background="@drawable/login_button_selector"
-
                         android:orientation="horizontal">
 
                         <TextView
@@ -44,7 +42,7 @@
                             android:layout_marginLeft="15dp"
                             android:text="Student Search"
                             android:textColor="#FFFFFF"
-                            android:textSize="15dp" />
+                            android:textSize="15sp" />
 
 
                     </RelativeLayout>
@@ -64,7 +62,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/rl_1"
-                        android:layout_marginTop="3dp"
                         android:gravity="center"
                         android:text="SMART COOKIE COUPON"
                         android:textColor="#4A8B3B"
@@ -73,7 +70,6 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
                         android:gravity="center"
                         android:orientation="horizontal"
                         android:weightSum="3">
@@ -120,11 +116,10 @@
                     </LinearLayout>
 
                     <TextView
+                        android:visibility="gone"
                         android:id="@+id/txtmypoint"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-
-                        android:layout_marginTop="3dp"
                         android:gravity="center"
                         android:text="MY POINTS"
                         android:textColor="#000000"
@@ -133,33 +128,32 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:layout_margin="5dp"
                     android:id="@+id/txtgenerate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/txtmypoint"
-                   android:weightSum="2"
-                    android:layout_marginTop="2dp"
+
                     android:orientation="horizontal"
-                    android:visibility="visible">
+                    android:visibility="visible"
+                    android:weightSum="2">
 
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
                         android:text="Select Point :"
-                        android:layout_weight="1"
-
                         android:textColor="#000000"
-                        android:textSize="20sp" />
+                        android:textSize="15sp" />
 
-                    <RelativeLayout
-                        android:layout_weight="1"
+                    <LinearLayout
                         android:id="@+id/gsr"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="11dp"
-                        android:layout_gravity="center"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
                         android:background="@drawable/oval_white_background_transparant">
 
                         <Spinner
@@ -170,20 +164,11 @@
                             android:layout_gravity="center_horizontal"
 
                             android:visibility="visible" />
-                    </RelativeLayout>
+                    </LinearLayout>
 
                 </LinearLayout>
-                <!--
-                        <TextView
-                            android:id="@+id/txtgenerate"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/txtmypoint"
-                            android:layout_marginLeft="30dp"
-                            android:layout_marginTop="8dp"
-                            android:text="Generate Coupon of"
-                            android:textColor="#000000"
-                            android:textSize="15dp" />-->
+
+
 
                 <LinearLayout
                     android:id="@+id/lay2"
@@ -191,7 +176,7 @@
                     android:layout_height="40dp"
                     android:layout_below="@+id/txtgenerate"
                     android:layout_marginRight="10dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="15dp"
                     android:layout_weight="1"
                     android:background="#ECECEC">
 

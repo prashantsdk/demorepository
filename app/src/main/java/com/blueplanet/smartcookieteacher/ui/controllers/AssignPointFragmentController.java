@@ -2,6 +2,9 @@ package com.blueplanet.smartcookieteacher.ui.controllers;
 
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -12,6 +15,7 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.Spinner;
@@ -43,6 +47,7 @@ import com.blueplanet.smartcookieteacher.notification.ListenerPriority;
 import com.blueplanet.smartcookieteacher.notification.NotifierFactory;
 import com.blueplanet.smartcookieteacher.ui.ApplicationConstants;
 import com.blueplanet.smartcookieteacher.ui.AssignPointFragment;
+import com.blueplanet.smartcookieteacher.ui.StudentDetailFragment;
 import com.blueplanet.smartcookieteacher.utils.JSONfunctions;
 import com.blueplanet.smartcookieteacher.webservices.WebserviceConstants;
 
@@ -98,10 +103,13 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
     private EditText txt_mark;
     JSONfunctions js = new JSONfunctions();
 
-    private EditText _txt_gradePoint, txt_point2, txtMark, _comment;
+    private EditText _txt_gradePoint, txt_point2, _comment;
+
+    private TextView txtMark;
     private CustomTextView txtbackbutton;
     RelativeLayout _rl4Option;
     ProgressDialog mProgressDialog;
+
 
 
     boolean resultFlag = false;
@@ -110,6 +118,7 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
 
     SubNameCode _namesub = null;
 
+    boolean checkFlagStatus;
     ArrayList<SubNameCode> subNameCodelist = new ArrayList<>();
 
 
@@ -131,7 +140,7 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
         _comment = (EditText) _view.findViewById(R.id.txt_comment);
         _txt_gradePoint = (EditText) _view.findViewById(R.id.txt_gradePoint);
 
-        txtMark = (EditText) _view.findViewById(R.id.txt_markPoint);
+        txtMark = (TextView) _view.findViewById(R.id.txt_markPoint);
         txt_point2 = (EditText) _view.findViewById(R.id.txt_point2);
         _studentList = StudentFeatureController.getInstance().getStudentList();
         txtbackbutton = (CustomTextView) _view.findViewById(R.id.txtbackbutton);
@@ -417,6 +426,9 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
                     public void run() {
 
                         imgCircle.setImageResource(R.drawable.circle_general);
+                        ActivityListFeatureController.getInstance().setSeletedActivityIDOne(false);
+
+
                         txtbackbutton.setVisibility((View.GONE));
 
                         _rl4Option.setVisibility(View.VISIBLE);
@@ -444,12 +456,11 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
 
               }*/
 
-                selectedActivityId = "";
-                selectedSubjectId = "";
 
                 Student student = AssignPointFeatureController.getInstance().get_selectedStudent();
                 selectedActivityId = ActivityListFeatureController.getInstance().getSeletedActivityId();
                 ////selectedSubjectId = SubjectFeatureController.getInstance().get_seletedSubjectId();
+
                 selectedSubjectId = AssignPointFeatureController.getInstance().get_seletedSubjectId();
 
 
@@ -463,389 +474,539 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
                 Log.i(_TAG, "Selected subject is : " + selectedSubjectId);
                 boolean isStudyClicked = AssignPointFeatureController.getInstance().isStudyClicked();
 
-                if (isStudyClicked) {
-                    if (student != null /*&& !(TextUtils.isEmpty(selectedSubjectId)*/
-                            ) {
-                        if (selectedSubjectId != null) {
 
-                            String prnNO = student.get_stdPRN();
-                            Log.i(_TAG, "Value of prn is: " + prnNO);
-                            String methodID = "1";
-                            String activityId = "";
-                            //  String rewardValue = _points;
-                            Log.i(_TAG, "Value of points is: " + _points);
-
-                            String date = getDate();
-                            Log.i(_TAG, "Value of date is: " + date);
-                            String grade = spinner1.getSelectedItem().toString();
-
-                            String temp = spinnercolr.getSelectedItem().toString();
-
-                            logintype = spinner.getSelectedItem().toString();
+                checkFlagStatus = ActivityListFeatureController.getInstance().getSelectedActivityIDOne();
 
 
+                if (checkFlagStatus == true) {
 
-                            String[] pointTypeArray = temp.split(" ");
-
-                            String pointtype = pointTypeArray[0];
-
-
-                            String rewardValue = txt_point.getText().toString();
-                            String rewardValue1 = txt_mark.getText().toString();
-                            String rewardValue2 = txt_point2.getText().toString();
-
-                            String markPoint = txtMark.getText().toString();
-
-                            String commentPoint = _comment.getText().toString();
+                    if (isStudyClicked) {
+                        if (student != null /*&& !(TextUtils.isEmpty(selectedSubjectId)*/
+                                ) {
+                            if (selectedSubjectId != null) {
 
 
-                            if (logintype.equals(WebserviceConstants.VAL_USER_TYPE_GUGMENT)) {
-                                if (!rewardValue.isEmpty()) {
-                                    methodID = "1";
-                                    if (greenPoints > Integer.parseInt(rewardValue)) {
+                                ActivityListFeatureController.getInstance().setSeletedActivityIDOne(false);
+
+                                String prnNO = student.get_stdPRN();
+                                Log.i(_TAG, "Value of prn is: " + prnNO);
+                                String methodID = "1";
+                                String activityId = "";
+                                //  String rewardValue = _points;
+                                Log.i(_TAG, "Value of points is: " + _points);
+
+                                String date = getDate();
+                                Log.i(_TAG, "Value of date is: " + date);
+                                String grade = spinner1.getSelectedItem().toString();
+
+                                String temp = spinnercolr.getSelectedItem().toString();
+
+                                logintype = spinner.getSelectedItem().toString();
 
 
-                                        _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
-                                                activityId, selectedSubjectId, rewardValue, date, pointtype, commentPoint);
-                                        clearActivityList();
-                                    } else {
+                                String[] pointTypeArray = temp.split(" ");
 
-                                        Toast.makeText(_assignPointFragment.getActivity(), "Insufficient green points", Toast.LENGTH_SHORT).show();
-                                    }
-                                } else {
-                                  /*  Toast.makeText(_assignPointFragment.getActivity().getApplicationContext(),
-                                            _assignPointFragment.getActivity().getString(R.string.select_activity),
-                                            Toast.LENGTH_LONG).show();
+                                String pointtype = pointTypeArray[0];
 
 
-*/
-                                    Toast.makeText(_assignPointFragment.getActivity(), "Enter the points", Toast.LENGTH_SHORT).show();
-                                }
-                            } else if (logintype.equals(WebserviceConstants.VAL_USER_TYPE_MARK)) {
-                                if (45 > Integer.parseInt(rewardValue1) && Integer.parseInt(rewardValue1) > 35) {
+                                String rewardValue = txt_point.getText().toString();
+                                String rewardValue1 = txt_mark.getText().toString();
+                                String rewardValue2 = txt_point2.getText().toString();
+
+                                String markPoint = txtMark.getText().toString();
+
+                                String commentPoint = _comment.getText().toString();
 
 
-                                    //rewardValue1=Integer.parseInt("30");
-
-                                    initListener();
-                                    methodID = "2";
-                                    _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
-                                            activityId, selectedSubjectId, String.valueOf(rewardValue1), date, pointtype, commentPoint);
-                                    clearActivityList();
-                                }
-
-                            } else if (logintype.equals(WebserviceConstants.VAL_USER_TYPE_GRADE)) {
-
-                                if (grade.equals(WebserviceConstants.VAL_USER_TYPE_GRADE_A)) {
-
-                                    methodID = "3";
-                                    String rewardValue3 = "A";
-                                    _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
-                                            activityId, selectedSubjectId, rewardValue3, date, pointtype, commentPoint);
-                                    clearActivityList();
-
-
-                                } else if (grade.equals(WebserviceConstants.VAL_USER_TYPE_GRADE_B)) {
-                                    methodID = "3";
-                                    String rewardValue3 = "B";
-                                    _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
-                                            activityId, selectedSubjectId, rewardValue3, date, pointtype, commentPoint);
-                                    clearActivityList();
-
-                                } else if (grade.equals(WebserviceConstants.VAL_USER_TYPE_GRADE_C)) {
-                                    methodID = "3";
-                                    String rewardValue3 = "C";
-                                    _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
-                                            activityId, selectedSubjectId, rewardValue3, date, pointtype, commentPoint);
-                                    clearActivityList();
-                                } else if (grade.equals(WebserviceConstants.VAL_USER_TYPE_GRADE_D)) {
-                                    methodID = "3";
-                                    String rewardValue3 = "D";
-                                    _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
-                                            activityId, selectedSubjectId, rewardValue3, date, pointtype, commentPoint);
-                                    clearActivityList();
-                                }
-
-                            } else if (logintype.equals(WebserviceConstants.VAL_USER_TYPE_PERSENTILE)) {
-                                methodID = "4";
-                                _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
-                                        activityId, selectedSubjectId, rewardValue2, date, pointtype, commentPoint);
-                                clearActivityList();
-
-                            } else {
-
-
-                            }
-                        } else {
-                            Toast.makeText(_assignPointFragment.getActivity().getApplicationContext(),
-                                    _assignPointFragment.getActivity().getString(R.string.select_subject),
-                                    Toast.LENGTH_LONG).show();
-                        }
-
-                    }
-                } else {
-                    if (student != null) {
-
-                        if (selectedActivityId != null) {
-
-
-                            String pointtype = spinnercolr.getSelectedItem().toString();
-
-                            String[] pointTypeArray = pointtype.split(" ");
-
-                            String finalPointType = pointTypeArray[0];
-
-
-                            String prnNO = student.get_stdPRN();
-
-                            Log.i(_TAG, "Value of prn is: " + prnNO);
-                            String methodID = "1";
-                            //String activityID = selectedActivityName;
-                            Log.i(_TAG, "Value of activity id is: " + selectedActivityId);
-                            String subjectId = "0";
-                            //String activityId = "0";
-                            // String rewardValue = _points;
-                            Log.i(_TAG, "Value of points is: " + _points);
-                            String date = getDate();
-                            Log.i(_TAG, "Value of date is: " + date);
-
-                            String grade = spinner1.getSelectedItem().toString();
-                            logintype = spinner.getSelectedItem().toString();
-                            String rewardValue = txt_point.getText().toString();
-                            String rewardValue1 = txt_mark.getText().toString();
-                            String rewardValue2 = txt_point2.getText().toString();
-
-                            String markValue = txtMark.getText().toString();
-                            String commentPoint = _comment.getText().toString();
-
-
-                            if (logintype.equals(WebserviceConstants.VAL_USER_TYPE_GUGMENT)) {
-                                methodID = "1";
-                                if ((selectedActivityId != null) &&
-                                        (!rewardValue.isEmpty())) {
-
-
-                                    if (finalPointType.equals("Greenpoint")) {
-
+                                if (logintype.equals(WebserviceConstants.VAL_USER_TYPE_GUGMENT)) {
+                                    if (!rewardValue.isEmpty()) {
+                                        methodID = "1";
                                         if (greenPoints > Integer.parseInt(rewardValue)) {
 
 
                                             _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
-                                                    selectedActivityId, subjectId, rewardValue, date, finalPointType, commentPoint);
+                                                    activityId, selectedSubjectId, rewardValue, date, pointtype, commentPoint);
                                             clearActivityList();
                                         } else {
 
-                                            Toast.makeText(_assignPointFragment.getActivity(),
-                                                    "Insufficient green points", Toast.LENGTH_SHORT).show();
-                                        }
-                                    } else if (finalPointType.equals("Sponsor")) {
 
-                                        if (brownPoints > Integer.parseInt(rewardValue)) {
-
-
-                                            _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
-                                                    selectedActivityId, subjectId, rewardValue, date, finalPointType, commentPoint);
-                                            clearActivityList();
-                                        } else {
-                                            Toast.makeText(_assignPointFragment.getActivity(),
-                                                    "Insufficient brown  points", Toast.LENGTH_SHORT).show();
-
-
-                                        }
-                                    } else if (finalPointType.equals("Waterpoint")) {
-
-                                        if (waterPoints > Integer.parseInt(rewardValue)) {
-                                            _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
-                                                    selectedActivityId, subjectId, rewardValue, date, finalPointType, commentPoint);
-                                            clearActivityList();
-                                        } else {
-
-                                            Toast.makeText(_assignPointFragment.getActivity(),
-                                                    "Insufficient water  points", Toast.LENGTH_SHORT).show();
-
+                                            Toast.makeText(_assignPointFragment.getActivity(), "Insufficient green points", Toast.LENGTH_SHORT).show();
 
                                         }
                                     } else {
-                                        Toast.makeText(_assignPointFragment.getActivity(), "Method type not selected", Toast.LENGTH_SHORT).show();
-                                    }
-                                } else if ((selectedActivityId == null)) {
-                                    Toast.makeText(_assignPointFragment.getActivity().getApplicationContext(),
+
+
+                                  /*  Toast.makeText(_assignPointFragment.getActivity().getApplicationContext(),
                                             _assignPointFragment.getActivity().getString(R.string.select_activity),
-                                            Toast.LENGTH_LONG).show();
+                                            Toast.LENGTH_LONG).show();  */
 
-                                } else if (rewardValue.isEmpty()) {
+                                        ActivityListFeatureController.getInstance().setSeletedActivityIDOne(true);
 
-                                    Toast.makeText(_assignPointFragment.getActivity(), "Enter the points", Toast.LENGTH_SHORT).show();
-                                }
-
-                            } else if (logintype.equals(WebserviceConstants.VAL_USER_TYPE_MARK)) {
-
-                                methodID = "2";
-                                if ((selectedActivityId != null)
-                                        && (!rewardValue1.isEmpty())
-                                        && (!markValue.isEmpty())) {
+                                        Toast.makeText(_assignPointFragment.getActivity(), "Enter the points", Toast.LENGTH_SHORT).show();
+                                    }
+                                } else if (logintype.equals(WebserviceConstants.VAL_USER_TYPE_MARK)) {
+                                    if (45 > Integer.parseInt(rewardValue1) && Integer.parseInt(rewardValue1) > 35) {
 
 
-                                    if (finalPointType.equals("Greenpoint")) {
+                                        //rewardValue1=Integer.parseInt("30");
 
-                                        if (greenPoints > Integer.parseInt(markValue)) {
-
-                                            _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
-                                                    selectedActivityId, subjectId, markValue, date, finalPointType, commentPoint);
-                                            clearActivityList();
-
-                                        } else {
-
-                                            Toast.makeText(_assignPointFragment.getActivity(), "Insufficent Green Points", Toast.LENGTH_SHORT).show();
-                                        }
-
-
-                                    } else if (finalPointType.equals("Sponsor")) {
-
-                                        if (brownPoints > Integer.parseInt(markValue)) {
-
-                                            _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
-                                                    selectedActivityId, subjectId, markValue, date, finalPointType, commentPoint);
-                                            clearActivityList();
-
-                                        } else {
-
-                                            Toast.makeText(_assignPointFragment.getActivity(), "Insufficient brown points", Toast.LENGTH_SHORT).show();
-                                        }
-
-                                    } else if (finalPointType.equals("Waterpoint")) {
-
-                                        if (waterPoints > Integer.parseInt(markValue)) {
-
-                                            _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
-                                                    selectedActivityId, subjectId, markValue, date, finalPointType, commentPoint);
-                                            clearActivityList();
-
-                                        } else {
-
-                                            Toast.makeText(_assignPointFragment.getActivity(), "Insufficent water point", Toast.LENGTH_SHORT).show();
-                                        }
+                                        initListener();
+                                        methodID = "2";
+                                        _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
+                                                activityId, selectedSubjectId, String.valueOf(rewardValue1), date, pointtype, commentPoint);
+                                        clearActivityList();
                                     }
 
+                                } else if (logintype.equals(WebserviceConstants.VAL_USER_TYPE_GRADE)) {
 
-                                } else if (selectedActivityId == null) {
-                                    Toast.makeText(_assignPointFragment.getActivity().getApplicationContext(),
-                                            _assignPointFragment.getActivity().getString(R.string.select_activity),
-                                            Toast.LENGTH_LONG).show();
-
-                                } else if (rewardValue1.isEmpty()) {
-
-                                    Toast.makeText(_assignPointFragment.getActivity(), "Enter the marks", Toast.LENGTH_SHORT).show();
-
-                                } else if (markValue.isEmpty()) {
-                                    Toast.makeText(_assignPointFragment.getActivity(), "Enter the Points", Toast.LENGTH_SHORT).show();
-                                }
-
-                            } else if (logintype.equals(WebserviceConstants.VAL_USER_TYPE_GRADE)) {
-
-                                if (grade.equals(WebserviceConstants.VAL_USER_TYPE_GRADE_A)) {
-
-                                    if ((selectedActivityId != null)) {
-
+                                    if (grade.equals(WebserviceConstants.VAL_USER_TYPE_GRADE_A)) {
 
                                         methodID = "3";
-                                        String rewardValue3 = "60";
+                                        String rewardValue3 = "A";
+                                        _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
+                                                activityId, selectedSubjectId, rewardValue3, date, pointtype, commentPoint);
+                                        clearActivityList();
+
+
+                                    } else if (grade.equals(WebserviceConstants.VAL_USER_TYPE_GRADE_B)) {
+                                        methodID = "3";
+                                        String rewardValue3 = "B";
+                                        _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
+                                                activityId, selectedSubjectId, rewardValue3, date, pointtype, commentPoint);
+                                        clearActivityList();
+
+                                    } else if (grade.equals(WebserviceConstants.VAL_USER_TYPE_GRADE_C)) {
+                                        methodID = "3";
+                                        String rewardValue3 = "C";
+                                        _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
+                                                activityId, selectedSubjectId, rewardValue3, date, pointtype, commentPoint);
+                                        clearActivityList();
+                                    } else if (grade.equals(WebserviceConstants.VAL_USER_TYPE_GRADE_D)) {
+                                        methodID = "3";
+                                        String rewardValue3 = "D";
+                                        _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
+                                                activityId, selectedSubjectId, rewardValue3, date, pointtype, commentPoint);
+                                        clearActivityList();
+                                    }
+
+                                } else if (logintype.equals(WebserviceConstants.VAL_USER_TYPE_PERSENTILE)) {
+                                    methodID = "4";
+                                    _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
+                                            activityId, selectedSubjectId, rewardValue2, date, pointtype, commentPoint);
+                                    clearActivityList();
+
+                                } else {
+
+
+                                }
+                            } else {
+                                Toast.makeText(_assignPointFragment.getActivity().getApplicationContext(),
+                                        _assignPointFragment.getActivity().getString(R.string.select_subject),
+                                        Toast.LENGTH_LONG).show();
+                                ActivityListFeatureController.getInstance().setSeletedActivityIDOne(true);
+
+                            }
+
+                        }
+                    } else {
+                        if (student != null) {
+
+                            if (selectedActivityId != null) {
+
+                                ActivityListFeatureController.getInstance().setSeletedActivityIDOne(false);
+
+
+                                String pointtype = spinnercolr.getSelectedItem().toString();
+
+                                String[] pointTypeArray = pointtype.split(" ");
+
+                                String finalPointType = pointTypeArray[0];
+
+
+                                String prnNO = student.get_stdPRN();
+
+                                Log.i(_TAG, "Value of prn is: " + prnNO);
+                                String methodID = "1";
+                                //String activityID = selectedActivityName;
+                                Log.i(_TAG, "Value of activity id is: " + selectedActivityId);
+                                String subjectId = "0";
+                                //String activityId = "0";
+                                // String rewardValue = _points;
+                                Log.i(_TAG, "Value of points is: " + _points);
+                                String date = getDate();
+                                Log.i(_TAG, "Value of date is: " + date);
+
+                                String grade = spinner1.getSelectedItem().toString();
+                                logintype = spinner.getSelectedItem().toString();
+                                String rewardValue = txt_point.getText().toString();
+                                String rewardValue1 = txt_mark.getText().toString();
+                                String rewardValue2 = txt_point2.getText().toString();
+
+                                String markValue = txtMark.getText().toString();
+                                String commentPoint = _comment.getText().toString();
+
+
+                                if (logintype.equals(WebserviceConstants.VAL_USER_TYPE_GUGMENT)) {
+                                    methodID = "1";
+                                    if ((selectedActivityId != null) &&
+                                            (!rewardValue.isEmpty())) {
+
 
                                         if (finalPointType.equals("Greenpoint")) {
 
-                                            if (greenPoints > Integer.parseInt(rewardValue3)) {
+                                            if (greenPoints > Integer.parseInt(rewardValue)) {
+
 
                                                 _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
-                                                        selectedActivityId, subjectId, rewardValue3, date, finalPointType, commentPoint);
+                                                        selectedActivityId, subjectId, rewardValue, date, finalPointType, commentPoint);
                                                 clearActivityList();
 
+
                                             } else {
-                                                Toast.makeText(_assignPointFragment.getActivity(), "Insufficent green points", Toast.LENGTH_SHORT).show();
+
+                                                Toast.makeText(_assignPointFragment.getActivity(),
+                                                        "Insufficient green points", Toast.LENGTH_SHORT).show();
                                             }
                                         } else if (finalPointType.equals("Sponsor")) {
 
-                                            if (brownPoints > Integer.parseInt(rewardValue3)) {
+                                            if (brownPoints > Integer.parseInt(rewardValue)) {
+
 
                                                 _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
-                                                        selectedActivityId, subjectId, rewardValue3, date, finalPointType, commentPoint);
+                                                        selectedActivityId, subjectId, rewardValue, date, finalPointType, commentPoint);
+                                                clearActivityList();
+                                            } else {
+                                                Toast.makeText(_assignPointFragment.getActivity(),
+                                                        "Insufficient brown  points", Toast.LENGTH_SHORT).show();
+
+
+                                            }
+                                        } else if (finalPointType.equals("Waterpoint")) {
+
+                                            if (waterPoints > Integer.parseInt(rewardValue)) {
+                                                _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
+                                                        selectedActivityId, subjectId, rewardValue, date, finalPointType, commentPoint);
+                                                clearActivityList();
+
+
+                                            } else {
+
+                                                Toast.makeText(_assignPointFragment.getActivity(),
+                                                        "Insufficient water  points", Toast.LENGTH_SHORT).show();
+
+
+                                            }
+                                        } else {
+                                            Toast.makeText(_assignPointFragment.getActivity(), "Method type not selected", Toast.LENGTH_SHORT).show();
+                                        }
+                                    } else if ((selectedActivityId == null)) {
+
+                                        Toast.makeText(_assignPointFragment.getActivity().getApplicationContext(),
+                                                _assignPointFragment.getActivity().getString(R.string.select_activity),
+                                                Toast.LENGTH_LONG).show();
+
+                                    } else if (rewardValue.isEmpty()) {
+
+                                        Toast.makeText(_assignPointFragment.getActivity(), "Enter the points", Toast.LENGTH_SHORT).show();
+                                        ActivityListFeatureController.getInstance().setSeletedActivityIDOne(true);
+
+                                    }
+
+                                } else if (logintype.equals(WebserviceConstants.VAL_USER_TYPE_MARK)) {
+
+                                    methodID = "2";
+                                    if ((selectedActivityId != null)
+                                            && (!rewardValue1.isEmpty())
+                                            && (!markValue.isEmpty())) {
+
+
+                                        if (finalPointType.equals("Greenpoint")) {
+
+                                            if (greenPoints > Integer.parseInt(markValue)) {
+
+                                                _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
+                                                        selectedActivityId, subjectId, markValue, date, finalPointType, commentPoint);
                                                 clearActivityList();
 
                                             } else {
 
-                                                Toast.makeText(_assignPointFragment.getActivity(), "Insufficent browen points", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(_assignPointFragment.getActivity(), "Insufficent Green Points", Toast.LENGTH_SHORT).show();
                                             }
 
 
-                                        } else if (finalPointType.equals("Waterpoint")) {
+                                        } else if (finalPointType.equals("Sponsor")) {
 
-                                            if (waterPoints > Integer.parseInt(rewardValue3)) {
+                                            if (brownPoints > Integer.parseInt(markValue)) {
 
                                                 _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
-                                                        selectedActivityId, subjectId, rewardValue3, date, finalPointType, commentPoint);
+                                                        selectedActivityId, subjectId, markValue, date, finalPointType, commentPoint);
                                                 clearActivityList();
 
                                             } else {
 
-                                                Toast.makeText(_assignPointFragment.getActivity(), "Insuffient Water point", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(_assignPointFragment.getActivity(), "Insufficient brown points", Toast.LENGTH_SHORT).show();
+                                            }
+
+                                        } else if (finalPointType.equals("Waterpoint")) {
+
+                                            if (waterPoints > Integer.parseInt(markValue)) {
+
+                                                _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
+                                                        selectedActivityId, subjectId, markValue, date, finalPointType, commentPoint);
+                                                clearActivityList();
+
+                                            } else {
+
+                                                Toast.makeText(_assignPointFragment.getActivity(), "Insufficent water point", Toast.LENGTH_SHORT).show();
                                             }
                                         }
 
 
                                     } else if (selectedActivityId == null) {
-
                                         Toast.makeText(_assignPointFragment.getActivity().getApplicationContext(),
                                                 _assignPointFragment.getActivity().getString(R.string.select_activity),
                                                 Toast.LENGTH_LONG).show();
 
+                                    } else if (rewardValue1.isEmpty()) {
 
+                                        Toast.makeText(_assignPointFragment.getActivity(), "Enter the marks", Toast.LENGTH_SHORT).show();
+
+                                    } else if (markValue.isEmpty()) {
+                                        Toast.makeText(_assignPointFragment.getActivity(), "Enter the Points", Toast.LENGTH_SHORT).show();
                                     }
 
-                                } else if (grade.equals(WebserviceConstants.VAL_USER_TYPE_GRADE_B)) {
+                                } else if (logintype.equals(WebserviceConstants.VAL_USER_TYPE_GRADE)) {
 
-                                    methodID = "3";
-                                    String rewardValue3 = "50";
+                                    if (grade.equals(WebserviceConstants.VAL_USER_TYPE_GRADE_A)) {
 
+                                        if ((selectedActivityId != null)) {
+
+
+                                            methodID = "3";
+                                            String rewardValue3 = "60";
+
+                                            if (finalPointType.equals("Greenpoint")) {
+
+                                                if (greenPoints > Integer.parseInt(rewardValue3)) {
+
+                                                    _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
+                                                            selectedActivityId, subjectId, rewardValue3, date, finalPointType, commentPoint);
+                                                    clearActivityList();
+
+                                                } else {
+                                                    Toast.makeText(_assignPointFragment.getActivity(), "Insufficent green points", Toast.LENGTH_SHORT).show();
+                                                }
+                                            } else if (finalPointType.equals("Sponsor")) {
+
+                                                if (brownPoints > Integer.parseInt(rewardValue3)) {
+
+                                                    _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
+                                                            selectedActivityId, subjectId, rewardValue3, date, finalPointType, commentPoint);
+                                                    clearActivityList();
+
+                                                } else {
+
+                                                    Toast.makeText(_assignPointFragment.getActivity(), "Insufficent browen points", Toast.LENGTH_SHORT).show();
+                                                }
+
+
+                                            } else if (finalPointType.equals("Waterpoint")) {
+
+                                                if (waterPoints > Integer.parseInt(rewardValue3)) {
+
+                                                    _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
+                                                            selectedActivityId, subjectId, rewardValue3, date, finalPointType, commentPoint);
+                                                    clearActivityList();
+
+                                                } else {
+
+                                                    Toast.makeText(_assignPointFragment.getActivity(), "Insuffient Water point", Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
+
+
+                                        } else if (selectedActivityId == null) {
+
+                                            Toast.makeText(_assignPointFragment.getActivity().getApplicationContext(),
+                                                    _assignPointFragment.getActivity().getString(R.string.select_activity),
+                                                    Toast.LENGTH_LONG).show();
+
+
+                                        }
+
+                                    } else if (grade.equals(WebserviceConstants.VAL_USER_TYPE_GRADE_B)) {
+
+                                        methodID = "3";
+                                        String rewardValue3 = "50";
+
+                                        if (selectedActivityId != null) {
+
+
+                                            if (finalPointType.equals("Greenpoint")) {
+
+                                                if (greenPoints > Integer.parseInt(rewardValue3)) {
+
+                                                    _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
+                                                            selectedActivityId, subjectId, rewardValue3, date, finalPointType, commentPoint);
+                                                    clearActivityList();
+
+                                                } else {
+                                                    Toast.makeText(_assignPointFragment.getActivity(), "Insufficent green points", Toast.LENGTH_SHORT).show();
+                                                }
+                                            } else if (finalPointType.equals("Sponsor")) {
+
+                                                if (brownPoints > Integer.parseInt(rewardValue3)) {
+
+                                                    _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
+                                                            selectedActivityId, subjectId, rewardValue3, date, finalPointType, commentPoint);
+                                                    clearActivityList();
+
+                                                } else {
+
+                                                    Toast.makeText(_assignPointFragment.getActivity(), "Insufficent browen points", Toast.LENGTH_SHORT).show();
+                                                }
+
+
+                                            } else if (finalPointType.equals("Waterpoint")) {
+
+                                                if (waterPoints > Integer.parseInt(rewardValue3)) {
+
+                                                    _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
+                                                            selectedActivityId, subjectId, rewardValue3, date, finalPointType, commentPoint);
+                                                    clearActivityList();
+
+                                                } else {
+
+                                                    Toast.makeText(_assignPointFragment.getActivity(), "Insuffient Water point", Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
+
+
+                                        } else {
+                                            Toast.makeText(_assignPointFragment.getActivity().getApplicationContext(),
+                                                    _assignPointFragment.getActivity().getString(R.string.select_activity),
+                                                    Toast.LENGTH_LONG).show();
+
+                                        }
+                                    } else if (grade.equals(WebserviceConstants.VAL_USER_TYPE_GRADE_C)) {
+
+
+                                        methodID = "3";
+                                        String rewardValue3 = "40";
+
+                                        if (selectedActivityId != null) {
+
+
+                                            if (finalPointType.equals("Greenpoint")) {
+
+                                                if (greenPoints > Integer.parseInt(rewardValue3)) {
+
+                                                    _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
+                                                            selectedActivityId, subjectId, rewardValue3, date, finalPointType, commentPoint);
+                                                    clearActivityList();
+
+                                                } else {
+                                                    Toast.makeText(_assignPointFragment.getActivity(), "Insufficent green points", Toast.LENGTH_SHORT).show();
+                                                }
+                                            } else if (finalPointType.equals("Sponsor")) {
+
+                                                if (brownPoints > Integer.parseInt(rewardValue3)) {
+
+                                                    _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
+                                                            selectedActivityId, subjectId, rewardValue3, date, finalPointType, commentPoint);
+                                                    clearActivityList();
+
+                                                } else {
+
+                                                    Toast.makeText(_assignPointFragment.getActivity(), "Insufficent browen points", Toast.LENGTH_SHORT).show();
+                                                }
+
+
+                                            } else if (finalPointType.equals("Waterpoint")) {
+
+                                                if (waterPoints > Integer.parseInt(rewardValue3)) {
+
+                                                    _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
+                                                            selectedActivityId, subjectId, rewardValue3, date, finalPointType, commentPoint);
+                                                    clearActivityList();
+
+                                                } else {
+
+                                                    Toast.makeText(_assignPointFragment.getActivity(), "Insuffient Water point", Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
+
+
+                                        } else {
+                                            Toast.makeText(_assignPointFragment.getActivity().getApplicationContext(),
+                                                    _assignPointFragment.getActivity().getString(R.string.select_activity),
+                                                    Toast.LENGTH_LONG).show();
+
+                                        }
+                                    } else if (grade.equals(WebserviceConstants.VAL_USER_TYPE_GRADE_D)) {
+
+                                        methodID = "3";
+                                        String rewardValue3 = "30";
+
+                                        if (selectedActivityId != null) {
+
+
+                                            if (finalPointType.equals("Greenpoint")) {
+
+                                                if (greenPoints > Integer.parseInt(rewardValue3)) {
+
+                                                    _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
+                                                            selectedActivityId, subjectId, rewardValue3, date, finalPointType, commentPoint);
+                                                    clearActivityList();
+
+                                                } else {
+                                                    Toast.makeText(_assignPointFragment.getActivity(), "Insufficent green points", Toast.LENGTH_SHORT).show();
+                                                }
+                                            } else if (finalPointType.equals("Sponsor")) {
+
+                                                if (brownPoints > Integer.parseInt(rewardValue3)) {
+
+                                                    _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
+                                                            selectedActivityId, subjectId, rewardValue3, date, finalPointType, commentPoint);
+                                                    clearActivityList();
+
+                                                } else {
+
+                                                    Toast.makeText(_assignPointFragment.getActivity(), "Insufficent browen points", Toast.LENGTH_SHORT).show();
+                                                }
+
+
+                                            } else if (finalPointType.equals("Waterpoint")) {
+
+                                                if (waterPoints > Integer.parseInt(rewardValue3)) {
+
+                                                    _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
+                                                            selectedActivityId, subjectId, rewardValue3, date, finalPointType, commentPoint);
+                                                    clearActivityList();
+
+                                                } else {
+
+                                                    Toast.makeText(_assignPointFragment.getActivity(), "Insuffient Water point", Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
+
+
+                                        } else {
+                                            Toast.makeText(_assignPointFragment.getActivity().getApplicationContext(),
+                                                    _assignPointFragment.getActivity().getString(R.string.select_activity),
+                                                    Toast.LENGTH_LONG).show();
+
+                                        }
+                                    }
+
+                                } else if (logintype.equals(WebserviceConstants.VAL_USER_TYPE_PERSENTILE)) {
+
+                                    methodID = "4";
                                     if (selectedActivityId != null) {
 
-
-                                        if (finalPointType.equals("Greenpoint")) {
-
-                                            if (greenPoints > Integer.parseInt(rewardValue3)) {
-
-                                                _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
-                                                        selectedActivityId, subjectId, rewardValue3, date, finalPointType, commentPoint);
-                                                clearActivityList();
-
-                                            } else {
-                                                Toast.makeText(_assignPointFragment.getActivity(), "Insufficent green points", Toast.LENGTH_SHORT).show();
-                                            }
-                                        } else if (finalPointType.equals("Sponsor")) {
-
-                                            if (brownPoints > Integer.parseInt(rewardValue3)) {
-
-                                                _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
-                                                        selectedActivityId, subjectId, rewardValue3, date, finalPointType, commentPoint);
-                                                clearActivityList();
-
-                                            } else {
-
-                                                Toast.makeText(_assignPointFragment.getActivity(), "Insufficent browen points", Toast.LENGTH_SHORT).show();
-                                            }
-
-
-                                        } else if (finalPointType.equals("Waterpoint")) {
-
-                                            if (waterPoints > Integer.parseInt(rewardValue3)) {
-
-                                                _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
-                                                        selectedActivityId, subjectId, rewardValue3, date, finalPointType, commentPoint);
-                                                clearActivityList();
-
-                                            } else {
-
-                                                Toast.makeText(_assignPointFragment.getActivity(), "Insuffient Water point", Toast.LENGTH_SHORT).show();
-                                            }
-                                        }
+                                        _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
+                                                selectedActivityId, subjectId, rewardValue2, date, finalPointType, commentPoint);
+                                        clearActivityList();
 
 
                                     } else {
@@ -854,146 +1015,29 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
                                                 Toast.LENGTH_LONG).show();
 
                                     }
-                                } else if (grade.equals(WebserviceConstants.VAL_USER_TYPE_GRADE_C)) {
 
-
-                                    methodID = "3";
-                                    String rewardValue3 = "40";
-
-                                    if (selectedActivityId != null) {
-
-
-                                        if (finalPointType.equals("Greenpoint")) {
-
-                                            if (greenPoints > Integer.parseInt(rewardValue3)) {
-
-                                                _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
-                                                        selectedActivityId, subjectId, rewardValue3, date, finalPointType, commentPoint);
-                                                clearActivityList();
-
-                                            } else {
-                                                Toast.makeText(_assignPointFragment.getActivity(), "Insufficent green points", Toast.LENGTH_SHORT).show();
-                                            }
-                                        } else if (finalPointType.equals("Sponsor")) {
-
-                                            if (brownPoints > Integer.parseInt(rewardValue3)) {
-
-                                                _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
-                                                        selectedActivityId, subjectId, rewardValue3, date, finalPointType, commentPoint);
-                                                clearActivityList();
-
-                                            } else {
-
-                                                Toast.makeText(_assignPointFragment.getActivity(), "Insufficent browen points", Toast.LENGTH_SHORT).show();
-                                            }
-
-
-                                        } else if (finalPointType.equals("Waterpoint")) {
-
-                                            if (waterPoints > Integer.parseInt(rewardValue3)) {
-
-                                                _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
-                                                        selectedActivityId, subjectId, rewardValue3, date, finalPointType, commentPoint);
-                                                clearActivityList();
-
-                                            } else {
-
-                                                Toast.makeText(_assignPointFragment.getActivity(), "Insuffient Water point", Toast.LENGTH_SHORT).show();
-                                            }
-                                        }
-
-
-                                    } else {
-                                        Toast.makeText(_assignPointFragment.getActivity().getApplicationContext(),
-                                                _assignPointFragment.getActivity().getString(R.string.select_activity),
-                                                Toast.LENGTH_LONG).show();
-
-                                    }
-                                } else if (grade.equals(WebserviceConstants.VAL_USER_TYPE_GRADE_D)) {
-
-                                    methodID = "3";
-                                    String rewardValue3 = "30";
-
-                                    if (selectedActivityId != null) {
-
-
-                                        if (finalPointType.equals("Greenpoint")) {
-
-                                            if (greenPoints > Integer.parseInt(rewardValue3)) {
-
-                                                _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
-                                                        selectedActivityId, subjectId, rewardValue3, date, finalPointType, commentPoint);
-                                                clearActivityList();
-
-                                            } else {
-                                                Toast.makeText(_assignPointFragment.getActivity(), "Insufficent green points", Toast.LENGTH_SHORT).show();
-                                            }
-                                        } else if (finalPointType.equals("Sponsor")) {
-
-                                            if (brownPoints > Integer.parseInt(rewardValue3)) {
-
-                                                _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
-                                                        selectedActivityId, subjectId, rewardValue3, date, finalPointType, commentPoint);
-                                                clearActivityList();
-
-                                            } else {
-
-                                                Toast.makeText(_assignPointFragment.getActivity(), "Insufficent browen points", Toast.LENGTH_SHORT).show();
-                                            }
-
-
-                                        } else if (finalPointType.equals("Waterpoint")) {
-
-                                            if (waterPoints > Integer.parseInt(rewardValue3)) {
-
-                                                _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
-                                                        selectedActivityId, subjectId, rewardValue3, date, finalPointType, commentPoint);
-                                                clearActivityList();
-
-                                            } else {
-
-                                                Toast.makeText(_assignPointFragment.getActivity(), "Insuffient Water point", Toast.LENGTH_SHORT).show();
-                                            }
-                                        }
-
-
-                                    } else {
-                                        Toast.makeText(_assignPointFragment.getActivity().getApplicationContext(),
-                                                _assignPointFragment.getActivity().getString(R.string.select_activity),
-                                                Toast.LENGTH_LONG).show();
-
-                                    }
                                 }
-
-                            } else if (logintype.equals(WebserviceConstants.VAL_USER_TYPE_PERSENTILE)) {
-
-                                methodID = "4";
-                                if (selectedActivityId != null) {
-
-                                    _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
-                                            selectedActivityId, subjectId, rewardValue2, date, finalPointType, commentPoint);
-                                    clearActivityList();
+                                //  ActivityListFeatureController.getInstance().
+                                //  setSeletedActivityId(null);
 
 
-                                } else {
-                                    Toast.makeText(_assignPointFragment.getActivity().getApplicationContext(),
-                                            _assignPointFragment.getActivity().getString(R.string.select_activity),
-                                            Toast.LENGTH_LONG).show();
+                            } else {
 
-                                }
+                                ActivityListFeatureController.getInstance().setSeletedActivityIDOne(true);
+
+                                Toast.makeText(_assignPointFragment.getActivity().getApplicationContext(),
+                                        _assignPointFragment.getActivity().getString(R.string.select_subject),
+                                        Toast.LENGTH_LONG).show();
 
                             }
-                            //  ActivityListFeatureController.getInstance().
-                            //  setSeletedActivityId(null);
-
-
-                        } else {
-                            Toast.makeText(_assignPointFragment.getActivity().getApplicationContext(),
-                                    _assignPointFragment.getActivity().getString(R.string.select_subject),
-                                    Toast.LENGTH_LONG).show();
                         }
                     }
+
+                } else {
+
+                    Toast.makeText(_assignPointFragment.getActivity(), "SELECT SELECT SUBJECT", Toast.LENGTH_SHORT).show();
                 }
+
 
                 break;
             default:
@@ -1201,18 +1245,25 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
                         NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_TEACHER);
                 eventNotifier4.unRegisterListener(this);
 
-                if (errorCode == WebserviceConstants.SUCCESS) {
-                    _assignPointFragment.showOrHideProgressBar(false);
-                    _assignPointFragment.showpoinSubmitSucessfully(true);
-                }
+                 if (errorCode == WebserviceConstants.SUCCESS) {
+
+                _assignPointFragment.showOrHideProgressBar(false);
+                _assignPointFragment.showpoinSubmitSucessfully(true);
+
+
+         }
+
+
                 break;
             case EventTypes.EVENT_UI_NO_TEACHER_ASSIGN_POINT_RECEIVED:
                 EventNotifier event4 =
                         NotifierFactory.getInstance().getNotifier
                                 (NotifierFactory.EVENT_NOTIFIER_TEACHER);
                 event4.unRegisterListener(this);
+
                 _assignPointFragment.showOrHideProgressBar(false);
                 _assignPointFragment.showNoAListMessage(false);
+
 
 
                 break;
@@ -1226,6 +1277,8 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
 
 
     }
+
+
 
     public void clear() {
         _unRegisterEventListeners();

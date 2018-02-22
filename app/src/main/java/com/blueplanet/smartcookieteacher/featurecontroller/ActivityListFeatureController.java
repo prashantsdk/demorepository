@@ -33,6 +33,8 @@ public class ActivityListFeatureController implements IEventListener {
     private final String _TAG = this.getClass().getSimpleName();
 
 
+
+    private boolean checkedFlag = false;
     private String _seletedActivityId = null;
 
     /**
@@ -169,6 +171,15 @@ public class ActivityListFeatureController implements IEventListener {
 
     public void setSeletedActivityId(String seletedActivityName) {
         _seletedActivityId = seletedActivityName;
+    }
+
+    public void setSeletedActivityIDOne(boolean flag){
+
+        checkedFlag = flag;
+    }
+
+    public boolean getSelectedActivityIDOne(){
+        return  checkedFlag;
     }
 
     private void _saveActivityListIntoDB(TeacherActivity activity) {

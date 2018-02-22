@@ -201,6 +201,12 @@ public class AfterLoginActivity extends AppCompatActivity implements IEventListe
                 _fragmentTagList.add("StudentListFragment");
                 _addtoBackStack = true;
                 _fragment = new StudentListFragment();
+
+                Bundle bundle = new Bundle();
+                bundle.putString("studentlist","1");
+                _fragment.setArguments(bundle);
+
+
                 break;
             case R.id.nav_teacher_subject:
                 DrawerFeatureController.getInstance().setIsFragmentOpenedFromDrawer(true);

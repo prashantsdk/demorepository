@@ -1,15 +1,18 @@
 package com.blueplanet.smartcookieteacher.ui.controllers;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import com.blueplanet.smartcookieteacher.MainApplication;
 import com.blueplanet.smartcookieteacher.R;
+import com.blueplanet.smartcookieteacher.featurecontroller.ActivityListFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.AssignPointFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.subFeaturecontroller;
 import com.blueplanet.smartcookieteacher.models.SubNameCode;
@@ -31,7 +34,15 @@ public class AssignPointSubjectAdapter1 extends BaseAdapter {
     private final String _TAG = this.getClass().getSimpleName();
     private RadioButton _textView[];
 
+
+
     private boolean[] itemChecked;
+    String activityId = "";
+
+    boolean checkFlag = false;
+    private RadioButton selected = null;
+    private SharedPreferences sp;
+
 
     public AssignPointSubjectAdapter1(AssignPointFragment assignPointFragment,
                                       AssignPointFragmentController assignPointFragmentController,
@@ -73,70 +84,93 @@ public class AssignPointSubjectAdapter1 extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
 
+        View row = convertView;
+        final AssignPointSubjectAdapter1.SpinnerHolder holder;
 
-        if (convertView == null) {
-            LayoutInflater inflatorInflater = (LayoutInflater) MainApplication
-                    .getContext().getSystemService(
-                            Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflatorInflater.inflate(R.layout.new_assign_subj, null
-            );
+        if (row == null) {
+
+            LayoutInflater inflatorInflater = (LayoutInflater) MainApplication.getContext().getSystemService(
+                    Context.LAYOUT_INFLATER_SERVICE);
+            row = inflatorInflater.inflate(R.layout.new_assignpoint, null, false);
+
+            holder = new AssignPointSubjectAdapter1.SpinnerHolder();
+
+            if (_ActivityListPopulated(_subList)) {
+
+                itemChecked = new boolean[_subList.size()];
+            }
+
+            holder._radioGrup = (RadioGroup) row.findViewById(R.id.group);
+
+
+            holder._textView = (RadioButton) row.findViewById(R.id.yes);
+
+            row.setTag(holder);
+
+        } else {
+
+            holder = (AssignPointSubjectAdapter1.SpinnerHolder) row.getTag();
         }
-        if (convertView != null) {
-            if (_subList != null && _subList.size() > 0) {
-
-
-                _textView[position] = (RadioButton) convertView.findViewById(R.id.yes);
-
-
-                _textView[position].setText(_subList.get(position).get_subname());
-
-
-                _textView[position].setClickable(true);
-
-                _textView[position].setTextColor(_assignPointFragment.getResources().getColor(R.color.blue_circle));
 
 
 
 
-                _textView[position].setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        try {
-                            for (int i = 0; i < itemChecked.length; i++) {
-                                _textView[i].setChecked(false);
-                                _textView[i].setTextColor(_assignPointFragment.getResources().getColor(R.color.blue_circle));
-
-                            }
-
-                        } catch (Exception e) {
-
-                        }
 
 
-                        _textView[position].setChecked(true);
-                        _textView[position].setTextColor(_assignPointFragment.getResources().getColor(R.color.red_solid));
-
-                        String subId = _subList.get(position).get_subcode();
-                        Log.i(_TAG, "Activity id is: " + subId);
-                        if (subId != null) {
-
-                           /* ActivityListFeatureController.getInstance().
-                                    setSeletedActivityId(activityId);*/
-
-                            AssignPointFeatureController.getInstance().
-
-                                    set_seletedSubjectId(subId);
-
-                        }
+        holder._textView.setText(_subList.get(position).get_subname());
 
 
-                    }
-                });
+        holder._textView.setClickable(true);
 
+        if (position == getCount()) {
+
+            if (selected == null) {
+                // holder._textView.setChecked(true);
+                selected = holder._textView;
+                // ActivityListFeatureController.getInstance().setSeletedActivityIDOne(false);
 
             }
+
         }
-        return convertView;
+
+
+
+        holder._textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                if (selected != null) {
+
+                    selected.setChecked(false);
+                    holder._radioGrup.clearCheck();
+
+                }
+                holder._textView.setChecked(true);
+                selected = holder._textView;
+
+
+                activityId = _subList.get(position).get_subcode();
+
+
+
+                if (activityId != null) {
+
+                    ActivityListFeatureController.getInstance().setSeletedActivityIDOne(true);
+
+                    AssignPointFeatureController.getInstance().
+                            set_seletedSubjectId(activityId);
+
+
+                }
+
+            }
+
+
+        });
+
+
+        return row;
 
 
     }
@@ -156,5 +190,10 @@ public class AssignPointSubjectAdapter1 extends BaseAdapter {
         _subList = subFeaturecontroller.getInstance().get_subjList();
 
 
+    }
+
+    private static class SpinnerHolder {
+        RadioGroup _radioGrup;
+        RadioButton _textView;
     }
 }

@@ -1,6 +1,7 @@
 package com.blueplanet.smartcookieteacher.ui.controllers;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,8 +36,15 @@ public class SportListAdapter extends BaseAdapter {
     private RadioButton _textView[];
     private RadioGroup _radioGrup;
 
-    private boolean[] itemChecked;
 
+
+
+    private boolean[] itemChecked;
+    String activityId = "";
+
+    boolean checkFlag = false;
+    private RadioButton selected = null;
+    private SharedPreferences sp;
 
     public SportListAdapter(AssignPointFragment assignPointFragment,
                             AssignPointFragmentController assignPointFragmentController,
@@ -78,61 +86,94 @@ public class SportListAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
 
+        View row = convertView;
+        final SportListAdapter.SpinnerHolder holder;
 
-        if (convertView == null) {
+        if (row == null) {
+
             LayoutInflater inflatorInflater = (LayoutInflater) MainApplication.getContext().getSystemService(
                     Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflatorInflater.inflate(R.layout.new_assignpoint, null, false);
+            row = inflatorInflater.inflate(R.layout.new_assignpoint, null, false);
+
+            holder = new SportListAdapter.SpinnerHolder();
+
+            if (_ActivityListPopulated(_activityList)) {
+
+                itemChecked = new boolean[_activityList.size()];
+            }
+
+            holder._radioGrup = (RadioGroup) row.findViewById(R.id.group);
+
+
+            holder._textView = (RadioButton) row.findViewById(R.id.yes);
+
+            row.setTag(holder);
+
+        } else {
+
+            holder = (SportListAdapter.SpinnerHolder) row.getTag();
         }
-        if (convertView != null) {
-            if (_activityList != null && _activityList.size() > 0) {
 
 
-                _radioGrup = (RadioGroup) convertView.findViewById(R.id.group);
 
 
-                _textView[position] = (RadioButton) convertView.findViewById(R.id.yes);
-                _textView[position].setText(_activityList.get(position).getActivityName());
 
 
-                _textView[position].setClickable(true);
-
-                _textView[position].setTextColor(_assignPointFragment.getResources().getColor(R.color.blue_circle));
+        holder._textView.setText(_activityList.get(position).getActivityName());
 
 
-                //      _radioGrup.addView(_textView[position]);
-                // _radioGrup.addView(relativeLayout);
+        holder._textView.setClickable(true);
 
-                _textView[position].setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        try {
-                            for (int i = 0; i < itemChecked.length; i++) {
-                                _textView[i].setChecked(false);
-                                _textView[i].setTextColor(_assignPointFragment.getResources().getColor(R.color.blue_circle));
 
-                            }
+        if (position == getCount()) {
 
-                        } catch (Exception e) {
-
-                        }
-
-                        _textView[position].setTextColor(_assignPointFragment.getResources().getColor(R.color.red_solid));
-                        _textView[position].setChecked(true);
-                        String activityId = _activityList.get(position).getActivityId();
-                        Log.i(_TAG, "Activity id is: " + activityId);
-                        if (activityId != null) {
-                            ActivityListFeatureController.getInstance().
-                                    setSeletedActivityId(activityId);
-                        }
-                    }
-                });
-
+            if (selected == null) {
+                // holder._textView.setChecked(true);
+                selected = holder._textView;
+                // ActivityListFeatureController.getInstance().setSeletedActivityIDOne(false);
 
             }
-        }
-        return convertView;
 
+        }
+
+
+
+        holder._textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                if (selected != null) {
+
+                    selected.setChecked(false);
+                    holder._radioGrup.clearCheck();
+
+                }
+                holder._textView.setChecked(true);
+                selected = holder._textView;
+
+
+                activityId = _activityList.get(position).getActivityId();
+
+
+
+                if (activityId != null) {
+
+                    ActivityListFeatureController.getInstance().setSeletedActivityIDOne(true);
+
+                    ActivityListFeatureController.getInstance().
+                            setSeletedActivityId(activityId);
+
+
+                }
+
+            }
+
+
+        });
+
+
+        return row;
 
     }
 
@@ -151,5 +192,10 @@ public class SportListAdapter extends BaseAdapter {
         //  _activityList = ActivityListFeatureController.getInstance().get_teacherActivityList();
 
 
+    }
+
+    private static class SpinnerHolder {
+        RadioGroup _radioGrup;
+        RadioButton _textView;
     }
 }

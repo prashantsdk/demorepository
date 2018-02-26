@@ -199,7 +199,7 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
 
                     String response = js.getJSONfromURL(
                             WebserviceConstants.HTTP_BASE_URL +
-                                    WebserviceConstants.BASE_URL1 + WebserviceConstants.TEACHER_ACIVITY, jsonObjSend);
+                                    WebserviceConstants.BASE_URL + WebserviceConstants.TEACHER_ACIVITY, jsonObjSend);
 
 
                     if (response != null) {
@@ -1035,7 +1035,7 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
 
                 } else {
 
-                    Toast.makeText(_assignPointFragment.getActivity(), "SELECT SELECT SUBJECT", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(_assignPointFragment.getActivity(), "Please Select the subject", Toast.LENGTH_SHORT).show();
                 }
 
 
@@ -1409,7 +1409,7 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
 
                     String response = js.getJSONfromURL(
                             WebserviceConstants.HTTP_BASE_URL +
-                                    WebserviceConstants.BASE_URL1 + WebserviceConstants.SUBWEBSERVICE, jsonObjSend);
+                                    WebserviceConstants.BASE_URL + WebserviceConstants.SUBWEBSERVICE, jsonObjSend);
 
 
                     if (response != null) {

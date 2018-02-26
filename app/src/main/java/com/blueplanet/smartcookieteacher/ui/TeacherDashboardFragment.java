@@ -33,6 +33,7 @@ import com.blueplanet.smartcookieteacher.ui.controllers.StudentListDashboardAdap
 import com.blueplanet.smartcookieteacher.ui.controllers.TeacherDashboardFragmentController;
 import com.blueplanet.smartcookieteacher.utils.IImageLoader;
 import com.blueplanet.smartcookieteacher.utils.SmartCookieImageLoader;
+import com.blueplanet.smartcookieteacher.utils.SmartCookieSharedPreferences;
 import com.blueplanet.smartcookieteacher.webservices.WebserviceConstants;
 import com.github.siyamed.shapeimageview.HexagonImageView;
 
@@ -70,6 +71,22 @@ public class TeacherDashboardFragment extends Fragment {
         setHasOptionsMenu(true);
         _initUI();
 
+
+        String loginTypeValue = SmartCookieSharedPreferences.getLoginTypeValue();
+
+
+        if (loginTypeValue.equals("1")) {
+
+            WebserviceConstants.BASE_URL = WebserviceConstants.BASE_URL2;
+        } else if (loginTypeValue.equals("2")) {
+            WebserviceConstants.BASE_URL = WebserviceConstants.BASE_URL1;
+        } else if (loginTypeValue.equals("3")) {
+            WebserviceConstants.BASE_URL = WebserviceConstants.BASE_URL3;
+        } else {
+            WebserviceConstants.BASE_URL = WebserviceConstants.BASE_URL2;
+        }
+
+
         _controller = new TeacherDashboardFragmentController(this, _view);
         _StudentListDashboardAdapter = new StudentListDashboardAdapter(this, _controller);
         getActivity().setTitle("Dashboard");
@@ -89,7 +106,8 @@ public class TeacherDashboardFragment extends Fragment {
         handler.postDelayed(r, 300);
 
 
-///        getActivity().getActionBar().setTitle("Dashboard");
+        //        getActivity().getActionBar().setTitle("Dashboard");
+
         return _view;
     }
 

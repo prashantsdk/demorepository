@@ -96,10 +96,10 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
 
         fragmentTypeOne = "";
 
-        if(!(getArguments().getString("assignpoint")== null)){
+        if (!(getArguments().getString("assignpoint") == null)) {
             fragmentTypeOne = getArguments().getString("assignpoint");
         }
-        if(!(getArguments().getString("studentlist")== null)){
+        if (!(getArguments().getString("studentlist") == null)) {
             fragmentTypeOne = getArguments().getString("studentlist");
         }
 
@@ -212,10 +212,13 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
         final Student student = StudentFeatureController.getInstance().getSelectedStudent();
         ArrayList<Student> studentList = StudentFeatureController.getInstance().getStudentList();
 
+
+
         if (studentList != null && studentList.size() > 0 && student != null) {
             for (Student s : studentList) {
                 String prn1 = student.get_stdPRN().toString();
                 String prn2 = s.get_stdPRN().toString();
+                String studentName = s.get_stdName();
                 if (prn1.equalsIgnoreCase(prn2)) {
                     _gallery.setSelection(studentList.indexOf(s));
                 }
@@ -387,7 +390,7 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
 
 
                                     Fragment fragment;
-                                    if ((fragmentTypeOne.equals("1")) ) {
+                                    if ((fragmentTypeOne.equals("1"))) {
                                         fragment = new StudentListFragment();
                                     } else {
                                         fragment = new TeacherDashboardFragment();

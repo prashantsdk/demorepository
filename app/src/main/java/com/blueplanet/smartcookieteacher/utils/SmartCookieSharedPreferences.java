@@ -98,6 +98,11 @@ public class SmartCookieSharedPreferences {
     private static  String MEMBER_EMPTY_STRING_VALUE="";
 
 
+    public static final String LOGIN_TYPE ="LOGIN_TYPE";
+
+    public static final String LOGIN_TYPE_STRING_VALUE="";
+
+
 
     /**
      * Initialize public class SmartCookieSharedPreferences {
@@ -475,6 +480,35 @@ public class SmartCookieSharedPreferences {
     public static   String getMemberPassword(){
         return getMemberRemberString(MEMBERID_USER_MEMBER_PASSWORD);
     }
+
+
+    public static void setLoginType(String loginType){
+        setLoginTypeStringValue(LOGIN_TYPE,loginType);
+    }
+
+
+    public static void setLoginTypeStringValue(String key,String value){
+
+
+        SharedPreferences.Editor _editor = _sharedPreferences.edit();
+        _editor.putString(key,value);
+        _editor.commit();
+
+
+    }
+
+
+    public static String getLoginTypeValue(){
+        return getLoginTypeValueOne(LOGIN_TYPE);
+    }
+
+    public static String getLoginTypeValueOne(String key){
+
+        String value = _sharedPreferences.getString(key,LOGIN_TYPE_STRING_VALUE);
+        return value;
+    }
+
+
 
 
 }

@@ -397,13 +397,18 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
            /* case R.id.btn_signup:
                 _loadFragment(R.id.fragment_layout, new RegistrationFragment());
                 break;*/
+
+
             case R.id.txtproduction:
+
                 //  _loginFragment.showTestProduction(true);
 
                 TestPro testpro = new TestPro();
                 TestProduction tp = new TestProduction();
                 WebserviceConstants.BASE_URL = WebserviceConstants.BASE_URL;
                 WebserviceConstants.BASE_URL = WebserviceConstants.BASE_URL2;
+                SmartCookieSharedPreferences.setLoginType("1");
+
                 //WebserviceConstants.BASE_URL = WebserviceConstants.BASE_URL2;
                 testpro.set_url(WebserviceConstants.BASE_URL);
                 testpro.setImageURL(WebserviceConstants.IMAGE_BASE_URL_PRODUCTION);
@@ -422,6 +427,7 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
                 TestPro testpro1 = new TestPro();
                 WebserviceConstants.BASE_URL = WebserviceConstants.BASE_URL1;
                 testpro1.set_url(WebserviceConstants.BASE_URL);
+                SmartCookieSharedPreferences.setLoginType("2");
                 testpro1.setImageURL(WebserviceConstants.IMAGE_BASE_URL_TEST);
                 String a1 = testpro1.get_url();
                 Toast.makeText(_loginFragment.getActivity(), "Testing",
@@ -429,6 +435,20 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
 
 
                 break;
+
+
+
+            case R.id.txtDev:
+                TestPro testpro2 = new TestPro();
+                WebserviceConstants.BASE_URL = WebserviceConstants.BASE_URL3;
+                testpro2.set_url(WebserviceConstants.BASE_URL);
+                SmartCookieSharedPreferences.setLoginType("3");
+                String a2 = testpro2.get_url();
+                Toast.makeText(_loginFragment.getActivity(), "Dev",
+                        Toast.LENGTH_LONG).show();
+                break;
+
+
             case R.id.tv_forgotPassword:
                 EditText etUserName = (EditText) _view.findViewById(R.id.edt_username_login);
                 String userName = etUserName.getText().toString();
@@ -459,14 +479,6 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
                 break;
 
 
-            case R.id.txtDev:
-                TestPro testpro2 = new TestPro();
-                WebserviceConstants.BASE_URL = WebserviceConstants.BASE_URL3;
-                testpro2.set_url(WebserviceConstants.BASE_URL);
-                String a2 = testpro2.get_url();
-                Toast.makeText(_loginFragment.getActivity(), "Dev",
-                        Toast.LENGTH_LONG).show();
-                break;
 
 
             case R.id.btnRegis:

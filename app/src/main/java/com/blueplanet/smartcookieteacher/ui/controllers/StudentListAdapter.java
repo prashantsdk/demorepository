@@ -2,7 +2,6 @@ package com.blueplanet.smartcookieteacher.ui.controllers;
 
 import android.content.Context;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.util.SparseBooleanArray;
@@ -11,11 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
-import android.widget.RadioGroup;
-import android.widget.Toast;
-
 
 import com.blueplanet.smartcookieteacher.MainApplication;
 import com.blueplanet.smartcookieteacher.R;
@@ -23,12 +18,10 @@ import com.blueplanet.smartcookieteacher.customcomponents.CustomEditText;
 import com.blueplanet.smartcookieteacher.customcomponents.CustomTextView;
 import com.blueplanet.smartcookieteacher.featurecontroller.StudentFeatureController;
 import com.blueplanet.smartcookieteacher.models.Student;
-import com.blueplanet.smartcookieteacher.network.NetworkManager;
 import com.blueplanet.smartcookieteacher.ui.StudentListFragment;
 import com.blueplanet.smartcookieteacher.utils.IImageLoader;
 import com.blueplanet.smartcookieteacher.utils.SmartCookieImageLoader;
 import com.blueplanet.smartcookieteacher.webservices.WebserviceConstants;
-
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -42,7 +35,7 @@ public class StudentListAdapter extends BaseAdapter implements TextWatcher {
     private StudentListFragmentController _StudentListFragmentController;
     private ArrayList<Student> _filteredStudentList, _allStudList;
     private final String _TAG = this.getClass().getSimpleName();
-    private CustomTextView _txtName, _txtPrn, txtimage,_txtclass,_txtdepart;
+    private CustomTextView _txtName, _txtPrn, txtimage, _txtclass, _txtdepart;
     private ImageView _ivStudentPhoto;
     private CustomEditText txtSearch;
     private boolean _isFiltered = false;

@@ -385,6 +385,8 @@
                             android:layout_weight="1"
                             android:inputType="number"
                             android:text=""
+                            android:maxLength="9"
+                            android:digits="0123456789"
                             android:textColor="#000000"
                             android:textSize="15sp" />
 

@@ -53,7 +53,7 @@ public class SearchStudentFragment extends Fragment {
         // TODO Auto-generated method stub
         view = inflater.inflate(R.layout.display_teacher_subject, container, false);
         _IntitUI();
-        getActivity().setTitle("Add Teacher Subjects");
+        getActivity().setTitle("Search All Student");
         fragmentController = new SearchStudentController(this, view);
         _registerUIListeners();
 

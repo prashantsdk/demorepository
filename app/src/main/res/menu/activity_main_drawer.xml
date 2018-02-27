@@ -12,7 +12,7 @@
         <item
             android:id="@+id/nav_studentlist"
             android:icon="@drawable/profile"
-            android:title="Student List" />
+            android:title="All Student List" />
         <item
             android:id="@+id/nav_teacher_subject"
             android:icon="@drawable/my_subject"

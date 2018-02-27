@@ -309,6 +309,19 @@ public class SoftRewardAdapter extends BaseAdapter implements TextWatcher,IEvent
         });
 
     }
+    public void showEnoughPoint() {
+        _fragment.getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+
+                Toast.makeText(_fragment.getActivity().getApplicationContext(),
+                        _fragment.getActivity().getString(R.string.Purchase_oints),
+                        Toast.LENGTH_LONG).show();
+            }
+        });
+
+    }
+
 
     @Override
     public int eventNotify(int eventType, Object eventObject) {
@@ -328,6 +341,7 @@ public class SoftRewardAdapter extends BaseAdapter implements TextWatcher,IEvent
 
                 if (errorCode == WebserviceConstants.SUCCESS) {
                     _fragment.showOrHideProgressBar(false);
+                    showEnoughPoint();
                     /**
                      * get reward list before refreshing listview avoid runtime exception
                      */

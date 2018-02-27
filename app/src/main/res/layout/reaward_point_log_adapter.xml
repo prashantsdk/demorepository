@@ -3,27 +3,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <HorizontalScrollView
-        android:id="@+id/horizontalScroll"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:animateLayoutChanges="true"
-        android:scrollbars="none">
 
-        <LinearLayout
-            android:id="@+id/horizontalScroll_linear"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:orientation="horizontal">
 
 
             <LinearLayout
-                android:layout_width="380dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
+
                 android:layout_marginTop="2dp"
-                android:background="@drawable/border"
+                android:id="@+id/li1"
+
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:paddingBottom="8dp"
@@ -83,7 +72,7 @@
 
                 <TextView
                     android:id="@+id/txtActivityReward"
-                    android:layout_width="50dp"
+                    android:layout_width="100dp"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="16dp"
                     android:gravity="center"
@@ -100,7 +89,8 @@
                     android:text=""
                     android:textColor="#000000"
                     android:textSize="12sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:visibility="gone"/>
                 <!--  android:layout_weight="1" -->
                 <!-- android:layout_weight="1" -->
                 <!-- width=100dp  6-1-17-->
@@ -121,7 +111,13 @@
 
             </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/line1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/li1"
+        android:background="#a9a9a9"
+        android:orientation="horizontal" />
 
-        </LinearLayout>
-    </HorizontalScrollView>
+
 </RelativeLayout>

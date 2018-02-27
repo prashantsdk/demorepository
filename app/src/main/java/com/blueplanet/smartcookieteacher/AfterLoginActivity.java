@@ -202,7 +202,7 @@ public class AfterLoginActivity extends AppCompatActivity implements IEventListe
                 }
                 _fragmentTagList.add("StudentListFragment");
                 _addtoBackStack = true;
-                _fragment = new StudentListFragment();
+                _fragment = new SearchStudentFragment();
                 break;
             case R.id.nav_teacher_subject:
                 DrawerFeatureController.getInstance().setIsFragmentOpenedFromDrawer(true);

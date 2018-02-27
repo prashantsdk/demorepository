@@ -1,27 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/parent_layout_friends"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/cl_white"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
 
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
-        android:background="@color/cl_white" >
+        android:background="@color/cl_white">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusable="false"
-            android:focusableInTouchMode="false" >
+            android:focusableInTouchMode="false">
 
             <AutoCompleteTextView
                 android:id="@+id/etxtSearch_new"
@@ -30,11 +28,11 @@
                 android:layout_weight="1"
                 android:background="@null"
                 android:drawableLeft="@android:drawable/ic_menu_search"
-                android:hint="Student Name"
+                android:hint="Search All Student"
 
                 android:imeOptions="actionDone"
                 android:singleLine="true"
-                android:textSize="15sp" >
+                android:textSize="15sp">
 
             </AutoCompleteTextView>
         </LinearLayout>
@@ -53,13 +51,13 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@android:color/darker_gray"/>
+        android:background="@android:color/darker_gray" />
 
     <LinearLayout
 
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <ListView
             android:id="@+id/lststudentlist"
@@ -67,8 +65,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
 
-            >
-        </ListView>
+            ></ListView>
 
     </LinearLayout>
 

@@ -94,7 +94,7 @@ public class UpdateProfileActivity extends AppCompatActivity implements IEventLi
     private int pMonth;
     private int pDay;
     Calendar myCalendar = Calendar.getInstance();
-
+    static final int DATE_PICKER_ID = 1111;
 
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     /**
@@ -231,18 +231,6 @@ public class UpdateProfileActivity extends AppCompatActivity implements IEventLi
             }
         });
 
-        _dob.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-              /*  new DatePickerDialog(UpdateProfileActivity.this, date, myCalendar
-                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();*/
-                // To show current date in the datepicker
-
-            }
-        });
 
     }
     private void _InitListeners() {
@@ -250,6 +238,27 @@ public class UpdateProfileActivity extends AppCompatActivity implements IEventLi
         _dob.setOnClickListener(this);
 
 
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        int id = v.getId();
+
+        if (id == R.id.edt_dob) {
+            showDialog(DATE_PICKER_ID);
+
+        }
+    }
+    protected Dialog onCreateDialog(int id) {
+        switch (id) {
+            case DATE_PICKER_ID:
+                DatePickerDialog dialog = new DatePickerDialog(this, pickerListener, year, month, day);
+                //return new DatePickerDialog(this, pickerListener, year, month, day);
+                dialog.getDatePicker().setMaxDate(System.currentTimeMillis());
+                return dialog;
+        }
+        return null;
     }
     private void requestPermission() {
 
@@ -930,11 +939,6 @@ public class UpdateProfileActivity extends AppCompatActivity implements IEventLi
         _dob.setText(sdf.format(myCalendar.getTime()));
     }
 
-    @Override
-    public void onClick(View view) {
-
-
-    }
 }
 
 

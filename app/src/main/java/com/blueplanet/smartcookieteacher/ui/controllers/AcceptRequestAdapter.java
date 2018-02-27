@@ -13,7 +13,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.blueplanet.smartcookieteacher.MainApplication;
 import com.blueplanet.smartcookieteacher.R;
@@ -62,6 +65,9 @@ public class AcceptRequestAdapter extends BaseAdapter  implements IEventListener
     private ImageView _ivStudentPhoto;
     private CustomEditText txtSearch;
     private Teacher _teacher;
+    private RelativeLayout _rlProgressbar;
+    private ProgressBar _progressbar;
+    private CustomTextView _tvPleaseWait;
 
     private boolean _isFiltered = false;
     private Button _btn_add,_btnDelet;
@@ -74,6 +80,10 @@ public class AcceptRequestAdapter extends BaseAdapter  implements IEventListener
         _fragment = fragment;
         _RequestPointlist = AcceptRequestFeatureController.getInstance().get_PointLogList();
         _teacher = LoginFeatureController.getInstance().getTeacher();
+        _rlProgressbar = (RelativeLayout) _view
+                .findViewById(R.id.rl_progressBar);
+        _progressbar = (ProgressBar) _view.findViewById(R.id.progressbar);
+        _tvPleaseWait = (CustomTextView) _view.findViewById(R.id.tv_please_wait);
 
     }
 
@@ -85,7 +95,23 @@ public class AcceptRequestAdapter extends BaseAdapter  implements IEventListener
 
         return 0;
     }
+    public void showOrHideProgressBar(final boolean visibility) {
+        _fragment.getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (visibility) {
+                    _rlProgressbar.setVisibility(View.VISIBLE);
+                    _progressbar.setVisibility(View.VISIBLE);
+                    _tvPleaseWait.setVisibility(View.VISIBLE);
+                } else {
+                    _rlProgressbar.setVisibility(View.GONE);
+                    _progressbar.setVisibility(View.GONE);
+                    _tvPleaseWait.setVisibility(View.GONE);
+                }
+            }
+        });
 
+    }
     @Override
     public Object getItem(int position) {
         return null;
@@ -143,7 +169,7 @@ public class AcceptRequestAdapter extends BaseAdapter  implements IEventListener
                         SmartCookieImageLoader.getInstance().display();
                     }
 
-                    _btn_add = (Button) convertView.findViewById(R.id.btn_add);
+                    _btn_add = (Button) convertView.findViewById(R.id.btn_accept);
                     _btn_add.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -178,6 +204,8 @@ public class AcceptRequestAdapter extends BaseAdapter  implements IEventListener
                                             String reason=_request.get_reason();
 
                                             _fetchAcceptRequestPointFromServer(_teacherId, _schoolId,point,reID,stuPRN,type,reason);
+                                            _fragment.showOrHideProgressBar(true);
+
                                         }
 
                                     }
@@ -313,6 +341,32 @@ public class AcceptRequestAdapter extends BaseAdapter  implements IEventListener
         if (_RequestPointlist != null) {
             _RequestPointlist.clear();
         }}
+
+    public void showacceptPoint() {
+        _fragment.getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+
+                Toast.makeText(_fragment.getActivity().getApplicationContext(),
+                        _fragment.getActivity().getString(R.string.Request_Accepted),
+                        Toast.LENGTH_LONG).show();
+            }
+        });
+
+    }
+    public void showacceptNotPoint() {
+        _fragment.getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+
+                Toast.makeText(_fragment.getActivity().getApplicationContext(),
+                        _fragment.getActivity().getString(R.string.Request_Accepted),
+                        Toast.LENGTH_LONG).show();
+            }
+        });
+
+    }
+
     @Override
     public int eventNotify(int eventType, Object eventObject) {
         int eventState = EventState.EVENT_PROCESSED;
@@ -330,12 +384,13 @@ public class AcceptRequestAdapter extends BaseAdapter  implements IEventListener
                 eventNotifier.unRegisterListener(this);
 
                 if (errorCode == WebserviceConstants.SUCCESS) {
+                    _fragment.showOrHideProgressBar(false);
                     _fragment.showAcceptRequestPoint();
                     clearActivityList();
+
                     /**
                      * get reward list before refreshing listview avoid runtime exception
                      */
-
 
 
                     // _rewardPointLog=RewardPointLogFeatureController.getInstance().getRewardPointList();
@@ -350,8 +405,8 @@ public class AcceptRequestAdapter extends BaseAdapter  implements IEventListener
                         NotifierFactory.getInstance().getNotifier
                                 (NotifierFactory.EVENT_NOTIFIER_TEACHER);
                 event1.unRegisterListener(this);
-
-
+                _fragment.showOrHideProgressBar(false);
+                showacceptNotPoint();
                 //    _shairpointFragment.showNotEnoughPoint();
 
                 break;

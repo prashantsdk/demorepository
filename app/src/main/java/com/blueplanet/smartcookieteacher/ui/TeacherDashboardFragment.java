@@ -226,6 +226,7 @@ public class TeacherDashboardFragment extends Fragment {
             public void run() {
 
                 _StudentListDashboardAdapter.notifyDataSetChanged();
+
             }
         });
     }

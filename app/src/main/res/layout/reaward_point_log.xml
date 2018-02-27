@@ -4,19 +4,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <HorizontalScrollView
-        android:id="@+id/horizontalScroll"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:animateLayoutChanges="true"
-        android:scrollbars="none">
-
-        <LinearLayout
-            android:id="@+id/horizontalScroll_linear"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:orientation="horizontal">
 
             <LinearLayout
                 android:id="@+id/LinearLayout1"
@@ -33,7 +20,8 @@
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="5dp"
                     android:background="@drawable/login_button_selector"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:visibility="gone">
 
                     <TextView
                         android:id="@+id/teacherName"
@@ -50,9 +38,8 @@
                     android:id="@+id/rel"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginTop="15dp"
-                    android:background="@drawable/border_blue">
+
+                    android:layout_marginTop="10dp">
 
                     <TextView
                         android:id="@+id/tv_date"
@@ -81,7 +68,7 @@
 
                     <TextView
                         android:id="@+id/txtActivity"
-                        android:layout_width="70dp"
+                        android:layout_width="90dp"
                         android:layout_height="20dp"
                         android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true"
@@ -103,7 +90,9 @@
                         android:text="Comment"
                         android:textColor="#000000"
                         android:textSize="15sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:visibility="gone" />
+
                     <TextView
                         android:id="@+id/txtcomment"
                         android:layout_width="45dp"
@@ -115,10 +104,18 @@
                         android:text="Point"
                         android:textColor="#000000"
                         android:textSize="15sp"
+
                         android:textStyle="bold" />
 
                 </RelativeLayout>
 
+                <LinearLayout
+                    android:id="@+id/line1"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/rel"
+                    android:background="#a9a9a9"
+                    android:orientation="horizontal" />
 
                 <LinearLayout
                     android:id="@+id/ll_list"
@@ -140,8 +137,6 @@
 
                 </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
-    </HorizontalScrollView>
 
     <RelativeLayout
         android:id="@+id/rl_progressBar"

@@ -22,7 +22,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -47,12 +46,12 @@ import com.blueplanet.smartcookieteacher.ui.SearchStudentFragment;
 import com.blueplanet.smartcookieteacher.ui.SendRequestFragment;
 import com.blueplanet.smartcookieteacher.ui.SharePointFragment;
 import com.blueplanet.smartcookieteacher.ui.SoftRewardFragment;
+import com.blueplanet.smartcookieteacher.ui.SponsorLogs;
 import com.blueplanet.smartcookieteacher.ui.StudentListFragment;
 import com.blueplanet.smartcookieteacher.ui.SugestSponserFragment;
 import com.blueplanet.smartcookieteacher.ui.SyncFragment;
 import com.blueplanet.smartcookieteacher.ui.TeacherDashboardFragment;
 import com.blueplanet.smartcookieteacher.ui.TeacherSubjectFragment;
-import com.blueplanet.smartcookieteacher.ui.customactionbar.UserSession;
 import com.blueplanet.smartcookieteacher.utils.SmartCookieSharedPreferences;
 import com.blueplanet.smartcookieteacher.webservices.WebserviceConstants;
 import com.bumptech.glide.Glide;
@@ -150,24 +149,25 @@ public class AfterLoginActivity extends AppCompatActivity implements IEventListe
         mTeacherName = navHeader.findViewById(R.id.drawer_userName);
         mProfileImage = navHeader.findViewById(R.id.user_icon);
 
-       // _teacher = LoginFeatureController.getInstance().getTeacher();
+        // _teacher = LoginFeatureController.getInstance().getTeacher();
 
-        if(_teacher == null){
+        if (_teacher == null) {
 
         } else {
 
-            if(_teacher.get_tCompleteName().equals("")||_teacher.get_tCompleteName().equals(null)){
+            if (_teacher.get_tCompleteName().equals("") || _teacher.get_tCompleteName().equals(null)) {
                 mTeacherName.setText("Name not available");
-            }else {
+            } else {
                 mTeacherName.setText(_teacher.get_tCompleteName());
             }
-            if(_teacher.get_tPC().equals("")||_teacher.get_tPC().equals(null)){
+            if (_teacher.get_tPC().equals("") || _teacher.get_tPC().equals(null)) {
 
 
             } else {
-                String temp =WebserviceConstants.IMAGE_BASE_URL_PRODUCTION+ _teacher.get_tPC().toString();
 
-                Uri  uri = Uri.parse(temp);
+                String temp = WebserviceConstants.IMAGE_BASE_URL_PRODUCTION + _teacher.get_tPC().toString();
+
+                Uri uri = Uri.parse(temp);
                 Glide.with(AfterLoginActivity.this)
                         .load(uri)
                         .thumbnail(0.5f)
@@ -176,8 +176,6 @@ public class AfterLoginActivity extends AppCompatActivity implements IEventListe
 
             }
         }
-
-
 
 
     }
@@ -202,7 +200,14 @@ public class AfterLoginActivity extends AppCompatActivity implements IEventListe
                 }
                 _fragmentTagList.add("StudentListFragment");
                 _addtoBackStack = true;
-                _fragment = new SearchStudentFragment();
+
+                _fragment = new StudentListFragment();
+
+                Bundle bundle = new Bundle();
+                bundle.putString("studentlist","1");
+                _fragment.setArguments(bundle);
+
+
                 break;
             case R.id.nav_teacher_subject:
                 DrawerFeatureController.getInstance().setIsFragmentOpenedFromDrawer(true);
@@ -380,8 +385,21 @@ public class AfterLoginActivity extends AppCompatActivity implements IEventListe
                 _fragment = new SendRequestFragment();
 
                 break;
+
+            case R.id.nav_sponsor_logs:
+
+                DrawerFeatureController.getInstance().setIsFragmentOpenedFromDrawer(true);
+                if (_count < 7) {
+                    _count = _count + 1;
+                }
+                _fragmentTagList.add("GenerateCouponFragment");
+                _addtoBackStack = true;
+
+                _fragment = new SponsorLogs();
+
+                break;
             case R.id.nav_college_map:
-               Intent i = new Intent(this, MapActivity.class);
+                Intent i = new Intent(this, MapActivity.class);
                 startActivity(i);
 
 

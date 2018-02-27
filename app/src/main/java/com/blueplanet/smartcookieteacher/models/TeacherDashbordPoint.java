@@ -12,6 +12,7 @@ public class TeacherDashbordPoint {
     private int _brownpoint = -1;
 
 
+
     public TeacherDashbordPoint(int greenpoint, int wateroint , int bluepoint, int brownpoint) {
         _greenpoint = greenpoint;
 
@@ -54,5 +55,6 @@ public class TeacherDashbordPoint {
     }
 
 */
+
 
 }

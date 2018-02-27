@@ -147,16 +147,6 @@ public class SendRequestFragment extends Fragment implements AdapterView.OnItemS
             public void run() {
 
 
-/*
-
-                Toast.makeText(getActivity().getApplicationContext(),
-                        getActivity().getString(R.string.Request_send),
-                        Toast.LENGTH_LONG).show();
-
-*/
-
-
-
 
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
 

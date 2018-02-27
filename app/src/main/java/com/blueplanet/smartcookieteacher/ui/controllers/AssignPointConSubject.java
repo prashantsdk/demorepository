@@ -586,7 +586,7 @@ public class AssignPointConSubject implements View.OnClickListener, IEventListen
 
                     Student s = StudentFeatureController.getInstance().getSelectedStudent();
                     prn = s.get_stdPRN();
-                    subFeaturecontroller.getInstance().fetchSubjectFromServer(_teacherId, _schoolId, prn);
+                    //subFeaturecontroller.getInstance().fetchSubjectFromServer(_teacherId, _schoolId, prn);
 
                     _activityList = ActivityListFeatureController.getInstance().get_teacherActivityList();
                     _subjectList = SubjectFeatureController.getInstance().get_subjectList();

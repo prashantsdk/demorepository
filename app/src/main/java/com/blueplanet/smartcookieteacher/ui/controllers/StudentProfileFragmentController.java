@@ -1,5 +1,6 @@
 package com.blueplanet.smartcookieteacher.ui.controllers;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -43,14 +44,27 @@ public class StudentProfileFragmentController implements View.OnClickListener, I
     @Override
     public void onClick(final View view) {
 
+
         int id = view.getId();
         switch (id) {
             case R.id.btn_assignPoints:
-                _loadFragment(R.id.content_frame, new AssignPointFragment());
+
+                AssignPointFragment fragment = new AssignPointFragment();
+                Bundle args = new Bundle();
+                args.putString("assignpoint", "2");
+                fragment.setArguments(args);
+                _loadFragment(R.id.content_frame, fragment);
 
 
                 break;
             case R.id.btn_activitywise:
+                AssignPointFragment fragmentOne = new AssignPointFragment();
+                Bundle argsOne = new Bundle();
+                argsOne.putString("assignpoint", "2");
+                fragmentOne.setArguments(argsOne);
+                _loadFragment(R.id.content_frame, fragmentOne);
+
+
                 _loadFragment(R.id.content_frame, new AssignPointFragment());
 
 

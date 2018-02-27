@@ -43,7 +43,7 @@ public class BluePointFragment extends Fragment {
         _initUI();
         _controller = new BluePointFragmentController(this, _view);
         _blueAdapter = new BluePointAdapter(this);
-        getActivity().setTitle("Thank You Points Logs");
+        getActivity().setTitle("Thank You Point Logs");
         _registerUIListeners();
         _setTeacherNameOnUI();
 

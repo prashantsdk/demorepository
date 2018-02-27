@@ -21,15 +21,8 @@ public class SubNameCode {
         return _subname;
     }
 
-    public void set_subname(String _subname) {
-        this._subname = _subname;
-    }
-
     public String get_subcode() {
         return _subcode;
     }
 
-    public void set_subcode(String _subcode) {
-        this._subcode = _subcode;
-    }
 }

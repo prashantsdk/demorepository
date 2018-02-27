@@ -33,6 +33,8 @@ public class ActivityListFeatureController implements IEventListener {
     private final String _TAG = this.getClass().getSimpleName();
 
 
+
+    private boolean checkedFlag = false;
     private String _seletedActivityId = null;
 
     /**
@@ -171,6 +173,15 @@ public class ActivityListFeatureController implements IEventListener {
         _seletedActivityId = seletedActivityName;
     }
 
+    public void setSeletedActivityIDOne(boolean flag){
+
+        checkedFlag = flag;
+    }
+
+    public boolean getSelectedActivityIDOne(){
+        return  checkedFlag;
+    }
+
     private void _saveActivityListIntoDB(TeacherActivity activity) {
         IPersistence persistObj = PersistenceFactory.get(SmartTeacherDatabaseMasterTable.Tables.ACTIVITYLIST);
         persistObj.save(activity);
@@ -212,6 +223,7 @@ public class ActivityListFeatureController implements IEventListener {
         ServerResponse serverResponse = (ServerResponse) eventObject;
         int errorCode = serverResponse.getErrorCode();
         Object responseObject = serverResponse.getResponseObject();
+
 
         EventNotifier eventNotifierUI;
         switch (eventType) {

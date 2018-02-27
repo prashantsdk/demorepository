@@ -1,5 +1,6 @@
 package com.blueplanet.smartcookieteacher.ui.controllers;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -363,7 +364,11 @@ public class SearchStudentController implements View.OnClickListener,IEventListe
         });
         subFeaturecontroller.getInstance()._clearSubjectList();
 
-        _loadFragment(R.id.content_frame, new AssignPointFragment());
+        AssignPointFragment fragment = new AssignPointFragment();
+        Bundle args = new Bundle();
+        args.putString("studentlist", "1");
+        fragment.setArguments(args);
+        _loadFragment(R.id.content_frame, fragment);
     }
     private void _loadFragment(int id, Fragment fragment) {
 

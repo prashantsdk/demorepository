@@ -9,6 +9,7 @@ import com.blueplanet.smartcookieteacher.communication.ErrorInfo;
 import com.blueplanet.smartcookieteacher.communication.HTTPConstants;
 import com.blueplanet.smartcookieteacher.communication.ServerResponse;
 import com.blueplanet.smartcookieteacher.communication.SmartCookieTeacherService;
+import com.blueplanet.smartcookieteacher.models.TeacherAllPoints;
 import com.blueplanet.smartcookieteacher.models.TeacherDashbordPoint;
 import com.blueplanet.smartcookieteacher.notification.EventNotifier;
 import com.blueplanet.smartcookieteacher.notification.EventTypes;
@@ -76,6 +77,8 @@ public class TeacherPoint extends SmartCookieTeacherService {
                     objResponseJSON.getString(WebserviceConstants.KEY_STATUS_MESSAGE);
 
             TeacherDashbordPoint teacherDashbordPoint = null;
+
+            TeacherAllPoints  teacherAllPoints =null;
             if (statusCode == HTTPConstants.HTTP_COMM_SUCCESS) {
                 // success
                 JSONArray responseData = objResponseJSON.optJSONArray(WebserviceConstants.KEY_POSTS);
@@ -86,6 +89,10 @@ public class TeacherPoint extends SmartCookieTeacherService {
                     int twater = jsonObject.optInt(WebserviceConstants.KEY_WATER_POINT);
                     int tblue = jsonObject.optInt(WebserviceConstants.KEY_BLUE_POINT);
                     int tbrown = jsonObject.optInt(WebserviceConstants.KEY_BROWN_POINT);
+
+
+
+                    teacherAllPoints = new TeacherAllPoints(tgreen,twater,tblue,tbrown);
 
 
                     teacherDashbordPoint = new TeacherDashbordPoint(tgreen,twater, tblue, tbrown );

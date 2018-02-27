@@ -5,6 +5,15 @@
     android:background="@color/white_solid"
     android:paddingBottom="20dp">
 
+
+    <FrameLayout
+        android:id="@+id/studentframelayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+    </FrameLayout>
+
     <RelativeLayout
         android:id="@+id/ll_username"
         android:layout_width="match_parent"
@@ -112,6 +121,5 @@
             android:textColor="#ffffff"
             android:textSize="16sp" />
     </RelativeLayout>
-
 
 </RelativeLayout>

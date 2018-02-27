@@ -20,27 +20,22 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
-
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
-import android.view.GestureDetector;
-import android.view.Gravity;
-import android.view.KeyEvent;
-import android.view.View;
-import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -50,7 +45,6 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 
 import com.blueplanet.smartcookieteacher.MainApplication;
 import com.blueplanet.smartcookieteacher.R;
@@ -76,6 +70,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
@@ -87,7 +82,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import JsonWebService.WebRequest;
 
@@ -103,7 +97,7 @@ public class MapActivity extends AppCompatActivity
     private final String _TAG = this.getClass().getSimpleName();
     GPSTracker gpsTracker;
     private GoogleMap mMap;
-    private LatLng latLng;
+    private LatLng latLng, latlongOne;
     SupportMapFragment mapFragment;
     private TextView txtkmunit;
     private VerticalSeekBar seekunitbar;
@@ -125,14 +119,14 @@ public class MapActivity extends AppCompatActivity
     private float currentZoom = -1;
     private boolean entity_type = false;   //     0 for sponsor , 1 for college
     Button btn_map_list, btn_search_area;
-    public static final int PERMISSION_REQUEST_CODE=23;
+    public static final int PERMISSION_REQUEST_CODE = 23;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map_new);
         init_toolbar();
-       setTitle("Sponsor/College Map");
+        setTitle("Sponsor/College Map");
 
         setNavigationDrawer();
         teacher = LoginFeatureController.getInstance().getTeacher();
@@ -141,7 +135,10 @@ public class MapActivity extends AppCompatActivity
 
             Init_Map();
 
-        } else {
+
+
+
+            } else {
 
             requestPermission();
         }
@@ -169,7 +166,7 @@ public class MapActivity extends AppCompatActivity
             }
         });
 
-    }
+}
 
     private void init_toolbar() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -200,7 +197,6 @@ public class MapActivity extends AppCompatActivity
         btn_map_list.setOnClickListener(this);
 
 
-
     }
 
     private void Init_Map() {
@@ -218,6 +214,7 @@ public class MapActivity extends AppCompatActivity
     @Override
     public void onMapReady(GoogleMap map) {
 
+
         mMap = map;
         // We will provide our own zoom controls.
         mMap.getUiSettings().setZoomControlsEnabled(false);
@@ -225,12 +222,52 @@ public class MapActivity extends AppCompatActivity
         LoadCurrentLocation();
 
         mMap.getUiSettings().setZoomControlsEnabled(true);
-        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-            @Override
-            public void onMapClick(LatLng latLng) {
-                latitude = latLng.latitude;
-                longitude = latLng.longitude;
-                //   getnearbySponsorFromServer(String.valueOf(latitude), String.valueOf(longitude), distance);
+
+
+
+
+        Intent intent = getIntent();
+        double slat = intent.getDoubleExtra("S_LAT", 0.0);
+        double slong = intent.getDoubleExtra("S_LONG", 0.0);
+        String s_name = intent.getStringExtra("S_NAME");
+
+
+
+        if (slat != 0.0 && slong != 0.0) {
+
+
+            mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+            UiSettings mapSettings = mMap.getUiSettings();
+            mapSettings.setZoomControlsEnabled(true);
+
+            latlongOne = new LatLng(slat, slong);
+
+            CameraPosition cameraPosition = new CameraPosition.Builder()
+                    .target(latlongOne).zoom(15).build();//bearing(70).tilt(25).build();
+            mMap.animateCamera(CameraUpdateFactory
+                    .newCameraPosition(cameraPosition));
+
+
+            MarkerOptions marker = null;
+            marker = new MarkerOptions().position(
+                    new LatLng(slat, slong))
+                    .title(s_name);//.snippet(address);
+            marker.icon(BitmapDescriptorFactory
+                    .defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
+
+
+            mMap.addMarker(marker);
+
+
+        } else {
+
+
+            mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+                @Override
+                public void onMapClick(LatLng latLng) {
+                    latitude = latLng.latitude;
+                    longitude = latLng.longitude;
+                    //   getnearbySponsorFromServer(String.valueOf(latitude), String.valueOf(longitude), distance);
 
                /* if (currentZoom>=GlobalInterface.ZOOM_LEVEL_BUILDING){
                     distance="2";
@@ -245,31 +282,35 @@ public class MapActivity extends AppCompatActivity
                         custom_place_name, WebserviceConstants.VAL_LOC_CURRENT, distance, WebserviceConstants.VAL_RANGE_KM);
                 getnearbySponsorFromServer(String.valueOf(latitude), String.valueOf(longitude), distance);
 */
-            }
-        });
-
-        mMap.setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener() {
-
-
-            @Override
-            public void onCameraChange(CameraPosition pos) {
-
-                try {
-                    distance = String.valueOf(getRadius());
-                } catch (Exception e) {
-
                 }
-                //    btn_search_area.setVisibility(View.VISIBLE);
-                layout_serch.setVisibility(View.GONE);
-                if (pos.zoom != currentZoom) {
-                    currentZoom = pos.zoom;
-                    loc_type = 2;
+            });
 
-                    // do you action here
-                    //  PutSponsorsOnMap_New(currentZoom, true);    // true for zooming  activity
+            mMap.setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener() {
+
+
+                @Override
+                public void onCameraChange(CameraPosition pos) {
+
+                    try {
+                        distance = String.valueOf(getRadius());
+                    } catch (Exception e) {
+
+                    }
+                    //    btn_search_area.setVisibility(View.VISIBLE);
+                    layout_serch.setVisibility(View.GONE);
+                    if (pos.zoom != currentZoom) {
+                        currentZoom = pos.zoom;
+                        loc_type = 2;
+
+                        // do you action here
+                        //  PutSponsorsOnMap_New(currentZoom, true);    // true for zooming  activity
+                    }
                 }
-            }
-        });
+            });
+
+        }
+
+
 
 
     }
@@ -282,7 +323,7 @@ public class MapActivity extends AppCompatActivity
             longitude = gpsTracker.getLongitude();
         } else {
 
-              HelperClass.OpenAlertDialog("Please Enable GPS", MapActivity.this);
+            HelperClass.OpenAlertDialog("Please Enable GPS", MapActivity.this);
         }
 
     }
@@ -308,8 +349,8 @@ public class MapActivity extends AppCompatActivity
         }
     }
 
-    private void getSponsorFromServer(int ip_id, String latitude, String longitude, String entity, String place_name, String loc_type,
-                                      String distance, String range_type) {
+    public void getSponsorFromServer(int ip_id, String latitude, String longitude, String entity, String place_name, String loc_type,
+                                     String distance, String range_type) {
         _registerEventListeners();
         _registerNetworkListener();
         SponsorsOnMapFeatureController.getInstance().getSponsorListFromServer(ip_id, latitude, longitude, entity, place_name,
@@ -325,9 +366,8 @@ public class MapActivity extends AppCompatActivity
                                      String distance, String range_type) {
         _registerEventListeners();
         _registerNetworkListener();
-       SchoolOnMapFeatureController.getInstance().getSchoolListFromServer(ip_id, latitude, longitude, entity, place_name,
-               loc_type, distance, range_type);
-
+        SchoolOnMapFeatureController.getInstance().getSchoolListFromServer(ip_id, latitude, longitude, entity, place_name,
+                loc_type, distance, range_type);
 
 
         //  _homeFragment.showOrHideLoadingSpinner(true);
@@ -738,7 +778,7 @@ public class MapActivity extends AppCompatActivity
 
     @Override
     public int eventNotify(int eventType, Object eventObject) {
-        ;
+
         int eventState = EventState.EVENT_PROCESSED;
         ServerResponse serverResponse = (ServerResponse) eventObject;
         int errorCode = -1;
@@ -980,90 +1020,90 @@ public class MapActivity extends AppCompatActivity
     }
 
 
-    public class GetLatLong extends AsyncTask<String, String, String> {
-        String address = "";
+public class GetLatLong extends AsyncTask<String, String, String> {
+    String address = "";
 
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            refresh_map.setVisibility(View.VISIBLE);
-        }
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+        refresh_map.setVisibility(View.VISIBLE);
+    }
 
-        @Override
-        protected String doInBackground(String... params) {
-
-
-            String output = "";
-
-            try {
-                WebRequest webRequest = new WebRequest();
-                output = webRequest.makeWebServiceCall("http://maps.googleapis.com/maps/api/geocode/json?address=" + params[0].replace(" ", "%20") + "&sensor=true", 1);
-                JSONObject jsonObj = new JSONObject(output.toString());
-                JSONArray resultJsonArray = jsonObj.getJSONArray("results");
-
-                // Extract the Place descriptions from the results
-                // resultList = new ArrayList<String>(resultJsonArray.length());
-
-                JSONObject before_geometry_jsonObj = resultJsonArray
-                        .getJSONObject(0);
-
-                JSONObject geometry_jsonObj = before_geometry_jsonObj
-                        .getJSONObject("geometry");
-                address = before_geometry_jsonObj.getString("formatted_address");
+    @Override
+    protected String doInBackground(String... params) {
 
 
-                JSONObject location_jsonObj = geometry_jsonObj
-                        .getJSONObject("location");
+        String output = "";
 
-                String lat_helper = location_jsonObj.getString("lat");
+        try {
+            WebRequest webRequest = new WebRequest();
+            output = webRequest.makeWebServiceCall("http://maps.googleapis.com/maps/api/geocode/json?address=" + params[0].replace(" ", "%20") + "&sensor=true", 1);
+            JSONObject jsonObj = new JSONObject(output.toString());
+            JSONArray resultJsonArray = jsonObj.getJSONArray("results");
 
-                String lng_helper = location_jsonObj.getString("lng");
+            // Extract the Place descriptions from the results
+            // resultList = new ArrayList<String>(resultJsonArray.length());
 
-                CustomPlaceModel.setLat(lat_helper);
-                CustomPlaceModel.setLon(lng_helper);
+            JSONObject before_geometry_jsonObj = resultJsonArray
+                    .getJSONObject(0);
 
-                latitude = Double.parseDouble(lat_helper);
-                longitude = Double.parseDouble(lng_helper);
+            JSONObject geometry_jsonObj = before_geometry_jsonObj
+                    .getJSONObject("geometry");
+            address = before_geometry_jsonObj.getString("formatted_address");
+
+
+            JSONObject location_jsonObj = geometry_jsonObj
+                    .getJSONObject("location");
+
+            String lat_helper = location_jsonObj.getString("lat");
+
+            String lng_helper = location_jsonObj.getString("lng");
+
+            CustomPlaceModel.setLat(lat_helper);
+            CustomPlaceModel.setLon(lng_helper);
+
+            latitude = Double.parseDouble(lat_helper);
+            longitude = Double.parseDouble(lng_helper);
 
 
            /*     getSponsorFromServer(SponsorsOnMapFeatureController.getInstance().getInput_id(), lat_helper, lng_helper, WebserviceConstants.VAL_SPONSOR_ENTITY,
                         "", WebserviceConstants.VAL_LOC_CURRENT, distance, WebserviceConstants.VAL_RANGE_KM);
            */
-            } catch (Exception e) {
+        } catch (Exception e) {
 
-                e.printStackTrace();
-            }
-
-
-            return null;
+            e.printStackTrace();
         }
 
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
 
-            refresh_map.setVisibility(View.VISIBLE);
-            String[] arr_adress = address.split(",");
-            if (arr_adress.length == 1) {
-                SetMapCamera(WebserviceConstants.ZOOM_LEVEL_COUNTRY);
-            } else if (arr_adress.length == 2) {
-                SetMapCamera(WebserviceConstants.ZOOM_LEVEL_STATE);
-            } else if (arr_adress.length == 3) {
-                SetMapCamera(WebserviceConstants.ZOOM_LEVEL_CITY);
-            } else if (arr_adress.length == 4) {
-                SetMapCamera(WebserviceConstants.ZOOM_LEVEL_STREETS);
-            } else if (arr_adress.length == 5) {
-                SetMapCamera(WebserviceConstants.ZOOM_LEVEL_BUILDING);
-            } else {
-                SetMapCamera(WebserviceConstants.ZOOM_LEVEL_CITY);
-            }
+        return null;
+    }
 
-            //getnearbySponsorFromServer(String.valueOf(latitude), String.valueOf(longitude), distance);
+    @Override
+    protected void onPostExecute(String s) {
+        super.onPostExecute(s);
 
-
+        refresh_map.setVisibility(View.VISIBLE);
+        String[] arr_adress = address.split(",");
+        if (arr_adress.length == 1) {
+            SetMapCamera(WebserviceConstants.ZOOM_LEVEL_COUNTRY);
+        } else if (arr_adress.length == 2) {
+            SetMapCamera(WebserviceConstants.ZOOM_LEVEL_STATE);
+        } else if (arr_adress.length == 3) {
+            SetMapCamera(WebserviceConstants.ZOOM_LEVEL_CITY);
+        } else if (arr_adress.length == 4) {
+            SetMapCamera(WebserviceConstants.ZOOM_LEVEL_STREETS);
+        } else if (arr_adress.length == 5) {
+            SetMapCamera(WebserviceConstants.ZOOM_LEVEL_BUILDING);
+        } else {
+            SetMapCamera(WebserviceConstants.ZOOM_LEVEL_CITY);
         }
+
+        //getnearbySponsorFromServer(String.valueOf(latitude), String.valueOf(longitude), distance);
+
 
     }
+
+}
 
 
     public void _hideKeyPad() {
@@ -1078,9 +1118,9 @@ public class MapActivity extends AppCompatActivity
 
     }
 
-    private boolean checkPermission(){
+    private boolean checkPermission() {
         int result = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
-        if (result == PackageManager.PERMISSION_GRANTED){
+        if (result == PackageManager.PERMISSION_GRANTED) {
 
             return true;
 
@@ -1092,9 +1132,9 @@ public class MapActivity extends AppCompatActivity
     }
 
 
-    private void requestPermission(){
+    private void requestPermission() {
 
-        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION) || ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_COARSE_LOCATION)){
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION) || ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_COARSE_LOCATION)) {
 
             Toast.makeText(this, "GPS permission allows us to access location data. Please allow in App Settings for additional functionality.", Toast.LENGTH_LONG).show();
 

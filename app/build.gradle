@@ -9,8 +9,8 @@ android {
         applicationId "com.blueplanet.smartcookieteacher"
         minSdkVersion 14
         targetSdkVersion 27
-        versionCode 27
-        versionName "1.16"
+        versionCode 28
+        versionName "1.17"
         multiDexEnabled true;
 
     }
@@ -21,17 +21,17 @@ android {
         }
     }
 
-   /* dexOptions {
+    /* dexOptions {
         incremental = true;
         preDexLibraries = false
         javaMaxHeapSize "4g" // 2g should be also OK
     }*/
 
-    aaptOptions{
+    aaptOptions {
         cruncherEnabled = false
     }
 
-    lintOptions{
+    lintOptions {
         checkReleaseBuilds false
         abortOnError false
     }
@@ -48,7 +48,7 @@ repositories {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-   // compile files('libs/universal-image-loader-1.8.5-with-sources.jar')
+    // compile files('libs/universal-image-loader-1.8.5-with-sources.jar')
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
     //compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.android.support:appcompat-v7:27.0.2'
@@ -59,13 +59,13 @@ dependencies {
     compile files('libs/zxing-integration.jar')
 
     compile 'com.google.android.gms:play-services-maps:9.0.2'
-   // compile 'com.google.android.gms:play-services-maps:11.8.0'
- //   compile 'com.google.android.gms:play-services-gcm:10.2.1'
+    // compile 'com.google.android.gms:play-services-maps:11.8.0'
+    //   compile 'com.google.android.gms:play-services-gcm:10.2.1'
     compile 'com.google.android.gms:play-services-gcm:9.0.2'
     compile 'com.google.android.gms:play-services-auth:9.0.2'
     compile 'com.google.android.gms:play-services-location:9.0.2'
 
-  //  compile 'com.android.support:recyclerview-v7:24.3.0'
+    //  compile 'com.android.support:recyclerview-v7:24.3.0'
     compile 'com.android.support:recyclerview-v7:+'
     compile 'com.facebook.android:facebook-android-sdk:4.0.0'
     compile 'com.github.MSF-Jarvis:AppRate:v1.2'

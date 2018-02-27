@@ -1,8 +1,12 @@
 package com.blueplanet.smartcookieteacher.ui;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -14,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Gallery;
+import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -26,14 +31,17 @@ import com.blueplanet.smartcookieteacher.R;
 import com.blueplanet.smartcookieteacher.customcomponents.CustomButton;
 import com.blueplanet.smartcookieteacher.customcomponents.CustomTextView;
 import com.blueplanet.smartcookieteacher.featurecontroller.AssignPointFeatureController;
+import com.blueplanet.smartcookieteacher.featurecontroller.DashboardFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.LoginFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.StudentFeatureController;
 import com.blueplanet.smartcookieteacher.models.Student;
 import com.blueplanet.smartcookieteacher.models.Teacher;
+import com.blueplanet.smartcookieteacher.models.TeacherAllPoints;
+import com.blueplanet.smartcookieteacher.models.TeacherDashbordPoint;
+import com.blueplanet.smartcookieteacher.network.NetworkManager;
 import com.blueplanet.smartcookieteacher.ui.controllers.AssignPointFragmentController;
 import com.blueplanet.smartcookieteacher.ui.controllers.AssignPointListAdapter;
 import com.blueplanet.smartcookieteacher.ui.controllers.StudentListGalleryAdapter;
-
 
 import java.util.ArrayList;
 
@@ -47,24 +55,36 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
     private CustomTextView _tvPleaseWait;
     private Gallery _gallery;
     private SeekBar seekpointsbar;
-    private CustomTextView _txtstuName, _txtGeneralText, _txtSports, _txtArt, _txtOptionSelected, _txtStudy,txtbackbutton;
+    private CustomTextView _txtstuName, _txtGeneralText, _txtSports, _txtArt, _txtOptionSelected, _txtStudy, txtbackbutton;
     private AssignPointFragmentController _assignPointFragmentController = null;
     private StudentListGalleryAdapter _galleryAdapter = null;
     private AssignPointListAdapter _adapter = null;
     private RelativeLayout _rl4Option;
     private CustomButton _btnSubmit;
     private TextView _txt_teacherName;
-    private Teacher _teacher;
-    String[] userOption = {"Judgement", "Marks", "Grade", "Percentile"};
+    private Teacher _teacher, pointsTeacher;
+    // String[] userOption = {"Judgement", "Marks", "Grade", "Percentile"};
+    String[] userOption = {"Judgement", "Grade"};
     String[] numberOptn = {"A", "B", "C", "D"};
-    String[] spinnerColor = {"Greenpoint", "Sponser", "Waterpoint"};
-    private Spinner spinner, spinner1,spinnercolr;
-    private LinearLayout ll_issue, ll_issue1, ll_issue3, ll_gradePoint,ll_markPoint;
-    private RelativeLayout ll_issue2;
+
+    String[] spinnerColor = new String[2];
+    //String[] spinnerColor ;
+
+    private Spinner spinner, spinner1, spinnercolr;
+    private LinearLayout ll_issue, ll_issue1, ll_issue3, ll_gradePoint, ll_markPoint;
+    private LinearLayout ll_issue2;
     private String selState, str;
     private final String _TAG = this.getClass().getSimpleName();
-    private EditText _txt_gradePoint,_txtMark,_comment;
+    private EditText _txt_gradePoint, _comment;
 
+    TextView _txtMark, judgmentMark;
+    private String greenPoints = "", sponsorPoints = "", waterPoints = "";
+    TeacherAllPoints teacherDashbordPoint;
+    private String _teacherId, _schoolId;
+
+    private GridView _lvActivities;
+
+    String fragmentTypeOne = "", fragmentTypeTwo = "";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -72,6 +92,32 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
 
         _initUI();
         txtbackbutton.setVisibility((View.GONE));
+        pointsTeacher = LoginFeatureController.getInstance().getTeacher();
+
+        fragmentTypeOne = "";
+
+        if (!(getArguments().getString("assignpoint") == null)) {
+            fragmentTypeOne = getArguments().getString("assignpoint");
+        }
+        if (!(getArguments().getString("studentlist") == null)) {
+            fragmentTypeOne = getArguments().getString("studentlist");
+        }
+
+        if (pointsTeacher != null && NetworkManager.isNetworkAvailable()) {
+            _teacherId = pointsTeacher.get_tId();
+            _schoolId = pointsTeacher.get_tSchool_id();
+            DashboardFeatureController.getInstance().fetchTeacherPointFromServer(_teacherId, _schoolId);
+
+        }
+
+        TeacherDashbordPoint point = DashboardFeatureController.getInstance().getTeacherpoint();
+
+
+        spinnerColor[0] = "Greenpoint " + Integer.toString(point.get_greenpoint());
+        // spinnerColor[1]= "Sponsor  "+ Integer.toString(point.get_brownpoint());
+        spinnerColor[1] = "Waterpoint  " + Integer.toString(point.get_waterpoint());
+
+
         ArrayAdapter aa = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item, userOption);
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(aa);
@@ -81,8 +127,9 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
         spinner1.setAdapter(phone);
 
         showOrHideProgressBar(false);
+
         ArrayAdapter color = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item, spinnerColor);
-        phone.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        color.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnercolr.setAdapter(color);
 
         hideSoftKeyboard();
@@ -119,13 +166,23 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
 
         ll_issue = (LinearLayout) _view.findViewById(R.id.ll_issue);
         ll_issue1 = (LinearLayout) _view.findViewById(R.id.ll_issue1);
-        ll_issue2 = (RelativeLayout) _view.findViewById(R.id.ll_issue2);
+        ll_issue2 = (LinearLayout) _view.findViewById(R.id.ll_issue2);
         ll_issue3 = (LinearLayout) _view.findViewById(R.id.ll_issue3);
         ll_gradePoint = (LinearLayout) _view.findViewById(R.id.ll_gradePoint);
-        ll_markPoint= (LinearLayout) _view.findViewById(R.id.ll_markPoint);
+        ll_markPoint = (LinearLayout) _view.findViewById(R.id.ll_markPoint);
         _txt_gradePoint = (EditText) _view.findViewById(R.id.txt_gradePoint);
         _comment = (EditText) _view.findViewById(R.id.txt_comment);
-        _txtMark= (EditText) _view.findViewById(R.id.txt_markPoint);
+        _txtMark = (TextView) _view.findViewById(R.id.txt_markPoint);
+
+        _lvActivities = (GridView) _view.findViewById(R.id.lstActivity);
+        judgmentMark = _view.findViewById(R.id.txt_point);
+
+
+        _txt_gradePoint.setCursorVisible(false);
+        _txt_gradePoint.setFocusableInTouchMode(false);
+        _txt_gradePoint.setFocusable(false);
+
+
         _rlProgressbar = (RelativeLayout) _view
                 .findViewById(R.id.rl_progressBar);
         _progressbar = (ProgressBar) _view.findViewById(R.id.progressbar);
@@ -155,12 +212,17 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
         final Student student = StudentFeatureController.getInstance().getSelectedStudent();
         ArrayList<Student> studentList = StudentFeatureController.getInstance().getStudentList();
 
+
         if (studentList != null && studentList.size() > 0 && student != null) {
             for (Student s : studentList) {
                 String prn1 = student.get_stdPRN().toString();
                 String prn2 = s.get_stdPRN().toString();
-                if (prn1.equalsIgnoreCase(prn2)) {
+                String schoolId1 = student.get_schoolId().toString();
+                String schoolId2 = s.get_schoolId().toString();
+
+                if ((prn1.equalsIgnoreCase(prn2)) && (schoolId1.equalsIgnoreCase(schoolId2))) {
                     _gallery.setSelection(studentList.indexOf(s));
+                    break;
                 }
             }
 
@@ -290,9 +352,74 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
             @Override
             public void run() {
                 if (flag == true) {
-                    Toast.makeText(getActivity().getApplicationContext(),
+
+
+                  /*  Toast.makeText(getActivity().getApplicationContext(),
                             getActivity().getString(R.string.point_assign_successfully),
                             Toast.LENGTH_LONG).show();
+*/
+                    pointsTeacher = LoginFeatureController.getInstance().getTeacher();
+
+                    if (pointsTeacher != null && NetworkManager.isNetworkAvailable()) {
+                        _teacherId = pointsTeacher.get_tId();
+                        _schoolId = pointsTeacher.get_tSchool_id();
+                        DashboardFeatureController.getInstance().fetchTeacherPointFromServer(_teacherId, _schoolId);
+
+                    }
+
+
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
+
+                    // set title
+                    alertDialogBuilder.setTitle("Points assign successfully");
+
+                    // set dialog message
+                    alertDialogBuilder
+                            .setCancelable(true)
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    // if this button is clicked, close
+                                    // current activity
+                                    //getActivity().finish();
+                                    //_loadFragment(R.layout.assign_point_to_student,new AssignPointFragment());
+/*
+
+                                    txtbackbutton.setVisibility(View.GONE);
+                                    _lvActivities.setVisibility(View.GONE);
+                                    _rl4Option.setVisibility(View.VISIBLE);
+                                    judgmentMark.setText("");
+*/
+
+
+                                    Fragment fragment;
+                                    if ((fragmentTypeOne.equals("1"))) {
+                                        fragment = new StudentListFragment();
+                                    } else {
+                                        fragment = new TeacherDashboardFragment();
+                                    }
+
+
+                                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                    // fragmentTransaction.replace(R.id.content_frame, fragment);
+                                    fragmentTransaction.replace(R.id.content_frame, fragment);
+                                    fragmentTransaction.addToBackStack(null);
+                                    fragmentTransaction.commit();
+
+                                    dialog.dismiss();
+
+
+                                }
+                            });
+
+
+                    // create alert dialog
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+
+                    // show it
+                    alertDialog.show();
+
+
                 } else {
                     Toast.makeText(getActivity().getApplicationContext(),
                             getActivity().getString(R.string.point_is_not_avaliable),
@@ -301,6 +428,17 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
 
             }
         });
+
+
+    }
+
+
+    private void _loadFragment(int id, Fragment fragment) {
+        FragmentManager fm = getActivity().getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.replace(id, fragment);
+        ft.addToBackStack(null);
+        ft.commit();
 
 
     }
@@ -319,20 +457,76 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
 
 
     }
+
     public void showNoAListMessage(final boolean flag) {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 if (flag == false) {
-                    Toast.makeText(getActivity().getApplicationContext(),
-                            getActivity().getString(R.string.pointsno),
+
+                  /*  Toast.makeText(getActivity(), "Invalid response from web service",
                             Toast.LENGTH_LONG).show();
+*/
+
+
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
+
+                    // set title
+                    alertDialogBuilder.setTitle("Points are not assign please try again");
+
+                    // set dialog message
+                    alertDialogBuilder
+                            .setCancelable(true)
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    // if this button is clicked, close
+                                    // current activity
+                                    //getActivity().finish();
+
+                                    //_loadFragment(R.layout.assign_point_to_student,new AssignPointFragment());
+
+
+                                    /*txtbackbutton.setVisibility(View.GONE);
+                                    _lvActivities.setVisibility(View.GONE);
+                                    _rl4Option.setVisibility(View.VISIBLE);
+                                    judgmentMark.setText("");*/
+
+
+                                    Fragment fragment;
+                                    if ((fragmentTypeOne.equals("1"))) {
+                                        fragment = new StudentListFragment();
+                                    } else {
+                                        fragment = new TeacherDashboardFragment();
+                                    }
+                                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                    //fragmentTransaction.replace(R.id.content_frame, fragment);
+
+                                    fragmentTransaction.replace(R.id.content_frame, fragment);
+
+                                    fragmentTransaction.addToBackStack(null);
+                                    fragmentTransaction.commit();
+
+
+                                    dialog.dismiss();
+                                }
+                            });
+
+
+                    // create alert dialog
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+
+                    // show it
+                    alertDialog.show();
+
+
                 }
             }
         });
 
 
     }
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         //Inflater inflater1(R.menu.upload_product_coupon,menu);
@@ -351,7 +545,6 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
             }
         });
     }
-
 
 
     public void onDestroy() {
@@ -393,35 +586,35 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
         Log.i(_TAG, "In selected item" + selState);
         if (selState.equalsIgnoreCase("Judgement")) {
             ll_issue.setVisibility(View.VISIBLE);
-            ll_issue1.setVisibility(View.INVISIBLE);
-            ll_issue2.setVisibility(View.INVISIBLE);
-            ll_issue3.setVisibility(View.INVISIBLE);
+            ll_issue1.setVisibility(View.GONE);
+            ll_issue2.setVisibility(View.GONE);
+            ll_issue3.setVisibility(View.GONE);
             ll_gradePoint.setVisibility(View.GONE);
             ll_markPoint.setVisibility(View.GONE);
 
             // LoginFeatureController.getInstance().setUserEmailType(true);
         } else if (selState.equalsIgnoreCase("Marks")) {
-            ll_issue.setVisibility(View.INVISIBLE);
+            ll_issue.setVisibility(View.GONE);
             ll_issue1.setVisibility(View.VISIBLE);
-            ll_issue2.setVisibility(View.INVISIBLE);
-            ll_issue3.setVisibility(View.INVISIBLE);
+            ll_issue2.setVisibility(View.GONE);
+            ll_issue3.setVisibility(View.GONE);
             ll_gradePoint.setVisibility(View.GONE);
             ll_markPoint.setVisibility(View.VISIBLE);
             //   LoginFeatureController.getInstance().setUserEmailType(false);
         } else if (selState.equalsIgnoreCase("Grade")) {
-            ll_issue.setVisibility(View.INVISIBLE);
-            ll_issue1.setVisibility(View.INVISIBLE);
+            ll_issue.setVisibility(View.GONE);
+            ll_issue1.setVisibility(View.GONE);
             ll_issue2.setVisibility(View.VISIBLE);
-            ll_issue3.setVisibility(View.INVISIBLE);
+            ll_issue3.setVisibility(View.GONE);
             ll_gradePoint.setVisibility(View.VISIBLE);
             ll_markPoint.setVisibility(View.GONE);
 
             //LoginFeatureController.getInstance().setUserEmailType(false);
 
         } else if (selState.equalsIgnoreCase("Percentile")) {
-            ll_issue.setVisibility(View.INVISIBLE);
-            ll_issue1.setVisibility(View.INVISIBLE);
-            ll_issue2.setVisibility(View.INVISIBLE);
+            ll_issue.setVisibility(View.GONE);
+            ll_issue1.setVisibility(View.GONE);
+            ll_issue2.setVisibility(View.GONE);
             ll_issue3.setVisibility(View.VISIBLE);
             ll_gradePoint.setVisibility(View.GONE);
             ll_markPoint.setVisibility(View.GONE);
@@ -467,6 +660,30 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
         spinnercolr.setSelection(position);
         spinnercolr.setSelection(position);
         selState = spinnercolr.getSelectedItem().toString();
+
+        //   Toast.makeText(getActivity(),"Hello",Toast.LENGTH_SHORT).show();
+
+
+        pointsTeacher = LoginFeatureController.getInstance().getTeacher();
+
+        if (pointsTeacher != null && NetworkManager.isNetworkAvailable()) {
+            _teacherId = pointsTeacher.get_tId();
+            _schoolId = pointsTeacher.get_tSchool_id();
+            DashboardFeatureController.getInstance().fetchTeacherPointFromServer(_teacherId, _schoolId);
+
+        }
+
+
+        DashboardFeatureController.getInstance().fetchTeacherPointFromServer(_teacherId, _schoolId);
+
+
+        TeacherDashbordPoint point = DashboardFeatureController.getInstance().getTeacherpoint();
+
+
+        spinnerColor[0] = "Greenpoint " + Integer.toString(point.get_greenpoint());
+        // spinnerColor[1]= "Sponsor  "+ Integer.toString(point.get_brownpoint());
+        spinnerColor[1] = "Waterpoint  " + Integer.toString(point.get_waterpoint());
+
 
         AssignPointFeatureController.getInstance().set_selectColor(selState);
 

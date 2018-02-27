@@ -61,7 +61,7 @@
 
     <string name="Request_send_invalid_input">invalid input Please check it"..!!</string>
 
-
+    <string name="Login_Conflict_Occur">Login conflict occur</string>
 
     <!--drawer strings-->
     <string name="str_my_points">My Points</string>
@@ -100,5 +100,9 @@
     <string name="MemberLogin">Member Login</string>
     <string name="Register">Register</string>
     <string name="arrawback">&#xf060;</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_sponsor_log">Map</string>
 
 </resources>

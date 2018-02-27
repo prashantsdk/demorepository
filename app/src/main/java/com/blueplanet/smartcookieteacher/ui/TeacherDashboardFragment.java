@@ -28,15 +28,13 @@ import com.blueplanet.smartcookieteacher.featurecontroller.StudentFeatureControl
 import com.blueplanet.smartcookieteacher.models.Student;
 import com.blueplanet.smartcookieteacher.models.Teacher;
 import com.blueplanet.smartcookieteacher.models.TeacherDashbordPoint;
-import com.blueplanet.smartcookieteacher.models.TestPro;
 import com.blueplanet.smartcookieteacher.models.TestProduction;
 import com.blueplanet.smartcookieteacher.ui.controllers.StudentListDashboardAdapter;
 import com.blueplanet.smartcookieteacher.ui.controllers.TeacherDashboardFragmentController;
 import com.blueplanet.smartcookieteacher.utils.IImageLoader;
 import com.blueplanet.smartcookieteacher.utils.SmartCookieImageLoader;
+import com.blueplanet.smartcookieteacher.utils.SmartCookieSharedPreferences;
 import com.blueplanet.smartcookieteacher.webservices.WebserviceConstants;
-
-
 import com.github.siyamed.shapeimageview.HexagonImageView;
 
 import java.util.ArrayList;
@@ -63,7 +61,8 @@ public class TeacherDashboardFragment extends Fragment {
     private Handler handler = null;
     private ArrayList<Student> _studentList = null;
     private CustomTextView _edtCount;
-    private Student stu=null;
+    private Student stu = null;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -71,6 +70,22 @@ public class TeacherDashboardFragment extends Fragment {
         _view = inflater.inflate(R.layout.teacher_dashboard, null);
         setHasOptionsMenu(true);
         _initUI();
+
+
+        String loginTypeValue = SmartCookieSharedPreferences.getLoginTypeValue();
+
+
+        if (loginTypeValue.equals("1")) {
+
+            WebserviceConstants.BASE_URL = WebserviceConstants.BASE_URL2;
+        } else if (loginTypeValue.equals("2")) {
+            WebserviceConstants.BASE_URL = WebserviceConstants.BASE_URL1;
+        } else if (loginTypeValue.equals("3")) {
+            WebserviceConstants.BASE_URL = WebserviceConstants.BASE_URL3;
+        } else {
+            WebserviceConstants.BASE_URL = WebserviceConstants.BASE_URL2;
+        }
+
 
         _controller = new TeacherDashboardFragmentController(this, _view);
         _StudentListDashboardAdapter = new StudentListDashboardAdapter(this, _controller);
@@ -91,7 +106,8 @@ public class TeacherDashboardFragment extends Fragment {
         handler.postDelayed(r, 300);
 
 
-///        getActivity().getActionBar().setTitle("Dashboard");
+        //        getActivity().getActionBar().setTitle("Dashboard");
+
         return _view;
     }
 
@@ -115,7 +131,6 @@ public class TeacherDashboardFragment extends Fragment {
         _tvPleaseWait = (CustomTextView) _view.findViewById(R.id.tv_please_wait);
 
 
-
     }
 
     @Override
@@ -136,6 +151,7 @@ public class TeacherDashboardFragment extends Fragment {
         _teabluepoint.setOnClickListener(_controller);
 
     }
+
     public void _showDataOnUI() {
 
         _studentList = StudentFeatureController.getInstance().getStudentList();
@@ -154,9 +170,12 @@ public class TeacherDashboardFragment extends Fragment {
         }
 
     }
+
     private void _setTeacherDetailsOnUI() {
 
         _teacher = LoginFeatureController.getInstance().getTeacher();
+
+
         TestProduction testproduction = new TestProduction();
         final String protest = testproduction.get_production();
         if (_teacher != null) {
@@ -299,6 +318,7 @@ public class TeacherDashboardFragment extends Fragment {
         inflater.inflate(R.menu.mywallet, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // TODO Auto-generated method stub

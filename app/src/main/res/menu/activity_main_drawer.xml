@@ -76,10 +76,17 @@
             android:icon="@drawable/coupon"
             android:title="Request To Join" />
 
+
+        <item
+            android:id="@+id/nav_sponsor_logs"
+            android:icon="@drawable/coupon"
+            android:title="Sponsor Logs" />
+
+
         <item
             android:id="@+id/nav_college_map"
             android:icon="@drawable/coupon"
-            android:title="Sponsor/collage Map" />
+            android:title="College Map" />
 
         <item
             android:id="@+id/nav_logout"

@@ -159,10 +159,6 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
 
         }
 
-
-        // _activityList = ActivityListFeatureController.getInstance().getActivitylistInfoFromDB(_activityType);
-
-
     }
 
     private class FetachActivityListFromServer extends AsyncTask<Void, Void, Void> {

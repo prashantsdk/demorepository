@@ -213,16 +213,16 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
         ArrayList<Student> studentList = StudentFeatureController.getInstance().getStudentList();
 
 
-
         if (studentList != null && studentList.size() > 0 && student != null) {
             for (Student s : studentList) {
                 String prn1 = student.get_stdPRN().toString();
                 String prn2 = s.get_stdPRN().toString();
                 String schoolId1 = student.get_schoolId().toString();
                 String schoolId2 = s.get_schoolId().toString();
-                String studentName = s.get_stdName();
-                if ((prn1.equalsIgnoreCase(prn2)) &&(schoolId1.equalsIgnoreCase(schoolId2))) {
+
+                if ((prn1.equalsIgnoreCase(prn2)) && (schoolId1.equalsIgnoreCase(schoolId2))) {
                     _gallery.setSelection(studentList.indexOf(s));
+                    break;
                 }
             }
 

@@ -58,6 +58,7 @@ public class WebserviceConstants {
     public static final String NEW_REGISTRATION = "quickregistration_ws_v1.php";
     public static final String GENERATE_COUPON_LOG = "teacher_generate_coupon_ws_v4.php";
     public static final String COUPON_ADD_TO_CART = "add_to_cart_ws.php";
+    public static final String COUPON_DELETE_FROM_CART = "del_coupon_from_cart_ws.php";
     public static final String COUPON_ADD_TO_CART_CONFIRM = "cart_confirm_ws.php";
     public static final String BUY_COUPON_LOG = "show_selected_vendor_coupons_ws.php";
     public static final String GENERATE_COUPON_LOG_WEB_SERVICE = "display_couponlist_teacher.php";

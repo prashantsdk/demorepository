@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.blueplanet.smartcookieteacher.MainApplication;
 import com.blueplanet.smartcookieteacher.R;
@@ -38,7 +39,7 @@ public class AddCartAdapter extends BaseAdapter {
     private final String _TAG = this.getClass().getSimpleName();
     private TextView _couName, _couId, _txtPoint, _txtOff, _txtvalidity;
     private String _couponPointsOff = null;
-    private ImageView _couImg;
+    private ImageView _couImg, _couDelete;
 
     public AddCartAdapter(AddCartFragment addFragment,
                           AddCartFragmentController controller,
@@ -70,7 +71,7 @@ public class AddCartAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
             LayoutInflater inflatorInflater = (LayoutInflater) MainApplication
                     .getContext().getSystemService(
@@ -106,6 +107,8 @@ public class AddCartAdapter extends BaseAdapter {
                 _txtvalidity = (TextView) convertView.findViewById(R.id.txtValidity_Date);
                 _txtvalidity.setText(_coupDetailList.get(position).get_coupValidity());
                 _couImg=(ImageView) convertView.findViewById(R.id.img_coupon);
+                _couDelete = convertView.findViewById(R.id.img_dltFromCart);
+
 
 
                 String imageurl = _coupDetailList.get(position).get_coupimage();
@@ -121,7 +124,17 @@ public class AddCartAdapter extends BaseAdapter {
                             IImageLoader.CIRCULAR_USER_POSTER);
                     SmartCookieImageLoader.getInstance().display();
                 }
+                _couDelete.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Toast.makeText(_addFragment.getActivity(), _coupDetailList.get(position).get_coupName() + " removed from cart", Toast.LENGTH_SHORT).show();
+                        _coupDetailList.remove(position);
+                        notifyDataSetChanged();
+
+                    }
+                });
             }
+
 
 
         }

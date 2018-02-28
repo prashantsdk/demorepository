@@ -42,6 +42,13 @@
                     android:textSize="18dp"
                     android:textStyle="bold" />
 
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/img_dltFromCart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/com_facebook_close"/>
+
                 <com.blueplanet.smartcookieteacher.customcomponents.CustomButton
                     android:id="@+id/btn_generate"
                     style="@style/login_button_style"

@@ -49,6 +49,14 @@ public class AddCartFragmentController implements IEventListener, View.OnClickLi
 
     }
 
+    private void _deleteFromCart(String _entity, String _userId) {
+        _registerEventListeners();
+        //_registerNetworkListeners();
+        // _loginFragment.showOrHideProgressBar(true);
+        AddCartLogFeatureController.getInstance().fetchAddToCartConfirm(_entity, _userId);
+
+    }
+
     private void _registerEventListeners() {
         EventNotifier eventNotifier =
                 NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_COUPON);
@@ -108,6 +116,23 @@ public class AddCartFragmentController implements IEventListener, View.OnClickLi
                 }
                 break;
 
+           /* case EventTypes.EVENT_UI_DELETE_FROM_CART_CONFIRM_SUCCESS:
+                EventNotifier eventNotifier2 =
+                        NotifierFactory.getInstance().getNotifier
+                                (NotifierFactory.EVENT_NOTIFIER_COUPON);
+                eventNotifier2.unRegisterListener(this);
+
+                if (errorCode == WebserviceConstants.SUCCESS) {
+                    Log.i(_TAG, "In EVENT_UI_CONFIRM_SUCCESSFUL");
+                    AddToCartFeatureController.getInstance().clearCouponList();
+
+                    _cardFragment.refreshListview();
+                    _cardFragment.showConfirmSubmitSucessfully(true);
+                    _cardFragment.showNoCouponMessage(true);
+
+                }
+                break;*/
+
             case EventTypes.EVENT_NETWORK_AVAILABLE:
                 EventNotifier eventNetwork1 =
                         NotifierFactory.getInstance().getNotifier
@@ -134,6 +159,18 @@ public class AddCartFragmentController implements IEventListener, View.OnClickLi
                 Log.i("LoginFragmentController", "IN EVENT_UI_NO_CONFIRM_RESPONSE");
 
                 break;
+
+            /*case EventTypes.EVENT_UI_NOT_DELETE_FROM_CART_CONFIRM:
+                EventNotifier eventNotifier3 =
+                        NotifierFactory.getInstance().getNotifier
+
+                                (NotifierFactory.EVENT_NOTIFIER_COUPON);
+
+                eventNotifier3.unRegisterListener(this);
+                _cardFragment.showCouponBuyUnsuccessfulMessage();
+                Log.i("LoginFragmentController", "IN EVENT_UI_NO_CONFIRM_RESPONSE");
+
+                break;*/
             default:
                 eventState = EventState.EVENT_IGNORED;
                 break;

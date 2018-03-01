@@ -422,6 +422,7 @@ public class WebserviceConstants {
     //output for Add
 
     public static final String KEY_COUP_ID = "coupon_id";
+    public static final String KEY_SEL_ID = "selid";
     public static final String KEY_COUP_POINTS_PER = "points_per_product";
     public static final String KEY_COUP_VALIDITY = "valid_until";
     public static final String KEY_COUP_NAME = "Sponser_product";

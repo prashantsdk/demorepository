@@ -24,17 +24,13 @@ import java.util.ArrayList;
  */
 public class Delete_from_cart extends SmartCookieTeacherService {
 
-    private String _entity, _couponid, _pointsPerProduct, _tid, _userid;
+    private String _couponid;
+    private String _selid;
     private final String _TAG = this.getClass().getSimpleName();
 
-    public Delete_from_cart(String couponid, String pointsPerProduct, String entity, String userid
-    ) {
+    public Delete_from_cart(String selid, String couponid) {
         _couponid = couponid;
-        _pointsPerProduct = pointsPerProduct;
-        _entity = entity;
-        _userid = userid;
-
-
+        _selid = selid;
     }
 
     @Override
@@ -47,11 +43,8 @@ public class Delete_from_cart extends SmartCookieTeacherService {
     protected JSONObject formRequestBody() {
         JSONObject requestBody = new JSONObject();
         try {
+            requestBody.put(WebserviceConstants.KEY_SEL_ID, _selid);
             requestBody.put(WebserviceConstants.KEY_COUPON_ID, _couponid);
-            requestBody.put(WebserviceConstants.KEY_POINTS_PER_PRODUCT, _pointsPerProduct);
-            requestBody.put(WebserviceConstants.KEY_ENTITY, _entity);
-            requestBody.put(WebserviceConstants.KEY_USER_ID, _userid);
-
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -69,6 +62,7 @@ public class Delete_from_cart extends SmartCookieTeacherService {
         JSONObject objResponseJSON;
         int statusCode = -1;
         String statusMessage = null;
+        String displayMessage = null;
 
 
         Log.i(_TAG, responseJSONString.toString());
@@ -82,9 +76,14 @@ public class Delete_from_cart extends SmartCookieTeacherService {
             statusMessage =
                     objResponseJSON.getString(WebserviceConstants.KEY_STATUS_MESSAGE);
 
+
+
             if (statusCode == HTTPConstants.HTTP_COMM_SUCCESS) {
+
+                displayMessage =
+                        objResponseJSON.getString(WebserviceConstants.KEY_POSTS);
                 // success
-                JSONArray responseData = objResponseJSON.optJSONArray(WebserviceConstants.KEY_POSTS);
+                /*JSONArray responseData = objResponseJSON.optJSONArray(WebserviceConstants.KEY_POSTS);
                 for (int i = 0; i < responseData.length(); i++) {
                     JSONObject jsonObject = responseData.optJSONObject(i);
 
@@ -100,8 +99,8 @@ public class Delete_from_cart extends SmartCookieTeacherService {
                     cardList.add(cart);
 
 
-                }
-                responseObject = new ServerResponse(errorCode, cardList);
+                }*/
+                responseObject = new ServerResponse(errorCode, displayMessage);
 
             } else {
                 // failure
@@ -131,6 +130,6 @@ public class Delete_from_cart extends SmartCookieTeacherService {
 
         EventNotifier notifier =
                 NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_COUPON);
-        notifier.eventNotify(EventTypes.EVENT_ADD_TO_CART, eventObject);
+        notifier.eventNotify(EventTypes.EVENT_DELETE_FROM_CART, eventObject);
     }
 }

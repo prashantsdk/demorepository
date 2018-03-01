@@ -92,13 +92,14 @@ public class Add_to_cart extends SmartCookieTeacherService {
 
                     String sp_coupon_id = jsonObject.optString(WebserviceConstants.KEY_COUP_ID);
                     Log.i(_TAG,"couID"+sp_coupon_id);
+                    String coupon_selid = jsonObject.optString(WebserviceConstants.KEY_SEL_ID);
                     String coupon_pointsPerPro = jsonObject.optString(WebserviceConstants.KEY_COUP_POINTS_PER);
                     String coupon_validity = jsonObject.optString(WebserviceConstants.KEY_COUP_VALIDITY);
                     String coupon_name = jsonObject.optString(WebserviceConstants.KEY_COUP_NAME);
                     String coupon_address = jsonObject.optString(WebserviceConstants.KEY_COUP_ADDRESS);
                     String coupon_image = jsonObject.optString(WebserviceConstants.KEY_COUP_IMAGE);
 
-                    cart = new AddCart(sp_coupon_id, coupon_pointsPerPro, coupon_validity,coupon_name,coupon_address,coupon_image);
+                    cart = new AddCart(sp_coupon_id, coupon_selid, coupon_pointsPerPro, coupon_validity,coupon_name,coupon_address,coupon_image);
                     cardList.add(cart);
 
 

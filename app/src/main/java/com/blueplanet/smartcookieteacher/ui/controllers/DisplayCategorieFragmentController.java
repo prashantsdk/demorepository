@@ -2,6 +2,7 @@ package com.blueplanet.smartcookieteacher.ui.controllers;
 
 import android.Manifest;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -67,6 +68,7 @@ public class DisplayCategorieFragmentController implements IEventListener, Adapt
     public static final int PERMISSION_REQUEST_CODE=23;
     String[] LOC_PERMISSIONS = {Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION};
 
+    private ProgressDialog progressDialog;
     /**18.5074° N, 73.8077
      * constructur for student list
      */
@@ -76,6 +78,7 @@ public class DisplayCategorieFragmentController implements IEventListener, Adapt
         _View = View;
         _teacher = LoginFeatureController.getInstance().getTeacher();
         _categoryList = CategoriesFeatureController.getInstance().getcategorieList();
+
 
         // create class object
 
@@ -95,6 +98,10 @@ public class DisplayCategorieFragmentController implements IEventListener, Adapt
         if (_teacher != null) {
             // _teacherId = _teacher.get_tId();
             // _schoolId = _teacher.get_tSchool_id();
+            if(displayList != null) {
+                displayList.clear();
+            }
+
             String ab_key = "123";
             _fetchDisplayCategorirListFromServer(ab_key);
         }
@@ -145,7 +152,8 @@ public class DisplayCategorieFragmentController implements IEventListener, Adapt
 
     private void _fetchDisplayCategorirListFromServer(String ab_key) {
         _registerEventListeners();
-        CategoriesFeatureController.getInstance().getDisplayCategorieFromServer(ab_key);
+
+        CategoriesFeatureController.getInstance().getDisplayCategorieFromServer(_disCategorieFragment.getActivity(),ab_key);
         // _disCategorieFragment.showOrHideProgressBar(true);
     }
 
@@ -158,6 +166,9 @@ public class DisplayCategorieFragmentController implements IEventListener, Adapt
 
     private void _fetchDisplayCouponListFromServer(String cat_id, String distance, double lat, double log) {
         _registerEventListeners();
+
+        progressDialog = WebserviceConstants.showProgress(_disCategorieFragment.getActivity(), "Loading coupons...");
+        progressDialog.show();
         DisplayCouponFeatureController.getInstance().getcouponListFromServer(cat_id, distance, lat, log);
         // _disCategorieFragment.showOrHideProgressBar(true);
     }
@@ -204,6 +215,7 @@ public class DisplayCategorieFragmentController implements IEventListener, Adapt
                         NotifierFactory.getInstance().getNotifier
                                 (NotifierFactory.EVENT_NOTIFIER_NETWORK);
                 eventNetwork1.unRegisterListener(this);
+                progressDialog.dismiss();
                 break;
 
             case EventTypes.EVENT_NETWORK_UNAVAILABLE:
@@ -211,7 +223,7 @@ public class DisplayCategorieFragmentController implements IEventListener, Adapt
                         NotifierFactory.getInstance().getNotifier
                                 (NotifierFactory.EVENT_NOTIFIER_NETWORK);
                 eventNetwork.unRegisterListener(this);
-
+                progressDialog.dismiss();
                 // _StudentListFragment.showNetworkToast(false);
                 break;
 
@@ -224,6 +236,8 @@ public class DisplayCategorieFragmentController implements IEventListener, Adapt
                 if (errorCode == WebserviceConstants.SUCCESS) {
                     Log.i(_TAG, "IN EVENT_UI_DISPLAY_COUPON_LIST_RECEVIED success");
 
+                    progressDialog.dismiss();
+
                     displayList = DisplayCouponFeatureController.getInstance().getDisplayCouponList();
                     _disCategorieFragment.showOrHideErrorMessage(false);
                     _disCategorieFragment.refreshGridview();
@@ -235,11 +249,14 @@ public class DisplayCategorieFragmentController implements IEventListener, Adapt
                         NotifierFactory.getInstance().getNotifier
                                 (NotifierFactory.EVENT_NOTIFIER_COUPON);
                 event3.unRegisterListener(this);
+                progressDialog.dismiss();
                 _disCategorieFragment.showOrHideErrorMessage(true);
                 break;
             default:
                 eventState = EventState.EVENT_IGNORED;
 
+                //Toast.makeText(_disCategorieFragment.getActivity(),"Try again..", Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
 
                 break;
 
@@ -363,6 +380,7 @@ public class DisplayCategorieFragmentController implements IEventListener, Adapt
                     gps.showSettingsAlert();
                 }*/
                 Log.i(_TAG, "ON clicked");
+
                 _showCategorieListDialog();
                 break;
             default:

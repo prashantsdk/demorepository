@@ -128,7 +128,7 @@ public class SuggestNewSponsorFragmentController implements IEventListener, View
 
     private void _fetchDisplayCategorirListFromServer(String ab_key) {
         _registerEventListeners();
-        CategoriesFeatureController.getInstance().getDisplayCategorieFromServer(ab_key);
+        CategoriesFeatureController.getInstance().getDisplayCategorieFromServer(_blueFragment.getActivity(),ab_key);
         // _disCategorieFragment.showOrHideProgressBar(true);
     }
 

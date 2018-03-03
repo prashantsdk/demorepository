@@ -163,9 +163,9 @@ public class EventTypes {
     public static final int EVENT_UI_DELETE_FROM_CART_SUCCESS= 1064;
     public static final int EVENT_UI_NOT_DELETE_FROM_CART = 1065;
 
-    public static final int EVENT_DELETE_FROM_CART_CONFIRM = 1066;
-    public static final int EVENT_UI_DELETE_FROM_CART_CONFIRM_SUCCESS= 1067;
-    public static final int EVENT_UI_NOT_DELETE_FROM_CART_CONFIRM = 1068;
+    public static final int EVENT_MY_CART = 1066;
+    public static final int EVENT_UI_MY_CART_SUCCESS= 1067;
+    public static final int EVENT_UI_NOT_MY_CART = 1068;
 
     public static final int EVENT_GCM_RESPONCE_RECIEVED = 241;
     public static final int EVENT_UI_GCM_RESPONCE_RECIEVED= 242;

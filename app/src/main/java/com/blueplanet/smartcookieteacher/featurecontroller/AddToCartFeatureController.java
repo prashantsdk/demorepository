@@ -19,6 +19,7 @@ import com.blueplanet.smartcookieteacher.notification.ListenerPriority;
 import com.blueplanet.smartcookieteacher.notification.NotifierFactory;
 import com.blueplanet.smartcookieteacher.webservices.Add_to_cart;
 import com.blueplanet.smartcookieteacher.webservices.GetBuyCoupon;
+import com.blueplanet.smartcookieteacher.webservices.My_cart;
 import com.blueplanet.smartcookieteacher.webservices.WebserviceConstants;
 
 import java.util.ArrayList;
@@ -66,8 +67,15 @@ public class AddToCartFeatureController implements IEventListener {
 
         Add_to_cart addToCart = new Add_to_cart(couponid, _pointsPerProduct, _entity, _userId);
         addToCart.send();
+    }
 
+    public void fetchMyCart(String user_id, String entity_id) {
+        EventNotifier eventNotifier =
+                NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_COUPON);
+        eventNotifier.registerListener(this, ListenerPriority.PRIORITY_MEDIUM);
 
+        My_cart myCart = new My_cart(user_id,entity_id);
+        myCart.send();
     }
 
     public ArrayList<AddCart> get_selectedCoupList() {
@@ -159,6 +167,55 @@ public class AddToCartFeatureController implements IEventListener {
                 }
                 break;
 
+            case EventTypes.EVENT_MY_CART:
+
+                if (errorCode == WebserviceConstants.SUCCESS) {
+                    ArrayList<AddCart> list = (ArrayList<AddCart>) responseObject;
+                    if (list != null && list.size() > 0) {
+                        Log.i(_TAG, "List size from webservice :" + list.size());
+                    }
+                    _selectedCoupList.addAll(list);
+
+
+                    //_selectedCoupList = (ArrayList<AddCart>) responseObject;
+                    Log.i(_TAG, "In EVENT_CART_SUCCESS"+_selectedCoupList);
+                    eventNotifierUI =
+
+                            NotifierFactory.getInstance().getNotifier(
+                                    NotifierFactory.EVENT_NOTIFIER_COUPON);
+                    eventNotifierUI.eventNotifyOnThread(EventTypes.EVENT_UI_MY_CART_SUCCESS,
+                            serverResponse);
+                } else {
+                    ErrorInfo errorInfo = (ErrorInfo) responseObject;
+                    int statusCode = errorInfo.getErrorCode();
+
+                    if (statusCode == HTTPConstants.HTTP_COM_NO_CONTENT) {
+
+                        eventNotifierUI =
+                                NotifierFactory.getInstance().getNotifier(
+                                        NotifierFactory.EVENT_NOTIFIER_COUPON);
+                        eventNotifierUI.eventNotifyOnThread(EventTypes.EVENT_UI_NOT_ADD_TO_CART,
+                                serverResponse);
+
+                    } else if (statusCode == HTTPConstants.HTTP_COMM_ERR_BAD_REQUEST) {
+
+                        eventNotifierUI =
+                                NotifierFactory.getInstance().getNotifier(
+                                        NotifierFactory.EVENT_NOTIFIER_COUPON);
+                        eventNotifierUI.eventNotifyOnThread(EventTypes.EVENT_UI_BAD_REQUEST,
+                                serverResponse);
+
+                    } else {
+
+                        eventNotifierUI =
+                                NotifierFactory.getInstance().getNotifier(
+                                        NotifierFactory.EVENT_NOTIFIER_COUPON);
+                        eventNotifierUI.eventNotifyOnThread(EventTypes.EVENT_UI_UNAUTHORIZED,
+                                serverResponse);
+                    }
+                }
+                break;
+
             default:
                 eventState = EventState.EVENT_IGNORED;
 
@@ -168,4 +225,6 @@ public class AddToCartFeatureController implements IEventListener {
         return EventState.EVENT_PROCESSED;
 
     }
+
+
 }

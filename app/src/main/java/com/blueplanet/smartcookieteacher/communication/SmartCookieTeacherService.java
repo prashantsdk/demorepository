@@ -72,7 +72,7 @@ public abstract class SmartCookieTeacherService extends BaseWebservice implement
                     if (serverResponse.getErrorCode() == WebserviceConstants.SUCCESS) {
                         jsonResponse = (String) serverResponse.getResponseObject();
                         if (jsonResponse != null && jsonResponse.length() > 0) {
-                            Log.i(_tag, jsonResponse);
+                            Log.e(_tag, jsonResponse);
                             // we have some valid response. check it for validity
                             try {
 

@@ -1,6 +1,7 @@
 package com.blueplanet.smartcookieteacher.ui.controllers;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.text.TextUtils;
@@ -10,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,6 +51,9 @@ public class AddCartAdapter extends BaseAdapter implements IEventListener {
     private ImageView _couImg, _couDelete;
     private Teacher _teacher;
     private int _userID;
+    private ProgressBar progressBar;
+    private ProgressDialog progressDialog;
+    private RelativeLayout relativeLayout;
 
     public AddCartAdapter(AddCartFragment addFragment,
                           AddCartFragmentController controller,
@@ -55,9 +61,13 @@ public class AddCartAdapter extends BaseAdapter implements IEventListener {
 
         _addFragment = addFragment;
         _controller = controller;
-        _coupDetailList = AddToCartFeatureController.getInstance().get_selectedCoupList();
+      //  _coupDetailList = AddToCartFeatureController.getInstance().get_selectedCoupList();
         Log.i(_TAG, "Incoup" + _coupDetailList);
 
+        _teacher = LoginFeatureController.getInstance().getTeacher();
+        _userID = _teacher.getId();
+        String entity = "2";
+        _fetchMyCartFromServer(String.valueOf(_userID), entity);
     }
 
     @Override
@@ -89,6 +99,7 @@ public class AddCartAdapter extends BaseAdapter implements IEventListener {
         }
         if (convertView != null) {
             if (_genCoupListPopulated(_coupDetailList)) {
+                relativeLayout = convertView.findViewById(R.id.relative_parent_layout);
                 _couName = (TextView) convertView.findViewById(R.id.txt_couName);
                 _couName.setText(_coupDetailList.get(position).get_coupName());
 
@@ -124,23 +135,11 @@ public class AddCartAdapter extends BaseAdapter implements IEventListener {
                   /*  final String imageName = WebserviceConstants.IMAGE_BASE_URL
                             + imageurl;*/
                     final String imageName = imageurl;
-
                     Log.i(_TAG, imageName);
-
-
                     SmartCookieImageLoader.getInstance().setImageLoaderData(imageName, _couImg,
                             IImageLoader.CIRCULAR_USER_POSTER);
                     SmartCookieImageLoader.getInstance().display();
                 }
-               /* _couDelete.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Toast.makeText(_addFragment.getActivity(), _coupDetailList.get(position).get_coupName() + " removed from cart", Toast.LENGTH_SHORT).show();
-                        _coupDetailList.remove(position);
-                        notifyDataSetChanged();
-
-                    }
-                });*/
             }
 
             _couDelete.setOnClickListener(new View.OnClickListener() {
@@ -154,7 +153,7 @@ public class AddCartAdapter extends BaseAdapter implements IEventListener {
 
                     AlertDialog.Builder alertDialog2 = new AlertDialog.Builder(_addFragment.getActivity());
                     alertDialog2.setCancelable(false);
-                    alertDialog2.setMessage(" Do you want to add this item to cart?");
+                    alertDialog2.setMessage(" Do you want to delete this item from cart?");
                     alertDialog2.setPositiveButton("YES",
                             new DialogInterface.OnClickListener() {
 
@@ -205,6 +204,20 @@ public class AddCartAdapter extends BaseAdapter implements IEventListener {
 
     }
 
+    private void _fetchMyCartFromServer(String user_id, String entity_id) {
+        _registerEventListeners();
+
+        /*progressBar = WebserviceConstants.showProgress(_addFragment.getActivity(), relativeLayout);
+        progressBar.setVisibility(View.VISIBLE);*/
+
+        progressDialog = WebserviceConstants.showProgress(_addFragment.getActivity(), "Loading coupons...");
+        progressDialog.show();
+
+        Log.i("1fetchMyCartFromServer", user_id + " " + entity_id);
+        AddToCartFeatureController.getInstance().fetchMyCart(user_id, entity_id);
+
+    }
+
     private void _registerEventListeners() {
 
         EventNotifier eventNotifier =
@@ -248,6 +261,29 @@ public class AddCartAdapter extends BaseAdapter implements IEventListener {
                 }
                 break;
 
+            case EventTypes.EVENT_UI_MY_CART_SUCCESS:
+                EventNotifier eventNotifier3 =
+                        NotifierFactory.getInstance().getNotifier
+                                (NotifierFactory.EVENT_NOTIFIER_COUPON);
+                eventNotifier3.unRegisterListener(this);
+
+                if (errorCode == WebserviceConstants.SUCCESS) {
+                    Log.i(_TAG, "1 In EVENT_UI_MY_CART_SUCCESSFUL");
+                   // AddToCartFeatureController.getInstance().deleteCoupon(DeleteFromCartFeatureController.getInstance().get_selectedCoup());
+
+                   // progressBar.setVisibility(View.GONE);
+                     progressDialog.dismiss();
+                    _coupDetailList = AddToCartFeatureController.getInstance().get_selectedCoupList();
+                    _addFragment.refreshListview();
+                    //_addFragment.showConfirmDeleteSucessfully(true);
+
+                    Log.i(_TAG, "2 " + DeleteFromCartFeatureController.getInstance().get_selectedCoup());
+                    if(_coupDetailList.size() == 0)
+                        _addFragment.showNoCouponMessage(true);
+
+                }
+                break;
+
             case EventTypes.EVENT_NETWORK_AVAILABLE:
                 EventNotifier eventNetwork1 =
                         NotifierFactory.getInstance().getNotifier
@@ -278,13 +314,11 @@ public class AddCartAdapter extends BaseAdapter implements IEventListener {
             default:
                 eventState = EventState.EVENT_IGNORED;
                 break;
-
-
         }
-
         return EventState.EVENT_PROCESSED;
-
     }
+
+
 }
 
 

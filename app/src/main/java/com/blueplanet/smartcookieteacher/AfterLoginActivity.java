@@ -602,8 +602,12 @@ public class AfterLoginActivity extends AppCompatActivity implements IEventListe
                 int count = fragmentManager.getBackStackEntryCount();
                 Log.i(_TAG, "In fragment backstack count is :" + count);
 
+
+                //PRASHANT CHANGES
                 if (count > 0 && count != -1) {
-                    for (int i = count; i > 0; i--) {
+
+                    count =count -1;
+                    for (int i = count; i >= 0; i--) {
                         Log.i(_TAG, "In popped fragment: " + _fragmentTagList.get(i).toString());
                         fragmentManager.popBackStack(_fragmentTagList.get(i).toString(),
                                 FragmentManager.POP_BACK_STACK_INCLUSIVE);

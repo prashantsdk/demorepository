@@ -250,49 +250,53 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
                     String usertphone = LoginFeatureController.getInstance().get_phoneNo();
 
 
-                    if (usertype.equalsIgnoreCase("Email")) {
-                        _handleRememberMeEmail();
-                        String userName = etUserName.getText().toString();
-                        LoginFeatureController.getInstance().setEmail(userName);
+                    if (usertype != null) {
+                        if (!usertype.equals("Select Login Type")) {
 
-                        password = etPassword.getText().toString();
-                        LoginFeatureController.getInstance().setPassword(password);
-                        String collgcode = etprn.getText().toString();
-                        LoginFeatureController.getInstance().setColgcode(collgcode);
+
+                            if (usertype.equalsIgnoreCase("Email")) {
+                                _handleRememberMeEmail();
+                                String userName = etUserName.getText().toString();
+                                LoginFeatureController.getInstance().setEmail(userName);
+
+                                password = etPassword.getText().toString();
+                                LoginFeatureController.getInstance().setPassword(password);
+                                String collgcode = etprn.getText().toString();
+                                LoginFeatureController.getInstance().setColgcode(collgcode);
                      /*   SmartCookieSharedPreferences.setUserNameInSharedPreference(userName);
                         SmartCookieSharedPreferences.setPasswordInSharedPreference(password);
                         SmartCookieSharedPreferences.setUserIDInSharedPreference(collgcode);*/
 
 
-                        //String selStatephone = (String) spinner.getSelectedItem();
-                        // LoginFeatureController.getInstance().set_userName(username);
-                        //LoginFeatureController.getInstance().set_pasword(password);
+                                //String selStatephone = (String) spinner.getSelectedItem();
+                                // LoginFeatureController.getInstance().set_userName(username);
+                                //LoginFeatureController.getInstance().set_pasword(password);
 
-                        if ((!TextUtils.isEmpty(userName)) && (!TextUtils.isEmpty(password)) && (!TextUtils.isEmpty(usertype)) && (!TextUtils.isEmpty(collgcode))) {
-                            //  SmartCookieSharedPreferences.setLoginFlag(true);
+                                if ((!TextUtils.isEmpty(userName)) && (!TextUtils.isEmpty(password)) && (!TextUtils.isEmpty(usertype)) && (!TextUtils.isEmpty(collgcode))) {
+                                    //  SmartCookieSharedPreferences.setLoginFlag(true);
 
-                            _teacherLogin(userName, password, usertype, collgcode, method, devicetype, device_details, platform_OS, ip_address, countryCode, latitude, longitude);
-                        } else {
-                            Toast.makeText(MainApplication.getContext(),
-                                    "Please enter your all login credentials",
-                                    Toast.LENGTH_SHORT).show();
+                                    _teacherLogin(userName, password, usertype, collgcode, method, devicetype, device_details, platform_OS, ip_address, countryCode, latitude, longitude);
+                                } else {
+                                    Toast.makeText(MainApplication.getContext(),
+                                            "Please enter your all login credentials",
+                                            Toast.LENGTH_SHORT).show();
                           /*  SmartCookieSharedPreferences.setUserNameInSharedPreference("");
                             SmartCookieSharedPreferences.setPasswordInSharedPreference("");
                             SmartCookieSharedPreferences.setUserIDInSharedPreference("");*/
-                        }
+                                }
 
 
-                    } else if (usertype.equalsIgnoreCase("Mobile-No")) {
-                        _handleRememberMeMobileNo();
-                        password = "";
-                        String mobileno = etUserMobile.getText().toString();
-                        String password = etPassword.getText().toString();
-                        String code = "91";
-                        String collgcode = etprn.getText().toString();
+                            } else if (usertype.equalsIgnoreCase("Mobile-No")) {
+                                _handleRememberMeMobileNo();
+                                password = "";
+                                String mobileno = etUserMobile.getText().toString();
+                                String password = etPassword.getText().toString();
+                                String code = "91";
+                                String collgcode = etprn.getText().toString();
 
-                        //String selStatephone = (String) spinner.getSelectedItem();
-                        // LoginFeatureController.getInstance().set_userName(username);
-                        //LoginFeatureController.getInstance().set_pasword(password);
+                                //String selStatephone = (String) spinner.getSelectedItem();
+                                // LoginFeatureController.getInstance().set_userName(username);
+                                //LoginFeatureController.getInstance().set_pasword(password);
 
                      /*   if (!TextUtils.isEmpty(mobileno) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(usertype) || !TextUtils.isEmpty(colgCode) && mobileno.equalsIgnoreCase("0" ) ){
                             //  SmartCookieSharedPreferences.setLoginFlag(true);
@@ -303,63 +307,70 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
                                     Toast.LENGTH_SHORT).show();
                         }*/
 
-                        if ((!TextUtils.isEmpty(mobileno)) && (!TextUtils.isEmpty(password)) && (!TextUtils.isEmpty(usertype)) && (!TextUtils.isEmpty(collgcode)) && (!mobileno.equals("0"))) {
-                            //  SmartCookieSharedPreferences.setLoginFlag(true);
+                                if ((!TextUtils.isEmpty(mobileno)) && (!TextUtils.isEmpty(password)) && (!TextUtils.isEmpty(usertype)) && (!TextUtils.isEmpty(collgcode)) && (!mobileno.equals("0"))) {
+                                    //  SmartCookieSharedPreferences.setLoginFlag(true);
 
-                            _teacherLogin(mobileno, password, usertype, collgcode, method, devicetype, device_details, platform_OS, ip_address, code, latitude, longitude);
+                                    _teacherLogin(mobileno, password, usertype, collgcode, method, devicetype, device_details, platform_OS, ip_address, code, latitude, longitude);
 
-                        } else
-                            Toast.makeText(MainApplication.getContext(),
-                                    "Please enter your all login credentials",
-                                    Toast.LENGTH_SHORT).show();
+                                } else
+                                    Toast.makeText(MainApplication.getContext(),
+                                            "Please enter your all login credentials",
+                                            Toast.LENGTH_SHORT).show();
 
-                        //_teacherLogin(mobileno, password, usertype, colgCode, method, devicetype, device_details, platform_OS, ip_address, code, latitude, longitude);
+                                //_teacherLogin(mobileno, password, usertype, colgCode, method, devicetype, device_details, platform_OS, ip_address, code, latitude, longitude);
 
 
-                    }
-                    if (usertype.equalsIgnoreCase("EmployeeID")) {
-                        _handleRememberMeClickPrn();
-                        String code = etcolgcode.getText().toString();
-                        String prn = etprn.getText().toString();
-                        String password = etPassword.getText().toString();
-                        //String selStatephone = (String) spinner.getSelectedItem();
-                        // LoginFeatureController.getInstance().set_userName(username);
-                        //LoginFeatureController.getInstance().set_pasword(password);
+                            }
+                            if (usertype.equalsIgnoreCase("EmployeeID")) {
+                                _handleRememberMeClickPrn();
+                                String code = etcolgcode.getText().toString();
+                                String prn = etprn.getText().toString();
+                                String password = etPassword.getText().toString();
+                                //String selStatephone = (String) spinner.getSelectedItem();
+                                // LoginFeatureController.getInstance().set_userName(username);
+                                //LoginFeatureController.getInstance().set_pasword(password);
 
-                        if ((!TextUtils.isEmpty(prn)) && (!TextUtils.isEmpty(password)) && (!TextUtils.isEmpty(usertype)) && (!TextUtils.isEmpty(code))) {
-                            //  SmartCookieSharedPreferences.setLoginFlag(true);
+                                if ((!TextUtils.isEmpty(prn)) && (!TextUtils.isEmpty(password)) && (!TextUtils.isEmpty(usertype)) && (!TextUtils.isEmpty(code))) {
+                                    //  SmartCookieSharedPreferences.setLoginFlag(true);
 
-                            _teacherLogin(code, password, usertype, prn, method, devicetype, device_details, platform_OS, ip_address, countryCode, latitude, longitude);
+                                    _teacherLogin(code, password, usertype, prn, method, devicetype, device_details, platform_OS, ip_address, countryCode, latitude, longitude);
+                                } else {
+                                    Toast.makeText(MainApplication.getContext(),
+                                            "Please enter your all login credentials",
+                                            Toast.LENGTH_SHORT).show();
+                                }
+
+                            }
+                            if (usertype.equalsIgnoreCase("MemberID")) {
+                                _handleRememberMeMemberID();
+                                String userMemberID = etMemberId.getText().toString();
+                                password = etPassword.getText().toString();
+                                String collgcode = etprn.getText().toString();
+
+                                //String selStatephone = (String) spinner.getSelectedItem();
+                                // LoginFeatureController.getInstance().set_userName(username);
+                                //LoginFeatureController.getInstance().set_pasword(password);
+
+                                if ((!TextUtils.isEmpty(userMemberID)) && (!TextUtils.isEmpty(collgcode)) && (!TextUtils.isEmpty(password)) && (!TextUtils.isEmpty(usertype))) {
+                                    //  SmartCookieSharedPreferences.setLoginFlag(true);
+
+                                    _teacherLogin(userMemberID, password, usertype, collgcode, method, devicetype, device_details, platform_OS, ip_address, countryCode, latitude, longitude);
+                                } else {
+
+                                    Toast.makeText(MainApplication.getContext(),
+                                            "Please enter your all login credentials",
+                                            Toast.LENGTH_SHORT).show();
+
+                                }
+
+
+                            }
+
                         } else {
-                            Toast.makeText(MainApplication.getContext(),
-                                    "Please enter your all login credentials",
-                                    Toast.LENGTH_SHORT).show();
+                            _loginFragment.selectLoginType();
                         }
-
-                    }
-                    if (usertype.equalsIgnoreCase("MemberID")) {
-                        _handleRememberMeMemberID();
-                        String userMemberID = etMemberId.getText().toString();
-                        password = etPassword.getText().toString();
-                        String collgcode = etprn.getText().toString();
-
-                        //String selStatephone = (String) spinner.getSelectedItem();
-                        // LoginFeatureController.getInstance().set_userName(username);
-                        //LoginFeatureController.getInstance().set_pasword(password);
-
-                        if ((!TextUtils.isEmpty(userMemberID)) && (!TextUtils.isEmpty(collgcode)) && (!TextUtils.isEmpty(password)) && (!TextUtils.isEmpty(usertype))) {
-                            //  SmartCookieSharedPreferences.setLoginFlag(true);
-
-                            _teacherLogin(userMemberID, password, usertype, collgcode, method, devicetype, device_details, platform_OS, ip_address, countryCode, latitude, longitude);
-                        } else {
-
-                            Toast.makeText(MainApplication.getContext(),
-                                    "Please enter your all login credentials",
-                                    Toast.LENGTH_SHORT).show();
-
-                        }
-
-
+                    } else {
+                        _loginFragment.selectLoginType();
                     }
 
                 } else {
@@ -437,7 +448,6 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
                 break;
 
 
-
             case R.id.txtDev:
                 TestPro testpro2 = new TestPro();
                 WebserviceConstants.BASE_URL = WebserviceConstants.BASE_URL3;
@@ -477,8 +487,6 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
                 etxtpoints.setText("");
                 imgclearpoints.setVisibility(View.GONE);
                 break;
-
-
 
 
             case R.id.btnRegis:
@@ -945,11 +953,11 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-        if (position > 0) {
-            _loginFragment.showType(position);
-            _loginFragment._isRememberMeClicked(position);
+        // if (position  0) {
+        _loginFragment.showType(position);
+        _loginFragment._isRememberMeClicked(position);
 
-        }
+        // }
         //_loginFragment.showTypePhone(position);
         // _loginFragment.showTypePhone(position);
 

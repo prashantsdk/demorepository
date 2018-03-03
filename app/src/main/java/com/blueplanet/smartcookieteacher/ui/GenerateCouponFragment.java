@@ -20,7 +20,6 @@ import com.blueplanet.smartcookieteacher.customcomponents.CustomTextView;
 import com.blueplanet.smartcookieteacher.featurecontroller.DashboardFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.GenerateCouponFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.LoginFeatureController;
-import com.blueplanet.smartcookieteacher.featurecontroller.PointShareFeatureController;
 import com.blueplanet.smartcookieteacher.models.GenerateCoupon;
 import com.blueplanet.smartcookieteacher.models.Teacher;
 import com.blueplanet.smartcookieteacher.models.TeacherDashbordPoint;
@@ -32,13 +31,13 @@ import java.util.ArrayList;
 /**
  * Created by 1311 on 18-02-2016.
  */
-public class GenerateCouponFragment extends Fragment  implements AdapterView.OnItemSelectedListener {
+public class GenerateCouponFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
     private View _view;
     private TextView _txt_teacherName;
     private Teacher _teacher;
     private TeacherDashbordPoint _teacherDashbordPoint;
-    private CustomTextView _txtpoint;
+    private CustomTextView _txtpoint, mWaterPoints, mBrownPoints;
     private final String _TAG = this.getClass().getSimpleName();
     private CustomButton _btnGen;
     private EditText etxtpoints;
@@ -47,8 +46,8 @@ public class GenerateCouponFragment extends Fragment  implements AdapterView.OnI
     private ListView _listView;
     private GenerateCouponAdapter _adapter;
     private GenerateCoupon _coupon;
-    private Spinner spinner, spinner1,spinnercolr;
-    String[] userOption = {"Bluepoints", "Waterpoints","Brownpoints"};
+    private Spinner spinner, spinner1, spinnercolr;
+    String[] userOption = {"Select points type", "Bluepoints", "Waterpoints", "Brownpoints"};
     private String selState, str;
 
     @Override
@@ -60,30 +59,39 @@ public class GenerateCouponFragment extends Fragment  implements AdapterView.OnI
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(aa);
         _generateFragController = new GenerateCouponFragmentController(this, _view);
-        _adapter = new GenerateCouponAdapter(this, _generateFragController,_view);
-        _coupon= GenerateCouponFeatureController.getInstance().getGeneratedCoupon();
+        _adapter = new GenerateCouponAdapter(this, _generateFragController, _view);
+        _coupon = GenerateCouponFeatureController.getInstance().getGeneratedCoupon();
         _registerUIListeners();
         _setTeacherNameOnUI();
         _setBalancePoint();
-       // setDashboardDataOnUI();
+        // setDashboardDataOnUI();
         return _view;
     }
 
-    private void _setBalancePoint(){
+    private void _setBalancePoint() {
         TeacherDashbordPoint points = DashboardFeatureController.getInstance().getTeacherpoint();
-        if(points != null){
+        if (points != null) {
             final String bluePoints = String.valueOf(points.get_bluepoint());
+            final String waterPoints = String.valueOf(points.get_waterpoint());
+            final String brownPoints = String.valueOf(points.get_brownpoint());
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     _txtpoint.setText(bluePoints);
+                    mWaterPoints.setText(waterPoints);
+                    mBrownPoints.setText(brownPoints);
                 }
             });
         }
     }
+
     private void _initUI() {
         _txt_teacherName = (TextView) _view.findViewById(R.id.teacherName);
         _txtpoint = (CustomTextView) _view.findViewById(R.id.greenpoint);
+
+        mWaterPoints = (CustomTextView) _view.findViewById(R.id.generate_water_points);
+
+        mBrownPoints = (CustomTextView) _view.findViewById(R.id.generate_brown);
         etxtpoints = (EditText) _view.findViewById(R.id.etxtpoints);
         imgclearpoints = (ImageView) _view.findViewById(R.id.imgclearpoints);
         _btnGen = (CustomButton) _view.findViewById(R.id.btn_generate);
@@ -114,18 +122,19 @@ public class GenerateCouponFragment extends Fragment  implements AdapterView.OnI
         }
     }
 
-    public void setBalanceGreenPoint(){
+    public void setBalanceGreenPoint() {
 
         ArrayList<GenerateCoupon> list = GenerateCouponFeatureController.getInstance().get_genCouList();
 
-        int count  = list.size();
-        if(list != null && count > 0){
-            _coupon = list.get(count-1);
-            if(_coupon !=null){
+        int count = list.size();
+        if (list != null && count > 0) {
+            _coupon = list.get(count - 1);
+            if (_coupon != null) {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         _txtpoint.setText(_coupon.get_couBalancePoint());
+                        //mWaterPoints.setText(_cou);
 
                     }
                 });
@@ -198,6 +207,34 @@ public class GenerateCouponFragment extends Fragment  implements AdapterView.OnI
 
     }
 
+    public void selectPointType() {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(getActivity(), "Select the point type", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void checkPointsValue() {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(getActivity(), "Insufficent points to generate coupon", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+    }
+
+    public void selectPointsValue() {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(getActivity(), "Enter the points", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+    }
     public void refreshListview() {
         getActivity().runOnUiThread(
                 new Runnable() {
@@ -207,20 +244,22 @@ public class GenerateCouponFragment extends Fragment  implements AdapterView.OnI
                     }
                 });
     }
+
     public void showTypeColor(int position) {
         spinner.setSelection(position);
         spinner.setSelection(position);
         selState = spinner.getSelectedItem().toString();
 
         //   AssignPointFeatureController.getInstance().set_selectColor(selState);
-       // PointShareFeatureController.getInstance().set_selectColor(selState);
+        // PointShareFeatureController.getInstance().set_selectColor(selState);
 
         GenerateCouponFeatureController.getInstance().set_selectColor(selState);
-        String Inputtype="";
-        String points="";
+        String Inputtype = "";
+        String points = "";
 
 
     }
+
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         switch (parent.getId()) {
@@ -237,6 +276,7 @@ public class GenerateCouponFragment extends Fragment  implements AdapterView.OnI
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -244,8 +284,8 @@ public class GenerateCouponFragment extends Fragment  implements AdapterView.OnI
             _generateFragController.clear();
             _generateFragController = null;
         }
-        if(_adapter !=null){
-            _adapter=null;
+        if (_adapter != null) {
+            _adapter = null;
 
         }
     }

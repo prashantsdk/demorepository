@@ -3,13 +3,9 @@ package com.blueplanet.smartcookieteacher;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.provider.Settings;
 import android.support.multidex.MultiDex;
-import android.util.Base64;
-import android.util.Log;
 
 import com.blueplanet.smartcookieteacher.DatabaseManager.DatabaseHelper;
 import com.blueplanet.smartcookieteacher.DatabaseManager.SQLDatabaseManager;
@@ -18,11 +14,6 @@ import com.blueplanet.smartcookieteacher.ui.GPSTracker;
 import com.blueplanet.smartcookieteacher.utils.SmartCookieImageLoader;
 import com.blueplanet.smartcookieteacher.utils.SmartCookieSharedPreferences;
 import com.devs.acr.AutoErrorReporter;
-
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.security.Signature;
 
 
 /**
@@ -38,11 +29,11 @@ public class MainApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-      /*  AutoErrorReporter.get(this)
-                .setEmailAddresses("sayalir@roseland.com")
+   /*     AutoErrorReporter.get(this)
+                .setEmailAddresses("prashantj@roseland.com")
                 .setEmailSubject("Auto Crash Report")
-                .start();*/
-
+                .start();
+*/
         _context = this;
         NetworkManager.setApplicationContext(this);
         SmartCookieImageLoader.getInstance().initImageLoaderConfiguration(this);
@@ -57,6 +48,7 @@ public class MainApplication extends Application {
         _gpsTracker = new GPSTracker(_context);
         return _gpsTracker;
     }
+
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
@@ -71,35 +63,32 @@ public class MainApplication extends Application {
     public static Context getContext() {
         return _context;
     }
-    public static void enableGPS(){
 
-        try
-        {
+    public static void enableGPS() {
+
+        try {
 
             String provider = Settings.Secure.getString(_context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
 
 
-            if(!provider.contains("gps")){ //if gps is disabled
+            if (!provider.contains("gps")) { //if gps is disabled
                 final Intent poke = new Intent();
                 poke.setClassName("com.android.settings", "com.android.settings.widget.SettingsAppWidgetProvider");
                 poke.addCategory(Intent.CATEGORY_ALTERNATIVE);
                 poke.setData(Uri.parse("3"));
                 _context.sendBroadcast(poke);
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
 
         }
-
-
 
 
     }
 
-    public static void disableGPS(){
+    public static void disableGPS() {
         String provider = Settings.Secure.getString(_context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
 
-        if(provider.contains("gps")){ //if gps is enabled
+        if (provider.contains("gps")) { //if gps is enabled
             final Intent poke = new Intent();
             poke.setClassName("com.android.settings", "com.android.settings.widget.SettingsAppWidgetProvider");
             poke.addCategory(Intent.CATEGORY_ALTERNATIVE);

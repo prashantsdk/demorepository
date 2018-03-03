@@ -80,8 +80,7 @@ public class GenerateCouponAdapter extends BaseAdapter {
                 _txtcoupName = (TextView) convertView.findViewById(R.id.txt_couName);
                 _txtcoupName.setText(_genCouList.get(position).get_couID());
 
-                _txtcouPoint = (TextView) convertView
-                        .findViewById(R.id.txt_couPoint);
+                _txtcouPoint = (TextView) convertView.findViewById(R.id.txt_couPoint);
                 _txtcouPoint.setText(_genCouList.get(position).get_couPoint());
                 GenerateCoupon couponPoint = _genCouList.get(position);
                 GenerateCouponFeatureController.getInstance().set_genpoint(couponPoint);

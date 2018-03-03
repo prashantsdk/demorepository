@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.text.InputType;
 import android.text.format.Formatter;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -81,7 +80,7 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
     private Spinner spinner, spinnerPhone;
     String[] userOption = {"Select Login Type", "Email", "Mobile-No", "EmployeeID", "MemberID"};
     String[] numberOptn = {"+91", "+1"};
-    private LinearLayout ll_userphone, ll_phone, ll_prn, ll_ID, _l1memberID;
+    private LinearLayout ll_userphone, ll_phone, ll_prn, ll_ID, _l1memberID, linearlayoutPassword;
 
     public int _urlTP = 0;
     private final String _TAG = this.getClass().getSimpleName();
@@ -157,153 +156,148 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
     public void _isRememberMeClicked(int position) {
 
 
-            if (position == 1) {
+        if (position == 1) {
 
-                Toast.makeText(getActivity(), "Email Id", Toast.LENGTH_SHORT).show();
-
-
-                boolean checkBoxValue = SmartCookieSharedPreferences.getEmailRemberMe();
-                String userEmaild = SmartCookieSharedPreferences.getEmailID();
-                String userEmailPrn = SmartCookieSharedPreferences.getEmailPrn();
-                String userEmailPassword = SmartCookieSharedPreferences.getEmailPasword();
+            Toast.makeText(getActivity(), "Email Id", Toast.LENGTH_SHORT).show();
 
 
+            boolean checkBoxValue = SmartCookieSharedPreferences.getEmailRemberMe();
+            String userEmaild = SmartCookieSharedPreferences.getEmailID();
+            String userEmailPrn = SmartCookieSharedPreferences.getEmailPrn();
+            String userEmailPassword = SmartCookieSharedPreferences.getEmailPasword();
 
 
-                if (checkBoxValue) {
+            if (checkBoxValue) {
 
-                    _etEmailId.setText(userEmaild);
-                    _etPassword.setText(userEmailPassword);
-                    _edtPrn.setText(userEmailPrn);
-                    UserSession.setName(userEmaild);
-                    _rememberMe.setChecked(true);
+                _etEmailId.setText(userEmaild);
+                _etPassword.setText(userEmailPassword);
+                _edtPrn.setText(userEmailPrn);
+                UserSession.setName(userEmaild);
+                _rememberMe.setChecked(true);
 
-                } else{
-
-
-                    _etEmailId.setText("");
-                    _etPassword.setText("");
-                    _edtPrn.setText("");
-                    UserSession.setName("");
-                    _rememberMe.setChecked(false);
-
-                }
+            } else {
 
 
-            }
-            if (position == 2) {
-                Toast.makeText(getActivity(), "Mobile No.", Toast.LENGTH_SHORT).show();
-
-
-                String  remberMeFlag = SmartCookieSharedPreferences.getMobileRemberMe();
-                String mobileNo = SmartCookieSharedPreferences.getMobileNo();
-                String mobilePrn = SmartCookieSharedPreferences.getMobilePrn();
-                String MobilePassword = SmartCookieSharedPreferences.getMobilePassword();
-
-
-
-                if (remberMeFlag.equals("true")) {
-
-                    _edtMobileNo.setText(mobileNo);
-                    _etPassword.setText(MobilePassword);
-                    _edtPrn.setText(mobilePrn);
-                    UserSession.setName(mobileNo);
-                    _rememberMe.setChecked(true);
-
-                }
-
-                if (remberMeFlag.equals("false")) {
-
-                    _edtMobileNo.setText("");
-                    _etPassword.setText("");
-                    _edtPrn.setText("");
-                    UserSession.setName("");
-                    _rememberMe.setChecked(false);
-
-                }
-
+                _etEmailId.setText("");
+                _etPassword.setText("");
+                _edtPrn.setText("");
+                UserSession.setName("");
+                _rememberMe.setChecked(false);
 
             }
 
 
-            if (position == 3) {
-                Toast.makeText(getActivity(), "Employee id", Toast.LENGTH_SHORT).show();
+        }
+        if (position == 2) {
+            Toast.makeText(getActivity(), "Mobile No.", Toast.LENGTH_SHORT).show();
 
 
-
-                user = LoginFeatureController.getInstance().getUserInfoFromDB();
-
-
-                if (user != null) {
-
-                    String passowrd = user.getPassword1();
-
-                    String prn = user.get_prn();
-
-                    String checkRemberMe = user.isRememberMe();
+            String remberMeFlag = SmartCookieSharedPreferences.getMobileRemberMe();
+            String mobileNo = SmartCookieSharedPreferences.getMobileNo();
+            String mobilePrn = SmartCookieSharedPreferences.getMobilePrn();
+            String MobilePassword = SmartCookieSharedPreferences.getMobilePassword();
 
 
-                    final String userName = user.getUserName();
+            if (remberMeFlag.equals("true")) {
 
-                    if (checkRemberMe.equals("true")) {
-
-                        _edtEmployeeID.setText(userName);
-                        _etPassword.setText(passowrd);
-                        _edtPrn.setText(prn);
-                        UserSession.setName(userName);
-                        _rememberMe.setChecked(true);
-
-                    }
-
-                    if (checkRemberMe.equals("false")) {
-
-                        _edtEmployeeID.setText("");
-                        _etPassword.setText("");
-                        _edtPrn.setText("");
-                        UserSession.setName("");
-                        _rememberMe.setChecked(false);
-
-                    }
-
-                }
+                _edtMobileNo.setText(mobileNo);
+                _etPassword.setText(MobilePassword);
+                _edtPrn.setText(mobilePrn);
+                UserSession.setName(mobileNo);
+                _rememberMe.setChecked(true);
 
             }
 
-            if (position == 4) {
-                Toast.makeText(getActivity(), "Member Id", Toast.LENGTH_SHORT).show();
+            if (remberMeFlag.equals("false")) {
 
-
-                String checkRemberMe = SmartCookieSharedPreferences.getMemberIdRemberMe();
-                String memberId = SmartCookieSharedPreferences.getMemberId();
-                String memberPrn = SmartCookieSharedPreferences.getMemberPrn();
-                String memberPassword  = SmartCookieSharedPreferences.getMemberPassword();
-
-                if (checkRemberMe.equals("true")) {
-
-                    _edtMemberId.setText(memberId);
-                    _etPassword.setText(memberPassword);
-                    _edtPrn.setText(memberPrn);
-                    UserSession.setName(memberId);
-                    _rememberMe.setChecked(true);
-
-                }
-
-                if (checkRemberMe.equals("false")) {
-
-                    _edtMemberId.setText("");
-                    _etPassword.setText("");
-                    _edtPrn.setText("");
-                    UserSession.setName("");
-                    _rememberMe.setChecked(false);
-
-                }
-
+                _edtMobileNo.setText("");
+                _etPassword.setText("");
+                _edtPrn.setText("");
+                UserSession.setName("");
+                _rememberMe.setChecked(false);
 
             }
 
 
         }
 
+
+        if (position == 3) {
+            Toast.makeText(getActivity(), "Employee id", Toast.LENGTH_SHORT).show();
+
+
+            user = LoginFeatureController.getInstance().getUserInfoFromDB();
+
+
+            if (user != null) {
+
+                String passowrd = user.getPassword1();
+
+                String prn = user.get_prn();
+
+                String checkRemberMe = user.isRememberMe();
+
+
+                final String userName = user.getUserName();
+
+                if (checkRemberMe.equals("true")) {
+
+                    _edtEmployeeID.setText(userName);
+                    _etPassword.setText(passowrd);
+                    _edtPrn.setText(prn);
+                    UserSession.setName(userName);
+                    _rememberMe.setChecked(true);
+
+                }
+
+                if (checkRemberMe.equals("false")) {
+
+                    _edtEmployeeID.setText("");
+                    _etPassword.setText("");
+                    _edtPrn.setText("");
+                    UserSession.setName("");
+                    _rememberMe.setChecked(false);
+
+                }
+
+            }
+
+        }
+
+        if (position == 4) {
+            Toast.makeText(getActivity(), "Member Id", Toast.LENGTH_SHORT).show();
+
+
+            String checkRemberMe = SmartCookieSharedPreferences.getMemberIdRemberMe();
+            String memberId = SmartCookieSharedPreferences.getMemberId();
+            String memberPrn = SmartCookieSharedPreferences.getMemberPrn();
+            String memberPassword = SmartCookieSharedPreferences.getMemberPassword();
+
+            if (checkRemberMe.equals("true")) {
+
+                _edtMemberId.setText(memberId);
+                _etPassword.setText(memberPassword);
+                _edtPrn.setText(memberPrn);
+                UserSession.setName(memberId);
+                _rememberMe.setChecked(true);
+
+            }
+
+            if (checkRemberMe.equals("false")) {
+
+                _edtMemberId.setText("");
+                _etPassword.setText("");
+                _edtPrn.setText("");
+                UserSession.setName("");
+                _rememberMe.setChecked(false);
+
+            }
+
+
+        }
+
+
+    }
 
 
     private void _initUI() {
@@ -316,6 +310,7 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
 
         _edtMemberId = _view.findViewById(R.id.edt_memberid);
 
+        linearlayoutPassword = _view.findViewById(R.id.ll_password);
 
         _etPassword = (CustomEditText) _view.findViewById(R.id.edt_password);
 
@@ -433,12 +428,22 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
 
 
         Log.i(_TAG, "In selected item" + selState);
+
+        if (selState.equalsIgnoreCase("Select Login Type")) {
+            ll_userphone.setVisibility(View.GONE);
+            ll_ID.setVisibility(View.GONE);
+            linearlayoutPassword.setVisibility(View.GONE);
+
+        }
+
+
         if (selState.equalsIgnoreCase("Email")) {
             ll_userphone.setVisibility(View.VISIBLE);
             ll_phone.setVisibility(View.INVISIBLE);
             ll_prn.setVisibility(View.INVISIBLE);
             ll_ID.setVisibility(View.VISIBLE);
             _l1memberID.setVisibility(View.INVISIBLE);
+            linearlayoutPassword.setVisibility(View.VISIBLE);
 
             ll_userphone.requestFocus();
 
@@ -449,6 +454,7 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
             ll_prn.setVisibility(View.INVISIBLE);
             ll_ID.setVisibility(View.VISIBLE);
             _l1memberID.setVisibility(View.INVISIBLE);
+            linearlayoutPassword.setVisibility(View.VISIBLE);
             ll_phone.requestFocus();
 
             //   LoginFeatureController.getInstance().setUserEmailType(false);
@@ -458,6 +464,7 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
             ll_userphone.setVisibility(View.INVISIBLE);
             ll_phone.setVisibility(View.INVISIBLE);
             _l1memberID.setVisibility(View.INVISIBLE);
+            linearlayoutPassword.setVisibility(View.VISIBLE);
 
             ll_prn.requestFocus();
             //LoginFeatureController.getInstance().setUserEmailType(false);
@@ -468,6 +475,7 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
             ll_userphone.setVisibility(View.INVISIBLE);
             ll_phone.setVisibility(View.INVISIBLE);
             _l1memberID.setVisibility(View.VISIBLE);
+            linearlayoutPassword.setVisibility(View.VISIBLE);
 
             _l1memberID.requestFocus();
 
@@ -529,6 +537,19 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
 
     }
 
+    public void selectLoginType() {
+
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+
+                Toast.makeText(getActivity(), "Select Login Type", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
+
     public void showNetworkToast(final boolean isNetworkAvailable) {
         getActivity().runOnUiThread(new Runnable()
 
@@ -564,6 +585,7 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
         });
 
     }
+
     public void showLoginConflictError() {
         getActivity().runOnUiThread(new Runnable() {
             @Override

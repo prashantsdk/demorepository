@@ -237,8 +237,10 @@ public class TeacherLogin extends SmartCookieTeacherService {
 
         } catch (JSONException jsonException) {
             jsonException.printStackTrace();
+            SmartCookieSharedPreferences.setLoginFlag(false);
         } catch (Exception exception) {
             exception.printStackTrace();
+            SmartCookieSharedPreferences.setLoginFlag(false);
         }
 
 

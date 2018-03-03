@@ -75,10 +75,6 @@
                         android:layout_marginLeft="15dp"
                         android:background="@drawable/profileone" />
 
-                    <android.support.design.widget.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
 
                     <com.blueplanet.smartcookieteacher.customcomponents.CustomEditText
                         android:id="@+id/edt_username_login"
@@ -99,7 +95,6 @@
                         android:textColorHint="#757575"
                         android:textSize="20sp" />
 
-                </android.support.design.widget.TextInputLayout>
 
 
                 </LinearLayout>
@@ -127,10 +122,6 @@
                         android:background="@drawable/oval_white"
                         android:visibility="visible" />
 
-                    <android.support.design.widget.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
 
                     <com.blueplanet.smartcookieteacher.customcomponents.CustomEditText
                         android:id="@+id/edt_phone"
@@ -149,7 +140,6 @@
                         android:textColorHint="#757575"
                         android:textSize="15sp" />
 
-                    </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
 
                 <LinearLayout
@@ -163,9 +153,15 @@
                     android:orientation="horizontal"
                     android:visibility="gone">
 
-                    <android.support.design.widget.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/img_member"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="15dp"
+                        android:background="@drawable/profileone" />
+
 
 
                     <com.blueplanet.smartcookieteacher.customcomponents.CustomEditText
@@ -189,7 +185,6 @@
                         android:textColorHint="#757575"
                         android:textSize="15sp" />
 
-                    </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
 
                 <LinearLayout
@@ -205,9 +200,14 @@
                     android:visibility="gone">
 
 
-                    <android.support.design.widget.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                    <ImageView
+                        android:id="@+id/img_emplo"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="15dp"
+                        android:background="@drawable/profileone" />
+
 
                     <com.blueplanet.smartcookieteacher.customcomponents.CustomEditText
                         android:id="@+id/edt_colgCode"
@@ -228,7 +228,6 @@
                         android:textColorHint="#757575"
                         android:textSize="15sp" />
 
-                    </android.support.design.widget.TextInputLayout>
 
 
                 </LinearLayout>
@@ -244,9 +243,16 @@
                     android:orientation="horizontal"
                     android:visibility="visible">
 
-                    <android.support.design.widget.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                    <ImageView
+                        android:id="@+id/img_prn"
+                        android:backgroundTint="#757575"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="15dp"
+                        android:background="@drawable/ic_college" />
+
+
 
                     <com.blueplanet.smartcookieteacher.customcomponents.CustomEditText
                         android:id="@+id/edt_Id"
@@ -267,7 +273,6 @@
                         android:textColorHint="#757575"
                         android:textSize="20sp" />
 
-                    </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
 
                 <LinearLayout
@@ -287,12 +292,14 @@
                         android:layout_gravity="center"
                         android:layout_marginLeft="10dp"
                         android:background="@drawable/passworld" />
+<!--
 
                     <android.support.design.widget.TextInputLayout
                         android:id="@+id/password"
                         android:layout_width="match_parent"
                         app:passwordToggleEnabled="true"
                         android:layout_height="match_parent">
+-->
 
                     <com.blueplanet.smartcookieteacher.customcomponents.CustomEditText
                         android:id="@+id/edt_password"
@@ -314,7 +321,6 @@
                         android:textColorHint="#757575"
                         android:textSize="20sp" />
 
-                    </android.support.design.widget.TextInputLayout>
 
                 </LinearLayout>
 
@@ -337,10 +343,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/btn_login"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="10dp"
-                    android:drawablePadding="10dp"
                     android:text="Remember Me"
+                    android:layout_centerHorizontal="true"
                     android:textColor="@color/black_solid" />
 
                 <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView

@@ -354,10 +354,6 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
                 if (flag == true) {
 
 
-                  /*  Toast.makeText(getActivity().getApplicationContext(),
-                            getActivity().getString(R.string.point_assign_successfully),
-                            Toast.LENGTH_LONG).show();
-*/
                     pointsTeacher = LoginFeatureController.getInstance().getTeacher();
 
                     if (pointsTeacher != null && NetworkManager.isNetworkAvailable()) {
@@ -368,7 +364,7 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
                     }
 
 
-                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
 
                     // set title
                     alertDialogBuilder.setTitle("Points assign successfully");
@@ -378,17 +374,6 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
                             .setCancelable(true)
                             .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
-                                    // if this button is clicked, close
-                                    // current activity
-                                    //getActivity().finish();
-                                    //_loadFragment(R.layout.assign_point_to_student,new AssignPointFragment());
-/*
-
-                                    txtbackbutton.setVisibility(View.GONE);
-                                    _lvActivities.setVisibility(View.GONE);
-                                    _rl4Option.setVisibility(View.VISIBLE);
-                                    judgmentMark.setText("");
-*/
 
 
                                     Fragment fragment;
@@ -433,16 +418,6 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
     }
 
 
-    private void _loadFragment(int id, Fragment fragment) {
-        FragmentManager fm = getActivity().getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.replace(id, fragment);
-        ft.addToBackStack(null);
-        ft.commit();
-
-
-    }
-
     public void showNoActivityListMessage(final boolean flag) {
         getActivity().runOnUiThread(new Runnable() {
             @Override
@@ -464,12 +439,8 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
             public void run() {
                 if (flag == false) {
 
-                  /*  Toast.makeText(getActivity(), "Invalid response from web service",
-                            Toast.LENGTH_LONG).show();
-*/
 
-
-                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
 
                     // set title
                     alertDialogBuilder.setTitle("Points are not assign please try again");
@@ -479,17 +450,6 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
                             .setCancelable(true)
                             .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
-                                    // if this button is clicked, close
-                                    // current activity
-                                    //getActivity().finish();
-
-                                    //_loadFragment(R.layout.assign_point_to_student,new AssignPointFragment());
-
-
-                                    /*txtbackbutton.setVisibility(View.GONE);
-                                    _lvActivities.setVisibility(View.GONE);
-                                    _rl4Option.setVisibility(View.VISIBLE);
-                                    judgmentMark.setText("");*/
 
 
                                     Fragment fragment;

@@ -6,23 +6,16 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.blueplanet.smartcookieteacher.R;
 import com.blueplanet.smartcookieteacher.communication.ServerResponse;
-import com.blueplanet.smartcookieteacher.featurecontroller.ActivityListFeatureController;
-import com.blueplanet.smartcookieteacher.featurecontroller.AssignPointFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.GenerateCouponFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.LoginFeatureController;
-import com.blueplanet.smartcookieteacher.featurecontroller.SubjectFeatureController;
 import com.blueplanet.smartcookieteacher.models.BalancePointModelClass;
 import com.blueplanet.smartcookieteacher.models.GenerateCoupon;
 import com.blueplanet.smartcookieteacher.models.Teacher;
-import com.blueplanet.smartcookieteacher.models.TeacherSubject;
 import com.blueplanet.smartcookieteacher.notification.EventNotifier;
 import com.blueplanet.smartcookieteacher.notification.EventState;
 import com.blueplanet.smartcookieteacher.notification.EventTypes;
@@ -30,7 +23,6 @@ import com.blueplanet.smartcookieteacher.notification.IEventListener;
 import com.blueplanet.smartcookieteacher.notification.ListenerPriority;
 import com.blueplanet.smartcookieteacher.notification.NotifierFactory;
 import com.blueplanet.smartcookieteacher.ui.GenerateCouponFragment;
-import com.blueplanet.smartcookieteacher.ui.RewardPointFragment;
 import com.blueplanet.smartcookieteacher.webservices.WebserviceConstants;
 
 import java.util.ArrayList;
@@ -46,9 +38,10 @@ public class GenerateCouponFragmentController implements View.OnClickListener, I
     private ArrayList<GenerateCoupon> _couList;
     private ImageView imgclearpoints;
     private Teacher _teacher;
-    private String _teacherId,schoolID;
-    private Spinner spinner, spinner1,spinnercolr;
+    private String _teacherId, schoolID;
+    private Spinner spinner, spinner1, spinnercolr;
     String logintype;
+
     /**
      * constructur for reward list
      */
@@ -68,7 +61,7 @@ public class GenerateCouponFragmentController implements View.OnClickListener, I
         _teacher = LoginFeatureController.getInstance().getTeacher();
         if (_teacher != null) {
             _teacherId = _teacher.get_tId();
-            schoolID=_teacher.get_tSchool_id();
+            schoolID = _teacher.get_tSchool_id();
 
 
         }
@@ -103,12 +96,12 @@ public class GenerateCouponFragmentController implements View.OnClickListener, I
      *
      * @param
      */
-    private void _fetchGenCoupFromServer(String teacherId, String couPoint,String option,String studentId) {
+    private void _fetchGenCoupFromServer(String teacherId, String couPoint, String option, String studentId) {
         EventNotifier eventNotifier =
                 NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_COUPON);
         eventNotifier.registerListener(this, ListenerPriority.PRIORITY_MEDIUM);
 
-        GenerateCouponFeatureController.getInstance().fetchGenerateCouponFromServer(teacherId, couPoint,option,studentId);
+        GenerateCouponFeatureController.getInstance().fetchGenerateCouponFromServer(teacherId, couPoint, option, studentId);
     }
 
     @Override
@@ -118,7 +111,7 @@ public class GenerateCouponFragmentController implements View.OnClickListener, I
         switch (id) {
             case R.id.etxtpoints:
                 Log.i(_TAG, "ON clicked");
-                final CharSequence[] items = {"50","100", "200", "300", "400",
+                final CharSequence[] items = {"50", "100", "200", "300", "400",
                         "500", "600", "700", "800", "900", "1000"};
 
                 _showData(items, "Select Points", null, null);
@@ -130,7 +123,27 @@ public class GenerateCouponFragmentController implements View.OnClickListener, I
             case R.id.btn_generate:
                 String point = BalancePointModelClass.get_couValue();
                 logintype = spinner.getSelectedItem().toString();
-                _fetchGenCoupFromServer(_teacherId, point,logintype,schoolID);
+                String selectedPoints = etxtpoints.getText().toString();
+                if ((!logintype.equalsIgnoreCase("Select points type"))
+                        && (!selectedPoints.equals(""))
+                        ) {
+
+                    if (!(Integer.parseInt(selectedPoints) > Integer.parseInt(point))) {
+
+                        _fetchGenCoupFromServer(_teacherId, point, logintype, schoolID);
+
+                    } else {
+                        _genFragment.checkPointsValue();
+                    }
+
+
+                } else if ((logintype.equalsIgnoreCase("Select points type"))) {
+                    _genFragment.selectPointType();
+                } else if (selectedPoints.equals("")) {
+                    _genFragment.selectPointsValue();
+                }
+
+
                 break;
             default:
                 break;
@@ -192,7 +205,7 @@ public class GenerateCouponFragmentController implements View.OnClickListener, I
                                     // Toast.LENGTH_SHORT).show();
 
                                     etxtpoints.setText(Alert);
-                                      imgclearpoints.setVisibility(View.VISIBLE);
+                                    imgclearpoints.setVisibility(View.VISIBLE);
                                 }
                             }
 
@@ -230,7 +243,7 @@ public class GenerateCouponFragmentController implements View.OnClickListener, I
                     _couList = GenerateCouponFeatureController.getInstance().get_genCouList();
                     _genFragment.refreshListview();
                     _genFragment.setBalanceGreenPoint();
-                    _genFragment. generateCouponSuccessfullyPoint();
+                    _genFragment.generateCouponSuccessfullyPoint();
 
 
                 }
@@ -241,8 +254,8 @@ public class GenerateCouponFragmentController implements View.OnClickListener, I
                                 (NotifierFactory.EVENT_NOTIFIER_COUPON);
                 event1.unRegisterListener(this);
 
-             //   _genFragment.showNoStudentListMessage(false);
-             _genFragment.showNotEnoughPoint();
+                //   _genFragment.showNoStudentListMessage(false);
+                _genFragment.showNotEnoughPoint();
 
                 break;
             // say

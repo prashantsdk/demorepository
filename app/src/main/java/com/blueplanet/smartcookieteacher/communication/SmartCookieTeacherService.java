@@ -7,6 +7,7 @@ import com.blueplanet.smartcookieteacher.MainApplication;
 import com.blueplanet.smartcookieteacher.R;
 import com.blueplanet.smartcookieteacher.notification.EventState;
 import com.blueplanet.smartcookieteacher.notification.IEventListener;
+import com.blueplanet.smartcookieteacher.utils.SmartCookieSharedPreferences;
 import com.blueplanet.smartcookieteacher.webservices.WebserviceConstants;
 
 
@@ -85,6 +86,7 @@ public abstract class SmartCookieTeacherService extends BaseWebservice implement
                                 parseResponse(jsonResponse);
                             } catch (Exception e) {
                                 e.printStackTrace();
+
                             }
 
                         }

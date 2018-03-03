@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:orientation="vertical"
     android:layout_height="match_parent">
 
     <com.blueplanet.smartcookieteacher.customcomponents.VerticalScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <LinearLayout
+            android:layout_margin="10dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="10dp"
             android:orientation="vertical">
 
             <LinearLayout
@@ -21,11 +20,11 @@
                 android:orientation="vertical">
 
                 <RelativeLayout
+                    android:visibility="gone"
                     android:id="@+id/rl_1"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:gravity="center"
-                    android:visibility="gone">
+                    android:gravity="center">
 
                     <RelativeLayout
                         android:id="@+id/ll_username"
@@ -98,7 +97,7 @@
                             android:background="@drawable/water_point"
                             android:gravity="center"
                             android:text="A"
-                            android:textColor="#000"
+                            android:textColor="#FFFFFF"
                             android:textSize="17sp" />
 
                         <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
@@ -117,22 +116,24 @@
                     </LinearLayout>
 
                     <TextView
+                        android:visibility="gone"
                         android:id="@+id/txtmypoint"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:text="MY POINTS"
                         android:textColor="#000000"
-                        android:textSize="15sp"
-                        android:visibility="gone" />
+                        android:textSize="15sp" />
 
                 </LinearLayout>
 
                 <LinearLayout
+                    android:layout_margin="5dp"
                     android:id="@+id/txtgenerate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
+                    android:layout_below="@+id/txtmypoint"
+
                     android:orientation="horizontal"
                     android:visibility="visible"
                     android:weightSum="2">
@@ -141,37 +142,49 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
+                        android:layout_gravity="center"
                         android:layout_weight="1"
-                        android:text="Point Type"
+                        android:text="Select Point :"
+                        android:textColor="#000000"
                         android:textSize="15sp" />
 
-                    <Spinner
-                        android:id="@+id/spinner"
+                    <LinearLayout
+                        android:id="@+id/gsr"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:layout_weight="1.1"
-                        android:background="@drawable/oval_white_background_transparant"
-                        android:visibility="visible" />
+                        android:layout_weight="1"
+                        android:background="@drawable/oval_white_background_transparant">
 
+                        <Spinner
+
+                            android:id="@+id/spinner"
+                            android:layout_width="match_parent"
+                            android:layout_height="45sp"
+                            android:layout_gravity="center_horizontal"
+
+                            android:visibility="visible" />
+                    </LinearLayout>
 
                 </LinearLayout>
 
 
+
                 <LinearLayout
                     android:id="@+id/lay2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:background="#ECECEC"
-                    android:weightSum="2">
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/txtgenerate"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_weight="1"
+                    android:background="#ECECEC">
 
                     <EditText
                         android:id="@+id/etxtpoints"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_weight="0.7"
+                        android:layout_width="200dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
                         android:clickable="true"
                         android:ems="10"
                         android:focusable="false"
@@ -179,33 +192,33 @@
                         android:gravity="center_vertical"
                         android:hint="Select Points"
                         android:inputType="number"
+                        android:padding="10dp"
                         android:textColor="#190710"></EditText>
 
                     <ImageView
                         android:id="@+id/imgclearpoints"
-                        android:layout_width="match_parent"
+                        android:layout_width="20dp"
                         android:layout_height="40dp"
                         android:layout_gravity="center"
-                        android:layout_weight="1.3"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="1"
                         android:clickable="true"
                         android:src="@drawable/ic_clear_black_24dp"
                         android:visibility="visible" />
                 </LinearLayout>
 
-
                 <com.blueplanet.smartcookieteacher.customcomponents.CustomButton
                     android:id="@+id/btn_generate"
                     style="@style/login_button_style"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_weight="1"
+                    android:layout_width="190dp"
+                    android:layout_height="60dp"
+                    android:layout_below="@+id/txtgenerate"
+                    android:layout_toRightOf="@+id/lay2"
                     android:background="@drawable/generate_coup_selector"
                     android:gravity="center"
-                    android:text="Generate Coupon"
+                    android:text="Generate"
                     android:textColor="#ffffff"
                     android:textSize="15sp" />
-
 
                 <com.blueplanet.smartcookieteacher.customcomponents.CustomButton
                     android:id="@+id/btn_recentilygen"
@@ -214,7 +227,8 @@
                     android:layout_height="50dp"
                     android:layout_below="@+id/btn_generate"
                     android:layout_centerHorizontal="true"
-
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
                     android:background="@drawable/login_button_selector"
                     android:gravity="center"
                     android:text="Recently Generated Coupon"
@@ -241,19 +255,15 @@
 
             </LinearLayout>
 
-
-
+            <ListView
+                android:id="@+id/Iv_CouList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/relay3"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/border"
+                android:paddingBottom="8dp" />
         </LinearLayout>
-
     </com.blueplanet.smartcookieteacher.customcomponents.VerticalScrollView>
 
-
-    <ListView
-        android:id="@+id/Iv_CouList"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/relay3"
-        android:layout_marginLeft="5dp"
-        android:background="@drawable/border"
-        />
 </LinearLayout>

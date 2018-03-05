@@ -77,7 +77,7 @@ public class DisplayCategorieFragmentController implements IEventListener, Adapt
         _disCategorieFragment = disCategorieFragment;
         _View = View;
         _teacher = LoginFeatureController.getInstance().getTeacher();
-        _categoryList = CategoriesFeatureController.getInstance().getcategorieList();
+      //  _categoryList = CategoriesFeatureController.getInstance().getcategorieList();
 
 
         // create class object
@@ -196,6 +196,7 @@ public class DisplayCategorieFragmentController implements IEventListener, Adapt
                     /**
                      * get student list before refreshing listview avoid runtime exception
                      */
+                   // progressDialog.dismiss();
                     _categoryList = CategoriesFeatureController.getInstance().getcategorieList();
 
                 }
@@ -232,6 +233,7 @@ public class DisplayCategorieFragmentController implements IEventListener, Adapt
                         NotifierFactory.getInstance().getNotifier
                                 (NotifierFactory.EVENT_NOTIFIER_COUPON);
                 event2.unRegisterListener(this);
+                Log.e("SrvrResdsplcpnfrgcontrl", String.valueOf(serverResponse));
 
                 if (errorCode == WebserviceConstants.SUCCESS) {
                     Log.i(_TAG, "IN EVENT_UI_DISPLAY_COUPON_LIST_RECEVIED success");
@@ -252,19 +254,24 @@ public class DisplayCategorieFragmentController implements IEventListener, Adapt
                 progressDialog.dismiss();
                 _disCategorieFragment.showOrHideErrorMessage(true);
                 break;
+
+            case EventTypes.EVENT_UI_UNAUTHORIZED:
+                EventNotifier event4 =
+                        NotifierFactory.getInstance().getNotifier
+                                (NotifierFactory.EVENT_NOTIFIER_COUPON);
+                event4.unRegisterListener(this);
+                progressDialog.dismiss();
+                _disCategorieFragment.showOrHideErrorMessage(true);
+                break;
             default:
                 eventState = EventState.EVENT_IGNORED;
 
                 //Toast.makeText(_disCategorieFragment.getActivity(),"Try again..", Toast.LENGTH_SHORT).show();
-                progressDialog.dismiss();
+               // progressDialog.dismiss();
 
                 break;
-
         }
-
         return EventState.EVENT_PROCESSED;
-
-
     }
 
     private void _showCategorieListDialog() {
@@ -329,7 +336,6 @@ public class DisplayCategorieFragmentController implements IEventListener, Adapt
             }
         });
 
-
     }
 
     @Override
@@ -343,8 +349,6 @@ public class DisplayCategorieFragmentController implements IEventListener, Adapt
             DisplayCouponFeatureController.getInstance().set_selectedCoupon(coupon);
             _loadFragment(R.id.content_frame, new CouponDetailForBuyFragment());
         }
-
-
     }
 
     private void _loadFragment(int id, Fragment fragment) {
@@ -397,10 +401,8 @@ public class DisplayCategorieFragmentController implements IEventListener, Adapt
         } else {
 
             return false;
-
         }
     }
-
 
     private void requestPermission(){
 
@@ -413,8 +415,6 @@ public class DisplayCategorieFragmentController implements IEventListener, Adapt
             ActivityCompat.requestPermissions(_disCategorieFragment.getActivity(), LOC_PERMISSIONS, PERMISSION_REQUEST_CODE);
         }
     }
-
-
 
     @Override
     public void onMapReady(GoogleMap googleMap) {

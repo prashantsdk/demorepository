@@ -2,6 +2,8 @@ package com.blueplanet.smartcookieteacher.featurecontroller;
 
 
 
+import android.util.Log;
+
 import com.blueplanet.smartcookieteacher.communication.ErrorInfo;
 import com.blueplanet.smartcookieteacher.communication.HTTPConstants;
 import com.blueplanet.smartcookieteacher.communication.ServerResponse;
@@ -105,6 +107,9 @@ public class DisplayCouponFeatureController implements IEventListener {
         ServerResponse serverResponse = (ServerResponse) eventObject;
         int errorCode = serverResponse.getErrorCode();
         Object responseObject = serverResponse.getResponseObject();
+
+
+
         EventNotifier eventNotifierUI;
         switch (eventType) {
             case EventTypes.EVENT_DISPLAY_COUPON_LIST_RECEVIED:
@@ -141,6 +146,7 @@ public class DisplayCouponFeatureController implements IEventListener {
                                 serverResponse);
 
                     } else {
+                        Log.e("SrvrResdsplcpnftrcontrl", String.valueOf(serverResponse));
 
                         eventNotifierUI =
                                 NotifierFactory.getInstance().getNotifier(

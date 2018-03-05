@@ -248,6 +248,7 @@ public class LoginFeatureController implements IEventListener {
         return _teacher;
     }
 
+
     public User getUserInfoFromDB() {
         Object object =
                 PersistenceFactory.get(SmartTeacherDatabaseMasterTable.Tables.USER).getData();

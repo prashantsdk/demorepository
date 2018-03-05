@@ -23,10 +23,12 @@ public class NewRegistrationModel {
     private String _imgpath = null;
 
     private String _imgname = null;
+    private String _dob = null;
+    private String _password = null;
 
 
     public NewRegistrationModel(String userIdname,String compname,String fname,String mname,String lname,String address,String city,String country,String state,String phone,
-                                String regpassward,String countryucode,String email,String imgpath,String imgname){
+                                String regpassward,String countryucode,String email,String imgpath,String imgname/*, String dob, String password*/){
 
         _userIdname=userIdname;
         _compname=compname;
@@ -43,6 +45,8 @@ public class NewRegistrationModel {
         _email=email;
         _imgpath=imgpath;
         _imgname=imgname;
+       /* _dob=dob;
+        _password=password;*/
 
     }
 
@@ -104,5 +108,13 @@ public class NewRegistrationModel {
 
     public String get_mname() {
         return _mname;
+    }
+
+    public String get_dob() {
+        return _dob;
+    }
+
+    public String get_password() {
+        return _password;
     }
 }

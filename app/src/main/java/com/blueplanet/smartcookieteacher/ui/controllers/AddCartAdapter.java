@@ -281,6 +281,8 @@ public class AddCartAdapter extends BaseAdapter implements IEventListener {
                     if(_coupDetailList.size() == 0)
                         _addFragment.showNoCouponMessage(true);
 
+                }else{
+                    Toast.makeText(_addFragment.getActivity(), "Please check internet connection", Toast.LENGTH_SHORT).show();
                 }
                 break;
 

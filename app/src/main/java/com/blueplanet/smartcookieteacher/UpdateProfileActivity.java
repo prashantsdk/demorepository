@@ -336,7 +336,7 @@ public class UpdateProfileActivity extends AppCompatActivity implements IEventLi
     }
 
     private void _handleUpdateEvents() {
-        regmodel = UpdateProfileFeatureController.getInstance().getRemodel();
+      //  regmodel = UpdateProfileFeatureController.getInstance().getRemodel();
 
         String img = getBase64();// ParentProfileFeatureController.getInstance().getParentImage();
         // String name = _firstName.getText().toString();
@@ -381,10 +381,6 @@ public class UpdateProfileActivity extends AppCompatActivity implements IEventLi
         {
             Toast.makeText(getApplicationContext(),"Invalid email address", Toast.LENGTH_SHORT).show();
         }
-
-
-
-
     }
 
     private void _registerListeners() {
@@ -402,27 +398,27 @@ public class UpdateProfileActivity extends AppCompatActivity implements IEventLi
     private void _initUI() {
         // _layout = (CoordinatorLayout) findViewById(R.id.pro);
         //  progrees = (ProgressBar) findViewById(R.id.progress5);
-        _firstName = (CustomEditText) findViewById(R.id.edt_first_name);
-        _middle = (CustomEditText) findViewById(R.id.edt_middle_name);
-        _lastName = (CustomEditText) findViewById(R.id.edt_last_name);
-        _dob = (CustomEditText) findViewById(R.id.edt_dob);
+        _firstName = findViewById(R.id.edt_first_name);
+        _middle = findViewById(R.id.edt_middle_name);
+        _lastName =  findViewById(R.id.edt_last_name);
+        _dob =  findViewById(R.id.edt_dob);
         //  _age = (CustomEditText) findViewById(R.id.edt_age);
-        _gender = (CustomEditText) findViewById(R.id.edt_gender);
+        _gender =  findViewById(R.id.edt_gender);
        /* _qual = (CustomEditText) findViewById(R.id.edt_qualifi);
-        _occup = (CustomEditText) findViewById(R.id.edt_occup);*/
-        _email = (CustomEditText) findViewById(R.id.edt_emaili);
-        _add = (CustomEditText) findViewById(R.id.edt_addres);
-        _city = (CustomEditText) findViewById(R.id.edt_city);
-        _country = (CustomEditText) findViewById(R.id.edt_country);
+        _occup =  findViewById(R.id.edt_occup);*/
+        _email =  findViewById(R.id.edt_emaili);
+        _add =  findViewById(R.id.edt_addres);
+        _city =  findViewById(R.id.edt_city);
+        _country =  findViewById(R.id.edt_country);
         // _state = (CustomEditText) findViewById(R.id.edt_state);
-        _phone = (CustomEditText) findViewById(R.id.edt_phone);
-        _pasword = (CustomEditText) findViewById(R.id.edt_pasword);
+        _phone =  findViewById(R.id.edt_phone);
+        _pasword =  findViewById(R.id.edt_pasword);
 
-        _btnUpdate = (CustomButton) findViewById(R.id.btn_update);
-        _btnCancel = (CustomButton) findViewById(R.id.btn_cancel);
-        _btnAction = (FloatingActionButton) findViewById(R.id.fab_editable);
-        _parentImg = (ImageView) findViewById(R.id.Sponsor_image2);
-        spinner = (Spinner) findViewById(R.id.register_spin);
+        _btnUpdate =  findViewById(R.id.btn_update);
+        _btnCancel =  findViewById(R.id.btn_cancel);
+        _btnAction =  findViewById(R.id.fab_editable);
+        _parentImg =  findViewById(R.id.Sponsor_image2);
+        spinner =  findViewById(R.id.register_spin);
 
 
         //_confirmPas = (CustomEditText) _view.findViewById(R.id.edt_password);
@@ -450,7 +446,7 @@ public class UpdateProfileActivity extends AppCompatActivity implements IEventLi
 
     private void _editableFieldsFalse() {
         _firstName.setEnabled(false);
-        _middle.setEnabled(true);
+        _middle.setEnabled(false);
         _lastName.setEnabled(false);
         _dob.setEnabled(false);
         // _age.setEnabled(false);
@@ -468,7 +464,6 @@ public class UpdateProfileActivity extends AppCompatActivity implements IEventLi
         ArrayAdapter aa = new ArrayAdapter(this, android.R.layout.simple_spinner_item, numberOptn);
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(aa);
-
 
     }
 
@@ -772,10 +767,20 @@ public class UpdateProfileActivity extends AppCompatActivity implements IEventLi
                     //Sayali
 
                     regmodel = UpdateProfileFeatureController.getInstance().getRemodel();
+
+
+                    setTeacherInfo(regmodel);
+
                     Log.i(_TAG, "Value of reg is: ");
                     showProfileUpdateMsg(true);
 
 
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            _editableFieldsFalse();
+                        }
+                    });
                     // showOrHideLoadingSpinner(true);
 
 
@@ -939,6 +944,23 @@ public class UpdateProfileActivity extends AppCompatActivity implements IEventLi
         _dob.setText(sdf.format(myCalendar.getTime()));
     }
 
+    public void setTeacherInfo(NewRegistrationModel regModel) {
+
+        _teacher.set_tName(regModel.get_fname());
+        _teacher.set_tMiddleName(regModel.get_mname());
+        _teacher.set_tLastName(regModel.get_lname());
+        _teacher.set_tEmail(regModel.get_email());
+        _teacher.set_tDOB(regModel.get_dob());
+        _teacher.set_tAddress(regModel.get_lname());
+        _teacher.set_tCity(regModel.get_city());
+        _teacher.set_tCountry(regModel.get_country());
+        _teacher.set_tPassword(regModel.get_password());
+        _teacher.set_tPhone(regModel.get_phone());
+
+        LoginFeatureController.getInstance().saveUserDataIntoDB(_teacher);
+
+        Log.e("Database", LoginFeatureController.getInstance().getLoginInfoFromDB().get_tName().toString());
+    }
 }
 
 

@@ -4,7 +4,6 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.blueplanet.smartcookieteacher.MainApplication;
-
 import com.blueplanet.smartcookieteacher.R;
 import com.blueplanet.smartcookieteacher.communication.ErrorInfo;
 import com.blueplanet.smartcookieteacher.communication.HTTPConstants;
@@ -15,7 +14,6 @@ import com.blueplanet.smartcookieteacher.notification.EventNotifier;
 import com.blueplanet.smartcookieteacher.notification.EventTypes;
 import com.blueplanet.smartcookieteacher.notification.NotifierFactory;
 import com.blueplanet.smartcookieteacher.utils.SmartCookieSharedPreferences;
-
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,9 +27,10 @@ import org.json.JSONObject;
 public class TeacherLogin extends SmartCookieTeacherService {
 
 
-    private String _username, _userPassword, _type, _colgcode, _method, _devicetype, _details, _os, _ipadddress,  _countrycode;
+    private String _username, _userPassword, _type, _colgcode, _method, _devicetype, _details, _os, _ipadddress, _countrycode;
     private final String _TAG = this.getClass().getSimpleName();
-    double       _lat, _log;
+    double _lat, _log;
+
 
     public TeacherLogin(String username, String userPassword, String type, String colgcode, String method, String devicetype, String details, String os, String ipadddress, String countrycode,
                         double lat, double log) {
@@ -46,8 +45,8 @@ public class TeacherLogin extends SmartCookieTeacherService {
         _os = os;
         _ipadddress = ipadddress;
         _countrycode = countrycode;
-        _lat=lat;
-        _log=log;
+        _lat = lat;
+        _log = log;
     }
 
     @Override
@@ -96,6 +95,8 @@ public class TeacherLogin extends SmartCookieTeacherService {
         String statusMessage = null;
 
         try {
+
+            //if ( (responseJSONString.contains("responseStatus"))) {
             objResponseJSON = new JSONObject(responseJSONString);
 
             statusCode = objResponseJSON.getInt(WebserviceConstants.KEY_STATUS_CODE);
@@ -232,15 +233,29 @@ public class TeacherLogin extends SmartCookieTeacherService {
                 responseObject =
                         new ServerResponse(errorCode, new ErrorInfo(statusCode, statusMessage,
                                 null));
+                SmartCookieSharedPreferences.setLoginFlag(false);
+
             }
+           /* } else {
+                errorCode = WebserviceConstants.FAILURE;
+                responseObject =
+                        new ServerResponse(errorCode, new ErrorInfo(statusCode, statusMessage,
+                                null));
+                SmartCookieSharedPreferences.setLoginFlag(false);
+
+            }*/
             fireEvent(responseObject);
 
         } catch (JSONException jsonException) {
             jsonException.printStackTrace();
-            SmartCookieSharedPreferences.setLoginFlag(false);
+            //SmartCookieSharedPreferences.setLoginFlag(false);
+
+
         } catch (Exception exception) {
             exception.printStackTrace();
-            SmartCookieSharedPreferences.setLoginFlag(false);
+            //SmartCookieSharedPreferences.setLoginFlag(false);
+
+
         }
 
 

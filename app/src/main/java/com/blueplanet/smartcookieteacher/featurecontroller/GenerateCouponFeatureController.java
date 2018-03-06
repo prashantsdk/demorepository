@@ -9,9 +9,6 @@ import com.blueplanet.smartcookieteacher.communication.ErrorInfo;
 import com.blueplanet.smartcookieteacher.communication.HTTPConstants;
 import com.blueplanet.smartcookieteacher.communication.ServerResponse;
 import com.blueplanet.smartcookieteacher.models.GenerateCoupon;
-import com.blueplanet.smartcookieteacher.models.Student;
-import com.blueplanet.smartcookieteacher.models.Teacher;
-import com.blueplanet.smartcookieteacher.models.TeacherSubject;
 import com.blueplanet.smartcookieteacher.notification.EventNotifier;
 import com.blueplanet.smartcookieteacher.notification.EventState;
 import com.blueplanet.smartcookieteacher.notification.EventTypes;
@@ -19,7 +16,6 @@ import com.blueplanet.smartcookieteacher.notification.IEventListener;
 import com.blueplanet.smartcookieteacher.notification.ListenerPriority;
 import com.blueplanet.smartcookieteacher.notification.NotifierFactory;
 import com.blueplanet.smartcookieteacher.webservices.GetGenerateCoupon;
-import com.blueplanet.smartcookieteacher.webservices.TeacherLogin;
 import com.blueplanet.smartcookieteacher.webservices.WebserviceConstants;
 
 import java.util.ArrayList;
@@ -35,7 +31,7 @@ public class GenerateCouponFeatureController implements IEventListener {
     private GenerateCoupon _genpoint = null;
 
 
-    private GenerateCoupon _genValidity= null;
+    private GenerateCoupon _genValidity = null;
     private ArrayList<GenerateCoupon> _genCouList = new ArrayList<>();
     private final String _TAG = this.getClass().getSimpleName();
 
@@ -68,13 +64,13 @@ public class GenerateCouponFeatureController implements IEventListener {
      * @param _tId
      * @param
      */
-    public void fetchGenerateCouponFromServer(String _tId,String _couPoint,String option,String studentId) {
+    public void fetchGenerateCouponFromServer(String _tId, String _couPoint, String option, String studentId) {
 
         EventNotifier eventNotifier =
                 NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_COUPON);
         eventNotifier.registerListener(this, ListenerPriority.PRIORITY_MEDIUM);
 
-        GetGenerateCoupon generateCoupon = new GetGenerateCoupon(_tId,_couPoint,option,studentId);
+        GetGenerateCoupon generateCoupon = new GetGenerateCoupon(_tId, _couPoint, option, studentId);
         generateCoupon.send();
 
     }
@@ -85,27 +81,39 @@ public class GenerateCouponFeatureController implements IEventListener {
     private GenerateCouponFeatureController() {
     }
 
+   /* public ArrayList<GenerateCoupon> get_genCouList() {
+        return _genCouList;
+    }*/
+
     public ArrayList<GenerateCoupon> get_genCouList() {
 
 
-  /*      Object object =
+        Object object =
                 PersistenceFactory.get(SmartTeacherDatabaseMasterTable.Tables.RECENTLYGENERATEDCOUPON).getData();
 
         if (object != null) {
             ArrayList<GenerateCoupon> list = (ArrayList<GenerateCoupon>) object;
             if (list != null && list.size() > 0) {
-                 clearRecentlyGeneratedCoupon();
+                clearRecentlyGeneratedCoupon();
                 _genCouList.addAll(list);
             }
 
-        }*/
-
+        }
 
         return _genCouList;
     }
 
-    public void clearRecentlyGeneratedCoupon(){
 
+    public void deleteRecentlyGeneratedCoupon(){
+
+        IPersistence persistObj = PersistenceFactory.get(SmartTeacherDatabaseMasterTable.Tables.RECENTLYGENERATEDCOUPON);
+      //  persistObj.delete(userName);
+    }
+    public void clearRecentlyGeneratedCoupon() {
+
+        if (_genCouList != null && _genCouList.size() > 0) {
+            _genCouList.clear();
+        }
     }
 
     public void set_genCouList(ArrayList<GenerateCoupon> genCouList) {
@@ -137,16 +145,17 @@ public class GenerateCouponFeatureController implements IEventListener {
     }
 
     public void clearGenerateCop() {
-        if (_genCouList != null&& _genCouList.size() > 0) {
+        if (_genCouList != null && _genCouList.size() > 0) {
             _genCouList.clear();
-           // _genCouList = null;
+            // _genCouList = null;
         }
     }
 
-    public  void saveRecentlyGeneratedCoupon(GenerateCoupon generateCoupon){
+    public void saveRecentlyGeneratedCoupon(GenerateCoupon generateCoupon) {
         IPersistence persistObj = PersistenceFactory.get(SmartTeacherDatabaseMasterTable.Tables.RECENTLYGENERATEDCOUPON);
-        persistObj.save(persistObj);
+        persistObj.save(generateCoupon);
     }
+
 
     @Override
     public int eventNotify(int eventType, Object eventObject) {
@@ -171,16 +180,15 @@ public class GenerateCouponFeatureController implements IEventListener {
                     if (list != null && list.size() > 0) {
                         Log.i(_TAG, "List size from webservice :" + list.size());
                     }
-                    _genCouList.addAll(list);
+                    // _genCouList.addAll(list);
 
-              /*      if(list != null  && list.size()>0){
+                    if (list != null && list.size() > 0) {
 
-                        for(int  i=0; i<list.size();i++)
-                        {
+                        for (int i = 0; i < list.size(); i++) {
                             saveRecentlyGeneratedCoupon(list.get(i));
                         }
                     }
-*/
+
 
                     eventNotifierUI =
                             NotifierFactory.getInstance().getNotifier(

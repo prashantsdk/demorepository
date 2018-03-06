@@ -24,18 +24,13 @@ public class NewRegistrationModel {
     private String _imgpath = null;
     private String _imgname = null;
     private String _dob = null;
-<<<<<<< HEAD
 
-
-    public NewRegistrationModel(String userIdname,String compname,String fname,String mname,String lname,String address,String city,String country,String state,String phone,
-                                String regpassward,String countryucode,String email,String imgpath,String imgname/*, String dob, String gender*/){
-=======
     private String _password = null;
 
 
     public NewRegistrationModel(String userIdname,String compname,String fname,String mname,String lname,String address,String city,String country,String state,String phone,
                                 String regpassward,String countryucode,String email,String imgpath,String imgname/*, String dob, String password*/){
->>>>>>> 09d1a7058486fc6a6972fa09edd9bc008dd92618
+
 
         _userIdname=userIdname;
         _compname=compname;
@@ -52,13 +47,6 @@ public class NewRegistrationModel {
         _email=email;
         _imgpath=imgpath;
         _imgname=imgname;
-<<<<<<< HEAD
-        /*_dob=dob;
-        _gender=gender;*/
-=======
-       /* _dob=dob;
-        _password=password;*/
->>>>>>> 09d1a7058486fc6a6972fa09edd9bc008dd92618
 
     }
 
@@ -127,14 +115,12 @@ public class NewRegistrationModel {
     }
 
     public String get_password() {
-<<<<<<< HEAD
+
         return _regpassward;
     }
 
     public String get_gender() {
         return _gender;
-=======
-        return _password;
->>>>>>> 09d1a7058486fc6a6972fa09edd9bc008dd92618
+
     }
 }

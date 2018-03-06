@@ -149,12 +149,6 @@ public class UpdateProfile extends SmartCookieTeacherService {
                     String email = jsonObject.optString(WebserviceConstants.KEY_USER_REG_EMAIL);
                     String imgpath = jsonObject.optString(WebserviceConstants.KEY_USER_REG_IMGPATH);
                     String imgname = jsonObject.optString(WebserviceConstants.KEY_USER_REG_IMGNAME);
-<<<<<<< HEAD
-                    /*String gender = jsonObject.optString(WebserviceConstants.KEY_TEACHER_UPDATE_GENDER);
-=======
-                    /*String password = jsonObject.optString(WebserviceConstants.KEY_PASSWORD);
->>>>>>> 09d1a7058486fc6a6972fa09edd9bc008dd92618
-                    String dob = jsonObject.optString(WebserviceConstants.KEY_TEACHER_UPDATE_DOB);*/
 
                     _regmodel = new NewRegistrationModel(userIdname,compname, fname, mname,lname,address,city,country,state,phone,regpassward,countryucode,email,imgpath, imgname/*,dob, password*/);
 

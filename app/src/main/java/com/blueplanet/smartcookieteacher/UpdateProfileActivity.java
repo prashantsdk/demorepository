@@ -946,25 +946,7 @@ public class UpdateProfileActivity extends AppCompatActivity implements IEventLi
     }
 
     public void setTeacherInfo(NewRegistrationModel regModel) {
-
-<<<<<<< HEAD
-        Teacher tech = LoginFeatureController.getInstance().getTeacher();
-        tech.set_tName(regModel.get_fname());
-        tech.set_tMiddleName(regModel.get_mname());
-        tech.set_tLastName(regModel.get_lname());
-        tech.set_tEmail(regModel.get_email());
-        tech.set_tDOB(regModel.get_dob());
-        tech.set_tAddress(regModel.get_lname());
-        tech.set_tCity(regModel.get_city());
-        tech.set_tCountry(regModel.get_country());
-        tech.set_tPassword(regModel.get_password());
-        tech.set_tPhone(regModel.get_phone());
-
-        LoginFeatureController.getInstance().saveUserDataIntoDB(tech);
-
-        Log.e("Database", LoginFeatureController.getInstance().getLoginInfoFromDB().get_tName().toString());
-=======
-        _teacher.set_tName(regModel.get_fname());
+  _teacher.set_tName(regModel.get_fname());
         _teacher.set_tMiddleName(regModel.get_mname());
         _teacher.set_tLastName(regModel.get_lname());
         _teacher.set_tEmail(regModel.get_email());
@@ -976,7 +958,7 @@ public class UpdateProfileActivity extends AppCompatActivity implements IEventLi
         _teacher.set_tPhone(regModel.get_phone());
 
         LoginFeatureController.getInstance().saveUserDataIntoDB(_teacher);
->>>>>>> 09d1a7058486fc6a6972fa09edd9bc008dd92618
+
     }
 }
 

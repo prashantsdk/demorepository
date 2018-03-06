@@ -264,7 +264,7 @@ public class StudentDetailFragment extends Fragment {
             _txtemail.setText(email);
 
         }}
-    private void _setephoneNameOnUI(Student student) {
+/*    private void _setephoneNameOnUI(Student student) {
         String email = student.get();
         if (!(TextUtils.isEmpty(email)) && email.equalsIgnoreCase("null")) {
             _txtemail.setText("N/A");
@@ -273,7 +273,7 @@ public class StudentDetailFragment extends Fragment {
 
         }
 
-    }
+    }*/
 
     @Override
     public void onDestroy() {

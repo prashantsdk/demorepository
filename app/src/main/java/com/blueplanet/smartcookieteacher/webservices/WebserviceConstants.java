@@ -90,6 +90,7 @@ public class WebserviceConstants {
     public static final String PURCHASEWATERPOINTS = "purchase_water_point_student.php";
     public static final String TEACHER_DISPLAY_SUBJECT_WEB_SERVICE = "display_school_subject_for_teacher.php";
     public static final String TEACHER_UPDATE_PROFILE = "update_teacher_profile_webservice_V1.php";
+    public static final String TEACHER_DISPLAY_PROFILE = "display_teacher_profile_webservice_V1.php";
     public static final String TEACHER_ADD_SUBJECT = "wsforaddsub.php";
 
     public static final String STUDENT_SUGGEST_SPONSOR_LIST = "suggested_sponsors.php";

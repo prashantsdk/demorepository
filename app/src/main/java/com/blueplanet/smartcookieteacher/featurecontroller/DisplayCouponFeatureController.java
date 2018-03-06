@@ -115,6 +115,8 @@ public class DisplayCouponFeatureController implements IEventListener {
             case EventTypes.EVENT_DISPLAY_COUPON_LIST_RECEVIED:
 
                 if (errorCode == WebserviceConstants.SUCCESS) {
+
+                    _couponList.clear();
                     _couponList = (ArrayList<Coupon_display>) responseObject;
 
 

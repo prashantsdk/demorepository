@@ -174,6 +174,7 @@ public class AddToCartFeatureController implements IEventListener {
                     if (list != null && list.size() > 0) {
                         Log.i(_TAG, "List size from webservice :" + list.size());
                     }
+                    _selectedCoupList.clear();
                     _selectedCoupList.addAll(list);
 
 

@@ -656,7 +656,8 @@ public class UpdateProfileActivity extends AppCompatActivity implements IEventLi
     }
 
     private void _setFirstNameOnUI(Teacher teacher) {
-        String first = teacher.get_tName();
+        //String first = teacher.get_tName();
+        String first = teacher.get_tCompleteName();
         if (!(TextUtils.isEmpty(first)) && first.equalsIgnoreCase("null")) {
             _firstName.setText("");
         } else {
@@ -946,18 +947,19 @@ public class UpdateProfileActivity extends AppCompatActivity implements IEventLi
 
     public void setTeacherInfo(NewRegistrationModel regModel) {
 
-        _teacher.set_tName(regModel.get_fname());
-        _teacher.set_tMiddleName(regModel.get_mname());
-        _teacher.set_tLastName(regModel.get_lname());
-        _teacher.set_tEmail(regModel.get_email());
-        _teacher.set_tDOB(regModel.get_dob());
-        _teacher.set_tAddress(regModel.get_lname());
-        _teacher.set_tCity(regModel.get_city());
-        _teacher.set_tCountry(regModel.get_country());
-        _teacher.set_tPassword(regModel.get_password());
-        _teacher.set_tPhone(regModel.get_phone());
+        Teacher tech = LoginFeatureController.getInstance().getTeacher();
+        tech.set_tName(regModel.get_fname());
+        tech.set_tMiddleName(regModel.get_mname());
+        tech.set_tLastName(regModel.get_lname());
+        tech.set_tEmail(regModel.get_email());
+        tech.set_tDOB(regModel.get_dob());
+        tech.set_tAddress(regModel.get_lname());
+        tech.set_tCity(regModel.get_city());
+        tech.set_tCountry(regModel.get_country());
+        tech.set_tPassword(regModel.get_password());
+        tech.set_tPhone(regModel.get_phone());
 
-        LoginFeatureController.getInstance().saveUserDataIntoDB(_teacher);
+        LoginFeatureController.getInstance().saveUserDataIntoDB(tech);
 
         Log.e("Database", LoginFeatureController.getInstance().getLoginInfoFromDB().get_tName().toString());
     }

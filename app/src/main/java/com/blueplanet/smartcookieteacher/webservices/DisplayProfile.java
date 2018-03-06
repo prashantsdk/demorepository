@@ -8,9 +8,7 @@ import com.blueplanet.smartcookieteacher.communication.ErrorInfo;
 import com.blueplanet.smartcookieteacher.communication.HTTPConstants;
 import com.blueplanet.smartcookieteacher.communication.ServerResponse;
 import com.blueplanet.smartcookieteacher.communication.SmartCookieTeacherService;
-import com.blueplanet.smartcookieteacher.models.AdminThankqPoint;
 import com.blueplanet.smartcookieteacher.models.NewRegistrationModel;
-import com.blueplanet.smartcookieteacher.models.ShairPointModel;
 import com.blueplanet.smartcookieteacher.notification.EventNotifier;
 import com.blueplanet.smartcookieteacher.notification.EventTypes;
 import com.blueplanet.smartcookieteacher.notification.NotifierFactory;
@@ -19,14 +17,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-
 /**
- * Created by Sayali on 3/23/2017.
+ * Created by Priyanka on 3/05/2018.
  */
-public class UpdateProfile extends SmartCookieTeacherService {
+public class DisplayProfile extends SmartCookieTeacherService {
 
-    private String _pId, _name, _phone, _country, _state, _city, _gender, _dob, _add, _pas, _qual, _occup, _img, _passward, _address;
+    private String user_id;
     private String _email, _tid, _fname, _lname,_studentId,_countrycode,_memberID,_Key,_mname;
     private final String _TAG = this.getClass().getSimpleName();
 
@@ -35,28 +31,8 @@ public class UpdateProfile extends SmartCookieTeacherService {
      *
      * @param
      */
-    public UpdateProfile(String email, String fname, String mname,String lname, String dob, String address, String city, String country,
-                         String gender, String passward, String phone, String state,String studentId,String countrycode,
-                         String memberID,String Key,String img) {
-        _email = email;
-        _fname = fname;
-        _mname=mname;
-        _lname = lname;
-        _dob = dob;
-        _address = address;
-        _city = city;
-        _country = country;
-        _gender = gender;
-        _passward = passward;
-        _state = state;
-        _phone = phone;
-        _studentId = studentId;
-        _countrycode=countrycode;
-        _memberID=memberID;
-        _Key=Key;
-        _img=img;
-
-
+    public DisplayProfile(String user_id) {
+        this.user_id = user_id;
     }
 
 
@@ -65,7 +41,7 @@ public class UpdateProfile extends SmartCookieTeacherService {
 
 
         return WebserviceConstants.HTTP_BASE_URL +
-                WebserviceConstants.BASE_URL + WebserviceConstants.TEACHER_UPDATE_PROFILE;
+                WebserviceConstants.BASE_URL + WebserviceConstants.TEACHER_DISPLAY_PROFILE;
     }
 
     @Override
@@ -73,31 +49,7 @@ public class UpdateProfile extends SmartCookieTeacherService {
 
         JSONObject requestBody = new JSONObject();
         try {
-            requestBody.put(WebserviceConstants.KEY_TEACHER_EMAIL, _email);
-            //   requestBody.put(WebserviceConstants.KEY_TEACHER_UPDATE_ID, _tid);
-            requestBody.put(WebserviceConstants.KEY_TEACHER_UPDATE_FIRST_NAME, _fname);
-            requestBody.put(WebserviceConstants.KEY_TEACHER_UPDATE_MIDDLE_NAME, _mname);
-            requestBody.put(WebserviceConstants.KEY_TEACHER_UPDATE_LAST_NAME, _lname);
-
-            requestBody.put(WebserviceConstants.KEY_TEACHER_UPDATE_DOB, _dob);
-            requestBody.put(WebserviceConstants.KEY_TEACHER_UPDATE_ADDRESS, _address);
-            requestBody.put(WebserviceConstants.KEY_TEACHER_UPDATE_CITY, _city);
-            requestBody.put(WebserviceConstants.KEY_TEACHER_UPDATE_COUNTRY, _country);
-            //  requestBody.put(WebserviceConstants.KEY_TEACHER_UPDATE_STATE, _lname);
-            requestBody.put(WebserviceConstants.KEY_TEACHER_UPDATE_GENDER, _gender);
-
-            requestBody.put(WebserviceConstants.KEY_TEACHER_UPDATE_PASSWARD, _passward);
-
-            requestBody.put(WebserviceConstants.KEY_TEACHER_UPDATE_STATE, _state);
-            requestBody.put(WebserviceConstants.KEY_TEACHER_UPDATE_PHONE, _phone);
-            requestBody.put(WebserviceConstants.KEY_SCHOOLID, _studentId);
-
-            requestBody.put(WebserviceConstants.KEY_TEACHER_UPDATE_MEMBERID, _memberID);
-            requestBody.put(WebserviceConstants.KEY_TEACHER_UPDATE_KEY, _Key);
-            requestBody.put(WebserviceConstants.KEY_TEACHER_UPDATE_COUNTRYCODE, _countrycode
-            );
-            requestBody.put(WebserviceConstants.KEY_TEACHER_USERIMG_BASE64, _img
-            );
+            requestBody.put(WebserviceConstants.KEY_USER_ID, user_id);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -149,10 +101,10 @@ public class UpdateProfile extends SmartCookieTeacherService {
                     String email = jsonObject.optString(WebserviceConstants.KEY_USER_REG_EMAIL);
                     String imgpath = jsonObject.optString(WebserviceConstants.KEY_USER_REG_IMGPATH);
                     String imgname = jsonObject.optString(WebserviceConstants.KEY_USER_REG_IMGNAME);
-                    /*String gender = jsonObject.optString(WebserviceConstants.KEY_TEACHER_UPDATE_GENDER);
-                    String dob = jsonObject.optString(WebserviceConstants.KEY_TEACHER_UPDATE_DOB);*/
+                   /* String gender = jsonObject.optString(WebserviceConstants.KEY_USER_GENDER);
+                    String dob = jsonObject.optString(WebserviceConstants.KEY_USER_DOB);*/
 
-                    _regmodel = new NewRegistrationModel(userIdname,compname, fname, mname,lname,address,city,country,state,phone,regpassward,countryucode,email,imgpath, imgname/*,dob, password*/);
+                    _regmodel = new NewRegistrationModel(userIdname,compname, fname, mname,lname,address,city,country,state,phone,regpassward,countryucode,email,imgpath, imgname/*,dob,gender*/);
 
                 }
                 responseObject = new ServerResponse(errorCode, _regmodel);
@@ -188,7 +140,7 @@ public class UpdateProfile extends SmartCookieTeacherService {
 
         EventNotifier notifier =
                 NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_TEACHER);
-        notifier.eventNotify(EventTypes.EVENT_TEACHER_UPDATE_PROFILE, eventObject);
+        notifier.eventNotify(EventTypes.EVENT_TEACHER_DISPLAY_PROFILE, eventObject);
 
     }
 }

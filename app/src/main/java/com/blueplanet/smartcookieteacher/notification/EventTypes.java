@@ -234,7 +234,9 @@ public class EventTypes {
     public static final int EVENT_UI_INVALID_INPUT = 287;
 
 
-
+    public static final int EVENT_TEACHER_DISPLAY_PROFILE= 288;
+    public static final int EVENT_TEACHER_UI_DISPLAY_PROFILE = 289;
+    public static final int EVENT_TEACHER_UI_NOT_DISPLAY_PROFILE = 290;
 
 
 

@@ -260,7 +260,8 @@ public class DisplayCategorieFragmentController implements IEventListener, Adapt
                         NotifierFactory.getInstance().getNotifier
                                 (NotifierFactory.EVENT_NOTIFIER_COUPON);
                 event4.unRegisterListener(this);
-                progressDialog.dismiss();
+                if(progressDialog != null)
+                    progressDialog.dismiss();
                 _disCategorieFragment.showOrHideErrorMessage(true);
                 break;
             default:

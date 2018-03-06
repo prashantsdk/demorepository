@@ -34,10 +34,22 @@
                     android:background="@drawable/logo"/>
 
                 <TextView
-                    android:id="@+id/txtName"
+                    android:id="@+id/txtcompname"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/coupon_img"
+                    android:layout_centerInParent="true"
+                    android:layout_marginTop="20dp"
+                    android:text="PIZZA"
+                    android:textColor="#5A5A5A"
+                    android:textSize="19sp" />
+
+
+                <TextView
+                    android:id="@+id/txtName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txtcompname"
                     android:layout_centerInParent="true"
                     android:layout_marginTop="20dp"
                     android:text="PIZZA"

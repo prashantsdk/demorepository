@@ -26,7 +26,7 @@ import com.blueplanet.smartcookieteacher.utils.SmartCookieImageLoader;
  */
 public class StudentDetailFragment extends Fragment {
 
-    private TextView _gender, _dob, _age, _schoolName, _division, _hobbies;
+    private TextView _gender, _dob, _age, _schoolName, _division, _hobbies,_subject,_txtemail,_txtphone;
     private TextView _address, _city, _country;
     private TextView _stdName, _stdPRN, _claSsName;
     private ImageView iv_studentPhoto;
@@ -68,6 +68,11 @@ public class StudentDetailFragment extends Fragment {
         _btnAssign = (CustomButton) _view.findViewById(R.id.btn_assignPoints);
         _btnactivitywise= (CustomButton) _view.findViewById(R.id.btn_activitywise);
         _btnsubjectwise = (CustomButton) _view.findViewById(R.id.btn_suvbjecwise);
+        _subject = (TextView) _view.findViewById(R.id.txt_sub);
+        _txtemail= (TextView) _view.findViewById(R.id.txt_email);
+        _txtphone= (TextView) _view.findViewById(R.id.txt_mobile);
+
+
     }
 
     private void _setStudentDetailsOnUI() {
@@ -92,7 +97,8 @@ public class StudentDetailFragment extends Fragment {
                     _setCityOnUI(_student);
                     _setCountryOnUI(_student);
                     _setClassNameOnUI(_student);
-
+                    _setsubjectNameOnUI(_student);
+                    _setemailNameOnUI(_student);
                     String timage = _student.get_stdImageUrl();
 
                     if (timage != null && timage.length() > 0) {
@@ -237,6 +243,33 @@ public class StudentDetailFragment extends Fragment {
             _schoolName.setText("N/A");
         } else {
             _schoolName.setText(name);
+
+        }
+
+    }
+    private void _setsubjectNameOnUI(Student student) {
+        String subject = student.get_stdsubname();
+        if (!(TextUtils.isEmpty(subject)) && subject.equalsIgnoreCase("null")) {
+            _subject.setText("N/A");
+        } else {
+            _subject.setText(subject);
+
+        }
+    }
+    private void _setemailNameOnUI(Student student) {
+        String email = student.get_stdEmail();
+        if (!(TextUtils.isEmpty(email)) && email.equalsIgnoreCase("null")) {
+            _txtemail.setText("N/A");
+        } else {
+            _txtemail.setText(email);
+
+        }}
+    private void _setephoneNameOnUI(Student student) {
+        String email = student.get();
+        if (!(TextUtils.isEmpty(email)) && email.equalsIgnoreCase("null")) {
+            _txtemail.setText("N/A");
+        } else {
+            _txtemail.setText(email);
 
         }
 

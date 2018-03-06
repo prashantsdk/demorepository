@@ -221,8 +221,6 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
                     _rememberMe.setChecked(false);
 
                 }
-
-
             }
 
 

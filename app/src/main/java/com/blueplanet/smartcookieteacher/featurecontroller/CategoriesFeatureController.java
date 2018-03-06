@@ -1,6 +1,9 @@
 package com.blueplanet.smartcookieteacher.featurecontroller;
 
 
+import android.app.ProgressDialog;
+import android.content.Context;
+
 import com.blueplanet.smartcookieteacher.communication.ErrorInfo;
 import com.blueplanet.smartcookieteacher.communication.HTTPConstants;
 import com.blueplanet.smartcookieteacher.communication.ServerResponse;
@@ -26,7 +29,7 @@ public class CategoriesFeatureController implements IEventListener {
     private Category _selectedcategory;
     private ArrayList<Category> _disCategories = new ArrayList<>();
     private Category _cate;
-
+    private ProgressDialog progressDialog;
 
 
     /**
@@ -61,7 +64,10 @@ public class CategoriesFeatureController implements IEventListener {
      */
 
 
-    public void getDisplayCategorieFromServer(String ab_key) {
+    public void getDisplayCategorieFromServer(Context context, String ab_key) {
+
+        progressDialog = WebserviceConstants.showProgress(context, "Loading categories...");
+        progressDialog.show();
 
         EventNotifier eventNotifier =
                 NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_TEACHER);
@@ -100,6 +106,8 @@ public class CategoriesFeatureController implements IEventListener {
             case EventTypes.EVENT_DISPLAY_CATEGORIE_LIST_RECEVIED:
 
                 if (errorCode == WebserviceConstants.SUCCESS) {
+
+                    progressDialog.dismiss();
                     _disCategories = (ArrayList<Category>) responseObject;
 
                     eventNotifierUI =

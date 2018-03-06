@@ -159,6 +159,14 @@ public class EventTypes {
     public static final int EVENT_UI_ACCEPT_REQUEST = 1061;
     public static final int EVENT_NOT_UI_ACCEPT_REQUEST = 1062;
 
+    public static final int EVENT_DELETE_FROM_CART = 1063;
+    public static final int EVENT_UI_DELETE_FROM_CART_SUCCESS= 1064;
+    public static final int EVENT_UI_NOT_DELETE_FROM_CART = 1065;
+
+    public static final int EVENT_MY_CART = 1066;
+    public static final int EVENT_UI_MY_CART_SUCCESS= 1067;
+    public static final int EVENT_UI_NOT_MY_CART = 1068;
+
     public static final int EVENT_GCM_RESPONCE_RECIEVED = 241;
     public static final int EVENT_UI_GCM_RESPONCE_RECIEVED= 242;
     public static final int EVENT_UI_NO_GCM_RESPONCE_RECIEVED = 243;
@@ -226,7 +234,9 @@ public class EventTypes {
     public static final int EVENT_UI_INVALID_INPUT = 287;
 
 
-
+    public static final int EVENT_TEACHER_DISPLAY_PROFILE= 288;
+    public static final int EVENT_TEACHER_UI_DISPLAY_PROFILE = 289;
+    public static final int EVENT_TEACHER_UI_NOT_DISPLAY_PROFILE = 290;
 
 
 

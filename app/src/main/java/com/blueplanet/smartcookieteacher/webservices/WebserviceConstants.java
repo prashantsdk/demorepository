@@ -1,5 +1,12 @@
 package com.blueplanet.smartcookieteacher.webservices;
 
+import android.app.Fragment;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.text.Layout;
+import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.blueplanet.smartcookieteacher.R;
@@ -58,6 +65,8 @@ public class WebserviceConstants {
     public static final String NEW_REGISTRATION = "quickregistration_ws_v1.php";
     public static final String GENERATE_COUPON_LOG = "teacher_generate_coupon_ws_v4.php";
     public static final String COUPON_ADD_TO_CART = "add_to_cart_ws.php";
+    public static final String COUPON_DELETE_FROM_CART = "del_coupon_from_cart_ws.php";
+    public static final String COUPON_MY_CART = "my_cart_items_ws.php";
     public static final String COUPON_ADD_TO_CART_CONFIRM = "cart_confirm_ws.php";
     public static final String BUY_COUPON_LOG = "show_selected_vendor_coupons_ws.php";
     public static final String GENERATE_COUPON_LOG_WEB_SERVICE = "display_couponlist_teacher.php";
@@ -81,6 +90,7 @@ public class WebserviceConstants {
     public static final String PURCHASEWATERPOINTS = "purchase_water_point_student.php";
     public static final String TEACHER_DISPLAY_SUBJECT_WEB_SERVICE = "display_school_subject_for_teacher.php";
     public static final String TEACHER_UPDATE_PROFILE = "update_teacher_profile_webservice_V1.php";
+    public static final String TEACHER_DISPLAY_PROFILE = "display_teacher_profile_webservice_V1.php";
     public static final String TEACHER_ADD_SUBJECT = "wsforaddsub.php";
 
     public static final String STUDENT_SUGGEST_SPONSOR_LIST = "suggested_sponsors.php";
@@ -421,6 +431,7 @@ public class WebserviceConstants {
     //output for Add
 
     public static final String KEY_COUP_ID = "coupon_id";
+    public static final String KEY_SEL_ID = "selid";
     public static final String KEY_COUP_POINTS_PER = "points_per_product";
     public static final String KEY_COUP_VALIDITY = "valid_until";
     public static final String KEY_COUP_NAME = "Sponser_product";
@@ -822,5 +833,26 @@ public class WebserviceConstants {
     public static final String KEY_USER_REG_IMGNAME = "User_Image_Name";
 
 
+    public static ProgressDialog showProgress(Context context, String message){
+        ProgressDialog mProgressDialog;
+        mProgressDialog = new ProgressDialog(context);
+      //  mProgressDialog.setContentView(R.layout.progressview);
+        mProgressDialog.setMessage(message);
+        mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        mProgressDialog.setCancelable(false);
 
+        return mProgressDialog;
+    }
+
+    public static ProgressBar showProgress(Context context, RelativeLayout layout){
+        ProgressBar progressBar;
+        progressBar = new ProgressBar(context,null,android.R.attr.progressBarStyleLarge);
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(100,100);
+        params.addRule(RelativeLayout.CENTER_IN_PARENT);
+        layout.addView(progressBar,params);
+        /*progressBar.setVisibility(View.VISIBLE);  //To show ProgressBar
+        progressBar.setVisibility(View.GONE);*/     // To Hide ProgressBar
+
+        return progressBar;
+    }
 }

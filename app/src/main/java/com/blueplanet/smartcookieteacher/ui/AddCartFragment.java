@@ -86,11 +86,8 @@ public class AddCartFragment extends Fragment {
                             getActivity().getString(R.string.coupon_buy_unsuccessful),
                             Toast.LENGTH_LONG).show();
                 }
-
             }
         });
-
-
     }
     public void showCouponBuyUnsuccessfulMessage() {
         getActivity().runOnUiThread(new Runnable() {
@@ -121,6 +118,24 @@ public class AddCartFragment extends Fragment {
                 }
             });
         }
+    }
+
+    public void showConfirmDeleteSucessfully(final boolean flag) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (flag == true) {
+                    Toast.makeText(getActivity().getApplicationContext(),
+                            getActivity().getString(R.string.coupon_delete),
+                            Toast.LENGTH_LONG).show();
+                }
+                /*else{
+                    Toast.makeText(getActivity().getApplicationContext(),
+                            getActivity().getString(R.string.coupon_buy_unsuccessful),
+                            Toast.LENGTH_LONG).show();
+                }*/
+            }
+        });
     }
 
     private void clearStudentList() {

@@ -134,13 +134,11 @@ public class AddCartFragmentController implements IEventListener, View.OnClickLi
                 Log.i("LoginFragmentController", "IN EVENT_UI_NO_CONFIRM_RESPONSE");
 
                 break;
+
             default:
                 eventState = EventState.EVENT_IGNORED;
                 break;
-
-
         }
-
         return EventState.EVENT_PROCESSED;
 
     }

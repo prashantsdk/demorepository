@@ -9,8 +9,6 @@ import com.blueplanet.smartcookieteacher.communication.HTTPConstants;
 import com.blueplanet.smartcookieteacher.communication.ServerResponse;
 import com.blueplanet.smartcookieteacher.communication.SmartCookieTeacherService;
 import com.blueplanet.smartcookieteacher.models.AddCart;
-import com.blueplanet.smartcookieteacher.models.BuyCoupon;
-import com.blueplanet.smartcookieteacher.models.Student;
 import com.blueplanet.smartcookieteacher.notification.EventNotifier;
 import com.blueplanet.smartcookieteacher.notification.EventTypes;
 import com.blueplanet.smartcookieteacher.notification.NotifierFactory;
@@ -22,38 +20,31 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 /**
- * Created by 1311 on 10-03-2016.
+ * Created by Priyanka on 27-02-2018.
  */
-public class Add_to_cart extends SmartCookieTeacherService {
+public class Delete_from_cart extends SmartCookieTeacherService {
 
-    private String _entity, _couponid, _pointsPerProduct, _tid, _userid;
+    private String _couponid;
+    private String _selid;
     private final String _TAG = this.getClass().getSimpleName();
 
-    public Add_to_cart(String couponid, String pointsPerProduct, String entity, String userid
-    ) {
+    public Delete_from_cart(String selid, String couponid) {
         _couponid = couponid;
-        _pointsPerProduct = pointsPerProduct;
-        _entity = entity;
-        _userid = userid;
-
-
+        _selid = selid;
     }
 
     @Override
     protected String formRequest() {
         return WebserviceConstants.HTTP_BASE_URL +
-                WebserviceConstants.BASE_URL + WebserviceConstants.COUPON_ADD_TO_CART;
+                WebserviceConstants.BASE_URL + WebserviceConstants.COUPON_DELETE_FROM_CART;
     }
 
     @Override
     protected JSONObject formRequestBody() {
         JSONObject requestBody = new JSONObject();
         try {
+            requestBody.put(WebserviceConstants.KEY_SEL_ID, _selid);
             requestBody.put(WebserviceConstants.KEY_COUPON_ID, _couponid);
-            requestBody.put(WebserviceConstants.KEY_POINTS_PER_PRODUCT, _pointsPerProduct);
-            requestBody.put(WebserviceConstants.KEY_ENTITY, _entity);
-            requestBody.put(WebserviceConstants.KEY_USER_ID, _userid);
-
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -71,6 +62,7 @@ public class Add_to_cart extends SmartCookieTeacherService {
         JSONObject objResponseJSON;
         int statusCode = -1;
         String statusMessage = null;
+        String displayMessage = null;
 
 
         Log.i(_TAG, responseJSONString.toString());
@@ -84,27 +76,31 @@ public class Add_to_cart extends SmartCookieTeacherService {
             statusMessage =
                     objResponseJSON.getString(WebserviceConstants.KEY_STATUS_MESSAGE);
 
+
+
             if (statusCode == HTTPConstants.HTTP_COMM_SUCCESS) {
+
+                displayMessage =
+                        objResponseJSON.getString(WebserviceConstants.KEY_POSTS);
                 // success
-                JSONArray responseData = objResponseJSON.optJSONArray(WebserviceConstants.KEY_POSTS);
+                /*JSONArray responseData = objResponseJSON.optJSONArray(WebserviceConstants.KEY_POSTS);
                 for (int i = 0; i < responseData.length(); i++) {
                     JSONObject jsonObject = responseData.optJSONObject(i);
 
                     String sp_coupon_id = jsonObject.optString(WebserviceConstants.KEY_COUP_ID);
                     Log.i(_TAG,"couID"+sp_coupon_id);
-                    String coupon_selid = jsonObject.optString(WebserviceConstants.KEY_SEL_ID);
                     String coupon_pointsPerPro = jsonObject.optString(WebserviceConstants.KEY_COUP_POINTS_PER);
                     String coupon_validity = jsonObject.optString(WebserviceConstants.KEY_COUP_VALIDITY);
                     String coupon_name = jsonObject.optString(WebserviceConstants.KEY_COUP_NAME);
                     String coupon_address = jsonObject.optString(WebserviceConstants.KEY_COUP_ADDRESS);
                     String coupon_image = jsonObject.optString(WebserviceConstants.KEY_COUP_IMAGE);
 
-                    cart = new AddCart(sp_coupon_id, coupon_selid, coupon_pointsPerPro, coupon_validity,coupon_name,coupon_address,coupon_image);
+                    cart = new AddCart(sp_coupon_id, coupon_pointsPerPro, coupon_validity,coupon_name,coupon_address,coupon_image);
                     cardList.add(cart);
 
 
-                }
-                responseObject = new ServerResponse(errorCode, cardList);
+                }*/
+                responseObject = new ServerResponse(errorCode, displayMessage);
 
             } else {
                 // failure
@@ -134,6 +130,6 @@ public class Add_to_cart extends SmartCookieTeacherService {
 
         EventNotifier notifier =
                 NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_COUPON);
-        notifier.eventNotify(EventTypes.EVENT_ADD_TO_CART, eventObject);
+        notifier.eventNotify(EventTypes.EVENT_DELETE_FROM_CART, eventObject);
     }
 }

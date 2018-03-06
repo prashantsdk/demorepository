@@ -2,10 +2,6 @@ package com.blueplanet.smartcookieteacher.ui.customactionbar;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,21 +11,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.blueplanet.smartcookieteacher.R;
-import com.blueplanet.smartcookieteacher.UpdateProfileActivity;
-import com.blueplanet.smartcookieteacher.featurecontroller.DrawerFeatureController;
-import com.blueplanet.smartcookieteacher.featurecontroller.GenerateCouponFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.LoginFeatureController;
-import com.blueplanet.smartcookieteacher.models.GenerateCoupon;
 import com.blueplanet.smartcookieteacher.models.Teacher;
-import com.blueplanet.smartcookieteacher.ui.CouponRedeemFragment;
-import com.blueplanet.smartcookieteacher.ui.NewProfileFragment;
-import com.blueplanet.smartcookieteacher.ui.PointShareFragment;
-import com.blueplanet.smartcookieteacher.ui.StudentDetailFragment;
 import com.blueplanet.smartcookieteacher.utils.IImageLoader;
 import com.blueplanet.smartcookieteacher.utils.SmartCookieImageLoader;
 import com.blueplanet.smartcookieteacher.webservices.WebserviceConstants;
-
-
 
 import java.util.List;
 

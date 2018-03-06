@@ -3,6 +3,7 @@ package com.blueplanet.smartcookieteacher.ui;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -37,11 +38,27 @@ public class DisplayCategorieFragment extends Fragment {
     double latitude = 0.0, longitude = 0.0;
     public static final int PERMISSION_REQUEST_CODE=23;
     String[] LOC_PERMISSIONS = {Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION};
+
+
+   /* @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setRetainInstance(true);
+    }
+
+    public DisplayCategorieFragment() {
+        setArguments(new Bundle());
+    }*/
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         _view = inflater.inflate(R.layout.display_categorie, null);
         _initUI();
         getActivity().setTitle("Buy Coupon");
+
+        if(_selectCategorie.getText().equals("Select category")){
+            _gridView.setVisibility(View.GONE);
+        }
         _displayCategorieFragmentController = new DisplayCategorieFragmentController(this, _view);
         _couponAdapter = new DisplayCouponAdapter(this, _displayCategorieFragmentController);
 
@@ -163,4 +180,12 @@ public class DisplayCategorieFragment extends Fragment {
         }
     }
 
+   /* @Override
+    public void onPause() {
+        super.onPause();
+        String persistentVariable = _selectCategorie.getText().toString();
+
+        getArguments().putString("PersistentValue", persistentVariable);
+    }  //PERSISTENT_VARIABLE_BUNDLE_KEY
+*/
 }

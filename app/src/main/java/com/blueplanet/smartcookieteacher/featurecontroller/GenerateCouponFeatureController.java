@@ -153,7 +153,7 @@ public class GenerateCouponFeatureController implements IEventListener {
                         Log.i(_TAG, "List size from webservice :" + list.size());
                     }
                     _genCouList.addAll(list);
-                    
+
               /*      if(list != null  && list.size()>0){
 
                         for(int  i=0; i<list.size();i++)

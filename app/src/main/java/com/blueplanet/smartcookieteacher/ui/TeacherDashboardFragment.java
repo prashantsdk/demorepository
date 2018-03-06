@@ -18,6 +18,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.blueplanet.smartcookieteacher.ProfileActivity;
 import com.blueplanet.smartcookieteacher.R;
 import com.blueplanet.smartcookieteacher.UpdateProfileActivity;
 import com.blueplanet.smartcookieteacher.customcomponents.CustomTextView;
@@ -326,6 +327,7 @@ public class TeacherDashboardFragment extends Fragment {
         if (id == R.id.action_add) {
             // _loadFragment(R.id.content_frame, new NewProfileFragment());
             Intent i1 = new Intent(this.getActivity(), UpdateProfileActivity.class);
+           // Intent i1 = new Intent(this.getActivity(), ProfileActivity.class);
             startActivity(i1);
 
         } else {

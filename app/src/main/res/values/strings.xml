@@ -31,6 +31,7 @@
     <string name="pointsno">insufficient points to assign</string>
     <string name="coupon_buy">Coupon Buy successfully</string>
     <string name="coupon_add">Coupon Added to cart</string>
+    <string name="coupon_delete">Coupon deleted successfully</string>
     <string name="coupon_buy_toast">Coupon Added to cart successfully</string>
     <string name="coupon_buy_unsuccessful">Sorry...You do not have sufficient points to buy coupon!</string>
     <string name="no_coupon">Sorry...Their is no coupon for buy !</string>

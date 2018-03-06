@@ -8,9 +8,7 @@ import com.blueplanet.smartcookieteacher.communication.ErrorInfo;
 import com.blueplanet.smartcookieteacher.communication.HTTPConstants;
 import com.blueplanet.smartcookieteacher.communication.ServerResponse;
 import com.blueplanet.smartcookieteacher.communication.SmartCookieTeacherService;
-import com.blueplanet.smartcookieteacher.models.AddCart;
-import com.blueplanet.smartcookieteacher.models.BuyCoupon;
-import com.blueplanet.smartcookieteacher.models.Student;
+import com.blueplanet.smartcookieteacher.models.NewRegistrationModel;
 import com.blueplanet.smartcookieteacher.notification.EventNotifier;
 import com.blueplanet.smartcookieteacher.notification.EventTypes;
 import com.blueplanet.smartcookieteacher.notification.NotifierFactory;
@@ -19,47 +17,46 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-
 /**
- * Created by 1311 on 10-03-2016.
+ * Created by Priyanka on 3/05/2018.
  */
-public class Add_to_cart extends SmartCookieTeacherService {
+public class DisplayProfile extends SmartCookieTeacherService {
 
-    private String _entity, _couponid, _pointsPerProduct, _tid, _userid;
+    private String user_id;
+    private String _email, _tid, _fname, _lname,_studentId,_countrycode,_memberID,_Key,_mname;
     private final String _TAG = this.getClass().getSimpleName();
 
-    public Add_to_cart(String couponid, String pointsPerProduct, String entity, String userid
-    ) {
-        _couponid = couponid;
-        _pointsPerProduct = pointsPerProduct;
-        _entity = entity;
-        _userid = userid;
-
-
+    /**
+     * constructor
+     *
+     * @param
+     */
+    public DisplayProfile(String user_id) {
+        this.user_id = user_id;
     }
+
 
     @Override
     protected String formRequest() {
+
+
         return WebserviceConstants.HTTP_BASE_URL +
-                WebserviceConstants.BASE_URL + WebserviceConstants.COUPON_ADD_TO_CART;
+                WebserviceConstants.BASE_URL + WebserviceConstants.TEACHER_DISPLAY_PROFILE;
     }
 
     @Override
     protected JSONObject formRequestBody() {
+
         JSONObject requestBody = new JSONObject();
         try {
-            requestBody.put(WebserviceConstants.KEY_COUPON_ID, _couponid);
-            requestBody.put(WebserviceConstants.KEY_POINTS_PER_PRODUCT, _pointsPerProduct);
-            requestBody.put(WebserviceConstants.KEY_ENTITY, _entity);
-            requestBody.put(WebserviceConstants.KEY_USER_ID, _userid);
-
+            requestBody.put(WebserviceConstants.KEY_USER_ID, user_id);
 
         } catch (JSONException e) {
             e.printStackTrace();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+
         Log.i(_TAG, requestBody.toString());
         return requestBody;
     }
@@ -71,43 +68,50 @@ public class Add_to_cart extends SmartCookieTeacherService {
         JSONObject objResponseJSON;
         int statusCode = -1;
         String statusMessage = null;
+        Log.i(_TAG, "In parseResponse" + responseJSONString.toString());
+       // NewRegistrationModel _regmodel = null;
 
-
-        Log.i(_TAG, responseJSONString.toString());
-        AddCart cart = null;
-        ArrayList<AddCart> cardList = new ArrayList<>();
-
-
+        //ArrayList<NewRegistrationModel> reglist = new ArrayList<>();
         try {
             objResponseJSON = new JSONObject(responseJSONString);
+            String obj = objResponseJSON.toString();
             statusCode = objResponseJSON.getInt(WebserviceConstants.KEY_STATUS_CODE);
             statusMessage =
                     objResponseJSON.getString(WebserviceConstants.KEY_STATUS_MESSAGE);
 
+            Log.i(_TAG, responseJSONString.toString());
+            NewRegistrationModel _regmodel = null;
             if (statusCode == HTTPConstants.HTTP_COMM_SUCCESS) {
                 // success
                 JSONArray responseData = objResponseJSON.optJSONArray(WebserviceConstants.KEY_POSTS);
                 for (int i = 0; i < responseData.length(); i++) {
                     JSONObject jsonObject = responseData.optJSONObject(i);
+                    String userIdname = jsonObject.optString(WebserviceConstants.KEY_USER_MID);
+                    String compname = jsonObject.optString(WebserviceConstants.KEY_USER_COMPNAME);
+                    String fname = jsonObject.optString(WebserviceConstants.KEY_USER_REG_FNAME);
+                    String mname = jsonObject.optString(WebserviceConstants.KEY_USER_REG_MNAME);
+                    String lname = jsonObject.optString(WebserviceConstants.KEY_USER_REG_lNAME);
+                    String address = jsonObject.optString(WebserviceConstants.KEY_USER_REG_ADDRESS);
+                    String city = jsonObject.optString(WebserviceConstants.KEY_USER_REG_CITY);
+                    String country = jsonObject.optString(WebserviceConstants.KEY_USER_REG_COUNTEY);
+                    String state = jsonObject.optString(WebserviceConstants.KEY_USER_REG_STATE);
+                    String phone= jsonObject.optString(WebserviceConstants.KEY_USER_REG_PHONE);
+                    String regpassward = jsonObject.optString(WebserviceConstants.KEY_USER_REG_PASSWARD);
+                    String countryucode = jsonObject.optString(WebserviceConstants.KEY_USER_REG_COUNTRYCODE);
+                    String email = jsonObject.optString(WebserviceConstants.KEY_USER_REG_EMAIL);
+                    String imgpath = jsonObject.optString(WebserviceConstants.KEY_USER_REG_IMGPATH);
+                    String imgname = jsonObject.optString(WebserviceConstants.KEY_USER_REG_IMGNAME);
+                   /* String gender = jsonObject.optString(WebserviceConstants.KEY_USER_GENDER);
+                    String dob = jsonObject.optString(WebserviceConstants.KEY_USER_DOB);*/
 
-                    String sp_coupon_id = jsonObject.optString(WebserviceConstants.KEY_COUP_ID);
-                    Log.i(_TAG,"couID"+sp_coupon_id);
-                    String coupon_selid = jsonObject.optString(WebserviceConstants.KEY_SEL_ID);
-                    String coupon_pointsPerPro = jsonObject.optString(WebserviceConstants.KEY_COUP_POINTS_PER);
-                    String coupon_validity = jsonObject.optString(WebserviceConstants.KEY_COUP_VALIDITY);
-                    String coupon_name = jsonObject.optString(WebserviceConstants.KEY_COUP_NAME);
-                    String coupon_address = jsonObject.optString(WebserviceConstants.KEY_COUP_ADDRESS);
-                    String coupon_image = jsonObject.optString(WebserviceConstants.KEY_COUP_IMAGE);
-
-                    cart = new AddCart(sp_coupon_id, coupon_selid, coupon_pointsPerPro, coupon_validity,coupon_name,coupon_address,coupon_image);
-                    cardList.add(cart);
-
+                    _regmodel = new NewRegistrationModel(userIdname,compname, fname, mname,lname,address,city,country,state,phone,regpassward,countryucode,email,imgpath, imgname/*,dob,gender*/);
 
                 }
-                responseObject = new ServerResponse(errorCode, cardList);
+                responseObject = new ServerResponse(errorCode, _regmodel);
 
             } else {
                 // failure
+                Log.i(_TAG, "In failure");
                 errorCode = WebserviceConstants.FAILURE;
                 responseObject =
                         new ServerResponse(errorCode, new ErrorInfo(statusCode, statusMessage,
@@ -116,8 +120,10 @@ public class Add_to_cart extends SmartCookieTeacherService {
             fireEvent(responseObject);
 
         } catch (JSONException jsonException) {
+            Log.i(_TAG, "In exception");
             jsonException.printStackTrace();
         } catch (Exception exception) {
+            Log.i(_TAG, "In exception");
             exception.printStackTrace();
         }
     }
@@ -133,7 +139,9 @@ public class Add_to_cart extends SmartCookieTeacherService {
         }
 
         EventNotifier notifier =
-                NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_COUPON);
-        notifier.eventNotify(EventTypes.EVENT_ADD_TO_CART, eventObject);
+                NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_TEACHER);
+        notifier.eventNotify(EventTypes.EVENT_TEACHER_DISPLAY_PROFILE, eventObject);
+
     }
 }
+

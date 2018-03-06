@@ -1,12 +1,15 @@
 package com.blueplanet.smartcookieteacher.featurecontroller;
 
 
+import android.util.Log;
+
 import com.blueplanet.smartcookieteacher.DatabaseManager.IPersistence;
 import com.blueplanet.smartcookieteacher.DatabaseManager.PersistenceFactory;
 import com.blueplanet.smartcookieteacher.DatabaseManager.SmartTeacherDatabaseMasterTable;
 import com.blueplanet.smartcookieteacher.communication.ErrorInfo;
 import com.blueplanet.smartcookieteacher.communication.HTTPConstants;
 import com.blueplanet.smartcookieteacher.communication.ServerResponse;
+import com.blueplanet.smartcookieteacher.models.NewRegistrationModel;
 import com.blueplanet.smartcookieteacher.models.Teacher;
 import com.blueplanet.smartcookieteacher.models.User;
 import com.blueplanet.smartcookieteacher.notification.EventNotifier;
@@ -16,7 +19,9 @@ import com.blueplanet.smartcookieteacher.notification.IEventListener;
 import com.blueplanet.smartcookieteacher.notification.ListenerPriority;
 import com.blueplanet.smartcookieteacher.notification.NotifierFactory;
 import com.blueplanet.smartcookieteacher.utils.SmartCookieSharedPreferences;
+import com.blueplanet.smartcookieteacher.webservices.DisplayProfile;
 import com.blueplanet.smartcookieteacher.webservices.ForgetPassward;
+import com.blueplanet.smartcookieteacher.webservices.My_cart;
 import com.blueplanet.smartcookieteacher.webservices.TeacherLogin;
 import com.blueplanet.smartcookieteacher.webservices.WebserviceConstants;
 
@@ -29,6 +34,7 @@ public class LoginFeatureController implements IEventListener {
     private static LoginFeatureController _loginFeatureController = null;
 
     private Teacher _teacher = null;
+    private NewRegistrationModel remodel = null;
 
     public boolean is_boolenType() {
         return _boolenType;
@@ -248,6 +254,7 @@ public class LoginFeatureController implements IEventListener {
         return _teacher;
     }
 
+
     public User getUserInfoFromDB() {
         Object object =
                 PersistenceFactory.get(SmartTeacherDatabaseMasterTable.Tables.USER).getData();
@@ -312,6 +319,7 @@ public class LoginFeatureController implements IEventListener {
 
                 if (errorCode == WebserviceConstants.SUCCESS) {
                     _teacher = (Teacher) responseObject;
+                    Log.e("TEACHEROBJECT", _teacher.get_tName());
                     SmartCookieSharedPreferences.setLoginFlag(true);
 
                     eventNotifierUI =
@@ -396,7 +404,16 @@ public class LoginFeatureController implements IEventListener {
 
                     }
                     break;
+                }
+            case EventTypes.EVENT_TEACHER_DISPLAY_PROFILE:
 
+                if (errorCode == WebserviceConstants.SUCCESS) {
+                    remodel = (NewRegistrationModel) responseObject;
+                    eventNotifierUI =
+                            NotifierFactory.getInstance().getNotifier(
+                                    NotifierFactory.EVENT_NOTIFIER_TEACHER);
+                    eventNotifierUI.eventNotifyOnThread(EventTypes.EVENT_TEACHER_UI_DISPLAY_PROFILE,
+                            serverResponse);
                 }
             default:
                 eventState = EventState.EVENT_IGNORED;
@@ -406,6 +423,15 @@ public class LoginFeatureController implements IEventListener {
         return EventState.EVENT_PROCESSED;
     }
 
+
+    public void FetchUserProfile(String user_id) {
+        EventNotifier eventNotifier =
+                NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_TEACHER);
+        eventNotifier.registerListener(this, ListenerPriority.PRIORITY_MEDIUM);
+
+        DisplayProfile profile = new DisplayProfile(user_id);
+        profile.send();
+    }
 
 }
 

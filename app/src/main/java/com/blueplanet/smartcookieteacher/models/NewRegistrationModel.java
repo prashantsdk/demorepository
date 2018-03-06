@@ -12,6 +12,7 @@ public class NewRegistrationModel {
     private String _fname = null;
     private String _mname = null;
     private String _lname = null;
+    private String _gender = null;
     private String _address = null;
     private String _city = null;
     private String _country = null;
@@ -21,12 +22,12 @@ public class NewRegistrationModel {
     private String _countryucode = null;
     private String _email = null;
     private String _imgpath = null;
-
     private String _imgname = null;
+    private String _dob = null;
 
 
     public NewRegistrationModel(String userIdname,String compname,String fname,String mname,String lname,String address,String city,String country,String state,String phone,
-                                String regpassward,String countryucode,String email,String imgpath,String imgname){
+                                String regpassward,String countryucode,String email,String imgpath,String imgname/*, String dob, String gender*/){
 
         _userIdname=userIdname;
         _compname=compname;
@@ -43,6 +44,8 @@ public class NewRegistrationModel {
         _email=email;
         _imgpath=imgpath;
         _imgname=imgname;
+        /*_dob=dob;
+        _gender=gender;*/
 
     }
 
@@ -104,5 +107,17 @@ public class NewRegistrationModel {
 
     public String get_mname() {
         return _mname;
+    }
+
+    public String get_dob() {
+        return _dob;
+    }
+
+    public String get_password() {
+        return _regpassward;
+    }
+
+    public String get_gender() {
+        return _gender;
     }
 }

@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/relative_parent_layout"
     android:orientation="vertical">
 
     <LinearLayout
@@ -41,6 +42,13 @@
                     android:textColor="#000000"
                     android:textSize="18dp"
                     android:textStyle="bold" />
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/img_dltFromCart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/com_facebook_close"/>
 
                 <com.blueplanet.smartcookieteacher.customcomponents.CustomButton
                     android:id="@+id/btn_generate"

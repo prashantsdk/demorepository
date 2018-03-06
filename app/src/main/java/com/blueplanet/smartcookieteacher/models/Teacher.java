@@ -294,4 +294,52 @@ public class Teacher {
         return _sendStatus;
     }
 
+
+
+
+
+
+
+
+    public void set_tName(String _tName) {
+        this._tName = _tName;
+    }
+
+    public void set_tMiddleName(String _tMiddleName) {
+        this._tMiddleName = _tMiddleName;
+    }
+
+    public void set_tLastName(String _tLastName) {
+        this._tLastName = _tLastName;
+    }
+
+    public void set_tAddress(String _tAddress) {
+        this._tAddress = _tAddress;
+    }
+
+    public void set_tCity(String _tCity) {
+        this._tCity = _tCity;
+    }
+
+    public void set_tDOB(String _tDOB) {
+        this._tDOB = _tDOB;
+    }
+
+    public void set_tCountry(String _tCountry) {
+        this._tCountry = _tCountry;
+    }
+
+    public void set_tEmail(String _tEmail) {
+        this._tEmail = _tEmail;
+    }
+
+    public void set_tPassword(String _tPassword) {
+        this._tPassword = _tPassword;
+    }
+
+    public void set_tPhone(String _tPhone) {
+        this._tPhone = _tPhone;
+    }
+
+
 }

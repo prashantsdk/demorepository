@@ -1,6 +1,9 @@
 package com.blueplanet.smartcookieteacher.ui.controllers;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,19 +11,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.blueplanet.smartcookieteacher.MainApplication;
 import com.blueplanet.smartcookieteacher.R;
-import com.blueplanet.smartcookieteacher.customcomponents.CustomButton;
+import com.blueplanet.smartcookieteacher.communication.ServerResponse;
 import com.blueplanet.smartcookieteacher.featurecontroller.AddToCartFeatureController;
-import com.blueplanet.smartcookieteacher.featurecontroller.DisplayCouponFeatureController;
-import com.blueplanet.smartcookieteacher.featurecontroller.GenerateCouponFeatureController;
+import com.blueplanet.smartcookieteacher.featurecontroller.DeleteFromCartFeatureController;
+import com.blueplanet.smartcookieteacher.featurecontroller.LoginFeatureController;
 import com.blueplanet.smartcookieteacher.models.AddCart;
-import com.blueplanet.smartcookieteacher.models.Coupon_display;
-import com.blueplanet.smartcookieteacher.models.GenerateCoupon;
+import com.blueplanet.smartcookieteacher.models.Teacher;
+import com.blueplanet.smartcookieteacher.notification.EventNotifier;
+import com.blueplanet.smartcookieteacher.notification.EventState;
+import com.blueplanet.smartcookieteacher.notification.EventTypes;
+import com.blueplanet.smartcookieteacher.notification.IEventListener;
+import com.blueplanet.smartcookieteacher.notification.ListenerPriority;
+import com.blueplanet.smartcookieteacher.notification.NotifierFactory;
 import com.blueplanet.smartcookieteacher.ui.AddCartFragment;
-import com.blueplanet.smartcookieteacher.ui.GenerateCouponFragment;
 import com.blueplanet.smartcookieteacher.utils.IImageLoader;
 import com.blueplanet.smartcookieteacher.utils.SmartCookieImageLoader;
 import com.blueplanet.smartcookieteacher.webservices.WebserviceConstants;
@@ -30,7 +40,7 @@ import java.util.ArrayList;
 /**
  * Created by 1311 on 15-03-2016.
  */
-public class AddCartAdapter extends BaseAdapter {
+public class AddCartAdapter extends BaseAdapter implements IEventListener {
 
     private AddCartFragment _addFragment;
     private AddCartFragmentController _controller;
@@ -38,7 +48,12 @@ public class AddCartAdapter extends BaseAdapter {
     private final String _TAG = this.getClass().getSimpleName();
     private TextView _couName, _couId, _txtPoint, _txtOff, _txtvalidity;
     private String _couponPointsOff = null;
-    private ImageView _couImg;
+    private ImageView _couImg, _couDelete;
+    private Teacher _teacher;
+    private int _userID;
+    private ProgressBar progressBar;
+    private ProgressDialog progressDialog;
+    private RelativeLayout relativeLayout;
 
     public AddCartAdapter(AddCartFragment addFragment,
                           AddCartFragmentController controller,
@@ -46,9 +61,13 @@ public class AddCartAdapter extends BaseAdapter {
 
         _addFragment = addFragment;
         _controller = controller;
-        _coupDetailList = AddToCartFeatureController.getInstance().get_selectedCoupList();
+      //  _coupDetailList = AddToCartFeatureController.getInstance().get_selectedCoupList();
         Log.i(_TAG, "Incoup" + _coupDetailList);
 
+        _teacher = LoginFeatureController.getInstance().getTeacher();
+        _userID = _teacher.getId();
+        String entity = "2";
+        _fetchMyCartFromServer(String.valueOf(_userID), entity);
     }
 
     @Override
@@ -70,7 +89,7 @@ public class AddCartAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
             LayoutInflater inflatorInflater = (LayoutInflater) MainApplication
                     .getContext().getSystemService(
@@ -80,6 +99,7 @@ public class AddCartAdapter extends BaseAdapter {
         }
         if (convertView != null) {
             if (_genCoupListPopulated(_coupDetailList)) {
+                relativeLayout = convertView.findViewById(R.id.relative_parent_layout);
                 _couName = (TextView) convertView.findViewById(R.id.txt_couName);
                 _couName.setText(_coupDetailList.get(position).get_coupName());
 
@@ -106,6 +126,8 @@ public class AddCartAdapter extends BaseAdapter {
                 _txtvalidity = (TextView) convertView.findViewById(R.id.txtValidity_Date);
                 _txtvalidity.setText(_coupDetailList.get(position).get_coupValidity());
                 _couImg=(ImageView) convertView.findViewById(R.id.img_coupon);
+                _couDelete = convertView.findViewById(R.id.img_dltFromCart);
+
 
 
                 String imageurl = _coupDetailList.get(position).get_coupimage();
@@ -113,19 +135,51 @@ public class AddCartAdapter extends BaseAdapter {
                   /*  final String imageName = WebserviceConstants.IMAGE_BASE_URL
                             + imageurl;*/
                     final String imageName = imageurl;
-
                     Log.i(_TAG, imageName);
-
-
                     SmartCookieImageLoader.getInstance().setImageLoaderData(imageName, _couImg,
                             IImageLoader.CIRCULAR_USER_POSTER);
                     SmartCookieImageLoader.getInstance().display();
                 }
             }
 
+            _couDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
 
+                  //  Toast.makeText(_addFragment.getActivity(), _coupDetailList.get(position).get_coupName() + " removed from cart", Toast.LENGTH_SHORT).show();
+                   // _coupDetailList.remove(position);
+
+                  //  AddCart addCart = AddToCartFeatureController.getInstance().get_selectedCoup();
+
+                    AlertDialog.Builder alertDialog2 = new AlertDialog.Builder(_addFragment.getActivity());
+                    alertDialog2.setCancelable(false);
+                    alertDialog2.setMessage(" Do you want to delete this item from cart?");
+                    alertDialog2.setPositiveButton("YES",
+                            new DialogInterface.OnClickListener() {
+
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    DeleteFromCartFeatureController.getInstance().set_selectedCoup(_coupDetailList.get(position));
+                                    _fetchDeleteFromCartFromServer(_coupDetailList.get(position).get_selId(), _coupDetailList.get(position).get_couId());
+                                    dialog.cancel();
+                                }
+                            });
+                    alertDialog2.setNegativeButton("NO",
+                            new DialogInterface.OnClickListener() {
+
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.cancel();
+                                }
+                            });
+                    AlertDialog alertDialog3 = alertDialog2.create();
+                    // show it
+                    alertDialog3.show();
+                }
+
+
+            });
         }
-
         return convertView;
     }
 
@@ -141,4 +195,132 @@ public class AddCartAdapter extends BaseAdapter {
         super.notifyDataSetChanged();
         _coupDetailList = AddToCartFeatureController.getInstance().get_selectedCoupList();
     }
+
+    private void _fetchDeleteFromCartFromServer(String selid, String coupon_id) {
+        _registerEventListeners();
+
+        Log.i("1fetchDltCartFromServer", coupon_id + " " + selid);
+        DeleteFromCartFeatureController.getInstance().fetchDeleteFromCart(selid, coupon_id);
+
+    }
+
+    private void _fetchMyCartFromServer(String user_id, String entity_id) {
+        _registerEventListeners();
+
+        /*progressBar = WebserviceConstants.showProgress(_addFragment.getActivity(), relativeLayout);
+        progressBar.setVisibility(View.VISIBLE);*/
+
+        progressDialog = WebserviceConstants.showProgress(_addFragment.getActivity(), "Loading coupons...");
+        progressDialog.show();
+
+        Log.i("1fetchMyCartFromServer", user_id + " " + entity_id);
+        AddToCartFeatureController.getInstance().fetchMyCart(user_id, entity_id);
+
+    }
+
+    private void _registerEventListeners() {
+
+        EventNotifier eventNotifier =
+                NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_COUPON);
+        eventNotifier.registerListener(this, ListenerPriority.PRIORITY_MEDIUM);
+
+    }
+
+    @Override
+    public int eventNotify(int eventType, Object eventObject) {
+
+
+        int eventState = EventState.EVENT_PROCESSED;
+        ServerResponse serverResponse = (ServerResponse) eventObject;
+        int errorCode = -1;
+
+        if (serverResponse != null) {
+            errorCode = serverResponse.getErrorCode();
+        }
+
+        switch (eventType) {
+
+            case EventTypes.EVENT_UI_DELETE_FROM_CART_SUCCESS:
+                EventNotifier eventNotifier2 =
+                        NotifierFactory.getInstance().getNotifier
+                                (NotifierFactory.EVENT_NOTIFIER_COUPON);
+                eventNotifier2.unRegisterListener(this);
+
+                if (errorCode == WebserviceConstants.SUCCESS) {
+                    Log.i(_TAG, "1 In EVENT_UI_CONFIRM_DELETE_SUCCESSFUL");
+                    AddToCartFeatureController.getInstance().deleteCoupon(DeleteFromCartFeatureController.getInstance().get_selectedCoup());
+
+                    _coupDetailList.remove(DeleteFromCartFeatureController.getInstance().get_selectedCoup());
+                    _addFragment.refreshListview();
+                    _addFragment.showConfirmDeleteSucessfully(true);
+
+                    Log.i(_TAG, "2 " + DeleteFromCartFeatureController.getInstance().get_selectedCoup());
+                    if(_coupDetailList.size() == 0)
+                        _addFragment.showNoCouponMessage(true);
+
+                }
+                break;
+
+            case EventTypes.EVENT_UI_MY_CART_SUCCESS:
+                EventNotifier eventNotifier3 =
+                        NotifierFactory.getInstance().getNotifier
+                                (NotifierFactory.EVENT_NOTIFIER_COUPON);
+                eventNotifier3.unRegisterListener(this);
+
+                if (errorCode == WebserviceConstants.SUCCESS) {
+                    Log.i(_TAG, "1 In EVENT_UI_MY_CART_SUCCESSFUL");
+                   // AddToCartFeatureController.getInstance().deleteCoupon(DeleteFromCartFeatureController.getInstance().get_selectedCoup());
+
+                   // progressBar.setVisibility(View.GONE);
+                     progressDialog.dismiss();
+                    _coupDetailList = AddToCartFeatureController.getInstance().get_selectedCoupList();
+                    _addFragment.refreshListview();
+                    //_addFragment.showConfirmDeleteSucessfully(true);
+
+                    Log.i(_TAG, "2 " + DeleteFromCartFeatureController.getInstance().get_selectedCoup());
+                    if(_coupDetailList.size() == 0)
+                        _addFragment.showNoCouponMessage(true);
+
+                }else{
+                    Toast.makeText(_addFragment.getActivity(), "Please check internet connection", Toast.LENGTH_SHORT).show();
+                }
+                break;
+
+            case EventTypes.EVENT_NETWORK_AVAILABLE:
+                EventNotifier eventNetwork1 =
+                        NotifierFactory.getInstance().getNotifier
+                                (NotifierFactory.EVENT_NOTIFIER_NETWORK);
+                eventNetwork1.unRegisterListener(this);
+                break;
+            case EventTypes.EVENT_NETWORK_UNAVAILABLE:
+                EventNotifier eventNetwork =
+                        NotifierFactory.getInstance().getNotifier
+                                (NotifierFactory.EVENT_NOTIFIER_NETWORK);
+
+                eventNetwork.unRegisterListener(this);
+
+                //_loginFragment.showNetworkToast(false);
+                break;
+
+            /*case EventTypes.EVENT_UI_NOT_DELETE_FROM_CART_CONFIRM:
+                EventNotifier eventNotifier3 =
+                        NotifierFactory.getInstance().getNotifier
+
+                                (NotifierFactory.EVENT_NOTIFIER_COUPON);
+
+                eventNotifier3.unRegisterListener(this);
+                _addFragment.showCouponBuyUnsuccessfulMessage();
+                Log.i("LoginFragmentController", "IN EVENT_UI_NO_CONFIRM_RESPONSE");
+
+                break;*/
+            default:
+                eventState = EventState.EVENT_IGNORED;
+                break;
+        }
+        return EventState.EVENT_PROCESSED;
+    }
+
+
 }
+
+

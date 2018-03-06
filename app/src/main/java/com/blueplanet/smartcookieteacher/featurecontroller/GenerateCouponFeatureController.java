@@ -2,6 +2,9 @@ package com.blueplanet.smartcookieteacher.featurecontroller;
 
 import android.util.Log;
 
+import com.blueplanet.smartcookieteacher.DatabaseManager.IPersistence;
+import com.blueplanet.smartcookieteacher.DatabaseManager.PersistenceFactory;
+import com.blueplanet.smartcookieteacher.DatabaseManager.SmartTeacherDatabaseMasterTable;
 import com.blueplanet.smartcookieteacher.communication.ErrorInfo;
 import com.blueplanet.smartcookieteacher.communication.HTTPConstants;
 import com.blueplanet.smartcookieteacher.communication.ServerResponse;
@@ -121,6 +124,11 @@ public class GenerateCouponFeatureController implements IEventListener {
         }
     }
 
+    public  void saveRecentlyGeneratedCoupon(GenerateCoupon generateCoupon){
+        IPersistence persistObj = PersistenceFactory.get(SmartTeacherDatabaseMasterTable.Tables.RECENTLYGENERATEDCOUPON);
+        persistObj.save(persistObj);
+    }
+
     @Override
     public int eventNotify(int eventType, Object eventObject) {
         int eventState = EventState.EVENT_PROCESSED;
@@ -145,6 +153,15 @@ public class GenerateCouponFeatureController implements IEventListener {
                         Log.i(_TAG, "List size from webservice :" + list.size());
                     }
                     _genCouList.addAll(list);
+                    
+              /*      if(list != null  && list.size()>0){
+
+                        for(int  i=0; i<list.size();i++)
+                        {
+                            saveRecentlyGeneratedCoupon(list.get(i));
+                        }
+                    }
+                    */
 
 
                     eventNotifierUI =

@@ -5,12 +5,13 @@ import com.blueplanet.smartcookieteacher.storage.ActivityListTable;
 import com.blueplanet.smartcookieteacher.storage.BluePointTable;
 import com.blueplanet.smartcookieteacher.storage.BuyCoupLogTable;
 import com.blueplanet.smartcookieteacher.storage.GenerateCoupLogTable;
+import com.blueplanet.smartcookieteacher.storage.RecentlyGeneratedCouponTable;
 import com.blueplanet.smartcookieteacher.storage.RewardPointTabel;
 import com.blueplanet.smartcookieteacher.storage.StudentTabel;
+import com.blueplanet.smartcookieteacher.storage.TeacherLoginTabel;
 import com.blueplanet.smartcookieteacher.storage.TeacherPointTable;
 import com.blueplanet.smartcookieteacher.storage.TeacherSubjectTabel;
 import com.blueplanet.smartcookieteacher.storage.UserTable;
-import com.blueplanet.smartcookieteacher.storage.TeacherLoginTabel;
 
 
 /**
@@ -32,8 +33,10 @@ public class PersistenceFactory {
         ActivityList(SmartTeacherDatabaseMasterTable.Tables.ACTIVITYLIST, 5),
         BluePoint(SmartTeacherDatabaseMasterTable.Tables.BLUEPOINTLOG, 6),
         GenCoupon(SmartTeacherDatabaseMasterTable.Tables.GENERATECOUPLOG, 7),
-        BuyCoupon(SmartTeacherDatabaseMasterTable.Tables.BUYCOUPLOG, 7),
-        TeacherPoint(SmartTeacherDatabaseMasterTable.Tables.TEACHERPOINT, 8);
+        BuyCoupon(SmartTeacherDatabaseMasterTable.Tables.BUYCOUPLOG, 8),
+        TeacherPoint(SmartTeacherDatabaseMasterTable.Tables.TEACHERPOINT, 9),
+        RecentlyGenerateCoupon(SmartTeacherDatabaseMasterTable.Tables.RECENTLYGENERATEDCOUPON, 1);
+
 
         private String stringValue;
 
@@ -88,6 +91,9 @@ public class PersistenceFactory {
                 return new BuyCoupLogTable();
             case TeacherPoint:
                 return new TeacherPointTable();
+
+            case RecentlyGenerateCoupon:
+                return new RecentlyGeneratedCouponTable();
             default:
                 break;
         }

@@ -86,6 +86,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             // Log.log ( Log.INFO, "Exception while creating user table" );
             e.printStackTrace();
         }
+
+        try {
+            database.execSQL(SmartTeacherDatabaseMasterTable.CREATE_TEACHER_POINT);
+        } catch (Exception e) {
+            // Log.log ( Log.INFO, "Exception while creating user table" );
+            e.printStackTrace();
+        }
+
+        try {
+            database.execSQL(SmartTeacherDatabaseMasterTable.CREATE_RECENTLYGENERATEDCOUPON);
+        } catch (Exception e) {
+            // Log.log ( Log.INFO, "Exception while creating user table" );
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -101,6 +115,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + SmartTeacherDatabaseMasterTable.Tables.GENERATECOUPLOG);
         db.execSQL("DROP TABLE IF EXISTS " + SmartTeacherDatabaseMasterTable.Tables.BUYCOUPLOG);
         db.execSQL("DROP TABLE IF EXISTS " + SmartTeacherDatabaseMasterTable.Tables.TEACHERPOINT);
+        db.execSQL("DROP TABLE IF EXISTS " + SmartTeacherDatabaseMasterTable.Tables.RECENTLYGENERATEDCOUPON);
+
         // create new tables
         onCreate(db);
 

@@ -15,6 +15,15 @@ public class SmartTeacherDatabaseMasterTable {
      *
      */
 
+    public static final String CREATE_RECENTLYGENERATEDCOUPON = "CREATE TABLE IF NOT EXISTS "
+            +Tables.RECENTLYGENERATEDCOUPON + "("
+            +RecentlyGenerateCoupon.COUPON_ID + " TEXT,"
+            +RecentlyGenerateCoupon.COUPON_POINTS +" TEXT,"
+            +RecentlyGenerateCoupon.COUPON_ISSUE_DATE + " TEXT,"
+            +RecentlyGenerateCoupon.COUPON_VALIDITY_DATE + " TEXT,"
+            +RecentlyGenerateCoupon.COUPON_BALANCE_POINTS+ " TEXT,"
+            +RecentlyGenerateCoupon.COUPON_USED_POINTS +" TEXT " +");";
+
     public static final String CREATE_USER = "CREATE TABLE IF NOT EXISTS "
             + Tables.USER + "("
             + User.USER_NAME + " TEXT NOT NULL UNIQUE PRIMARY KEY COLLATE NOCASE,"
@@ -22,13 +31,6 @@ public class SmartTeacherDatabaseMasterTable {
             + User.REMEMBER_ME + " TEXT,"
             + User.PRN_VALUE + " TEXT"+ ");";
 
-
-   /* public static final String CREATE_USER = "CREATE TABLE IF NOT EXISTS "
-            + Tables.USER + "("
-            + User.USER_NAME + " TEXT,"
-            + User.USER_PASSWORD + " TEXT,"
-            + User.REMEMBER_ME + " TEXT,"
-            + User.PRN_VALUE + " TEXT"+ ");";*/
 
     /**
      * create teacher info query
@@ -168,6 +170,8 @@ public class SmartTeacherDatabaseMasterTable {
 
 
     public interface Tables {
+
+
         String USER = "User";
         String TEACHER = "Teacher";
         String REWARD = "Reward";
@@ -178,9 +182,21 @@ public class SmartTeacherDatabaseMasterTable {
         String GENERATECOUPLOG = "GenCoupon";
         String BUYCOUPLOG = "BuyCoupon";
         String TEACHERPOINT = "TeacherPoint";
+        String RECENTLYGENERATEDCOUPON = "RecentlyGenerateCoupon";
     }
 
 
+
+    public interface RecentlyGenerateCoupon {
+
+        String COUPON_ID ="Coupon_Id";
+        String COUPON_POINTS ="Coupon_Points";
+        String COUPON_ISSUE_DATE ="Coupon_Issue_Date";
+        String COUPON_VALIDITY_DATE ="Coupon_Validity_Date";
+        String COUPON_BALANCE_POINTS ="Coupon_Balance_Point";
+        String COUPON_USED_POINTS="Coupon_Used_Points";
+        //String COUPON_BALANCE_POINTS =""
+    }
     //table added to store User details.
     public interface User {
         String USER_NAME = "user_name";

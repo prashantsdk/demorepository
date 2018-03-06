@@ -79,7 +79,7 @@
         <item name="com.blueplanet.smartcookieteacher:customFont">@string/fontawesome_webfont</item>
     </style>
     <style name="login_button_style">
-        <item name="com.blueplanet.smartcookieteacher:typeface">@string/lato_regular</item>
+        <!--<item name="com.blueplanet.smartcookieteacher:typeface">@string/lato_regular</item>-->
     </style>
 
     <style name="AppCompatAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">

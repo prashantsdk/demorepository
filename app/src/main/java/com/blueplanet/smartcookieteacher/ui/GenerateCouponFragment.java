@@ -38,6 +38,7 @@ public class GenerateCouponFragment extends Fragment implements AdapterView.OnIt
     private Teacher _teacher;
     private TeacherDashbordPoint _teacherDashbordPoint;
     private CustomTextView _txtpoint, mWaterPoints, mBrownPoints;
+    private CustomButton mRenerateCoupon;
     private final String _TAG = this.getClass().getSimpleName();
     private CustomButton _btnGen;
     private EditText etxtpoints;
@@ -97,6 +98,9 @@ public class GenerateCouponFragment extends Fragment implements AdapterView.OnIt
         _btnGen = (CustomButton) _view.findViewById(R.id.btn_generate);
         _listView = (ListView) _view.findViewById(R.id.Iv_CouList);
         spinner = (Spinner) _view.findViewById(R.id.spinner);
+        mRenerateCoupon = _view.findViewById(R.id.btn_recentilygen);
+
+        mRenerateCoupon.setText("Recenetly Generated Coupon");
 
     }
 

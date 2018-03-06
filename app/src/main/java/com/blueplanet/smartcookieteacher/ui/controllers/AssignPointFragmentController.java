@@ -2,9 +2,6 @@ package com.blueplanet.smartcookieteacher.ui.controllers;
 
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -15,7 +12,6 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.Spinner;
@@ -47,7 +43,6 @@ import com.blueplanet.smartcookieteacher.notification.ListenerPriority;
 import com.blueplanet.smartcookieteacher.notification.NotifierFactory;
 import com.blueplanet.smartcookieteacher.ui.ApplicationConstants;
 import com.blueplanet.smartcookieteacher.ui.AssignPointFragment;
-import com.blueplanet.smartcookieteacher.ui.StudentDetailFragment;
 import com.blueplanet.smartcookieteacher.utils.JSONfunctions;
 import com.blueplanet.smartcookieteacher.webservices.WebserviceConstants;
 
@@ -109,7 +104,6 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
     private CustomTextView txtbackbutton;
     RelativeLayout _rl4Option;
     ProgressDialog mProgressDialog;
-
 
 
     boolean resultFlag = false;
@@ -495,14 +489,21 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
                                 Log.i(_TAG, "Value of date is: " + date);
                                 String grade = spinner1.getSelectedItem().toString();
 
-                                String temp = spinnercolr.getSelectedItem().toString();
+                                //  String temp = spinnercolr.getSelectedItem().toString();
+                                int pointTypePosition = spinnercolr.getSelectedItemPosition();
 
                                 logintype = spinner.getSelectedItem().toString();
 
 
-                                String[] pointTypeArray = temp.split(" ");
+                                //String[] pointTypeArray = temp.split(" ");
 
-                                String pointtype = pointTypeArray[0];
+                                String pointtype = "";
+                                if (pointTypePosition == 0) {
+
+                                    pointtype = "Greenpoint";
+                                } else if (pointTypePosition == 1) {
+                                    pointtype = "Waterpoint";
+                                }
 
 
                                 String rewardValue = txt_point.getText().toString();
@@ -517,17 +518,37 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
                                 if (logintype.equals(WebserviceConstants.VAL_USER_TYPE_GUGMENT)) {
                                     if (!rewardValue.isEmpty()) {
                                         methodID = "1";
-                                        if (greenPoints > Integer.parseInt(rewardValue)) {
+
+                                        if (pointtype.equalsIgnoreCase("Greenpoint")) {
 
 
-                                            _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
-                                                    activityId, selectedSubjectId, rewardValue, date, pointtype, commentPoint);
-                                            clearActivityList();
-                                        } else {
+                                            if (greenPoints > Integer.parseInt(rewardValue)) {
 
 
-                                            Toast.makeText(_assignPointFragment.getActivity(), "Insufficient green points", Toast.LENGTH_SHORT).show();
+                                                _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
+                                                        activityId, selectedSubjectId, rewardValue, date, pointtype, commentPoint);
+                                                clearActivityList();
+                                            } else {
 
+
+                                                Toast.makeText(_assignPointFragment.getActivity(), "Insufficient Reward Points", Toast.LENGTH_SHORT).show();
+
+                                            }
+                                        } else if (pointtype.equalsIgnoreCase("Waterpoint")) {
+
+
+                                            if (waterPoints > Integer.parseInt(rewardValue)) {
+
+
+                                                _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
+                                                        activityId, selectedSubjectId, rewardValue, date, pointtype, commentPoint);
+                                                clearActivityList();
+                                            } else {
+
+
+                                                Toast.makeText(_assignPointFragment.getActivity(), "Insufficient Purchase Points", Toast.LENGTH_SHORT).show();
+
+                                            }
                                         }
                                     } else {
 
@@ -613,10 +634,19 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
 
 
                                 String pointtype = spinnercolr.getSelectedItem().toString();
+                                int poinTypePosition = spinnercolr.getSelectedItemPosition();
 
                                 String[] pointTypeArray = pointtype.split(" ");
 
-                                String finalPointType = pointTypeArray[0];
+                                String finalPointType = "";
+
+
+                                if (poinTypePosition == 0) {
+
+                                    finalPointType = "Greenpoint";
+                                } else if (poinTypePosition == 1) {
+                                    finalPointType = "Waterpoint";
+                                }
 
 
                                 String prnNO = student.get_stdPRN();
@@ -661,7 +691,7 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
                                             } else {
 
                                                 Toast.makeText(_assignPointFragment.getActivity(),
-                                                        "Insufficient green points", Toast.LENGTH_SHORT).show();
+                                                        "Insufficient Reward Points", Toast.LENGTH_SHORT).show();
                                             }
                                         } else if (finalPointType.equals("Sponsor")) {
 
@@ -688,7 +718,7 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
                                             } else {
 
                                                 Toast.makeText(_assignPointFragment.getActivity(),
-                                                        "Insufficient water  points", Toast.LENGTH_SHORT).show();
+                                                        "Insufficient Purchase  Points", Toast.LENGTH_SHORT).show();
 
 
                                             }
@@ -726,7 +756,7 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
 
                                             } else {
 
-                                                Toast.makeText(_assignPointFragment.getActivity(), "Insufficent Green Points", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(_assignPointFragment.getActivity(), "Insufficent Reward Points", Toast.LENGTH_SHORT).show();
                                             }
 
 
@@ -753,7 +783,7 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
 
                                             } else {
 
-                                                Toast.makeText(_assignPointFragment.getActivity(), "Insufficent water point", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(_assignPointFragment.getActivity(), "Insufficent Purchase Point", Toast.LENGTH_SHORT).show();
                                             }
                                         }
 
@@ -790,7 +820,7 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
                                                     clearActivityList();
 
                                                 } else {
-                                                    Toast.makeText(_assignPointFragment.getActivity(), "Insufficent green points", Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(_assignPointFragment.getActivity(), "Insufficent Reward Points", Toast.LENGTH_SHORT).show();
                                                 }
                                             } else if (finalPointType.equals("Sponsor")) {
 
@@ -816,7 +846,7 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
 
                                                 } else {
 
-                                                    Toast.makeText(_assignPointFragment.getActivity(), "Insuffient Water point", Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(_assignPointFragment.getActivity(), "Insuffient Purchase Points", Toast.LENGTH_SHORT).show();
                                                 }
                                             }
 
@@ -847,7 +877,7 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
                                                     clearActivityList();
 
                                                 } else {
-                                                    Toast.makeText(_assignPointFragment.getActivity(), "Insufficent green points", Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(_assignPointFragment.getActivity(), "Insufficent Reward  Points", Toast.LENGTH_SHORT).show();
                                                 }
                                             } else if (finalPointType.equals("Sponsor")) {
 
@@ -873,7 +903,7 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
 
                                                 } else {
 
-                                                    Toast.makeText(_assignPointFragment.getActivity(), "Insuffient Water point", Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(_assignPointFragment.getActivity(), "Insuffient Purchase Point", Toast.LENGTH_SHORT).show();
                                                 }
                                             }
 
@@ -902,7 +932,7 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
                                                     clearActivityList();
 
                                                 } else {
-                                                    Toast.makeText(_assignPointFragment.getActivity(), "Insufficent green points", Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(_assignPointFragment.getActivity(), "Insufficent Reward Points", Toast.LENGTH_SHORT).show();
                                                 }
                                             } else if (finalPointType.equals("Sponsor")) {
 
@@ -928,7 +958,7 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
 
                                                 } else {
 
-                                                    Toast.makeText(_assignPointFragment.getActivity(), "Insuffient Water point", Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(_assignPointFragment.getActivity(), "Insuffient Puchase Point", Toast.LENGTH_SHORT).show();
                                                 }
                                             }
 
@@ -956,7 +986,7 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
                                                     clearActivityList();
 
                                                 } else {
-                                                    Toast.makeText(_assignPointFragment.getActivity(), "Insufficent green points", Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(_assignPointFragment.getActivity(), "Insufficent Reward Points", Toast.LENGTH_SHORT).show();
                                                 }
                                             } else if (finalPointType.equals("Sponsor")) {
 
@@ -982,7 +1012,7 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
 
                                                 } else {
 
-                                                    Toast.makeText(_assignPointFragment.getActivity(), "Insuffient Water point", Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(_assignPointFragment.getActivity(), "Insuffient Purchase Point", Toast.LENGTH_SHORT).show();
                                                 }
                                             }
 
@@ -1241,13 +1271,13 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
                         NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_TEACHER);
                 eventNotifier4.unRegisterListener(this);
 
-                 if (errorCode == WebserviceConstants.SUCCESS) {
+                if (errorCode == WebserviceConstants.SUCCESS) {
 
-                _assignPointFragment.showOrHideProgressBar(false);
-                _assignPointFragment.showpoinSubmitSucessfully(true);
+                    _assignPointFragment.showOrHideProgressBar(false);
+                    _assignPointFragment.showpoinSubmitSucessfully(true);
 
 
-         }
+                }
 
 
                 break;
@@ -1261,7 +1291,6 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
                 _assignPointFragment.showNoAListMessage(false);
 
 
-
                 break;
             default:
                 eventState = EventState.EVENT_IGNORED;
@@ -1273,7 +1302,6 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
 
 
     }
-
 
 
     public void clear() {

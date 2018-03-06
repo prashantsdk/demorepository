@@ -113,9 +113,11 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
         TeacherDashbordPoint point = DashboardFeatureController.getInstance().getTeacherpoint();
 
 
-        spinnerColor[0] = "Greenpoint " + Integer.toString(point.get_greenpoint());
-        // spinnerColor[1]= "Sponsor  "+ Integer.toString(point.get_brownpoint());
-        spinnerColor[1] = "Waterpoint  " + Integer.toString(point.get_waterpoint());
+        //spinnerColor[0] = "Greenpoint " + Integer.toString(point.get_greenpoint());
+        // spinnerColor[1] = "Waterpoint  " + Integer.toString(point.get_waterpoint());
+
+        spinnerColor[0] = "Reward Points";
+        spinnerColor[1] = "Purchase Points";
 
 
         ArrayAdapter aa = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item, userOption);
@@ -640,10 +642,12 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
         TeacherDashbordPoint point = DashboardFeatureController.getInstance().getTeacherpoint();
 
 
-        spinnerColor[0] = "Greenpoint " + Integer.toString(point.get_greenpoint());
-        // spinnerColor[1]= "Sponsor  "+ Integer.toString(point.get_brownpoint());
-        spinnerColor[1] = "Waterpoint  " + Integer.toString(point.get_waterpoint());
+        // spinnerColor[0] = "Greenpoint " + Integer.toString(point.get_greenpoint());
+        // spinnerColor[1] = "Waterpoint  " + Integer.toString(point.get_waterpoint());
 
+
+        spinnerColor[0] = "Reward Points";
+        spinnerColor[1] = "Purchase Points";
 
         AssignPointFeatureController.getInstance().set_selectColor(selState);
 

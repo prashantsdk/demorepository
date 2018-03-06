@@ -65,7 +65,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/ll_2"
                 android:layout_marginTop="5dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
                     style="@style/Login_title"

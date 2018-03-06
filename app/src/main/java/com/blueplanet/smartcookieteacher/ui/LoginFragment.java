@@ -208,6 +208,7 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
 
             }
 
+<<<<<<< HEAD
             if (remberMeFlag.equals("false")) {
 
                 _edtMobileNo.setText("");
@@ -216,6 +217,9 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
                 UserSession.setName("");
                 _rememberMe.setChecked(false);
 
+=======
+                }
+>>>>>>> 09d1a7058486fc6a6972fa09edd9bc008dd92618
             }
 
 

@@ -4,8 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/smartteacher_android.iml" filepath="$PROJECT_DIR$/smartteacher_android.iml" />
-      <module fileurl="file://F:\1252018\smartteacher_v2\smartteacher_android.iml" filepath="F:\1252018\smartteacher_v2\smartteacher_android.iml" />
-      <module fileurl="file://D:\smartteacher_android\smartteacher_v2.iml" filepath="D:\smartteacher_android\smartteacher_v2.iml" />
     </modules>
   </component>
 </project>

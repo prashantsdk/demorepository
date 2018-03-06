@@ -86,7 +86,26 @@ public class GenerateCouponFeatureController implements IEventListener {
     }
 
     public ArrayList<GenerateCoupon> get_genCouList() {
+
+
+  /*      Object object =
+                PersistenceFactory.get(SmartTeacherDatabaseMasterTable.Tables.RECENTLYGENERATEDCOUPON).getData();
+
+        if (object != null) {
+            ArrayList<GenerateCoupon> list = (ArrayList<GenerateCoupon>) object;
+            if (list != null && list.size() > 0) {
+                 clearRecentlyGeneratedCoupon();
+                _genCouList.addAll(list);
+            }
+
+        }*/
+
+
         return _genCouList;
+    }
+
+    public void clearRecentlyGeneratedCoupon(){
+
     }
 
     public void set_genCouList(ArrayList<GenerateCoupon> genCouList) {
@@ -161,8 +180,7 @@ public class GenerateCouponFeatureController implements IEventListener {
                             saveRecentlyGeneratedCoupon(list.get(i));
                         }
                     }
-                    */
-
+*/
 
                     eventNotifierUI =
                             NotifierFactory.getInstance().getNotifier(

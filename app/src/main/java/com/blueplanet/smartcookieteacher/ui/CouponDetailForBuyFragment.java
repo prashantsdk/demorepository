@@ -35,7 +35,7 @@ import com.blueplanet.smartcookieteacher.webservices.WebserviceConstants;
 public class CouponDetailForBuyFragment extends Fragment {
     private ImageView _couponImage;
 
-    private TextView _txtpoint, _txtName, txt30;
+    private TextView _txtpoint, _txtName, txt30,_txtcompname;
     private View _view;
     private CouponDetailFragmentController _controller;
     private final String _TAG = this.getClass().getSimpleName();
@@ -66,6 +66,7 @@ public class CouponDetailForBuyFragment extends Fragment {
 
         txt_buy = (TextView) _view.findViewById(R.id.txt_Buy);
         txt_addtocart = (TextView) _view.findViewById(R.id.txt_card);
+        _txtcompname = (TextView) _view.findViewById(R.id.txtcompname);
 
     }
 
@@ -85,7 +86,7 @@ public class CouponDetailForBuyFragment extends Fragment {
                 public void run() {
                     Log.i(_TAG, "In setCouponDataOnUI");
                     _txtName.setText(coupon.get_sp_product());
-
+                    _txtcompname.setText(coupon.getComp());
 
                     String cPoint = coupon.get_discount() + "% OFF";
                     if (!TextUtils.isEmpty(cPoint) && cPoint.equalsIgnoreCase("null")) {

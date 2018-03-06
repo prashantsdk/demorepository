@@ -43,7 +43,23 @@
                     android:text="Pizza"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="#000000" />
+                <com.blueplanet.smartcookieteacher.customcomponents.CustomButton
+                    android:id="@+id/btn_generate"
+                    style="@style/login_button_style"
+                    android:layout_width="80dp"
+                    android:layout_height="60dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_below="@+id/txtgenerate"
 
+                    android:background="@color/blue_circle"
+                    android:textStyle="bold"
+
+                    android:gravity="center"
+                    android:visibility="visible"
+                    android:text="Redeem"
+                    android:textColor="#FFFFFF"
+                    android:textSize="17sp" />
 
             </RelativeLayout>
 

@@ -133,7 +133,7 @@ public class BuyCouLogFragmentController implements IEventListener {
     private void _couLog(String _entity, String _userId, String couflag) {
         _registerEventListeners();
         //_registerNetworkListeners();
-        // _loginFragment.showOrHideProgressBar(true);
+        _buyFragment.showOrHideProgressBar(true);
         BuyCouLogFeatureController.getInstance().fetchBuyCouponLogFromServer(_entity, _userId, couflag);
 
     }

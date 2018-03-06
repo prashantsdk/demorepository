@@ -34,7 +34,7 @@ public class BuyCouLogFeatureController implements IEventListener {
     private BuyCoupon _buycoupon = null;
     private BuyCoupon _selectedCoup = null;
     private final String _TAG = this.getClass().getSimpleName();
-
+private  Buy_Coupon_log _setbuycoupon;
     private ArrayList<Buy_Coupon_log> _buyCouLog = new ArrayList<>();
 
     /**
@@ -51,6 +51,13 @@ public class BuyCouLogFeatureController implements IEventListener {
         return _buyLog;
     }
 
+    public Buy_Coupon_log get_setbuycoupon() {
+        return _setbuycoupon;
+    }
+
+    public void set_setbuycoupon(Buy_Coupon_log _setbuycoupon) {
+        this._setbuycoupon = _setbuycoupon;
+    }
 
     /**
      * make constructor private

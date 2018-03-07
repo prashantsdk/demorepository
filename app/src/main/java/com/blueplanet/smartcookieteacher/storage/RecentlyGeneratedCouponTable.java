@@ -109,6 +109,13 @@ public class RecentlyGeneratedCouponTable extends TableOperations implements IPe
 
     }
 
+
+    public void deleteOne(Object object) {
+        String couponId[] = (String[]) object;
+        deleteRecords ( SmartTeacherDatabaseMasterTable.Tables.RECENTLYGENERATEDCOUPON, SmartTeacherDatabaseMasterTable.RecentlyGenerateCoupon.COUPON_ID, couponId );
+
+    }
+
     @Override
     public void update(Object object) {
 

@@ -96,7 +96,7 @@ public class TeacherLogin extends SmartCookieTeacherService {
 
         try {
 
-            //if ( (responseJSONString.contains("responseStatus"))) {
+            if ( (responseJSONString.contains("responseStatus"))) {
             objResponseJSON = new JSONObject(responseJSONString);
 
             statusCode = objResponseJSON.getInt(WebserviceConstants.KEY_STATUS_CODE);
@@ -236,24 +236,24 @@ public class TeacherLogin extends SmartCookieTeacherService {
                 SmartCookieSharedPreferences.setLoginFlag(false);
 
             }
-           /* } else {
+            } else {
                 errorCode = WebserviceConstants.FAILURE;
                 responseObject =
                         new ServerResponse(errorCode, new ErrorInfo(statusCode, statusMessage,
                                 null));
                 SmartCookieSharedPreferences.setLoginFlag(false);
 
-            }*/
+            }
             fireEvent(responseObject);
 
         } catch (JSONException jsonException) {
             jsonException.printStackTrace();
-            //SmartCookieSharedPreferences.setLoginFlag(false);
+            SmartCookieSharedPreferences.setLoginFlag(false);
 
 
         } catch (Exception exception) {
             exception.printStackTrace();
-            //SmartCookieSharedPreferences.setLoginFlag(false);
+            SmartCookieSharedPreferences.setLoginFlag(false);
 
 
         }

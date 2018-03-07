@@ -104,10 +104,43 @@ public class GenerateCouponFeatureController implements IEventListener {
     }
 
 
-    public void deleteRecentlyGeneratedCoupon(){
+    public ArrayList<GenerateCoupon> getActiualData() {
+
+
+        Object object =
+                PersistenceFactory.get(SmartTeacherDatabaseMasterTable.Tables.RECENTLYGENERATEDCOUPON).getData();
+
+        if (object != null) {
+            ArrayList<GenerateCoupon> list = (ArrayList<GenerateCoupon>) object;
+            if (list != null && list.size() > 0) {
+                clearRecentlyGeneratedCoupon();
+
+                for(int  i=0;i<list.size();i++){
+
+                    GenerateCoupon  anotherGenerateCoupon = list.get(i);
+
+                       int availablePoint = Integer.parseInt(anotherGenerateCoupon.get_couPoint());
+                        if(!(availablePoint< 0)){
+                            _genCouList.add(anotherGenerateCoupon);
+                        } else {
+                            deleteRecentlyGeneratedCoupon(anotherGenerateCoupon.get_couID());
+                        }
+
+                }
+
+            }
+
+        }
+
+        return _genCouList;
+    }
+
+
+
+    public void deleteRecentlyGeneratedCoupon(String couponId){
 
         IPersistence persistObj = PersistenceFactory.get(SmartTeacherDatabaseMasterTable.Tables.RECENTLYGENERATEDCOUPON);
-      //  persistObj.delete(userName);
+       persistObj.delete(couponId);
     }
     public void clearRecentlyGeneratedCoupon() {
 

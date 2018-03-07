@@ -68,6 +68,7 @@ public class ProfileActivity extends AppCompatActivity implements IEventListener
     CoordinatorLayout _layout;
     String _schoolId;
     private Teacher _teacher;
+    private String tId;
     private String userChoosenTask;
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     byte[] bb = null;
@@ -247,6 +248,7 @@ public class ProfileActivity extends AppCompatActivity implements IEventListener
         String state = "";
         _schoolId = _teacher.get_tSchool_id();
 
+        tId = _teacher.get_tId();
         String countrycode = "91";
         int memberID = _teacher.getId();
         String _PhoneCode = String.valueOf(memberID);
@@ -256,7 +258,7 @@ public class ProfileActivity extends AppCompatActivity implements IEventListener
         //sayali
         // onClick of button perform this simplest code.
         if (email.matches(emailPattern)) {
-            UpdateProfileFeatureController.getInstance().updateProfileInfo(email, fname, mname, lname, dob, add, city, country, gender, pas, phone, state, _schoolId,
+            UpdateProfileFeatureController.getInstance().updateProfileInfo(tId, email, fname, mname, lname, dob, add, city, country, gender, pas, phone, state, _schoolId,
                     countrycode, _PhoneCode, Key, img);
         }
         else {
@@ -301,11 +303,10 @@ public class ProfileActivity extends AppCompatActivity implements IEventListener
                 eventsponsorlist.unRegisterListener(this);
                 if (errorCode == WebserviceConstants.SUCCESS) {
 
-                    regmodel = UpdateProfileFeatureController.getInstance().getRemodel();
+                  //  regmodel = UpdateProfileFeatureController.getInstance().getRemodel();
 
                   //  setTeacherInfo(regmodel);
 
-                    Log.i(_TAG, "Value of reg is: ");
                     showProfileUpdateMsg(true);
 
                     runOnUiThread(new Runnable() {
@@ -490,11 +491,12 @@ public class ProfileActivity extends AppCompatActivity implements IEventListener
 
     private void passwNameOnUI(Teacher teacher) {
         String passw = teacher.get_tPassword();
-        if (!(TextUtils.isEmpty(passw)) && passw.equalsIgnoreCase("null")) {
+        _pasword.setText("");
+        /*if (!(TextUtils.isEmpty(passw)) && passw.equalsIgnoreCase("null")) {
             _pasword.setText("");
         } else {
             _pasword.setText(passw);
-        }
+        }*/
     }
 
     private void displayBasicInfo(Teacher teacher) {

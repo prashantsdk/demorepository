@@ -408,7 +408,10 @@ public class LoginFeatureController implements IEventListener {
             case EventTypes.EVENT_TEACHER_DISPLAY_PROFILE:
 
                 if (errorCode == WebserviceConstants.SUCCESS) {
-                    remodel = (NewRegistrationModel) responseObject;
+
+                    _teacher = (Teacher) responseObject;
+
+                    Log.i("InLoginFearute" , _teacher.toString());
                     eventNotifierUI =
                             NotifierFactory.getInstance().getNotifier(
                                     NotifierFactory.EVENT_NOTIFIER_TEACHER);
@@ -424,12 +427,12 @@ public class LoginFeatureController implements IEventListener {
     }
 
 
-    public void FetchUserProfile(String user_id) {
+    public void FetchUserProfile(String t_id, String school_id) {
         EventNotifier eventNotifier =
                 NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_TEACHER);
         eventNotifier.registerListener(this, ListenerPriority.PRIORITY_MEDIUM);
 
-        DisplayProfile profile = new DisplayProfile(user_id);
+        DisplayProfile profile = new DisplayProfile(t_id, school_id);
         profile.send();
     }
 

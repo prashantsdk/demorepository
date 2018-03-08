@@ -429,7 +429,8 @@ public class ProfileActivity extends AppCompatActivity implements IEventListener
     private void _setLastNameOnUI(Teacher teacher) {
         String Lirst = teacher.get_tLastName();
         if (!(TextUtils.isEmpty(Lirst)) && Lirst.equalsIgnoreCase("null")) {
-            _lastName.setText("");
+           // if(Lirst == "N/A")
+                _lastName.setText("");
         } else {
             _lastName.setText(Lirst);
         }
@@ -491,12 +492,14 @@ public class ProfileActivity extends AppCompatActivity implements IEventListener
 
     private void passwNameOnUI(Teacher teacher) {
         String passw = teacher.get_tPassword();
-        _pasword.setText("");
-        /*if (!(TextUtils.isEmpty(passw)) && passw.equalsIgnoreCase("null")) {
+        if (!(TextUtils.isEmpty(passw)) && passw.equalsIgnoreCase("null")) {
             _pasword.setText("");
         } else {
-            _pasword.setText(passw);
-        }*/
+           // _pasword.setText(passw);
+                for(int i = 1; i<=passw.length();i++) {
+                    _pasword.setText(_pasword.getText().toString()+" *");
+                }
+        }
     }
 
     private void displayBasicInfo(Teacher teacher) {

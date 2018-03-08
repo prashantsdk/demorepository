@@ -165,9 +165,9 @@ public class DisplayProfile extends SmartCookieTeacherService {
 
                     String tLName = jsonObject.optString(WebserviceConstants.KEY_TLAST_NAME);
 
-                    if (TextUtils.isEmpty(tLName) || tLName.equalsIgnoreCase("")) {
+                    /*if (TextUtils.isEmpty(tLName) || tLName.equalsIgnoreCase("")) {
                         tLName = "N/A";
-                    }
+                    }*/
                     String tScName = jsonObject.optString(WebserviceConstants.KEY_TCURRENT_SCHOOL_NAME);
                     String tScId = jsonObject.optString(WebserviceConstants.KEY_TSCHOOL_ID);
 
@@ -177,24 +177,24 @@ public class DisplayProfile extends SmartCookieTeacherService {
 
                     String tSubject = jsonObject.optString(WebserviceConstants.KEY_TSUBJECT);
                     if (TextUtils.isEmpty(tSubject)) {
-                        tLName = null;
+                        tSubject = null;
 
                     }
                     String tClass = jsonObject.optString(WebserviceConstants.KEY_CLASS);
                     if (TextUtils.isEmpty(tClass)) {
-                        tLName = null;
+                        tClass = null;
 
                     }
                     String tQulification = jsonObject.optString(WebserviceConstants.KEY_TQULIFICATION);
                     if (TextUtils.isEmpty(tQulification)) {
-                        tLName = null;
+                        tQulification = null;
 
                     }
 
                     String tAddress = jsonObject.optString(WebserviceConstants.KEY_TADDRESS);
                     String tCity = jsonObject.optString(WebserviceConstants.KEY_TCITY);
                     if (TextUtils.isEmpty(tCity)) {
-                        tLName = null;
+                        tCity = null;
 
                     }
                     String tDOB = jsonObject.optString(WebserviceConstants.KEY_TDOB);
@@ -226,36 +226,36 @@ public class DisplayProfile extends SmartCookieTeacherService {
 
                     String tTempAddress = jsonObject.optString(WebserviceConstants.KEY_TEMP_ADDRESS);
                     if (TextUtils.isEmpty(tTempAddress)) {
-                        tLName = null;
+                        tTempAddress = null;
 
                     }
                     String tPerVillage = jsonObject.optString(WebserviceConstants.KEY_PERMANENT_VILLAGE);
                     if (TextUtils.isEmpty(tPerVillage)) {
-                        tLName = null;
+                        tPerVillage = null;
 
                     }
                     String tPerTaluka = jsonObject.optString(WebserviceConstants.KEY_PERMANENT_TALUKA);
                     if (TextUtils.isEmpty(tPerTaluka)) {
-                        tLName = null;
+                        tPerTaluka = null;
 
                     }
 
                     String tPerDistrict = jsonObject.optString(WebserviceConstants.KEY_PERMANENT_DISTRICT);
                     if (TextUtils.isEmpty(tPerDistrict)) {
-                        tLName = null;
+                        tPerDistrict = null;
 
                     }
                     int tPerPincode = jsonObject.optInt(WebserviceConstants.KEY_PERMANENT_PINCODE);
                     String tDotAppoinment = jsonObject.optString(WebserviceConstants.KEY_DOT_OF_APPOINTMENT);
 
                     if (TextUtils.isEmpty(tDotAppoinment)) {
-                        tLName = null;
+                        tDotAppoinment = null;
 
                     }
 
                     String tAppoinmentPid = jsonObject.optString(WebserviceConstants.KEYAPPOINTMENT_TYPE_PID);
                     if (TextUtils.isEmpty(tAppoinmentPid)) {
-                        tLName = null;
+                        tAppoinmentPid = null;
 
                     }
 

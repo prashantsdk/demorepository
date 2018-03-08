@@ -362,7 +362,7 @@ public class UpdateProfileActivity extends AppCompatActivity implements IEventLi
         // String phone = "";
         String state = "";
         _schoolId = _teacher.get_tSchool_id();
-
+        String tId = _teacher.get_tId();
         String countrycode = "91";
         int memberID = _teacher.getId();
         String _PhoneCode = String.valueOf(memberID);
@@ -373,7 +373,7 @@ public class UpdateProfileActivity extends AppCompatActivity implements IEventLi
         // onClick of button perform this simplest code.
         if (email.matches(emailPattern))
         {
-            UpdateProfileFeatureController.getInstance().updateProfileInfo(email, fname, mname, lname, dob, add, city, country, gender, pas, phone, state, _schoolId,
+            UpdateProfileFeatureController.getInstance().updateProfileInfo(tId, email, fname, mname, lname, dob, add, city, country, gender, pas, phone, state, _schoolId,
                     countrycode, _PhoneCode, Key, img);
             // Toast.makeText(getApplicationContext(), "successfully updated", Toast.LENGTH_LONG).show();
         }
@@ -739,11 +739,12 @@ public class UpdateProfileActivity extends AppCompatActivity implements IEventLi
 
     private void passwNameOnUI(Teacher teacher) {
         String passw = teacher.get_tPassword();
-        if (!(TextUtils.isEmpty(passw)) && passw.equalsIgnoreCase("null")) {
+        _pasword.setText("");
+        /*if (!(TextUtils.isEmpty(passw)) && passw.equalsIgnoreCase("null")) {
             _pasword.setText("");
         } else {
             _pasword.setText(passw);
-        }
+        }*/
     }
 
 

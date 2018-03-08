@@ -326,8 +326,8 @@ public class TeacherDashboardFragment extends Fragment {
         int id = item.getItemId();
         if (id == R.id.action_add) {
             // _loadFragment(R.id.content_frame, new NewProfileFragment());
-            Intent i1 = new Intent(this.getActivity(), UpdateProfileActivity.class);
-           // Intent i1 = new Intent(this.getActivity(), ProfileActivity.class);
+            //Intent i1 = new Intent(this.getActivity(), UpdateProfileActivity.class);
+            Intent i1 = new Intent(this.getActivity(), ProfileActivity.class);
             startActivity(i1);
 
         } else {

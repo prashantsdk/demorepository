@@ -35,9 +35,10 @@ public class UpdateProfile extends SmartCookieTeacherService {
      *
      * @param
      */
-    public UpdateProfile(String email, String fname, String mname,String lname, String dob, String address, String city, String country,
+    public UpdateProfile(String tId, String email, String fname, String mname,String lname, String dob, String address, String city, String country,
                          String gender, String passward, String phone, String state,String studentId,String countrycode,
                          String memberID,String Key,String img) {
+        _tid = tId;
         _email = email;
         _fname = fname;
         _mname=mname;
@@ -74,7 +75,7 @@ public class UpdateProfile extends SmartCookieTeacherService {
         JSONObject requestBody = new JSONObject();
         try {
             requestBody.put(WebserviceConstants.KEY_TEACHER_EMAIL, _email);
-            //   requestBody.put(WebserviceConstants.KEY_TEACHER_UPDATE_ID, _tid);
+            requestBody.put(WebserviceConstants.KEY_TEACHER_UPDATE_ID, _tid);
             requestBody.put(WebserviceConstants.KEY_TEACHER_UPDATE_FIRST_NAME, _fname);
             requestBody.put(WebserviceConstants.KEY_TEACHER_UPDATE_MIDDLE_NAME, _mname);
             requestBody.put(WebserviceConstants.KEY_TEACHER_UPDATE_LAST_NAME, _lname);
@@ -94,10 +95,9 @@ public class UpdateProfile extends SmartCookieTeacherService {
 
             requestBody.put(WebserviceConstants.KEY_TEACHER_UPDATE_MEMBERID, _memberID);
             requestBody.put(WebserviceConstants.KEY_TEACHER_UPDATE_KEY, _Key);
-            requestBody.put(WebserviceConstants.KEY_TEACHER_UPDATE_COUNTRYCODE, _countrycode
-            );
-            requestBody.put(WebserviceConstants.KEY_TEACHER_USERIMG_BASE64, _img
-            );
+            requestBody.put(WebserviceConstants.KEY_TEACHER_UPDATE_COUNTRYCODE, _countrycode);
+            requestBody.put(WebserviceConstants.KEY_TEACHER_USERIMG_BASE64, "");
+            //requestBody.put(WebserviceConstants.KEY_TEACHER_USERIMG_BASE64, _img);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -131,7 +131,8 @@ public class UpdateProfile extends SmartCookieTeacherService {
             NewRegistrationModel _regmodel = null;
             if (statusCode == HTTPConstants.HTTP_COMM_SUCCESS) {
                 // success
-                JSONArray responseData = objResponseJSON.optJSONArray(WebserviceConstants.KEY_POSTS);
+
+                /*JSONArray responseData = objResponseJSON.optJSONArray(WebserviceConstants.KEY_POSTS);
                 for (int i = 0; i < responseData.length(); i++) {
                     JSONObject jsonObject = responseData.optJSONObject(i);
                     String userIdname = jsonObject.optString(WebserviceConstants.KEY_USER_MID);
@@ -149,11 +150,16 @@ public class UpdateProfile extends SmartCookieTeacherService {
                     String email = jsonObject.optString(WebserviceConstants.KEY_USER_REG_EMAIL);
                     String imgpath = jsonObject.optString(WebserviceConstants.KEY_USER_REG_IMGPATH);
                     String imgname = jsonObject.optString(WebserviceConstants.KEY_USER_REG_IMGNAME);
+<<<<<<< HEAD
+=======
+                    *//*String gender = jsonObject.optString(WebserviceConstants.KEY_TEACHER_UPDATE_GENDER);
+                    String dob = jsonObject.optString(WebserviceConstants.KEY_TEACHER_UPDATE_DOB);*//*
+>>>>>>> dac2f516ca50f28ef5fccced9108c6294fa9a8af
 
-                    _regmodel = new NewRegistrationModel(userIdname,compname, fname, mname,lname,address,city,country,state,phone,regpassward,countryucode,email,imgpath, imgname/*,dob, password*/);
+                    _regmodel = new NewRegistrationModel(userIdname,compname, fname, mname,lname,address,city,country,state,phone,regpassward,countryucode,email,imgpath, imgname*//*,dob, password*//*);
 
-                }
-                responseObject = new ServerResponse(errorCode, _regmodel);
+                }*/
+                responseObject = new ServerResponse(errorCode, objResponseJSON);
 
             } else {
                 // failure

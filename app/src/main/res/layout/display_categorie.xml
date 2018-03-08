@@ -15,8 +15,8 @@
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
         android:text="Select category"
-        android:drawableRight="@drawable/droupdown"
-        android:drawableTint="@color/cl_white"
+        android:drawableRight="@drawable/ic_arrow_drop_down"
+        android:drawableTint="#FFFFFF"
         android:textColor="#FFFFFF"
         android:textSize="18sp" />
 

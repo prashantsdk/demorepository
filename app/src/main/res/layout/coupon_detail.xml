@@ -25,6 +25,7 @@
         android:layout_height="match_parent"
         android:layout_marginTop="5sp"
         android:layout_weight="1"
-        android:visibility="visible"></ListView>
+        android:visibility="visible"
+        android:padding="5dp"/>
 
 </LinearLayout>

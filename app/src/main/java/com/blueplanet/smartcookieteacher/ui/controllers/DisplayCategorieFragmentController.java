@@ -216,7 +216,9 @@ public class DisplayCategorieFragmentController implements IEventListener, Adapt
                         NotifierFactory.getInstance().getNotifier
                                 (NotifierFactory.EVENT_NOTIFIER_NETWORK);
                 eventNetwork1.unRegisterListener(this);
-                progressDialog.dismiss();
+
+                if(progressDialog != null)
+                    progressDialog.dismiss();
                 break;
 
             case EventTypes.EVENT_NETWORK_UNAVAILABLE:
@@ -224,7 +226,8 @@ public class DisplayCategorieFragmentController implements IEventListener, Adapt
                         NotifierFactory.getInstance().getNotifier
                                 (NotifierFactory.EVENT_NOTIFIER_NETWORK);
                 eventNetwork.unRegisterListener(this);
-                progressDialog.dismiss();
+                if(progressDialog != null)
+                    progressDialog.dismiss();
                 // _StudentListFragment.showNetworkToast(false);
                 break;
 
@@ -238,7 +241,8 @@ public class DisplayCategorieFragmentController implements IEventListener, Adapt
                 if (errorCode == WebserviceConstants.SUCCESS) {
                     Log.i(_TAG, "IN EVENT_UI_DISPLAY_COUPON_LIST_RECEVIED success");
 
-                    progressDialog.dismiss();
+                    if(progressDialog != null)
+                        progressDialog.dismiss();
 
                     displayList = DisplayCouponFeatureController.getInstance().getDisplayCouponList();
                     _disCategorieFragment.showOrHideErrorMessage(false);
@@ -251,7 +255,8 @@ public class DisplayCategorieFragmentController implements IEventListener, Adapt
                         NotifierFactory.getInstance().getNotifier
                                 (NotifierFactory.EVENT_NOTIFIER_COUPON);
                 event3.unRegisterListener(this);
-                progressDialog.dismiss();
+                if(progressDialog != null)
+                    progressDialog.dismiss();
                 _disCategorieFragment.showOrHideErrorMessage(true);
                 break;
 

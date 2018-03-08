@@ -43,13 +43,13 @@ private NewRegistrationModel remodel=null;
     }
 
 
-    public void updateProfileInfo(String email, String fname,String mname, String lname, String dob, String address, String city, String country,
+    public void updateProfileInfo(String tId, String email, String fname,String mname, String lname, String dob, String address, String city, String country,
                                   String gender, String passward, String phone, String state, String studentId,
                                   String countrycode, String memberID, String Key, String img) {
         EventNotifier eventNotifier =
                 NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_TEACHER);
         eventNotifier.registerListener(this, ListenerPriority.PRIORITY_MEDIUM);
-        UpdateProfile update = new UpdateProfile(email, fname,mname,lname, dob, address, city, country, gender, passward, phone, state, studentId, countrycode, memberID, Key, img);
+        UpdateProfile update = new UpdateProfile(tId, email, fname,mname,lname, dob, address, city, country, gender, passward, phone, state, studentId, countrycode, memberID, Key, img);
         update.send();
     }
 
@@ -73,7 +73,7 @@ private NewRegistrationModel remodel=null;
             case EventTypes.EVENT_TEACHER_UPDATE_PROFILE:
 
                 if (errorCode == WebserviceConstants.SUCCESS) {
-                    remodel = (NewRegistrationModel) responseObject;
+                   // remodel = (NewRegistrationModel) responseObject;
                     eventNotifierUI =
                             NotifierFactory.getInstance().getNotifier(
                                     NotifierFactory.EVENT_NOTIFIER_TEACHER);

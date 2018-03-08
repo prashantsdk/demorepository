@@ -25,7 +25,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="19dp"
             android:background="@null"
-            android:text="Buy Coupon"
+            android:text="Buy All Coupons"
             android:textColor="@color/white_solid"
             android:textColorHint="#000000"
             android:textSize="20sp"
@@ -52,7 +52,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:gravity="center"
-        android:text="Thank you...You have redeemed all your coupons!"
+        android:text="Thank you.You have bought all the coupons!"
         android:textColor="@color/colorAccent"
         android:textSize="18sp"
         android:visibility="gone" />

@@ -105,6 +105,7 @@ public class DisplayCategorieFragment extends Fragment {
 
     }
 
+
     public void refreshGridview() {
         getActivity().runOnUiThread(new Runnable() {
             @Override
@@ -178,6 +179,15 @@ public class DisplayCategorieFragment extends Fragment {
                 }
                 break;
         }
+    }
+
+    public void showNetworkMsg() {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(getActivity(), "No internet connection.", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
    /* @Override

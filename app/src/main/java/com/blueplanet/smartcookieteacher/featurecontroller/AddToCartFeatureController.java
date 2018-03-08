@@ -196,7 +196,7 @@ public class AddToCartFeatureController implements IEventListener {
                         eventNotifierUI =
                                 NotifierFactory.getInstance().getNotifier(
                                         NotifierFactory.EVENT_NOTIFIER_COUPON);
-                        eventNotifierUI.eventNotifyOnThread(EventTypes.EVENT_UI_NOT_ADD_TO_CART,
+                        eventNotifierUI.eventNotifyOnThread(EventTypes.EVENT_UI_NOT_MY_CART,
                                 serverResponse);
 
                     } else if (statusCode == HTTPConstants.HTTP_COMM_ERR_BAD_REQUEST) {

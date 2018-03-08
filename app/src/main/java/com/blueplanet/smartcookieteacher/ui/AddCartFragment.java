@@ -41,7 +41,7 @@ public class AddCartFragment extends Fragment {
         _controller = new AddCartFragmentController(this, _view);
         _adapter = new AddCartAdapter(this, _controller, _view);
         _registerUIListeners();
-
+        getActivity().setTitle("My Cart");
 
         return _view;
     }

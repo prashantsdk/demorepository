@@ -43,7 +43,7 @@
             android:scrollbars="vertical"
             android:stretchMode="columnWidth"
             android:verticalScrollbarPosition="right"
-            android:verticalSpacing="5dp"></GridView>
+            android:verticalSpacing="5dp" />
 
         <TextView
             android:id="@+id/txtmessage"

@@ -1,5 +1,6 @@
 package com.blueplanet.smartcookieteacher.webservices;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -856,4 +857,13 @@ public class WebserviceConstants {
 
         return progressBar;
     }
+
+ public static void showNetworkMsg(final Activity activity) {
+       activity.runOnUiThread(new Runnable() {
+        @Override
+        public void run() {
+         Toast.makeText(activity, "No internet connection.", Toast.LENGTH_SHORT).show();
+        }
+       });
+  }
 }

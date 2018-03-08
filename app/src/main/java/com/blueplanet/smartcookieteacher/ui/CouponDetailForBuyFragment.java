@@ -183,7 +183,7 @@ public class CouponDetailForBuyFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         // TODO Add your menu entries here
-        inflater.inflate(R.menu.mywallet, menu);
+        inflater.inflate(R.menu.my_cart, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 

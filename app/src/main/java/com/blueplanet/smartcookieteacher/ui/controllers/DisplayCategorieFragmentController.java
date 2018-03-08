@@ -29,6 +29,7 @@ import com.blueplanet.smartcookieteacher.models.Category;
 import com.blueplanet.smartcookieteacher.models.Coupon_display;
 import com.blueplanet.smartcookieteacher.models.LatAndLongModel;
 import com.blueplanet.smartcookieteacher.models.Teacher;
+import com.blueplanet.smartcookieteacher.network.NetworkManager;
 import com.blueplanet.smartcookieteacher.notification.EventNotifier;
 import com.blueplanet.smartcookieteacher.notification.EventState;
 import com.blueplanet.smartcookieteacher.notification.EventTypes;
@@ -103,7 +104,12 @@ public class DisplayCategorieFragmentController implements IEventListener, Adapt
             }
 
             String ab_key = "123";
-            _fetchDisplayCategorirListFromServer(ab_key);
+
+            if (NetworkManager.isNetworkAvailable()) {
+                _fetchDisplayCategorirListFromServer(ab_key);
+            } else {
+                WebserviceConstants.showNetworkMsg(_disCategorieFragment.getActivity());
+            }
         }
         if (_categoryList != null && _categoryList.size() > 0) {
             // _updateUI();
@@ -228,7 +234,7 @@ public class DisplayCategorieFragmentController implements IEventListener, Adapt
                 eventNetwork.unRegisterListener(this);
                 if(progressDialog != null)
                     progressDialog.dismiss();
-                // _StudentListFragment.showNetworkToast(false);
+                 Toast.makeText(_disCategorieFragment.getActivity(), "No interner connection.", Toast.LENGTH_SHORT).show();
                 break;
 
             case EventTypes.EVENT_UI_DISPLAY_COUPON_LIST_RECEVIED:
@@ -316,7 +322,12 @@ public class DisplayCategorieFragmentController implements IEventListener, Adapt
                                 LatAndLongModel newlat= new LatAndLongModel();
                                 double newlatitude=newlat.get_latitude();
 */
-                                _fetchDisplayCouponListFromServer(catId, distance, latitude, longitude);
+                                if (NetworkManager.isNetworkAvailable()) {
+                                    _fetchDisplayCouponListFromServer(catId, distance, latitude, longitude);
+                                } else {
+                                    WebserviceConstants.showNetworkMsg(_disCategorieFragment.getActivity());
+                                }
+
 
                             /*    if (gpsTracker.canGetLocation()) {
 

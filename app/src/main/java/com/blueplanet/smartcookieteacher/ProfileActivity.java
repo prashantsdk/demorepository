@@ -28,6 +28,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -65,7 +66,7 @@ public class ProfileActivity extends AppCompatActivity implements IEventListener
     private Spinner spinner;
     String base64 = "";
     String[] numberOptn = {"+91", "+1"};
-    CoordinatorLayout _layout;
+    RelativeLayout _layout;
     String _schoolId;
     private Teacher _teacher;
     private String tId;
@@ -113,7 +114,11 @@ public class ProfileActivity extends AppCompatActivity implements IEventListener
         setContentView(R.layout.parent_profile);
         _Init();
         _InitListeners();
-        fetchUserProfileFromServer();
+        if (NetworkManager.isNetworkAvailable()) {
+            fetchUserProfileFromServer();
+        } else {
+            WebserviceConstants.showNetworkMsg(this);
+        }
         _editableFieldsFalse();
         handleButtonClick();
     }
@@ -127,6 +132,7 @@ public class ProfileActivity extends AppCompatActivity implements IEventListener
     }
 
     private void _Init() {
+        _layout = findViewById(R.id.pro);
         _firstName = findViewById(R.id.edt_first_name);
         _middle = findViewById(R.id.edt_middle_name);
         _lastName =  findViewById(R.id.edt_last_name);
@@ -258,8 +264,12 @@ public class ProfileActivity extends AppCompatActivity implements IEventListener
         //sayali
         // onClick of button perform this simplest code.
         if (email.matches(emailPattern)) {
-            UpdateProfileFeatureController.getInstance().updateProfileInfo(tId, email, fname, mname, lname, dob, add, city, country, gender, pas, phone, state, _schoolId,
-                    countrycode, _PhoneCode, Key, img);
+            if(phone.length() == 10) {
+                UpdateProfileFeatureController.getInstance().updateProfileInfo(tId, email, fname, mname, lname, dob, add, city, country, gender, pas, phone, state, _schoolId,
+                        countrycode, _PhoneCode, Key, img);
+            }else{
+                Toast.makeText(getApplicationContext(),"Invalid phone number", Toast.LENGTH_SHORT).show();
+            }
         }
         else {
             Toast.makeText(getApplicationContext(),"Invalid email address", Toast.LENGTH_SHORT).show();

@@ -136,6 +136,14 @@ public class CategoriesFeatureController implements IEventListener {
                         eventNotifierUI.eventNotifyOnThread(EventTypes.EVENT_UI_BAD_REQUEST,
                                 serverResponse);
 
+                    }else if (statusCode == HTTPConstants.HTTP_NO_NETWORK) {
+
+                        eventNotifierUI =
+                                NotifierFactory.getInstance().getNotifier(
+                                        NotifierFactory.EVENT_NOTIFIER_NETWORK);
+                        eventNotifierUI.eventNotifyOnThread(EventTypes.EVENT_NETWORK_UNAVAILABLE,
+                                serverResponse);
+
                     } else {
 
                         eventNotifierUI =

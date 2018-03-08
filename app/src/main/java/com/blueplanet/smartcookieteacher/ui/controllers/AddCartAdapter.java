@@ -24,6 +24,7 @@ import com.blueplanet.smartcookieteacher.featurecontroller.DeleteFromCartFeature
 import com.blueplanet.smartcookieteacher.featurecontroller.LoginFeatureController;
 import com.blueplanet.smartcookieteacher.models.AddCart;
 import com.blueplanet.smartcookieteacher.models.Teacher;
+import com.blueplanet.smartcookieteacher.network.NetworkManager;
 import com.blueplanet.smartcookieteacher.notification.EventNotifier;
 import com.blueplanet.smartcookieteacher.notification.EventState;
 import com.blueplanet.smartcookieteacher.notification.EventTypes;
@@ -67,7 +68,11 @@ public class AddCartAdapter extends BaseAdapter implements IEventListener {
         _teacher = LoginFeatureController.getInstance().getTeacher();
         _userID = _teacher.getId();
         String entity = "2";
-        _fetchMyCartFromServer(String.valueOf(_userID), entity);
+        if (NetworkManager.isNetworkAvailable()) {
+            _fetchMyCartFromServer(String.valueOf(_userID), entity);
+        } else {
+            WebserviceConstants.showNetworkMsg(_addFragment.getActivity());
+        }
     }
 
     @Override
@@ -160,7 +165,11 @@ public class AddCartAdapter extends BaseAdapter implements IEventListener {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     DeleteFromCartFeatureController.getInstance().set_selectedCoup(_coupDetailList.get(position));
-                                    _fetchDeleteFromCartFromServer(_coupDetailList.get(position).get_selId(), _coupDetailList.get(position).get_couId());
+                                    if(NetworkManager.isNetworkAvailable()) {
+                                        _fetchDeleteFromCartFromServer(_coupDetailList.get(position).get_selId(), _coupDetailList.get(position).get_couId());
+                                    }else{
+                                        WebserviceConstants.showNetworkMsg(_addFragment.getActivity());
+                                    }
                                     dialog.cancel();
                                 }
                             });
@@ -237,7 +246,7 @@ public class AddCartAdapter extends BaseAdapter implements IEventListener {
         if (serverResponse != null) {
             errorCode = serverResponse.getErrorCode();
         }
-
+        Log.e("ADDCARTADAPTER", String.valueOf(eventType));
         switch (eventType) {
 
             case EventTypes.EVENT_UI_DELETE_FROM_CART_SUCCESS:
@@ -272,7 +281,8 @@ public class AddCartAdapter extends BaseAdapter implements IEventListener {
                    // AddToCartFeatureController.getInstance().deleteCoupon(DeleteFromCartFeatureController.getInstance().get_selectedCoup());
 
                    // progressBar.setVisibility(View.GONE);
-                     progressDialog.dismiss();
+                    if(progressDialog != null)
+                        progressDialog.dismiss();
                     _coupDetailList = AddToCartFeatureController.getInstance().get_selectedCoupList();
                     _addFragment.refreshListview();
                     //_addFragment.showConfirmDeleteSucessfully(true);
@@ -282,8 +292,23 @@ public class AddCartAdapter extends BaseAdapter implements IEventListener {
                         _addFragment.showNoCouponMessage(true);
 
                 }else{
-                    Toast.makeText(_addFragment.getActivity(), "Please check internet connection", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(_addFragment.getActivity(), "Please check internet connection", Toast.LENGTH_SHORT).show();
+                    if(progressDialog != null)
+                        progressDialog.dismiss();
+                    _addFragment.showNoCouponMessage(true);
                 }
+                break;
+
+            case EventTypes.EVENT_UI_NOT_MY_CART:
+                EventNotifier eventUnauth =
+                        NotifierFactory.getInstance().getNotifier
+                                (NotifierFactory.EVENT_NOTIFIER_COUPON);
+
+                eventUnauth.unRegisterListener(this);
+
+                if(progressDialog != null)
+                    progressDialog.dismiss();
+                _addFragment.showNoCouponMessage(true);
                 break;
 
             case EventTypes.EVENT_NETWORK_AVAILABLE:

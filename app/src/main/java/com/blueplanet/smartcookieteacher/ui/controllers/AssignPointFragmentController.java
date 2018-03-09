@@ -191,11 +191,11 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
                             WebserviceConstants.HTTP_BASE_URL +
                                     WebserviceConstants.BASE_URL + WebserviceConstants.TEACHER_ACIVITY, jsonObjSend);
 
-
+                    JSONArray responseData = null;
                     if (response != null) {
                         JSONObject json = new JSONObject(response);
 
-                        JSONArray responseData = json.optJSONArray(WebserviceConstants.KEY_POSTS);
+                        responseData = json.optJSONArray(WebserviceConstants.KEY_POSTS);
                         for (int i = 0; i < responseData.length(); i++) {
                             JSONObject jsonObject = responseData.optJSONObject(i);
 
@@ -1441,7 +1441,8 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
 
                         JSONObject json = new JSONObject(response);
 
-                        JSONArray responseData = json.optJSONArray(WebserviceConstants.KEY_POSTS);
+                        JSONArray responseData = null;
+                        responseData = json.optJSONArray(WebserviceConstants.KEY_POSTS);
                         for (int i = 0; i < responseData.length(); i++) {
                             JSONObject jsonObject = responseData.optJSONObject(i);
                             String subname = jsonObject.optString(WebserviceConstants.SUBNAME);

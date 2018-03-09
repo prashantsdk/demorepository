@@ -1,6 +1,5 @@
 package com.blueplanet.smartcookieteacher;
 
-import android.*;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -12,22 +11,20 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -37,7 +34,6 @@ import com.blueplanet.smartcookieteacher.customcomponents.CustomButton;
 import com.blueplanet.smartcookieteacher.customcomponents.CustomEditText;
 import com.blueplanet.smartcookieteacher.featurecontroller.LoginFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.UpdateProfileFeatureController;
-import com.blueplanet.smartcookieteacher.models.NewRegistrationModel;
 import com.blueplanet.smartcookieteacher.models.Teacher;
 import com.blueplanet.smartcookieteacher.network.NetworkManager;
 import com.blueplanet.smartcookieteacher.notification.EventNotifier;
@@ -59,7 +55,7 @@ import java.util.Calendar;
 
 public class ProfileActivity extends AppCompatActivity implements IEventListener, View.OnClickListener{
 
-    private CustomEditText _firstName, _middle, _lastName, _dob, _age, _gender, _qual, _occup, _email, _add, _country, _city, _state, _phone, _pasword, _confirmPas;
+    private CustomEditText _firstName, _middle, _lastName, _dob, _gender, _email, _add, _country, _city, _phone, _pasword;
     private CustomButton _btnUpdate, _btnCancel;
     private FloatingActionButton _btnAction;
     private RoundedImageView _parentImg;
@@ -75,7 +71,6 @@ public class ProfileActivity extends AppCompatActivity implements IEventListener
     byte[] bb = null;
     private Bitmap bm;
     private final String _TAG = getClass().getSimpleName();
-    NewRegistrationModel regmodel = null;
     private ProgressDialog progressDialog;
     private static final int REQUEST_CAMERA = 0;
     private static final int SELECT_FILE = 1;
@@ -164,7 +159,6 @@ public class ProfileActivity extends AppCompatActivity implements IEventListener
                 } else {
                     showNetworkMsg();
                 }
-
             }
         });
         _btnCancel.setOnClickListener(new View.OnClickListener() {
@@ -179,7 +173,6 @@ public class ProfileActivity extends AppCompatActivity implements IEventListener
                 Toast.makeText(getApplicationContext(), "Editable", Toast.LENGTH_SHORT).show();
                 _editableFieldsTrue();
                 _btnUpdate.setEnabled(true);
-
             }
         });
 
@@ -200,7 +193,6 @@ public class ProfileActivity extends AppCompatActivity implements IEventListener
         snackbar = Snackbar.make(_layout, "No Connection.Please check your network\n                setting and try again.", Snackbar.LENGTH_SHORT);
         View snackBarView = snackbar.getView();
         snackBarView.setBackgroundColor(ContextCompat.getColor(this, R.color.snack_back));
-
         snackbar.show();
     }
 
@@ -234,7 +226,6 @@ public class ProfileActivity extends AppCompatActivity implements IEventListener
         ArrayAdapter aa = new ArrayAdapter(this, android.R.layout.simple_spinner_item, numberOptn);
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(aa);
-
     }
 
     private void _handleUpdateEvents() {
@@ -250,7 +241,6 @@ public class ProfileActivity extends AppCompatActivity implements IEventListener
         String fname = _firstName.getText().toString();
         String lname = _lastName.getText().toString();
         String mname = _middle.getText().toString();
-
         String state = "";
         _schoolId = _teacher.get_tSchool_id();
 
@@ -259,7 +249,6 @@ public class ProfileActivity extends AppCompatActivity implements IEventListener
         int memberID = _teacher.getId();
         String _PhoneCode = String.valueOf(memberID);
         String Key = "member-id";
-
         _registerListeners();
         //sayali
         // onClick of button perform this simplest code.
@@ -301,11 +290,9 @@ public class ProfileActivity extends AppCompatActivity implements IEventListener
         int errorCode = -1;
         if (serverResponse != null) {
             errorCode = serverResponse.getErrorCode();
-
         }
         Log.i(_TAG, "" + eventType);
         switch (eventType) {
-
 
             case EventTypes.EVENT_TEACHER_UI_UPDATE_PROFILE:
                 EventNotifier eventsponsorlist =
@@ -314,7 +301,6 @@ public class ProfileActivity extends AppCompatActivity implements IEventListener
                 if (errorCode == WebserviceConstants.SUCCESS) {
 
                   //  regmodel = UpdateProfileFeatureController.getInstance().getRemodel();
-
                   //  setTeacherInfo(regmodel);
 
                     showProfileUpdateMsg(true);

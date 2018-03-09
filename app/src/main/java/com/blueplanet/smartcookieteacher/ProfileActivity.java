@@ -180,6 +180,7 @@ public class ProfileActivity extends AppCompatActivity implements IEventListener
             @Override
             public void onClick(View v) {
                 if (checkPermission()) {
+                    _btnUpdate.setEnabled(true);
                     openOptoinDialog();
                 } else {
                     requestPermission();
@@ -491,10 +492,10 @@ public class ProfileActivity extends AppCompatActivity implements IEventListener
         if (!(TextUtils.isEmpty(passw)) && passw.equalsIgnoreCase("null")) {
             _pasword.setText("");
         } else {
-           // _pasword.setText(passw);
-                for(int i = 1; i<=passw.length();i++) {
+            _pasword.setText(passw);
+                /*for(int i = 1; i<=passw.length();i++) {
                     _pasword.setText(_pasword.getText().toString()+" *");
-                }
+                }*/
         }
     }
 

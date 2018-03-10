@@ -3,6 +3,8 @@ package com.blueplanet.smartcookieteacher.ui.controllers;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.DialogInterface;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -17,6 +19,7 @@ import com.blueplanet.smartcookieteacher.featurecontroller.AddToCartFeatureContr
 import com.blueplanet.smartcookieteacher.featurecontroller.BuyCouponFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.CategoriesFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.DisplayCouponFeatureController;
+import com.blueplanet.smartcookieteacher.featurecontroller.DrawerFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.LoginFeatureController;
 import com.blueplanet.smartcookieteacher.models.BuyCoupon;
 import com.blueplanet.smartcookieteacher.models.Coupon_display;
@@ -118,7 +121,7 @@ public class CouponDetailFragmentController implements IEventListener, OnClickLi
 
                 alertDialog.setCancelable(false);
                 _couponPoints = _coupon.get_points_per_product();
-                alertDialog.setMessage(_couponPoints + " Points will be deducted from your account do you want to confirm?");
+                alertDialog.setMessage(_couponPoints + " Points will be deducted. Are you sure?");
                 alertDialog.setPositiveButton("YES",
                         new DialogInterface.OnClickListener() {
 
@@ -285,6 +288,14 @@ public class CouponDetailFragmentController implements IEventListener, OnClickLi
                                             _fragment.getActivity().getString(R.string.coupon_buy),
                                             Toast.LENGTH_LONG).show();
                                     txtcode.setText("Coupon Code : " + _couponCode);
+
+
+                                    DrawerFeatureController.getInstance().setIsFragmentOpenedFromDrawer(false);
+                                    FragmentManager fm = _fragment.getActivity().getSupportFragmentManager();
+                                    FragmentTransaction ft = fm.beginTransaction();
+                                    ft.remove(_fragment);
+                                    fm.popBackStack();
+                                    ft.commit();
                                 }
                             }
                         });

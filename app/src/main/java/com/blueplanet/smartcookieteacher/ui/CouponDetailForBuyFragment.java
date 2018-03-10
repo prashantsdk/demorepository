@@ -73,7 +73,6 @@ public class CouponDetailForBuyFragment extends Fragment {
     private void _registerUIListner() {
         txt_buy.setOnClickListener(_controller);
         txt_addtocart.setOnClickListener(_controller);
-
     }
 
 
@@ -204,14 +203,19 @@ public class CouponDetailForBuyFragment extends Fragment {
 
         DrawerFeatureController.getInstance().setIsFragmentOpenedFromDrawer(false);
         FragmentManager fm = getActivity().getSupportFragmentManager();
-
         FragmentTransaction ft = fm.beginTransaction();
-        ft.replace(id, fragment);
-        ft.addToBackStack("TeacherDashboardFragment");
-
-        ft.commit();
+        ft.add(id, fragment);
+        ft.hide(CouponDetailForBuyFragment.this);
+        ft.addToBackStack(CouponDetailForBuyFragment.class.getName());
+        //fragment.getActivity().setTitle("Buy Coupon");
+        ft.commitAllowingStateLoss();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        getActivity().setTitle("Buy Coupon");
+    }
 }
 
 

@@ -190,12 +190,9 @@ public class DisplayCategorieFragment extends Fragment {
         });
     }
 
-   /* @Override
-    public void onPause() {
-        super.onPause();
-        String persistentVariable = _selectCategorie.getText().toString();
-
-        getArguments().putString("PersistentValue", persistentVariable);
-    }  //PERSISTENT_VARIABLE_BUNDLE_KEY
-*/
+    @Override
+    public void onResume() {
+        super.onResume();
+        getActivity().setTitle("Buy Coupon");
+    }
 }

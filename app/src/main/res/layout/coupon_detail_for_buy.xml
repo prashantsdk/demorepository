@@ -19,7 +19,7 @@
             <RelativeLayout
                 android:id="@+id/re1"
                 android:layout_width="330dp"
-                android:layout_height="350dp"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="15dp"
@@ -51,7 +51,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/txtcompname"
                     android:layout_centerInParent="true"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="10dp"
                     android:text="PIZZA"
                     android:textColor="#5A5A5A"
                     android:textSize="19sp" />
@@ -91,7 +91,8 @@
                     android:layout_below="@+id/layout1"
                     android:layout_centerHorizontal="true"
                     android:textColor="#5A5A5A"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    android:layout_marginBottom="10dp"/>
             </RelativeLayout>
 
             <LinearLayout

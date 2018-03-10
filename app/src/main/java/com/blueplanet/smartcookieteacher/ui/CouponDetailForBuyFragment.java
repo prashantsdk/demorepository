@@ -162,10 +162,19 @@ public class CouponDetailForBuyFragment extends Fragment {
                 Toast.makeText(getActivity().getApplicationContext(),
                         getActivity().getString(R.string.coupon_buy_unsuccessful),
                         Toast.LENGTH_LONG).show();
-
             }
         });
+    }
 
+    public void showNoPointsMessage() {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(getActivity().getApplicationContext(),
+                        "You don't have sufficient points.",
+                        Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     public void onDestroy() {

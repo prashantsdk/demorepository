@@ -51,6 +51,7 @@ public class CouponDetailFragmentController implements IEventListener, OnClickLi
     private Coupon_display _coupon;
     private String _couponPoints = null;
     private final String _TAG = this.getClass().getSimpleName();
+    private  int balancePoints;
 
 
     public CouponDetailFragmentController(CouponDetailForBuyFragment fragment, View View) {
@@ -198,7 +199,7 @@ public class CouponDetailFragmentController implements IEventListener, OnClickLi
                                     uaserID = _teacher.getId();
                                     _uID = String.valueOf(uaserID);
                                     Log.i(_TAG, "Value of userID: " + _uID);
-
+                                    balancePoints = _teacher.get_tBalance_point();
                                 }
 
                                 int cpId = _coupon.get_coupoin_id();
@@ -222,9 +223,10 @@ public class CouponDetailFragmentController implements IEventListener, OnClickLi
                                         && (!(TextUtils.isEmpty(_couponID))) && (!(TextUtils.isEmpty(_uID)))
                                         ) {
 
-                                    _fetchAddToCartCoupon(_couponID, _couponPoints, entity, _uID);
-
-
+                                    if(balancePoints > Integer.valueOf(pointsPerProduct))
+                                        _fetchAddToCartCoupon(_couponID, _couponPoints, entity, _uID);
+                                    else
+                                        _fragment.showNoPointsMessage();
                                 }
                                 dialog.cancel();
                             }

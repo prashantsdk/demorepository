@@ -2,9 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-
     android:background="@drawable/border">
-
 
     <ImageView
         android:id="@+id/coupon"
@@ -13,10 +11,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        android:layout_marginTop="8dp"
-
-
-        />
+        android:layout_marginTop="8dp" />
 
     <TextView
         android:id="@+id/Sp_name"
@@ -40,7 +35,6 @@
         android:textColor="#5A5A5A"
         android:textSize="13sp" />
 
-
     <LinearLayout
         android:id="@+id/layout1"
         android:layout_width="wrap_content"
@@ -49,7 +43,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="2dp"
         android:orientation="horizontal"
-        android:paddingBottom="10dp">
+        android:paddingBottom="5dp">
 
         <TextView
             android:id="@+id/txtoff"
@@ -61,10 +55,9 @@
 
         <TextView
             android:id="@+id/txtPoint"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-
-            android:text="(ON 100 POINTS)"
+            android:text=" (ON 100 POINTS)"
             android:textColor="#C1310C"
             android:textSize="14sp" />
     </LinearLayout>

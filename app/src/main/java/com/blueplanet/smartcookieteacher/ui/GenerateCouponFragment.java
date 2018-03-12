@@ -38,7 +38,7 @@ public class GenerateCouponFragment extends Fragment implements AdapterView.OnIt
     private Teacher _teacher;
     private TeacherDashbordPoint _teacherDashbordPoint;
     private CustomTextView _txtpoint, mWaterPoints, mBrownPoints;
-    private CustomButton mRenerateCoupon;
+    private TextView mRenerateCoupon;
     private final String _TAG = this.getClass().getSimpleName();
     private CustomButton _btnGen;
     private EditText etxtpoints;
@@ -100,7 +100,6 @@ public class GenerateCouponFragment extends Fragment implements AdapterView.OnIt
         spinner = (Spinner) _view.findViewById(R.id.spinner);
         mRenerateCoupon = _view.findViewById(R.id.btn_recentilygen);
 
-        mRenerateCoupon.setText("Recenetly Generated Coupon");
 
     }
 
@@ -137,8 +136,17 @@ public class GenerateCouponFragment extends Fragment implements AdapterView.OnIt
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        _txtpoint.setText(_coupon.get_couBalancePoint());
-                        //mWaterPoints.setText(_cou);
+
+                        String id = _coupon.get_couID();
+                        String points = _coupon.get_couBalancePoint();
+
+                        String pointType = _coupon.getBalancePointType().toString();
+                        if (pointType.equalsIgnoreCase("Bluepoints")) {
+                            _txtpoint.setText(_coupon.get_couBalancePoint());
+                        }
+                        if (pointType.equalsIgnoreCase("Waterpoints"))
+                            mWaterPoints.setText(_coupon.get_couBalancePoint());
+
 
                     }
                 });
@@ -239,6 +247,7 @@ public class GenerateCouponFragment extends Fragment implements AdapterView.OnIt
             }
         });
     }
+
     public void refreshListview() {
         getActivity().runOnUiThread(
                 new Runnable() {

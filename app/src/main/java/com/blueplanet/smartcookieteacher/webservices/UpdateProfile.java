@@ -96,8 +96,8 @@ public class UpdateProfile extends SmartCookieTeacherService {
             requestBody.put(WebserviceConstants.KEY_TEACHER_UPDATE_MEMBERID, _memberID);
             requestBody.put(WebserviceConstants.KEY_TEACHER_UPDATE_KEY, _Key);
             requestBody.put(WebserviceConstants.KEY_TEACHER_UPDATE_COUNTRYCODE, _countrycode);
-            requestBody.put(WebserviceConstants.KEY_TEACHER_USERIMG_BASE64, "");
-            //requestBody.put(WebserviceConstants.KEY_TEACHER_USERIMG_BASE64, _img);
+           // requestBody.put(WebserviceConstants.KEY_TEACHER_USERIMG_BASE64, "");
+            requestBody.put(WebserviceConstants.KEY_TEACHER_USERIMG_BASE64, _img);
 
         } catch (JSONException e) {
             e.printStackTrace();

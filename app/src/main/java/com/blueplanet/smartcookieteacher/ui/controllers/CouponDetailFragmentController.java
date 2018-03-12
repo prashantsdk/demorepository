@@ -3,6 +3,8 @@ package com.blueplanet.smartcookieteacher.ui.controllers;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.DialogInterface;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -17,6 +19,7 @@ import com.blueplanet.smartcookieteacher.featurecontroller.AddToCartFeatureContr
 import com.blueplanet.smartcookieteacher.featurecontroller.BuyCouponFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.CategoriesFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.DisplayCouponFeatureController;
+import com.blueplanet.smartcookieteacher.featurecontroller.DrawerFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.LoginFeatureController;
 import com.blueplanet.smartcookieteacher.models.BuyCoupon;
 import com.blueplanet.smartcookieteacher.models.Coupon_display;
@@ -48,6 +51,7 @@ public class CouponDetailFragmentController implements IEventListener, OnClickLi
     private Coupon_display _coupon;
     private String _couponPoints = null;
     private final String _TAG = this.getClass().getSimpleName();
+    private  int balancePoints;
 
 
     public CouponDetailFragmentController(CouponDetailForBuyFragment fragment, View View) {
@@ -118,7 +122,7 @@ public class CouponDetailFragmentController implements IEventListener, OnClickLi
 
                 alertDialog.setCancelable(false);
                 _couponPoints = _coupon.get_points_per_product();
-                alertDialog.setMessage(_couponPoints + " Points will be deducted from your account do you want to confirm?");
+                alertDialog.setMessage(_couponPoints + " Points will be deducted. Are you sure?");
                 alertDialog.setPositiveButton("YES",
                         new DialogInterface.OnClickListener() {
 
@@ -195,7 +199,7 @@ public class CouponDetailFragmentController implements IEventListener, OnClickLi
                                     uaserID = _teacher.getId();
                                     _uID = String.valueOf(uaserID);
                                     Log.i(_TAG, "Value of userID: " + _uID);
-
+                                    balancePoints = _teacher.get_tBalance_point();
                                 }
 
                                 int cpId = _coupon.get_coupoin_id();
@@ -219,9 +223,13 @@ public class CouponDetailFragmentController implements IEventListener, OnClickLi
                                         && (!(TextUtils.isEmpty(_couponID))) && (!(TextUtils.isEmpty(_uID)))
                                         ) {
 
+                                    Log.e("Balance POint : " + _teacher.get_tBalance_blue_pint(), "Points per product:" + pointsPerProduct);
+
                                     _fetchAddToCartCoupon(_couponID, _couponPoints, entity, _uID);
-
-
+                                    /*if(balancePoints > Integer.valueOf(pointsPerProduct))
+                                        _fetchAddToCartCoupon(_couponID, _couponPoints, entity, _uID);
+                                    else
+                                        _fragment.showNoPointsMessage();*/
                                 }
                                 dialog.cancel();
                             }
@@ -285,6 +293,14 @@ public class CouponDetailFragmentController implements IEventListener, OnClickLi
                                             _fragment.getActivity().getString(R.string.coupon_buy),
                                             Toast.LENGTH_LONG).show();
                                     txtcode.setText("Coupon Code : " + _couponCode);
+
+
+                                    DrawerFeatureController.getInstance().setIsFragmentOpenedFromDrawer(false);
+                                    FragmentManager fm = _fragment.getActivity().getSupportFragmentManager();
+                                    FragmentTransaction ft = fm.beginTransaction();
+                                    ft.remove(_fragment);
+                                    fm.popBackStack();
+                                    ft.commit();
                                 }
                             }
                         });
@@ -320,6 +336,15 @@ public class CouponDetailFragmentController implements IEventListener, OnClickLi
                     });
 
                 }
+                break;
+
+            case EventTypes.EVENT_UI_NOT_ADD_TO_CART:
+
+                EventNotifier eventNotifier3 =
+                        NotifierFactory.getInstance().getNotifier
+                                (NotifierFactory.EVENT_NOTIFIER_COUPON);
+                eventNotifier3.unRegisterListener(this);
+                _fragment.showNoPointsMessage();
                 break;
 
             case EventTypes.EVENT_NETWORK_AVAILABLE:

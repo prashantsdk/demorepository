@@ -59,6 +59,7 @@ public class AddCartFragment extends Fragment {
     private void _registerUIListeners() {
 
         _listView.setAdapter(_adapter);
+       // if(_couList.size() != 0)
         _btnBuy.setOnClickListener(_controller);
 
     }
@@ -96,10 +97,8 @@ public class AddCartFragment extends Fragment {
                 Toast.makeText(getActivity().getApplicationContext(),
                         getActivity().getString(R.string.no_coupon),
                         Toast.LENGTH_LONG).show();
-
             }
         });
-
     }
 
     public void showNoCouponMessage(boolean visibility) {

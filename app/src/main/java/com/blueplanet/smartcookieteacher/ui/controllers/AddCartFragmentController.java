@@ -1,5 +1,7 @@
 package com.blueplanet.smartcookieteacher.ui.controllers;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -80,8 +82,6 @@ public class AddCartFragmentController implements IEventListener, View.OnClickLi
 
     @Override
     public int eventNotify(int eventType, Object eventObject) {
-
-
         int eventState = EventState.EVENT_PROCESSED;
         ServerResponse serverResponse = (ServerResponse) eventObject;
         int errorCode = -1;
@@ -104,7 +104,6 @@ public class AddCartFragmentController implements IEventListener, View.OnClickLi
                     _cardFragment.refreshListview();
                     _cardFragment.showConfirmSubmitSucessfully(true);
                     _cardFragment.showNoCouponMessage(true);
-
                 }
                 break;
 
@@ -140,7 +139,6 @@ public class AddCartFragmentController implements IEventListener, View.OnClickLi
                 break;
         }
         return EventState.EVENT_PROCESSED;
-
     }
 
     @Override
@@ -149,28 +147,46 @@ public class AddCartFragmentController implements IEventListener, View.OnClickLi
 
         switch (id) {
             case R.id.txt_BuyCou:
-                String entity = "2";
-                if (_teacher != null) {
 
-                    _teacher = LoginFeatureController.getInstance().getTeacher();
-                    _schoolId = _teacher.get_tSchool_id();
-                    Log.i(_TAG, "Value of schoolID: " + _schoolId);
-                    _userID = _teacher.getId();
-                    _uID = String.valueOf(_userID);
-                    Log.i(_TAG, "Value of userID: " + _uID);
-                    if ((!(TextUtils.isEmpty(entity))) && (!(TextUtils.isEmpty(_uID)))) {
-                        _addConfirm(entity, _uID);
-                    }
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(_cardFragment.getActivity());
+                alertDialog.setCancelable(false);
+                alertDialog.setMessage("Are you sure, you want to buy all the coupons?");
+                alertDialog.setPositiveButton("YES",
+                        new DialogInterface.OnClickListener() {
 
-                }
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                String entity = "2";
+                                if (_teacher != null) {
 
+                                    _teacher = LoginFeatureController.getInstance().getTeacher();
+                                    _schoolId = _teacher.get_tSchool_id();
+                                    Log.i(_TAG, "Value of schoolID: " + _schoolId);
+                                    _userID = _teacher.getId();
+                                    _uID = String.valueOf(_userID);
+                                    Log.i(_TAG, "Value of userID: " + _uID);
+                                    if ((!(TextUtils.isEmpty(entity))) && (!(TextUtils.isEmpty(_uID)))) {
+                                        _addConfirm(entity, _uID);
+                                    }
+                                }
+                                dialog.cancel();
+                            }
+                        });
+
+                alertDialog.setNegativeButton("NO",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
+                AlertDialog alertDialog1 = alertDialog.create();
+                // show it
+                alertDialog1.show();
                 break;
-
             default:
                 break;
         }
-
-
     }
 }
 

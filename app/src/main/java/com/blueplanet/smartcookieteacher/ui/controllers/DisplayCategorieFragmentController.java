@@ -373,8 +373,10 @@ public class DisplayCategorieFragmentController implements IEventListener, Adapt
         DrawerFeatureController.getInstance().setIsFragmentOpenedFromDrawer(false);
         FragmentManager fm = _disCategorieFragment.getActivity().getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-        ft.replace(id, fragment);
-        ft.addToBackStack(fragment.getTag());
+        ft.add(id, fragment);
+        ft.hide(_disCategorieFragment);
+        ft.addToBackStack(DisplayCategorieFragment.class.getName());
+       // fragment.getActivity().setTitle("Buy Coupon");
         ft.commitAllowingStateLoss();
     }
 

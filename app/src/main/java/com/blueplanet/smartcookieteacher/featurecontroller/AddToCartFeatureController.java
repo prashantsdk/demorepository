@@ -140,7 +140,7 @@ public class AddToCartFeatureController implements IEventListener {
                     ErrorInfo errorInfo = (ErrorInfo) responseObject;
                     int statusCode = errorInfo.getErrorCode();
 
-                    if (statusCode == HTTPConstants.HTTP_COM_NO_CONTENT) {
+                     if (statusCode == HTTPConstants.HTTP_COM_NO_CONTENT) {
 
                         eventNotifierUI =
                                 NotifierFactory.getInstance().getNotifier(

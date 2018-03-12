@@ -83,7 +83,7 @@ public class RecentlyGeneratedCouponTable extends TableOperations implements IPe
                 null, // e. group by
                 null, // f. having
                 recenetlyGenerateAllCoupon[0] +" DESC ", // g. order by
-                 "5"); // h. limit
+                 null); // h. limit
 
         // 3. if we got results get the first one
 

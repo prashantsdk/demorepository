@@ -131,7 +131,10 @@ public class GenerateCouponFragment extends Fragment implements AdapterView.OnIt
 
         int count = list.size();
         if (list != null && count > 0) {
-            _coupon = list.get(count - 1);
+            //  _coupon = list.get(count - 1);
+
+
+            _coupon = list.get(0);
             if (_coupon != null) {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
@@ -147,6 +150,9 @@ public class GenerateCouponFragment extends Fragment implements AdapterView.OnIt
                         if (pointType.equalsIgnoreCase("Waterpoints"))
                             mWaterPoints.setText(_coupon.get_couBalancePoint());
 
+                        if (pointType.equalsIgnoreCase("Brownpoints")) {
+                            mBrownPoints.setText(_coupon.get_couBalancePoint());
+                        }
 
                     }
                 });

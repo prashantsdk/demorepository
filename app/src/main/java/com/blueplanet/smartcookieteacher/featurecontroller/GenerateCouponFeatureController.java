@@ -104,12 +104,12 @@ public class GenerateCouponFeatureController implements IEventListener {
     }
 
 
-
-    public void deleteRecentlyGeneratedCoupon(String couponId){
+    public void deleteRecentlyGeneratedCoupon(String couponId) {
 
         IPersistence persistObj = PersistenceFactory.get(SmartTeacherDatabaseMasterTable.Tables.RECENTLYGENERATEDCOUPON);
-       persistObj.delete(couponId);
+        persistObj.delete(couponId);
     }
+
     public void clearRecentlyGeneratedCoupon() {
 
         if (_genCouList != null && _genCouList.size() > 0) {
@@ -187,8 +187,8 @@ public class GenerateCouponFeatureController implements IEventListener {
 
                         for (int i = 0; i < list.size(); i++) {
                             GenerateCoupon generateCoupon = list.get(i);
-                             String points = generateCoupon.get_couBalancePoint();
-                                String point = points;
+                            String points = generateCoupon.get_couBalancePoint();
+                            String point = points;
                             saveRecentlyGeneratedCoupon(list.get(i));
                         }
                     }

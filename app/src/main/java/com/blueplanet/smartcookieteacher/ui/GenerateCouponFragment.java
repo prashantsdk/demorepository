@@ -134,6 +134,16 @@ public class GenerateCouponFragment extends Fragment implements AdapterView.OnIt
             //  _coupon = list.get(count - 1);
 
 
+            for (int i = 0; i < list.size(); i++) {
+
+                GenerateCoupon generateCoupon = list.get(i);
+                String couponId = generateCoupon.get_couID();
+                String couponPoints = generateCoupon.get_couBalancePoint();
+                String cCouponId = couponId;
+                String cCouponPoints = couponPoints;
+
+            }
+
             _coupon = list.get(0);
             if (_coupon != null) {
                 getActivity().runOnUiThread(new Runnable() {

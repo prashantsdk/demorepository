@@ -223,10 +223,13 @@ public class CouponDetailFragmentController implements IEventListener, OnClickLi
                                         && (!(TextUtils.isEmpty(_couponID))) && (!(TextUtils.isEmpty(_uID)))
                                         ) {
 
-                                    if(balancePoints > Integer.valueOf(pointsPerProduct))
+                                    Log.e("Balance POint : " + _teacher.get_tBalance_blue_pint(), "Points per product:" + pointsPerProduct);
+
+                                    _fetchAddToCartCoupon(_couponID, _couponPoints, entity, _uID);
+                                    /*if(balancePoints > Integer.valueOf(pointsPerProduct))
                                         _fetchAddToCartCoupon(_couponID, _couponPoints, entity, _uID);
                                     else
-                                        _fragment.showNoPointsMessage();
+                                        _fragment.showNoPointsMessage();*/
                                 }
                                 dialog.cancel();
                             }
@@ -333,6 +336,15 @@ public class CouponDetailFragmentController implements IEventListener, OnClickLi
                     });
 
                 }
+                break;
+
+            case EventTypes.EVENT_UI_NOT_ADD_TO_CART:
+
+                EventNotifier eventNotifier3 =
+                        NotifierFactory.getInstance().getNotifier
+                                (NotifierFactory.EVENT_NOTIFIER_COUPON);
+                eventNotifier3.unRegisterListener(this);
+                _fragment.showNoPointsMessage();
                 break;
 
             case EventTypes.EVENT_NETWORK_AVAILABLE:

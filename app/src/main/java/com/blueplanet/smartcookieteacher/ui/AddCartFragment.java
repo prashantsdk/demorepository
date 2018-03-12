@@ -59,8 +59,8 @@ public class AddCartFragment extends Fragment {
     private void _registerUIListeners() {
 
         _listView.setAdapter(_adapter);
-        if(_couList.size() != 0)
-            _btnBuy.setOnClickListener(_controller);
+       // if(_couList.size() != 0)
+        _btnBuy.setOnClickListener(_controller);
 
     }
 

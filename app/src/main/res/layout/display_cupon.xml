@@ -22,7 +22,10 @@
         android:layout_marginTop="1dp"
         android:text="PIZZA"
         android:textColor="#5A5A5A"
-        android:textSize="13sp" />
+        android:textSize="13sp"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:maxEms="8"/>
 
     <TextView
         android:id="@+id/txtName"
@@ -33,7 +36,10 @@
         android:layout_marginTop="2dp"
         android:text="PIZZA"
         android:textColor="#5A5A5A"
-        android:textSize="13sp" />
+        android:textSize="13sp"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:maxEms="8"/>
 
     <LinearLayout
         android:id="@+id/layout1"
@@ -55,7 +61,7 @@
 
         <TextView
             android:id="@+id/txtPoint"
-            android:layout_width="100dp"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:text=" (ON 100 POINTS)"
             android:textColor="#C1310C"

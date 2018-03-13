@@ -600,7 +600,7 @@ public class AfterLoginActivity extends AppCompatActivity implements IEventListe
 
                 Log.i(_TAG, "In if part of onBackPressed");
                 int count = fragmentManager.getBackStackEntryCount();
-                Log.i(_TAG, "In fragment backstack count is :" + count);
+                Log.i(_TAG, "In fragment backstack count is :" + count + _fragmentTagList);
 
 
                 //PRASHANT CHANGES
@@ -608,7 +608,7 @@ public class AfterLoginActivity extends AppCompatActivity implements IEventListe
 
                     count =count -1;
                     for (int i = count; i >= 0; i--) {
-                        Log.i(_TAG, "In popped fragment: " + _fragmentTagList.get(i).toString());
+                       // Log.i(_TAG, "In popped fragment: " + _fragmentTagList.get(i).toString());
                         fragmentManager.popBackStack(_fragmentTagList.get(i).toString(),
                                 FragmentManager.POP_BACK_STACK_INCLUSIVE);
                     }
@@ -618,11 +618,10 @@ public class AfterLoginActivity extends AppCompatActivity implements IEventListe
                     fragmentManager.popBackStackImmediate();
                 }
             }
-            super.onBackPressed();
         }
-
-
     }
+
+
 
     private void _fetchLogoutListFromServer(int Id) {
         _registerNetworkListeners();

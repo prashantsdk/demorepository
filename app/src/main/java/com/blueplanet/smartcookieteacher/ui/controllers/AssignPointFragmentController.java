@@ -1433,7 +1433,7 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
                 try {
 
                     jsonObjSend.put("t_id", _teacherId);
-                    jsonObjSend.put("school_id", _schoolId);
+                     jsonObjSend.put("school_id", _schoolId);
                     jsonObjSend.put("std_PRN", prn);
 
 

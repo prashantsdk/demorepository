@@ -107,6 +107,7 @@ public class AssignPointSubjectAdapter extends BaseAdapter {
                         _textView[position].setTextColor(_assignPointFragment.getResources().getColor(R.color.red_solid));
 
                         String subCode = _subList.get(position).get_subcode();
+
                         Log.i(_TAG, "subject id is: " + subCode);
                         AssignPointFeatureController.getInstance().
                                 set_seletedSubjectId(subCode);

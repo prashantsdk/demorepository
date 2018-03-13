@@ -592,7 +592,7 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
             public void run() {
 
                 Toast.makeText(getActivity().getApplicationContext(),
-                        getActivity().getString(R.string.Login_Conflict_Occur),
+                        "Invalid Credential  Or Server Error",
                         Toast.LENGTH_LONG).show();
             }
         });

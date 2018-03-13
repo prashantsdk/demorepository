@@ -495,7 +495,7 @@ public class AfterLoginActivity extends AppCompatActivity implements IEventListe
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         //getMenuInflater().inflate(R.menu.menu_main, menu);
-      //  getMenuInflater().inflate(R.menu.my_cart, menu);
+        //getMenuInflater().inflate(R.menu.my_cart, menu);
         return true;
     }
 
@@ -505,7 +505,7 @@ public class AfterLoginActivity extends AppCompatActivity implements IEventListe
             return true;
         }
 
-       /* int id = item.getItemId();
+        /*int id = item.getItemId();
         if(id == R.id.action_add){
             _loadFragment(R.id.content_frame, new AddCartFragment());
         }

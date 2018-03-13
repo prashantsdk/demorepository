@@ -46,7 +46,7 @@ public class AddCartFragment extends Fragment {
         _registerUIListeners();
         getActivity().setTitle("My Cart");
 
-        setHasOptionsMenu(true);
+       // setHasOptionsMenu(true);
         return _view;
     }
 
@@ -55,11 +55,11 @@ public class AddCartFragment extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
     }
 
-    @Override
+   /* @Override
     public void onPrepareOptionsMenu(Menu menu) {
         MenuItem item = menu.findItem(R.id.action_add);
         item.setVisible(false);
-    }
+    }*/
 
     private void _initUI() {
 

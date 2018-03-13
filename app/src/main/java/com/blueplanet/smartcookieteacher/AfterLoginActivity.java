@@ -37,6 +37,7 @@ import com.blueplanet.smartcookieteacher.notification.IEventListener;
 import com.blueplanet.smartcookieteacher.notification.ListenerPriority;
 import com.blueplanet.smartcookieteacher.notification.NotifierFactory;
 import com.blueplanet.smartcookieteacher.ui.AcceptRequestFragment;
+import com.blueplanet.smartcookieteacher.ui.AddCartFragment;
 import com.blueplanet.smartcookieteacher.ui.AllLogFragment;
 import com.blueplanet.smartcookieteacher.ui.AllSubjectFragment;
 import com.blueplanet.smartcookieteacher.ui.DisplayCategorieFragment;
@@ -189,7 +190,7 @@ public class AfterLoginActivity extends AppCompatActivity implements IEventListe
                 if (_count < 7) {
                     _count = _count + 1;
                 }
-                _fragmentTagList.add("DashboardFragment");
+                _fragmentTagList.add("TeacherDashboardFragment");
                 _addtoBackStack = false;
                 _fragment = new TeacherDashboardFragment();
                 break;
@@ -476,7 +477,8 @@ public class AfterLoginActivity extends AppCompatActivity implements IEventListe
 
         }
         //write load fragment here
-        _manageFragments(_addtoBackStack, false, _fragment);
+        //_manageFragments(_addtoBackStack, false, _fragment);
+        _loadFragment(R.id.content_frame,  _fragment);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -493,6 +495,7 @@ public class AfterLoginActivity extends AppCompatActivity implements IEventListe
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         //getMenuInflater().inflate(R.menu.menu_main, menu);
+      //  getMenuInflater().inflate(R.menu.my_cart, menu);
         return true;
     }
 
@@ -501,6 +504,12 @@ public class AfterLoginActivity extends AppCompatActivity implements IEventListe
         if (_drawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
+
+       /* int id = item.getItemId();
+        if(id == R.id.action_add){
+            _loadFragment(R.id.content_frame, new AddCartFragment());
+        }
+        return super.onOptionsItemSelected(item);*/
 
         return false;
     }
@@ -536,7 +545,7 @@ public class AfterLoginActivity extends AppCompatActivity implements IEventListe
 
     }
 
-    private void _manageFragments(boolean addTobackStack, boolean emptyBackStack, Fragment fragment) {
+    /*private void _manageFragments(boolean addTobackStack, boolean emptyBackStack, Fragment fragment) {
 
         if (fragment != null) {
             //_manageBackStack(emptyBackStack);
@@ -544,9 +553,9 @@ public class AfterLoginActivity extends AppCompatActivity implements IEventListe
         }
 
 
-    }
+    }*/
 
-    private void _loadFragment(boolean addToBackStack, Fragment fragment) {
+   /* private void _loadFragment(boolean addToBackStack, Fragment fragment) {
         if (_fragment != null) {
 
             String fragmentTag = null;
@@ -555,9 +564,9 @@ public class AfterLoginActivity extends AppCompatActivity implements IEventListe
             FragmentTransaction ft = frgManager.beginTransaction();
 
 
-            /**
+            *//**
              * _addToStack decides whether to add fragment to back stack...in order to maintain it on back press
-             */
+             *//*
             if (_fragmentTagList != null && _fragmentTagList.size() > 0) {
                 int count1 = (_fragmentTagList.size()) - 1;
                 fragmentTag = _fragmentTagList.get(count1).toString();
@@ -583,9 +592,9 @@ public class AfterLoginActivity extends AppCompatActivity implements IEventListe
         } else {
 
         }
-    }
+    }*/
 
-    @Override
+   /* @Override
     public void onBackPressed() {
         _drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (_drawerLayout.isDrawerOpen(GravityCompat.START)) {
@@ -619,9 +628,72 @@ public class AfterLoginActivity extends AppCompatActivity implements IEventListe
                 }
             }
         }
+    }*/
+
+    private void _loadFragment(int id, Fragment fragment) {
+
+        DrawerFeatureController.getInstance().setIsFragmentOpenedFromDrawer(false);
+        FragmentManager fm = this.getSupportFragmentManager();
+
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.replace(id, fragment);
+        ft.addToBackStack("TeacherDashboardFragment");
+
+        ft.commit();
     }
 
+    @Override
+    public void onBackPressed() {
+        _drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (_drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            _drawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            Log.i(_TAG, "In onBackPressed");
 
+           /* boolean isOpenedFromDrawer = DrawerFeatureController.getInstance().isFragmentOpenedFromDrawer();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+
+            if (isOpenedFromDrawer == true) {
+
+                Log.i(_TAG, "In if part of onBackPressed");
+                int count = fragmentManager.getBackStackEntryCount();
+                Log.i(_TAG, "In fragment backstack count is :" + count + _fragmentTagList);
+
+
+                //PRASHANT CHANGES
+                if (count > 0 && count != -1) {
+
+                    count =count -1;
+                    for (int i = count; i >= 0; i--) {
+                       // Log.i(_TAG, "In popped fragment: " + _fragmentTagList.get(i).toString());
+                        fragmentManager.popBackStack(_fragmentTagList.get(i).toString(),
+                                FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                    }
+
+                } else {
+                    Log.i(_TAG, "In else part of onBackPressed");
+                    fragmentManager.popBackStackImmediate();
+                }
+            }*/
+            //Priyanka changes
+
+
+          //  Fragment f = getTopFragment();
+            if(getTopFragment() instanceof TeacherDashboardFragment){
+                finish();
+            }else
+                super.onBackPressed();
+        }
+    }
+
+    //Priyanka
+    public Fragment getTopFragment() {
+        if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
+            return new TeacherDashboardFragment();
+        }
+        String fragmentTag = getSupportFragmentManager().getBackStackEntryAt(getSupportFragmentManager().getBackStackEntryCount() - 1).getName();
+        return getSupportFragmentManager().findFragmentByTag(fragmentTag);
+    }
 
     private void _fetchLogoutListFromServer(int Id) {
         _registerNetworkListeners();

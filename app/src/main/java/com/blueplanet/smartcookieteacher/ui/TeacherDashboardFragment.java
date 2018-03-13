@@ -330,8 +330,6 @@ public class TeacherDashboardFragment extends Fragment {
             Intent i1 = new Intent(this.getActivity(), ProfileActivity.class);
             startActivity(i1);
 
-        } else {
-
         }
         return super.onOptionsItemSelected(item);
     }

@@ -33,7 +33,7 @@ import java.util.Map;
 public class CouponRedeemFragment extends Fragment {
 
     private View _view;
-    private TextView _txtvalidity, _txtPoints;
+    private TextView _txtvalidity, _txtPoints, _txtCoupCode;
     private GenerateCoupon _genCoupon;
     private ArrayList<GenerateCoupon> _genCouList;
     private CouponReedemFragmentController _couponReedemController = null;
@@ -74,6 +74,7 @@ public class CouponRedeemFragment extends Fragment {
     }
 
     private void _initUI() {
+        _txtCoupCode = (TextView) _view.findViewById(R.id.textCoupCode);
         _txtvalidity = (TextView) _view.findViewById(R.id.txtcouponexpirydate);
         _txtPoints = (TextView) _view.findViewById(R.id.txtcouponpoints);
         _barcodeImage = (ImageView) _view.findViewById(R.id.imgbarcode);
@@ -87,9 +88,9 @@ public class CouponRedeemFragment extends Fragment {
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
+                    _txtCoupCode.setText(_genCoupon.get_couID());
                     _txtvalidity.setText(_genCoupon.get_couValidityDate());
                     _txtPoints.setText(_genCoupon.get_couPoint());
-
                 }
             });
         }

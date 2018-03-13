@@ -9,8 +9,6 @@
         android:title="Add"
         android:orderInCategory="1"
         app:showAsAction="ifRoom" />
-
-
 </menu>
 
 

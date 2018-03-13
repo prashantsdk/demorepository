@@ -3,6 +3,9 @@ package com.blueplanet.smartcookieteacher.ui;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
@@ -43,7 +46,19 @@ public class AddCartFragment extends Fragment {
         _registerUIListeners();
         getActivity().setTitle("My Cart");
 
+        setHasOptionsMenu(true);
         return _view;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        MenuItem item = menu.findItem(R.id.action_add);
+        item.setVisible(false);
     }
 
     private void _initUI() {

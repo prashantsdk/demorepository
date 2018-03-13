@@ -32,7 +32,7 @@
 
         <item
             android:id="@+id/nav_generat_coupon"
-            android:icon="@drawable/ic_action_about"
+            android:icon="@drawable/reward_point"
             android:title="Generate Coupon" />
 
         <item
@@ -44,7 +44,7 @@
 
         <item
             android:id="@+id/nav_sync"
-            android:icon="@drawable/coupon"
+            android:icon="@drawable/sync"
             android:title="Sync" />
 
         <item
@@ -63,7 +63,7 @@
             android:title="Soft Rewards" />
         <item
             android:id="@+id/nav_suggest_vendor"
-            android:icon="@drawable/coupon"
+            android:icon="@drawable/classes"
             android:title="Suggest Vendor" />
 
         <item
@@ -73,13 +73,13 @@
 
         <item
             android:id="@+id/nav_request_to_join"
-            android:icon="@drawable/coupon"
+            android:icon="@drawable/find_sponsor"
             android:title="Request To Join" />
 
 
         <item
             android:id="@+id/nav_sponsor_logs"
-            android:icon="@drawable/coupon"
+            android:icon="@drawable/find_sponsor"
             android:title="Sponsor Logs" />
 
 
@@ -90,7 +90,7 @@
 
         <item
             android:id="@+id/nav_logout"
-            android:icon="@drawable/coupon"
+            android:icon="@drawable/logout"
             android:title="Logout" />
 
 

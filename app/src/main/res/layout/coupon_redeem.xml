@@ -31,6 +31,13 @@
                 android:layout_gravity="center"
                 android:text="SMART COOKIE COUPON" />
 
+            <TextView
+                android:id="@+id/textCoupCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="COUPON CODE" />
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
@@ -84,7 +91,7 @@
             <LinearLayout
                 android:id="@+id/linearLayout2"
                 android:layout_width="match_parent"
-                android:layout_height="350dp"
+                android:layout_height="255dp"
                 android:background="@drawable/border"
                 android:gravity="center_horizontal"
                 android:orientation="vertical">

@@ -575,6 +575,7 @@ public class AfterLoginActivity extends AppCompatActivity implements IEventListe
                 int count = frgManager.getBackStackEntryCount();
                 Log.i(_TAG, "In fragment backstack count in addtoBackstack is :" + count);
                 ft.addToBackStack(fragmentTag);
+
             }
 
             ft.replace(R.id.content_frame, fragment, fragmentTag);
@@ -606,7 +607,7 @@ public class AfterLoginActivity extends AppCompatActivity implements IEventListe
                 //PRASHANT CHANGES
                 if (count > 0 && count != -1) {
 
-                    count =count -1;
+                    count = count -1;
                     for (int i = count; i >= 0; i--) {
                         Log.i(_TAG, "In popped fragment: " + _fragmentTagList.get(i).toString());
                         fragmentManager.popBackStack(_fragmentTagList.get(i).toString(),

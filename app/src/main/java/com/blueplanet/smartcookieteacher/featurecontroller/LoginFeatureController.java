@@ -330,7 +330,7 @@ public class LoginFeatureController implements IEventListener {
                     } else {
                         ErrorInfo errorInfo = (ErrorInfo) responseObject;
                         int statusCode = errorInfo.getErrorCode();
-
+                        SmartCookieSharedPreferences.setLoginFlag(false);
                         if (statusCode == HTTPConstants.HTTP_COM_NO_CONTENT) {
 
                             eventNotifierUI =
@@ -340,7 +340,7 @@ public class LoginFeatureController implements IEventListener {
                                     serverResponse);
 
                         } else if (statusCode == HTTPConstants.HTTP_COMM_CONFLICT) {
-
+                            SmartCookieSharedPreferences.setLoginFlag(false);
                             eventNotifierUI =
                                     NotifierFactory.getInstance().getNotifier(
                                             NotifierFactory.EVENT_NOTIFIER_LOGIN);
@@ -349,7 +349,7 @@ public class LoginFeatureController implements IEventListener {
 
 
                         } else if (statusCode == HTTPConstants.HTTP_COMM_ERR_BAD_REQUEST) {
-
+                            SmartCookieSharedPreferences.setLoginFlag(false);
                             eventNotifierUI =
                                     NotifierFactory.getInstance().getNotifier(
                                             NotifierFactory.EVENT_NOTIFIER_LOGIN);
@@ -358,6 +358,7 @@ public class LoginFeatureController implements IEventListener {
 
 
                         } else if (statusCode == HTTPConstants.HTTP_COMM_CONFLICT) {
+                            SmartCookieSharedPreferences.setLoginFlag(false);
                             eventNotifierUI =
                                     NotifierFactory.getInstance().getNotifier(
                                             NotifierFactory.EVENT_NOTIFIER_TEACHER);
@@ -365,7 +366,7 @@ public class LoginFeatureController implements IEventListener {
                                     serverResponse);
                         } else {
 
-
+                            SmartCookieSharedPreferences.setLoginFlag(false);
                             eventNotifierUI =
                                     NotifierFactory.getInstance().getNotifier(
                                             NotifierFactory.EVENT_NOTIFIER_LOGIN);
@@ -390,7 +391,7 @@ public class LoginFeatureController implements IEventListener {
                 } else {
                     ErrorInfo errorInfo = (ErrorInfo) responseObject;
                     int statusCode = errorInfo.getErrorCode();
-
+                    SmartCookieSharedPreferences.setLoginFlag(false);
                     if (statusCode == HTTPConstants.HTTP_COM_NO_CONTENT) {
 
                         eventNotifierUI =

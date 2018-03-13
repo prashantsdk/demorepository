@@ -323,6 +323,7 @@ public class
     private void _loadFragment(int id, Fragment fragment) {
 
         DrawerFeatureController.getInstance().setIsFragmentOpenedFromDrawer(false);
+         //DrawerFeatureController.getInstance().setIsFragmentOpenedFromDrawer(true);
         FragmentManager fm = _teacherDashboardFragment.getActivity().getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         ft.replace(id, fragment);

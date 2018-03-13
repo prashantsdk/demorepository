@@ -43,7 +43,7 @@ public class RecentlyGeneratedCouponTable extends TableOperations implements IPe
         values.put ( SmartTeacherDatabaseMasterTable.RecentlyGenerateCoupon.COUPON_ISSUE_DATE, generateCoupon.get_couIssueDate() );
         values.put ( SmartTeacherDatabaseMasterTable.RecentlyGenerateCoupon.COUPON_VALIDITY_DATE, generateCoupon.get_couValidityDate() );
         values.put ( SmartTeacherDatabaseMasterTable.RecentlyGenerateCoupon.COUPON_BALANCE_POINTS, generateCoupon.get_couBalancePoint() );
-        values.put ( SmartTeacherDatabaseMasterTable.RecentlyGenerateCoupon.COUPON_USED_POINTS, generateCoupon.get_couBalancePoint() );
+        values.put ( SmartTeacherDatabaseMasterTable.RecentlyGenerateCoupon.COUPON_USED_POINTS, generateCoupon.getBalancePointType() );
 
 
 
@@ -93,7 +93,7 @@ public class RecentlyGeneratedCouponTable extends TableOperations implements IPe
 
                     // boolean rememberMe = Boolean.parseBoolean(cursor.getString(2));
                     log =
-                            new GenerateCoupon( cursor.getString ( 0 ), cursor.getString ( 1 ),  cursor.getString ( 2 ), cursor.getString ( 3 ),cursor.getString ( 4));
+                            new GenerateCoupon( cursor.getString ( 0 ), cursor.getString ( 1 ),  cursor.getString ( 2 ), cursor.getString ( 3 ),cursor.getString ( 4),cursor.getString(5));
                     list.add(log);
 
                 } while ( cursor.moveToNext () );

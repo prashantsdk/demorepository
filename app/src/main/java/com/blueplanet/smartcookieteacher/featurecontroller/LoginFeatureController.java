@@ -21,7 +21,6 @@ import com.blueplanet.smartcookieteacher.notification.NotifierFactory;
 import com.blueplanet.smartcookieteacher.utils.SmartCookieSharedPreferences;
 import com.blueplanet.smartcookieteacher.webservices.DisplayProfile;
 import com.blueplanet.smartcookieteacher.webservices.ForgetPassward;
-import com.blueplanet.smartcookieteacher.webservices.My_cart;
 import com.blueplanet.smartcookieteacher.webservices.TeacherLogin;
 import com.blueplanet.smartcookieteacher.webservices.WebserviceConstants;
 
@@ -61,7 +60,7 @@ public class LoginFeatureController implements IEventListener {
 
     private String _emailID = null;
 
-    private  String email,password,usertype,colgcode,method,devicetype,devicedetail,platfom,ip,countrycode;
+    private String email, password, usertype, colgcode, method, devicetype, devicedetail, platfom, ip, countrycode;
 
     public String getEmail() {
         return email;
@@ -144,6 +143,7 @@ public class LoginFeatureController implements IEventListener {
     }
 
     private String _phoneNo = null;
+
     /**
      * function to get single instance of this class
      *
@@ -164,14 +164,14 @@ public class LoginFeatureController implements IEventListener {
      * @param password
      */
     public void teacherLogin(String username, String password, String usertype, String colgCode, String method, String devicetype, String details,
-                             String os, String ipadd,String cuntryCode,double lat, double log) {
+                             String os, String ipadd, String cuntryCode, double lat, double log) {
 
         EventNotifier eventNotifier =
                 NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_LOGIN);
         eventNotifier.registerListener(this, ListenerPriority.PRIORITY_MEDIUM);
 
         TeacherLogin teacherLogin = new TeacherLogin(username, password, usertype, colgCode, method, devicetype, details,
-                os, ipadd,cuntryCode,lat,log);
+                os, ipadd, cuntryCode, lat, log);
 
         teacherLogin.send();
 
@@ -214,6 +214,7 @@ public class LoginFeatureController implements IEventListener {
     public void set_emailID(String _emailID) {
         this._emailID = _emailID;
     }
+
     public String get_phoneNo() {
         return _phoneNo;
     }
@@ -304,7 +305,7 @@ public class LoginFeatureController implements IEventListener {
         switch (eventType) {
             case EventTypes.EVENT_LOGIN_SUCCESSFUL:
 
-                if(errorCode == -1){
+                if (errorCode == -1) {
                     SmartCookieSharedPreferences.setLoginFlag(false);
                     eventNotifierUI =
                             NotifierFactory.getInstance().getNotifier(
@@ -316,66 +317,62 @@ public class LoginFeatureController implements IEventListener {
                 } else {
 
 
-
-                if (errorCode == WebserviceConstants.SUCCESS) {
-                    _teacher = (Teacher) responseObject;
-                    Log.e("TEACHEROBJECT", _teacher.get_tName());
-                    SmartCookieSharedPreferences.setLoginFlag(true);
-
-                    eventNotifierUI =
-                            NotifierFactory.getInstance().getNotifier(
-                                    NotifierFactory.EVENT_NOTIFIER_LOGIN);
-                    eventNotifierUI.eventNotifyOnThread(EventTypes.EVENT_UI_LOGIN_SUCCESSFUL,
-                            serverResponse);
-                } else {
-                    ErrorInfo errorInfo = (ErrorInfo) responseObject;
-                    int statusCode = errorInfo.getErrorCode();
-
-                    if (statusCode == HTTPConstants.HTTP_COM_NO_CONTENT) {
+                    if (errorCode == WebserviceConstants.SUCCESS) {
+                        _teacher = (Teacher) responseObject;
+                        Log.e("TEACHEROBJECT", _teacher.get_tName());
+                        SmartCookieSharedPreferences.setLoginFlag(true);
 
                         eventNotifierUI =
                                 NotifierFactory.getInstance().getNotifier(
                                         NotifierFactory.EVENT_NOTIFIER_LOGIN);
-                        eventNotifierUI.eventNotifyOnThread(EventTypes.EVENT_UI_NO_LOGIN_RESPONSE,
-                                serverResponse);
-
-                    }
-
-                    else if (statusCode == HTTPConstants.HTTP_COMM_CONFLICT) {
-
-                        eventNotifierUI =
-                                NotifierFactory.getInstance().getNotifier(
-                                        NotifierFactory.EVENT_NOTIFIER_LOGIN);
-                        eventNotifierUI.eventNotifyOnThread(EventTypes.EVENT_CONFLCTLOGIN_RESPONSE,
-                                serverResponse);
-
-
-                    }
-                    else if (statusCode == HTTPConstants.HTTP_COMM_ERR_BAD_REQUEST) {
-
-                        eventNotifierUI =
-                                NotifierFactory.getInstance().getNotifier(
-                                        NotifierFactory.EVENT_NOTIFIER_LOGIN);
-                        eventNotifierUI.eventNotifyOnThread(EventTypes.EVENT_UI_BAD_REQUEST,
-                                serverResponse);
-
-
-                    } else if (statusCode == HTTPConstants.HTTP_COMM_CONFLICT) {
-                        eventNotifierUI =
-                                NotifierFactory.getInstance().getNotifier(
-                                        NotifierFactory.EVENT_NOTIFIER_TEACHER);
-                        eventNotifierUI.eventNotifyOnThread(EventTypes.EVENT_UI_REGISTRATION_CONFLICT,
+                        eventNotifierUI.eventNotifyOnThread(EventTypes.EVENT_UI_LOGIN_SUCCESSFUL,
                                 serverResponse);
                     } else {
+                        ErrorInfo errorInfo = (ErrorInfo) responseObject;
+                        int statusCode = errorInfo.getErrorCode();
+
+                        if (statusCode == HTTPConstants.HTTP_COM_NO_CONTENT) {
+
+                            eventNotifierUI =
+                                    NotifierFactory.getInstance().getNotifier(
+                                            NotifierFactory.EVENT_NOTIFIER_LOGIN);
+                            eventNotifierUI.eventNotifyOnThread(EventTypes.EVENT_UI_NO_LOGIN_RESPONSE,
+                                    serverResponse);
+
+                        } else if (statusCode == HTTPConstants.HTTP_COMM_CONFLICT) {
+
+                            eventNotifierUI =
+                                    NotifierFactory.getInstance().getNotifier(
+                                            NotifierFactory.EVENT_NOTIFIER_LOGIN);
+                            eventNotifierUI.eventNotifyOnThread(EventTypes.EVENT_CONFLCTLOGIN_RESPONSE,
+                                    serverResponse);
 
 
-                        eventNotifierUI =
-                                NotifierFactory.getInstance().getNotifier(
-                                        NotifierFactory.EVENT_NOTIFIER_LOGIN);
-                        eventNotifierUI.eventNotifyOnThread(EventTypes.EVENT_UI_UNAUTHORIZED,
-                                serverResponse);
+                        } else if (statusCode == HTTPConstants.HTTP_COMM_ERR_BAD_REQUEST) {
+
+                            eventNotifierUI =
+                                    NotifierFactory.getInstance().getNotifier(
+                                            NotifierFactory.EVENT_NOTIFIER_LOGIN);
+                            eventNotifierUI.eventNotifyOnThread(EventTypes.EVENT_UI_BAD_REQUEST,
+                                    serverResponse);
+
+
+                        } else if (statusCode == HTTPConstants.HTTP_COMM_CONFLICT) {
+                            eventNotifierUI =
+                                    NotifierFactory.getInstance().getNotifier(
+                                            NotifierFactory.EVENT_NOTIFIER_TEACHER);
+                            eventNotifierUI.eventNotifyOnThread(EventTypes.EVENT_UI_REGISTRATION_CONFLICT,
+                                    serverResponse);
+                        } else {
+
+
+                            eventNotifierUI =
+                                    NotifierFactory.getInstance().getNotifier(
+                                            NotifierFactory.EVENT_NOTIFIER_LOGIN);
+                            eventNotifierUI.eventNotifyOnThread(EventTypes.EVENT_UI_UNAUTHORIZED,
+                                    serverResponse);
+                        }
                     }
-                }
 
                 }
                 break;
@@ -411,7 +408,7 @@ public class LoginFeatureController implements IEventListener {
 
                     _teacher = (Teacher) responseObject;
 
-                    Log.i("InLoginFearute" , _teacher.toString());
+                    Log.i("InLoginFearute", _teacher.toString());
                     eventNotifierUI =
                             NotifierFactory.getInstance().getNotifier(
                                     NotifierFactory.EVENT_NOTIFIER_TEACHER);

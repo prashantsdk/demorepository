@@ -191,36 +191,42 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
                             WebserviceConstants.HTTP_BASE_URL +
                                     WebserviceConstants.BASE_URL + WebserviceConstants.TEACHER_ACIVITY, jsonObjSend);
 
-
+                    JSONArray responseData = null;
                     if (response != null) {
                         JSONObject json = new JSONObject(response);
 
-                        JSONArray responseData = json.optJSONArray(WebserviceConstants.KEY_POSTS);
-                        for (int i = 0; i < responseData.length(); i++) {
-                            JSONObject jsonObject = responseData.optJSONObject(i);
+                        responseData = json.optJSONArray(WebserviceConstants.KEY_POSTS);
 
-                            String sc_id = jsonObject.optString(WebserviceConstants.KEY_SC_ID);
-                            String sc_list = jsonObject.optString(WebserviceConstants.KEY_SC_LIST);
-                            String activityType = jsonObject.optString(WebserviceConstants.KEY_ACTIVITY_TYPE);
+                        if (responseData != null) {
 
-                            if (activityType.equals("Arts")) {
-                                ArtActivity artActivity = new ArtActivity(sc_id, sc_list);
-                                artActivities.add(artActivity);
+                            for (int i = 0; i < responseData.length(); i++) {
+                                JSONObject jsonObject = responseData.optJSONObject(i);
+
+                                String sc_id = jsonObject.optString(WebserviceConstants.KEY_SC_ID);
+                                String sc_list = jsonObject.optString(WebserviceConstants.KEY_SC_LIST);
+                                String activityType = jsonObject.optString(WebserviceConstants.KEY_ACTIVITY_TYPE);
+
+                                if (activityType.equals("Arts")) {
+                                    ArtActivity artActivity = new ArtActivity(sc_id, sc_list);
+                                    artActivities.add(artActivity);
+                                }
+                                if (activityType.equals("Sports")) {
+                                    SportActivity sportActivity = new SportActivity(sc_id, sc_list);
+                                    sportActivities.add(sportActivity);
+                                }
+
+                                if (activityType.equals("General Activity")) {
+                                    GeneralActivity generalActivity = new GeneralActivity(sc_id, sc_list);
+                                    generalActivities.add(generalActivity);
+                                }
+
+
                             }
-                            if (activityType.equals("Sports")) {
-                                SportActivity sportActivity = new SportActivity(sc_id, sc_list);
-                                sportActivities.add(sportActivity);
-                            }
+                            activityResultFlag = true;
 
-                            if (activityType.equals("General Activity")) {
-                                GeneralActivity generalActivity = new GeneralActivity(sc_id, sc_list);
-                                generalActivities.add(generalActivity);
-                            }
-
-
+                        } else {
+                            activityResultFlag = false;
                         }
-                        activityResultFlag = true;
-
 
                     } else {
                         activityResultFlag = false;
@@ -1441,18 +1447,24 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
 
                         JSONObject json = new JSONObject(response);
 
-                        JSONArray responseData = json.optJSONArray(WebserviceConstants.KEY_POSTS);
-                        for (int i = 0; i < responseData.length(); i++) {
-                            JSONObject jsonObject = responseData.optJSONObject(i);
-                            String subname = jsonObject.optString(WebserviceConstants.SUBNAME);
-                            String subcode = jsonObject.optString(WebserviceConstants.SUBCODE);
+                        JSONArray responseData = null;
+                        responseData = json.optJSONArray(WebserviceConstants.KEY_POSTS);
+                        if (responseData != null) {
+
+                            for (int i = 0; i < responseData.length(); i++) {
+                                JSONObject jsonObject = responseData.optJSONObject(i);
+                                String subname = jsonObject.optString(WebserviceConstants.SUBNAME);
+                                String subcode = jsonObject.optString(WebserviceConstants.SUBCODE);
 
 
-                            _namesub = new SubNameCode(subname, subcode);
-                            subNameCodelist.add(_namesub);
+                                _namesub = new SubNameCode(subname, subcode);
+                                subNameCodelist.add(_namesub);
 
-                            resultFlag = true;
+                                resultFlag = true;
 
+                            }
+                        } else {
+                            resultFlag = false;
                         }
                     }
 

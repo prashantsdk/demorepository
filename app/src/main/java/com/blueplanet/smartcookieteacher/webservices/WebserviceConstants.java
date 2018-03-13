@@ -1,16 +1,11 @@
 package com.blueplanet.smartcookieteacher.webservices;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.text.Layout;
-import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
-
-import com.blueplanet.smartcookieteacher.R;
 
 /**
  * @author sayali
@@ -41,9 +36,9 @@ public class WebserviceConstants {
 
     public static final String IMAGE_BASE_URL = "https://dev.smartcookie.in/core/";
 
-    public static final String IMAGE_BASE_URL_TEST ="https://test.smartcookie.in/core/";
+    public static final String IMAGE_BASE_URL_TEST = "https://test.smartcookie.in/core/";
 
-    public static final String IMAGE_BASE_URL_PRODUCTION ="https://smartcookie.in/core/";
+    public static final String IMAGE_BASE_URL_PRODUCTION = "https://smartcookie.in/core/";
 
 
     //public static final String TEACHER_LOGIN = "login_teacher.php";
@@ -80,7 +75,7 @@ public class WebserviceConstants {
     public static final String SPONSOR_LOCATION_URL = "display_sponsor_bydistance.php";
     //public static final String MAP_SERVICE_API = "map_service_API.php";
     public static final String MAP_SERVICE_API = "map_service_API_V2.php";
-   // public static final String MAP_SERVICE_API = "get_sponsors_location.php";
+    // public static final String MAP_SERVICE_API = "get_sponsors_location.php";
     public static final String ALL_SUBJECT_WEB_SERVICE = "teacher_ws.php?f=teacherallsubjects";
     public static final String LOGOUT_WEB_SERVICE = "logout_teacher_API.php";
     public static final String REQUEST_WEB_SERVICE = "request_other_student.php";
@@ -118,7 +113,7 @@ public class WebserviceConstants {
     public static final String KEY_TID = "t_id";
 
 
-    public static final String KEY_TCOMPL_Name = " t_complete_name";
+    public static final String KEY_TCOMPL_Name = "t_complete_name";
     public static final String KEY_TNAME = "t_name";
     public static final String KEY_TMIDDLE_NAME = "t_middlename";
     public static final String KEY_TLAST_NAME = "t_lastname";
@@ -421,6 +416,7 @@ public class WebserviceConstants {
     public static final String KEY_ISSUE_DATE = "issue_date";
     public static final String KEY_VALIDITY_DATE = "validity_date";
     public static final String KEY_COU_BALANCE_POINT = "balance_point";
+    public static final String KEY_COU_BALNCE_POINT_TYPE = "used_points";
 
 
     //output for
@@ -650,7 +646,7 @@ public class WebserviceConstants {
     public static final String KEY_TEACHER_USERIMG_BASE64 = "User_imagebase64";
     public static final String KEY_TEACHER_USERIMG = "User_Image";
     public static final String KEY_TEACHER_UPDATE_FIRST_NAME = "User_FName";
- public static final String KEY_TEACHER_UPDATE_MIDDLE_NAME = "User_MName";
+    public static final String KEY_TEACHER_UPDATE_MIDDLE_NAME = "User_MName";
     public static final String KEY_TEACHER_UPDATE_LAST_NAME = "User_LName";
 
     public static final String KEY_TEACHER_UPDATE_DOB = "User_dob";
@@ -789,28 +785,28 @@ public class WebserviceConstants {
     public static final String KEY_SEND_REQUEST_MEMBER_ID = "sender_member_id";
     public static final String KEY_SEND_REQUEST_SENDER_ID = "sender_entity_id";
     public static final String KEY_SEND_REQUEST_RECIVER_ID = "receiver_entity_id";
-    public static final String KEY_SEND_REQUEST_COUNTRYCODE= "receiver_country_code";
+    public static final String KEY_SEND_REQUEST_COUNTRYCODE = "receiver_country_code";
     public static final String KEY_SEND_REQUEST_MOBILENO = "receiver_mobile_number";
-    public static final String KEY_SEND_REQUEST_EMAILID= "receiver_email_id";
-    public static final String KEY_SEND_REQUEST_FIRSTNAME= "firstname";
-    public static final String KEY_SEND_REQUEST_MIDDLENAME= "middlename";
-    public static final String KEY_SEND_REQUEST_LASTNAME= "lastname";
-    public static final String KEY_SEND_REQUEST_PLATFORM= "platform_source";
-    public static final String KEY_SEND_REQUEST_SENDSTATUS= "request_status";
-    public static final String KEY_SEND_REQUEST_INVITATYION_SENDER_NAME= "invitation_sender_name";
+    public static final String KEY_SEND_REQUEST_EMAILID = "receiver_email_id";
+    public static final String KEY_SEND_REQUEST_FIRSTNAME = "firstname";
+    public static final String KEY_SEND_REQUEST_MIDDLENAME = "middlename";
+    public static final String KEY_SEND_REQUEST_LASTNAME = "lastname";
+    public static final String KEY_SEND_REQUEST_PLATFORM = "platform_source";
+    public static final String KEY_SEND_REQUEST_SENDSTATUS = "request_status";
+    public static final String KEY_SEND_REQUEST_INVITATYION_SENDER_NAME = "invitation_sender_name";
 
     // SEARCH STUDENT OF COLLAGE WEB SERVICE
 
-    public static final String SEARCH_KEY= "student_key";
-    public static final String OFFSET= "offset";
+    public static final String SEARCH_KEY = "student_key";
+    public static final String OFFSET = "offset";
 
-    public static final String SEARCH_KEY_STUDENT_COMP_NAME= "std_complete_name";
-    public static final String SEARCH_KEY_SCHOOL_ID= "school_id";
-    public static final String SEARCH_KEY_PRN= "std_PRN";
-    public static final String SEARCH_KEY_IMG= "std_img_path";
-    public static final String SEARCH_KEY_CLASS= "std_class";
-    public static final String SEARCH_KEY_DEPART= "std_dept";
-    public static final String SEARCH_KEY_BRANCH= "std_branch";
+    public static final String SEARCH_KEY_STUDENT_COMP_NAME = "std_complete_name";
+    public static final String SEARCH_KEY_SCHOOL_ID = "school_id";
+    public static final String SEARCH_KEY_PRN = "std_PRN";
+    public static final String SEARCH_KEY_IMG = "std_img_path";
+    public static final String SEARCH_KEY_CLASS = "std_class";
+    public static final String SEARCH_KEY_DEPART = "std_dept";
+    public static final String SEARCH_KEY_BRANCH = "std_branch";
 
     public static final String KEY_USER_NAME = "Admin_Name";
     public static final String KEY_USER_GPASS = "Admin_Pass";
@@ -821,7 +817,7 @@ public class WebserviceConstants {
     public static final String KEY_USER_MID = "id";
     public static final String KEY_USER_COMPNAME = "t_complete_name";
     public static final String KEY_USER_REG_FNAME = "t_name";
- public static final String KEY_USER_REG_MNAME = "t_middlename";
+    public static final String KEY_USER_REG_MNAME = "t_middlename";
     public static final String KEY_USER_REG_lNAME = "t_lastname";
     public static final String KEY_USER_REG_ADDRESS = "t_address";
     public static final String KEY_USER_REG_CITY = "t_city";
@@ -835,10 +831,10 @@ public class WebserviceConstants {
     public static final String KEY_USER_REG_IMGNAME = "User_Image_Name";
 
 
-    public static ProgressDialog showProgress(Context context, String message){
+    public static ProgressDialog showProgress(Context context, String message) {
         ProgressDialog mProgressDialog;
         mProgressDialog = new ProgressDialog(context);
-      //  mProgressDialog.setContentView(R.layout.progressview);
+        //  mProgressDialog.setContentView(R.layout.progressview);
         mProgressDialog.setMessage(message);
         mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         mProgressDialog.setCancelable(false);
@@ -846,24 +842,24 @@ public class WebserviceConstants {
         return mProgressDialog;
     }
 
-    public static ProgressBar showProgress(Context context, RelativeLayout layout){
+    public static ProgressBar showProgress(Context context, RelativeLayout layout) {
         ProgressBar progressBar;
-        progressBar = new ProgressBar(context,null,android.R.attr.progressBarStyleLarge);
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(100,100);
+        progressBar = new ProgressBar(context, null, android.R.attr.progressBarStyleLarge);
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(100, 100);
         params.addRule(RelativeLayout.CENTER_IN_PARENT);
-        layout.addView(progressBar,params);
+        layout.addView(progressBar, params);
         /*progressBar.setVisibility(View.VISIBLE);  //To show ProgressBar
         progressBar.setVisibility(View.GONE);*/     // To Hide ProgressBar
 
         return progressBar;
     }
 
- public static void showNetworkMsg(final Activity activity) {
-       activity.runOnUiThread(new Runnable() {
-        @Override
-        public void run() {
-         Toast.makeText(activity, "No internet connection.", Toast.LENGTH_SHORT).show();
-        }
-       });
-  }
+    public static void showNetworkMsg(final Activity activity) {
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(activity, "No internet connection.", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 }

@@ -95,8 +95,9 @@ public class GetGenerateCoupon extends SmartCookieTeacherService {
                     String couIssueDate = jsonObject.optString(WebserviceConstants.KEY_ISSUE_DATE);
                     String couValidityDate = jsonObject.optString(WebserviceConstants.KEY_VALIDITY_DATE);
                     String couBalancePoint = jsonObject.optString(WebserviceConstants.KEY_COU_BALANCE_POINT);
+                    String balancePointType = jsonObject.optString(WebserviceConstants.KEY_COU_BALNCE_POINT_TYPE);
 
-                    _genCoupon = new GenerateCoupon(couID, couPoint, couIssueDate, couValidityDate, couBalancePoint);
+                    _genCoupon = new GenerateCoupon(couID, couPoint, couIssueDate, couValidityDate, couBalancePoint,balancePointType);
                     genCouList.add(_genCoupon);
 
 

@@ -10,16 +10,15 @@ public class GenerateCoupon {
     private String _couIssueDate = null;
     private String _couValidityDate = null;
     private String _couBalancePoint = null;
+    private String balancePointType = null;
 
-
-    public GenerateCoupon(String couID, String couPoint, String couIssueDate, String couValidityDate, String couBalancePoint) {
-
-        _couID = couID;
-        _couPoint = couPoint;
-        _couIssueDate = couIssueDate;
-        _couValidityDate = couValidityDate;
-        _couBalancePoint = couBalancePoint;
-
+    public GenerateCoupon(String _couID, String _couPoint, String _couIssueDate, String _couValidityDate, String _couBalancePoint, String balancePointType) {
+        this._couID = _couID;
+        this._couPoint = _couPoint;
+        this._couIssueDate = _couIssueDate;
+        this._couValidityDate = _couValidityDate;
+        this._couBalancePoint = _couBalancePoint;
+        this.balancePointType = balancePointType;
     }
 
     public String get_couID() {
@@ -42,5 +41,7 @@ public class GenerateCoupon {
         return _couBalancePoint;
     }
 
-
+    public String getBalancePointType() {
+        return balancePointType;
+    }
 }

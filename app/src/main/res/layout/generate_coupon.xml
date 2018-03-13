@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:orientation="vertical"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <com.blueplanet.smartcookieteacher.customcomponents.VerticalScrollView
         android:layout_width="match_parent"
@@ -64,7 +64,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/rl_1"
                         android:gravity="center"
-                        android:text="SMART COOKIE COUPON"
+                        android:text="Smart Cookie Coupon"
                         android:textColor="#4A8B3B"
                         android:textSize="15sp" />
 
@@ -207,15 +207,28 @@
                     android:textSize="15sp" />
 
 
-                <com.blueplanet.smartcookieteacher.customcomponents.CustomButton
+                <!--   <com.blueplanet.smartcookieteacher.customcomponents.CustomButton
+                       android:id="@+id/btn_recentilygen"
+                       style="@style/login_button_style"
+                       android:layout_width="match_parent"
+                       android:layout_height="50dp"
+                       android:layout_below="@+id/btn_generate"
+                       android:layout_centerHorizontal="true"
+                       android:background="@drawable/login_button_selector"
+                       android:gravity="center"
+                       android:textColor="#ffffff"
+                       android:textSize="15sp" />
+                   -->
+
+                <TextView
+
                     android:id="@+id/btn_recentilygen"
-                    style="@style/login_button_style"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_below="@+id/btn_generate"
-                    android:layout_centerHorizontal="true"
-                    android:background="@drawable/login_button_selector"
-                    android:gravity="center"
+                    android:layout_height="30dp"
+                    android:layout_margin="5dp"
+                    android:background="#203CB9"
+                    android:gravity="center_horizontal"
+                    android:text="Recently Generated Coupon"
                     android:textColor="#ffffff"
                     android:textSize="15sp" />
 
@@ -240,7 +253,6 @@
             </LinearLayout>
 
 
-
         </LinearLayout>
 
     </com.blueplanet.smartcookieteacher.customcomponents.VerticalScrollView>
@@ -251,9 +263,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/relay3"
+        android:layout_marginBottom="5dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:layout_marginBottom="5dp"
-        android:background="@drawable/border"
-        />
+        android:background="@drawable/border" />
 </LinearLayout>

@@ -62,7 +62,7 @@ public class AddCartAdapter extends BaseAdapter implements IEventListener {
 
         _addFragment = addFragment;
         _controller = controller;
-      //  _coupDetailList = AddToCartFeatureController.getInstance().get_selectedCoupList();
+        //_coupDetailList = AddToCartFeatureController.getInstance().get_selectedCoupList();
         Log.i(_TAG, "Incoup" + _coupDetailList);
 
         _teacher = LoginFeatureController.getInstance().getTeacher();
@@ -139,7 +139,7 @@ public class AddCartAdapter extends BaseAdapter implements IEventListener {
                 if (imageurl != null && imageurl.length() > 0) {
                   /*  final String imageName = WebserviceConstants.IMAGE_BASE_URL
                             + imageurl;*/
-                    final String imageName = imageurl;
+                    final String imageName =  imageurl;
                     Log.i(_TAG, imageName);
                     SmartCookieImageLoader.getInstance().setImageLoaderData(imageName, _couImg,
                             IImageLoader.CIRCULAR_USER_POSTER);

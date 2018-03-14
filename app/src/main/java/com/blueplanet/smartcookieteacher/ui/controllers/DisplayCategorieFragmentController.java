@@ -404,7 +404,11 @@ public class DisplayCategorieFragmentController implements IEventListener, Adapt
                 }*/
                 Log.i(_TAG, "ON clicked");
 
-                _showCategorieListDialog();
+                if (NetworkManager.isNetworkAvailable()) {
+                    _showCategorieListDialog();
+                } else {
+                    WebserviceConstants.showNetworkMsg(_disCategorieFragment.getActivity());
+                }
                 break;
             default:
                 break;

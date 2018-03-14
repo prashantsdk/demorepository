@@ -6,8 +6,13 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
@@ -16,6 +21,7 @@ import android.widget.Toast;
 
 import com.blueplanet.smartcookieteacher.R;
 import com.blueplanet.smartcookieteacher.customcomponents.CustomTextView;
+import com.blueplanet.smartcookieteacher.featurecontroller.DrawerFeatureController;
 import com.blueplanet.smartcookieteacher.gcm.MainActivity;
 import com.blueplanet.smartcookieteacher.models.LatAndLongModel;
 import com.blueplanet.smartcookieteacher.ui.controllers.DisplayCategorieFragmentController;
@@ -56,6 +62,7 @@ public class DisplayCategorieFragment extends Fragment {
         _initUI();
         getActivity().setTitle("Buy Coupon");
 
+        setHasOptionsMenu(true);
         if(_selectCategorie.getText().equals("Select category")){
             _gridView.setVisibility(View.GONE);
         }
@@ -74,6 +81,33 @@ public class DisplayCategorieFragment extends Fragment {
         }
 
         return _view;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.my_cart, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if(id == R.id.action_add){
+            _loadFragment(R.id.content_frame, new AddCartFragment());
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void _loadFragment(int id, Fragment fragment) {
+
+        DrawerFeatureController.getInstance().setIsFragmentOpenedFromDrawer(false);
+        FragmentManager fm = getActivity().getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.add(id, fragment);
+        ft.hide(this);
+        ft.addToBackStack(DisplayCategorieFragment.class.getName());
+        // fragment.getActivity().setTitle("Buy Coupon");
+        ft.commitAllowingStateLoss();
     }
 
     private void _initUI() {

@@ -103,7 +103,7 @@ public class StudentDetailFragment extends Fragment {
 
                     if (timage != null && timage.length() > 0) {
 
-                        final String imageName = com.blueplanet.smartcookieteacher.webservices.WebserviceConstants.IMAGE_BASE_URL + timage;
+                        final String imageName =  timage;
                         Log.i(_TAG, imageName);
 
                         SmartCookieImageLoader.getInstance().setImageLoaderData(imageName, iv_studentPhoto,

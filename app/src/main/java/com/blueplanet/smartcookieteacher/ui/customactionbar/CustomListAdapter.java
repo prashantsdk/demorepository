@@ -68,7 +68,7 @@ public class CustomListAdapter extends ArrayAdapter<Employee> {
             String timage = _teacher.get_tPC();
             if (timage != null && timage.length() > 0) {
 
-                final String imageName = WebserviceConstants.IMAGE_BASE_URL + timage;
+                final String imageName =  timage;
                 Log.i(_TAG, imageName);
 
                 SmartCookieImageLoader.getInstance().setImageLoaderData(imageName, _userimg,

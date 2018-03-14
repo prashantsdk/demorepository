@@ -648,7 +648,7 @@ public class UpdateProfileActivity extends AppCompatActivity implements IEventLi
 
         _pasword.setText(pas);*/
         String img = teacher.get_tPC();
-        String url1 = WebserviceConstants.IMAGE_BASE_URL + img;
+        String url1 = img;
         ImageLoader loader = ImageLoader.getInstance();
         loader.displayImage(url1, _parentImg);
 

@@ -43,6 +43,8 @@ public class EventTypes {
     public static final int EVENT_UI_TEACHER_ASSIGN_POINT_RECEIVED = 173;
     public static final int EVENT_UI_NO_TEACHER_ASSIGN_POINT_RECEIVED = 174;
 
+    public static final int EVENT_TEACHER_SUBJECT_RULE_ENGINE_NOT_DEFINE = 1006;
+
     public static final int EVENT_TEACHER_ACTIVITY_LIST_RECEVIED = 175;
     public static final int EVENT_UI_TEACHER_ACTIVITY_LIST_RECEIVED = 176;
     public static final int EVENT_UI_TEACHER_NO_ACTIVITY_LIST_RECEIVED = 177;

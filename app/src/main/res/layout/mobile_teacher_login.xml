@@ -114,11 +114,10 @@
 
                     <Spinner
                         android:id="@+id/spinnerPhone"
-                        android:layout_width="70dp"
-                        android:layout_height="50dp"
-                        android:layout_gravity="center_horizontal"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:layout_gravity="center"
                         android:layout_marginLeft="8dp"
-                        android:layout_marginTop="11dp"
                         android:background="@drawable/oval_white"
                         android:visibility="visible" />
 

@@ -1287,6 +1287,17 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
 
 
                 break;
+
+            case EventTypes.EVENT_TEACHER_SUBJECT_RULE_ENGINE_NOT_DEFINE:
+                EventNotifier eventNotifier5 =
+                        NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_TEACHER);
+                eventNotifier5.unRegisterListener(this);
+                _assignPointFragment.showOrHideProgressBar(false);
+                _assignPointFragment.ruleEngineNotDefined();
+
+                break;
+
+
             case EventTypes.EVENT_UI_NO_TEACHER_ASSIGN_POINT_RECEIVED:
                 EventNotifier event4 =
                         NotifierFactory.getInstance().getNotifier
@@ -1433,7 +1444,7 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
                 try {
 
                     jsonObjSend.put("t_id", _teacherId);
-                     jsonObjSend.put("school_id", _schoolId);
+                    jsonObjSend.put("school_id", _schoolId);
                     jsonObjSend.put("std_PRN", prn);
 
 

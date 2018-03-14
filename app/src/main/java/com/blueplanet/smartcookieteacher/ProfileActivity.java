@@ -513,7 +513,7 @@ public class ProfileActivity extends AppCompatActivity implements IEventListener
         String phone = String.valueOf(teacher.get_tPhone());
         _phone.setText(phone);
         String img = teacher.get_tPC();
-        String url1 = WebserviceConstants.IMAGE_BASE_URL + img;
+        String url1 = img;
         ImageLoader loader = ImageLoader.getInstance();
         loader.displayImage(url1, _parentImg);
     }

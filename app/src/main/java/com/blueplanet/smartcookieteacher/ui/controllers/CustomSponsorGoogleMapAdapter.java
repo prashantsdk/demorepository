@@ -132,7 +132,7 @@ public class CustomSponsorGoogleMapAdapter extends BaseAdapter {
             imageLoader.DisplayImage(imgurl, holder.Spimage);*/
 
 
-            String temp = WebserviceConstants.IMAGE_BASE_URL_PRODUCTION + mRegisterSponsor.getSPONSOR_IMG().toString();
+            String temp = mRegisterSponsor.getSPONSOR_IMG().toString();
 
             Uri uri = Uri.parse(temp);
             Glide.with(context)

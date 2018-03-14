@@ -45,5 +45,7 @@ public class HTTPConstants {
 
     public static final int HTTP_DESC_NOT_FOUND = -2;
 
+    public static final int RULE_ENGINE = 1006;
+
 
 }

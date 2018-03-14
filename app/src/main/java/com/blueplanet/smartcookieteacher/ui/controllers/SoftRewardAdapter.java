@@ -114,8 +114,7 @@ public class SoftRewardAdapter extends BaseAdapter implements TextWatcher,IEvent
 
                     String imageurl = _filteredStudentList.get(position).get_softimg();
                     if (imageurl != null && imageurl.length() > 0) {
-                        final String imageName = WebserviceConstants.IMAGE_BASE_URL
-                                + imageurl;
+                        final String imageName = imageurl;
                         Log.i(_TAG, imageName);
 
 
@@ -138,8 +137,7 @@ public class SoftRewardAdapter extends BaseAdapter implements TextWatcher,IEvent
 
                     String imageursoft = _filteredStudentList.get(position).get_softimg();
                     if (imageursoft != null && imageursoft.length() > 0) {
-                        final String imageName = WebserviceConstants.IMAGE_BASE_URL
-                                + imageursoft;
+                        final String imageName = imageursoft;
                         Log.i(_TAG, imageName);
 
 

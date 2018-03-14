@@ -349,6 +349,16 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
 
     }
 
+    public void ruleEngineNotDefined() {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+
+                Toast.makeText(getActivity().getApplicationContext(), "Rule Engine is not defined for this subject try  using judgement ", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
     public void showpoinSubmitSucessfully(final boolean flag) {
         getActivity().runOnUiThread(new Runnable() {
             @Override

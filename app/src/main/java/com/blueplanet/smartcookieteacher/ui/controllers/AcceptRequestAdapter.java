@@ -159,8 +159,7 @@ public class AcceptRequestAdapter extends BaseAdapter  implements IEventListener
                     _ivStudentPhoto = (ImageView) convertView.findViewById(R.id.iv_studentPhoto);
                     String imageurl = _RequestPointlist.get(position).get_img();
                     if (imageurl != null && imageurl.length() > 0) {
-                        final String imageName = WebserviceConstants.IMAGE_BASE_URL
-                                + imageurl;
+                        final String imageName = imageurl;
                         Log.i(_TAG, imageName);
 
 

@@ -72,8 +72,7 @@ public class StudentListAdapterSubject extends BaseAdapter {
 
                 String imageurl = student.get_stdImageUrl();
                 if (imageurl != null && imageurl.length() > 0) {
-                    final String imageName = com.blueplanet.smartcookieteacher.webservices.WebserviceConstants.IMAGE_BASE_URL
-                            + imageurl;
+                    final String imageName = imageurl;
                     Log.i(_TAG, imageName);
 
                     com.blueplanet.smartcookieteacher.utils.SmartCookieImageLoader.getInstance().setImageLoaderData(imageName, studentImage,

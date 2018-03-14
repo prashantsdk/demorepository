@@ -50,7 +50,7 @@ public class WebserviceConstants {
     public static final String REGISTRATION = "teacher_registration.php";
     public static final String TEACHER_POINT = "display_teacher_point_v3.php";
     public static final String TEACHER_SUBJECT = "teacher_ws.php?f=teacherMySubjects";
-    public static final String TEACHER_ASSIGN_POINT = "point_registration_webservice_v2.php";
+    public static final String TEACHER_ASSIGN_POINT = "point_registration_webservice_v4.php";
     public static final String TEACHER_ACIVITY = "activity_list.php";
     public static final String REWARD_POINT_LOG = "display_teacher_rewardlog.php";
     public static final String Display_CATEGORIE = "display_category.php";

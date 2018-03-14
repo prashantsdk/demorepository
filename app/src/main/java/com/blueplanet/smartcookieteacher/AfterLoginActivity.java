@@ -166,7 +166,7 @@ public class AfterLoginActivity extends AppCompatActivity implements IEventListe
 
             } else {
 
-                String temp = WebserviceConstants.IMAGE_BASE_URL_PRODUCTION + _teacher.get_tPC().toString();
+                String temp =  _teacher.get_tPC().toString();
 
                 Uri uri = Uri.parse(temp);
                 Glide.with(AfterLoginActivity.this)

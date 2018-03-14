@@ -87,8 +87,7 @@ public class CustomListAdapter1 extends BaseAdapter {
 
                 String imageurl = _studentList.get(position).get_stdImageUrl();
                 if (imageurl != null && imageurl.length() > 0) {
-                    final String imageName = WebserviceConstants.IMAGE_BASE_URL
-                            + imageurl;
+                    final String imageName = imageurl;
                     Log.i(_TAG, imageName);
 
                     SmartCookieImageLoader.getInstance().setImageLoaderData(imageName, _ivStudentPhoto,

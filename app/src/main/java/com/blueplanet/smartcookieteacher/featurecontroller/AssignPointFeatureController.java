@@ -184,7 +184,16 @@ public class AssignPointFeatureController implements IEventListener {
                         eventNotifierUI.eventNotifyOnThread(EventTypes.EVENT_UI_BAD_REQUEST,
                                 serverResponse);
 
-                    } else {
+                    }  else if(statusCode == HTTPConstants.RULE_ENGINE){
+
+                        eventNotifierUI =
+                                NotifierFactory.getInstance().getNotifier(
+                                        NotifierFactory.EVENT_NOTIFIER_TEACHER);
+                        eventNotifierUI.eventNotifyOnThread(EventTypes.EVENT_TEACHER_SUBJECT_RULE_ENGINE_NOT_DEFINE,
+                                serverResponse);
+
+                    }
+                    else {
 
                         eventNotifierUI =
                                 NotifierFactory.getInstance().getNotifier(

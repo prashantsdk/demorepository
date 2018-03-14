@@ -83,7 +83,7 @@ public class SubjectwiseStudentAdapter extends BaseAdapter {
                 String timage = _subjectwiseList.get(position).get_stdImage();
                 if (timage != null && timage.length() > 0) {
 
-                    final String imageName = WebserviceConstants.IMAGE_BASE_URL + timage;
+                    final String imageName =  timage;
                     Log.i(_TAG, imageName);
 
                     SmartCookieImageLoader.getInstance().setImageLoaderData(imageName, _stdimg,

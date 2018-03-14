@@ -3,6 +3,7 @@ package com.blueplanet.smartcookieteacher.featurecontroller;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.widget.Toast;
 
 import com.blueplanet.smartcookieteacher.communication.ErrorInfo;
 import com.blueplanet.smartcookieteacher.communication.HTTPConstants;
@@ -18,6 +19,8 @@ import com.blueplanet.smartcookieteacher.webservices.GetDisplayCategorie;
 import com.blueplanet.smartcookieteacher.webservices.WebserviceConstants;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by 1311 on 09-01-2016.
@@ -64,7 +67,7 @@ public class CategoriesFeatureController implements IEventListener {
      */
 
 
-    public void getDisplayCategorieFromServer(Context context, String ab_key) {
+    public void getDisplayCategorieFromServer(final Context context, String ab_key) {
 
         progressDialog = WebserviceConstants.showProgress(context, "Loading categories...");
         progressDialog.show();

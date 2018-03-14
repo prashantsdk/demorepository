@@ -226,7 +226,7 @@ public class AfterLoginActivity extends AppCompatActivity implements IEventListe
                 if (_count < 7) {
                     _count = _count + 1;
                 }
-                _fragmentTagList.add("GenerateCouponFragment");
+                _fragmentTagList.add("AllSubjectFragment");
                 _addtoBackStack = true;
                 // _fragment = new BuyCouponLogFragment();//
 
@@ -240,7 +240,7 @@ public class AfterLoginActivity extends AppCompatActivity implements IEventListe
                 if (_count < 7) {
                     _count = _count + 1;
                 }
-                _fragmentTagList.add("RewardPointFragment");
+                _fragmentTagList.add("DisplayCategorieFragment");
                 _addtoBackStack = true;
                 // _fragment = new RewardPointFragment();//
 
@@ -253,7 +253,7 @@ public class AfterLoginActivity extends AppCompatActivity implements IEventListe
                 if (_count < 7) {
                     _count = _count + 1;
                 }
-                _fragmentTagList.add("BluePointFragment");
+                _fragmentTagList.add("GenerateCouponFragment");
                 _addtoBackStack = true;
                 //_fragment = new BluePointFragment();//
 
@@ -264,7 +264,7 @@ public class AfterLoginActivity extends AppCompatActivity implements IEventListe
                 if (_count < 7) {
                     _count = _count + 1;
                 }
-                _fragmentTagList.add("DisplayCategorieFragment");
+                _fragmentTagList.add("AllLogFragment");
                 _addtoBackStack = true;
                 //   _fragment = new DisplayCategorieFragment();//
 
@@ -276,7 +276,7 @@ public class AfterLoginActivity extends AppCompatActivity implements IEventListe
                 if (_count < 7) {
                     _count = _count + 1;
                 }
-                _fragmentTagList.add("GenerateCouponFragment");
+                _fragmentTagList.add("SyncFragment");
                 _addtoBackStack = true;
                 //  _fragment = new GenerateCouponFragment();//
 
@@ -287,7 +287,7 @@ public class AfterLoginActivity extends AppCompatActivity implements IEventListe
                 if (_count < 7) {
                     _count = _count + 1;
                 }
-                _fragmentTagList.add("GenerateCouponFragment");
+                _fragmentTagList.add("SharePointFragment");
                 _addtoBackStack = true;
                 // _fragment = new BuyCouponLogFragment();//
 
@@ -299,7 +299,7 @@ public class AfterLoginActivity extends AppCompatActivity implements IEventListe
                 if (_count < 7) {
                     _count = _count + 1;
                 }
-                _fragmentTagList.add("GenerateCouponFragment");
+                _fragmentTagList.add("SearchStudentFragment");
                 _addtoBackStack = true;
                 // _fragment = new BuyCouponLogFragment();//
 
@@ -314,7 +314,7 @@ public class AfterLoginActivity extends AppCompatActivity implements IEventListe
                 if (_count < 7) {
                     _count = _count + 1;
                 }
-                _fragmentTagList.add("GenerateCouponFragment");
+                _fragmentTagList.add("SoftRewardFragment");
                 _addtoBackStack = true;
                 // _fragment = new BuyCouponLogFragment();//
 
@@ -343,7 +343,7 @@ public class AfterLoginActivity extends AppCompatActivity implements IEventListe
                 if (_count < 7) {
                     _count = _count + 1;
                 }
-                _fragmentTagList.add("GenerateCouponFragment");
+                _fragmentTagList.add("SugestSponserFragment");
                 _addtoBackStack = true;
                 // _fragment = new BuyCouponLogFragment();//
 
@@ -359,7 +359,7 @@ public class AfterLoginActivity extends AppCompatActivity implements IEventListe
                 if (_count < 7) {
                     _count = _count + 1;
                 }
-                _fragmentTagList.add("GenerateCouponFragment");
+                _fragmentTagList.add("AcceptRequestFragment");
                 _addtoBackStack = true;
                 // _fragment = new BuyCouponLogFragment();//
 
@@ -375,7 +375,7 @@ public class AfterLoginActivity extends AppCompatActivity implements IEventListe
                 if (_count < 7) {
                     _count = _count + 1;
                 }
-                _fragmentTagList.add("GenerateCouponFragment");
+                _fragmentTagList.add("SendRequestFragment");
                 _addtoBackStack = true;
                 // _fragment = new BuyCouponLogFragment();//
 
@@ -393,7 +393,7 @@ public class AfterLoginActivity extends AppCompatActivity implements IEventListe
                 if (_count < 7) {
                     _count = _count + 1;
                 }
-                _fragmentTagList.add("GenerateCouponFragment");
+                _fragmentTagList.add("SponsorLogs");
                 _addtoBackStack = true;
 
                 _fragment = new SponsorLogs();
@@ -680,17 +680,19 @@ public class AfterLoginActivity extends AppCompatActivity implements IEventListe
 
 
           //  Fragment f = getTopFragment();
-            if(getTopFragment() instanceof TeacherDashboardFragment){
+            if (getSupportFragmentManager().getBackStackEntryCount() == 1) {
                 finish();
-            }else
+            }else {
+                getTopFragment();
                 super.onBackPressed();
+            }
         }
     }
 
     //Priyanka
     public Fragment getTopFragment() {
         if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
-            return new TeacherDashboardFragment();
+            return null;
         }
         String fragmentTag = getSupportFragmentManager().getBackStackEntryAt(getSupportFragmentManager().getBackStackEntryCount() - 1).getName();
         return getSupportFragmentManager().findFragmentByTag(fragmentTag);

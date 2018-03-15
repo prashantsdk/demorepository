@@ -578,7 +578,7 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
             ll_issue1.setVisibility(View.GONE);
             ll_issue2.setVisibility(View.VISIBLE);
             ll_issue3.setVisibility(View.GONE);
-            ll_gradePoint.setVisibility(View.VISIBLE);
+            ll_gradePoint.setVisibility(View.GONE);
             ll_markPoint.setVisibility(View.GONE);
 
             //LoginFeatureController.getInstance().setUserEmailType(false);

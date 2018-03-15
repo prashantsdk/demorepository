@@ -37,7 +37,6 @@ import com.blueplanet.smartcookieteacher.notification.IEventListener;
 import com.blueplanet.smartcookieteacher.notification.ListenerPriority;
 import com.blueplanet.smartcookieteacher.notification.NotifierFactory;
 import com.blueplanet.smartcookieteacher.ui.AcceptRequestFragment;
-import com.blueplanet.smartcookieteacher.ui.AddCartFragment;
 import com.blueplanet.smartcookieteacher.ui.AllLogFragment;
 import com.blueplanet.smartcookieteacher.ui.AllSubjectFragment;
 import com.blueplanet.smartcookieteacher.ui.DisplayCategorieFragment;
@@ -48,7 +47,6 @@ import com.blueplanet.smartcookieteacher.ui.SendRequestFragment;
 import com.blueplanet.smartcookieteacher.ui.SharePointFragment;
 import com.blueplanet.smartcookieteacher.ui.SoftRewardFragment;
 import com.blueplanet.smartcookieteacher.ui.SponsorLogs;
-import com.blueplanet.smartcookieteacher.ui.StudentListFragment;
 import com.blueplanet.smartcookieteacher.ui.SugestSponserFragment;
 import com.blueplanet.smartcookieteacher.ui.SyncFragment;
 import com.blueplanet.smartcookieteacher.ui.TeacherDashboardFragment;
@@ -166,7 +164,7 @@ public class AfterLoginActivity extends AppCompatActivity implements IEventListe
 
             } else {
 
-                String temp =  _teacher.get_tPC().toString();
+                String temp = _teacher.get_tPC().toString();
 
                 Uri uri = Uri.parse(temp);
                 Glide.with(AfterLoginActivity.this)
@@ -202,13 +200,13 @@ public class AfterLoginActivity extends AppCompatActivity implements IEventListe
                 _fragmentTagList.add("StudentListFragment");
                 _addtoBackStack = true;
 
-                _fragment = new StudentListFragment();
+//                             _fragment = new StudentListFragment();
+//
+//                Bundle bundle = new Bundle();
+//                bundle.putString("studentlist","1");
+//                _fragment.setArguments(bundle);
 
-                Bundle bundle = new Bundle();
-                bundle.putString("studentlist","1");
-                _fragment.setArguments(bundle);
-
-
+                _fragment = new SearchStudentFragment();
                 break;
             case R.id.nav_teacher_subject:
                 DrawerFeatureController.getInstance().setIsFragmentOpenedFromDrawer(true);
@@ -478,7 +476,7 @@ public class AfterLoginActivity extends AppCompatActivity implements IEventListe
         }
         //write load fragment here
         //_manageFragments(_addtoBackStack, false, _fragment);
-        _loadFragment(R.id.content_frame,  _fragment);
+        _loadFragment(R.id.content_frame, _fragment);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -564,9 +562,11 @@ public class AfterLoginActivity extends AppCompatActivity implements IEventListe
             FragmentTransaction ft = frgManager.beginTransaction();
 
 
-            *//**
-             * _addToStack decides whether to add fragment to back stack...in order to maintain it on back press
-             *//*
+            */
+
+    /**
+     * _addToStack decides whether to add fragment to back stack...in order to maintain it on back press
+     *//*
             if (_fragmentTagList != null && _fragmentTagList.size() > 0) {
                 int count1 = (_fragmentTagList.size()) - 1;
                 fragmentTag = _fragmentTagList.get(count1).toString();
@@ -630,7 +630,6 @@ public class AfterLoginActivity extends AppCompatActivity implements IEventListe
             }
         }
     }*/
-
     private void _loadFragment(int id, Fragment fragment) {
 
         DrawerFeatureController.getInstance().setIsFragmentOpenedFromDrawer(false);
@@ -679,10 +678,10 @@ public class AfterLoginActivity extends AppCompatActivity implements IEventListe
             //Priyanka changes
 
 
-          //  Fragment f = getTopFragment();
+            //  Fragment f = getTopFragment();
             if (getSupportFragmentManager().getBackStackEntryCount() == 1) {
                 finish();
-            }else {
+            } else {
                 getTopFragment();
                 super.onBackPressed();
             }

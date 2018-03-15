@@ -28,7 +28,7 @@
                 android:layout_weight="1"
                 android:background="@null"
                 android:drawableLeft="@android:drawable/ic_menu_search"
-                android:hint="Search All Student"
+                android:hint="Search All Students"
 
                 android:imeOptions="actionDone"
                 android:singleLine="true"

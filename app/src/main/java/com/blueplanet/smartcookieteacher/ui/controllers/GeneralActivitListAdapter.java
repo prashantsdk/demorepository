@@ -64,6 +64,10 @@ public class GeneralActivitListAdapter extends BaseAdapter {
         }
     }
 
+    public GeneralActivitListAdapter(ArrayList<GeneralActivity> generalActivities) {
+        _activityList = generalActivities;
+    }
+
 
     @Override
     public int getCount() {

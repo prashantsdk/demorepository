@@ -70,14 +70,14 @@ public class SearchStudentFeatureController implements IEventListener {
         eventNotifier.registerListener(this, ListenerPriority.PRIORITY_MEDIUM);
     }
 
-    public SearchStudent getSeletedsearchedstudent() {
+    /*public SearchStudent getSeletedsearchedstudent() {
         return this.Search;
     }
 
     public void setSeletedsearchedstudent(SearchStudent Search) {
 
         this.Search = Search;
-    }
+    }*/
 
     public SearchStudent get_selectedSearchStudent() {
         return _selectedSearchStudent;
@@ -87,7 +87,7 @@ public class SearchStudentFeatureController implements IEventListener {
         this._selectedSearchStudent = _selectedSearchStudent;
     }
 
-    public ArrayList<SearchStudent> getSearchedTeacher() {
+    public ArrayList<SearchStudent> getSearchedStudents() {
 
         return this.arr_search;
     }

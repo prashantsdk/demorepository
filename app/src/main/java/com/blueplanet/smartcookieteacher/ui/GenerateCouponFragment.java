@@ -48,7 +48,7 @@ public class GenerateCouponFragment extends Fragment implements AdapterView.OnIt
     private GenerateCouponAdapter _adapter;
     private GenerateCoupon _coupon;
     private Spinner spinner, spinner1, spinnercolr;
-    String[] userOption = {"Select points type", "Bluepoints", "Waterpoints", "Brownpoints"};
+    String[] userOption = {"Select Points Type", "Blue Points", "Water Points", "Brown Points"};
     private String selState, str;
 
     @Override
@@ -154,13 +154,13 @@ public class GenerateCouponFragment extends Fragment implements AdapterView.OnIt
                         String points = _coupon.get_couBalancePoint();
 
                         String pointType = _coupon.getBalancePointType().toString();
-                        if (pointType.equalsIgnoreCase("Bluepoints")) {
+                        if (pointType.equalsIgnoreCase("Blue Points")) {
                             _txtpoint.setText(_coupon.get_couBalancePoint());
                         }
-                        if (pointType.equalsIgnoreCase("Waterpoints"))
+                        if (pointType.equalsIgnoreCase("Water Points"))
                             mWaterPoints.setText(_coupon.get_couBalancePoint());
 
-                        if (pointType.equalsIgnoreCase("Brownpoints")) {
+                        if (pointType.equalsIgnoreCase("Brown Points")) {
                             mBrownPoints.setText(_coupon.get_couBalancePoint());
                         }
 

@@ -99,11 +99,44 @@ public class SearchStudentOfCalss extends SmartCookieTeacherService {
                     String searchImg = jsonObject.optString(WebserviceConstants.SEARCH_KEY_IMG);
                     String searchbbranch = jsonObject.optString(WebserviceConstants.SEARCH_KEY_BRANCH);
                     String searchdepart = jsonObject.optString(WebserviceConstants.SEARCH_KEY_DEPART);
-                    _searchModel = new SearchStudent(searchname, searchSchoolId, searchPrn, searchImg,searchbbranch,searchdepart);
 
-                    if (SearchStudentFeatureController.getInstance().getSearchedTeacher() == null) {
+                    String sFname = jsonObject.optString(WebserviceConstants.KEY_SFNAME);
+
+                    String sSchoolName = jsonObject.optString(WebserviceConstants.KEY_SSCHOOLNMAE);
+
+                    String sClassName = jsonObject.optString(WebserviceConstants.KEY_SCLASSNAME);
+                    String sAddress = jsonObject.optString(WebserviceConstants.KEY_SADDRESS);
+
+                    String SGender = jsonObject.optString(WebserviceConstants.KEY_SGENDER);
+                    String Sdob = jsonObject.optString(WebserviceConstants.KEY_SDOB);
+
+                    String sAge = jsonObject.optString(WebserviceConstants.KEY_SAGE);
+
+                    String Scity = jsonObject.optString(WebserviceConstants.KEY_SCITY);
+                    String sEmail = jsonObject.optString(WebserviceConstants.KEY_SEMAIL);
+
+                   // String sSchoolId = jsonObject.optString(WebserviceConstants.KEY_SSCHOOLID);
+                    String sDate = jsonObject.optString(WebserviceConstants.KEY_SDATE);
+                    String sDiv = jsonObject.optString(WebserviceConstants.KEY_SDIV);
+
+                    String sHobbies = jsonObject.optString(WebserviceConstants.KEY_SHOBBIES);
+                    String sCountry = jsonObject.optString(WebserviceConstants.KEY_SCOUNTRY);
+                    String sTeacherName = jsonObject.optString(WebserviceConstants.KEY_SCLASSTEACHERNAME);
+                   // String sImagePath = jsonObject.optString(WebserviceConstants.KEY_SIMGPATH);
+                    int totalStudentCount = jsonObject.optInt(WebserviceConstants.KEY_STUDENT_TOTAL_COUNT);
+
+                   // String ssubcode = jsonObject.optString(WebserviceConstants.KEY_STUDENT_SUBCODE);
+                    int inputId = jsonObject.optInt(WebserviceConstants.KEY_INPUT_ID);
+
+                  //  _searchModel = new SearchStudent(searchname, searchSchoolId, searchPrn, searchImg,searchbbranch,searchdepart);
+
+                    _searchModel = new SearchStudent(searchname, searchSchoolId, searchPrn, searchImg,searchbbranch,searchdepart,
+                            sFname,sSchoolName,sClassName,sAddress, SGender,Sdob, sAge, Scity, sEmail,sDate, sDiv, sHobbies, sCountry,
+                            sTeacherName,inputId, totalStudentCount);
+
+                    if (SearchStudentFeatureController.getInstance().getSearchedStudents() == null) {
                         subList.add(_searchModel);
-                    } else if (!SearchStudentFeatureController.getInstance().getSearchedTeacher().toString().contains(searchname)) {
+                    } else if (!SearchStudentFeatureController.getInstance().getSearchedStudents().toString().contains(searchname)) {
                         subList.add(_searchModel);
                     } else {
 

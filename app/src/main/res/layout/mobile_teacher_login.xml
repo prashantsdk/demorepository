@@ -362,6 +362,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_gravity="center"
                     android:layout_marginTop="10dp"
+
                     android:orientation="horizontal"
                     android:visibility="visible">
 

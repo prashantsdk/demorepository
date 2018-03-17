@@ -62,6 +62,10 @@ public class SportListAdapter extends BaseAdapter {
         }
     }
 
+    public SportListAdapter(ArrayList<SportActivity> sportActivities) {
+        _activityList = sportActivities;
+    }
+
 
     @Override
     public int getCount() {

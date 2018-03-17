@@ -53,6 +53,10 @@ public class ArtActivityListAdapter extends BaseAdapter {
         sp = _assignPointFragment.getActivity().getSharedPreferences("SPD", Context.MODE_PRIVATE);
     }
 
+    public ArtActivityListAdapter(ArrayList<ArtActivity> artActivities) {
+        _activityList = artActivities;
+    }
+
 
     @Override
     public int getCount() {

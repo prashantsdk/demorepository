@@ -64,7 +64,7 @@ public class SearchStudentAdapter  extends BaseAdapter implements Filterable,IEv
         this.data = data;
         this.filterlist = data;
         _teacher = LoginFeatureController.getInstance().getTeacher();
-        _displaysub = SearchStudentFeatureController.getInstance().getSearchedTeacher();
+        _displaysub = SearchStudentFeatureController.getInstance().getSearchedStudents();
     }
 
     @Override
@@ -230,7 +230,6 @@ public class SearchStudentAdapter  extends BaseAdapter implements Filterable,IEv
             // TODO Auto-generated method stub
             data = (ArrayList<SearchStudent>) results.values;
             notifyDataSetChanged();
-
         }
     }
     @Override

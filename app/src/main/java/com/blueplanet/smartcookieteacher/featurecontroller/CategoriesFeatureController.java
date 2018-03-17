@@ -28,8 +28,8 @@ import java.util.TimerTask;
 public class CategoriesFeatureController implements IEventListener {
     private static CategoriesFeatureController _categoriesFeatureController = null;
 
-    private final String _TAG = this.getClass().getSimpleName();
-    private Category _selectedcategory;
+    //private final String _TAG = this.getClass().getSimpleName();
+ //   private Category _selectedcategory;
     private ArrayList<Category> _disCategories = new ArrayList<>();
     private Category _cate;
     private ProgressDialog progressDialog;

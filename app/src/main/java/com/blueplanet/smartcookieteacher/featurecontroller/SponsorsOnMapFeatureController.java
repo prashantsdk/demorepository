@@ -30,7 +30,7 @@ public class SponsorsOnMapFeatureController implements IEventListener {
     private ArrayList<SponsorOnMapModel> arr_data = null;
     private SponsorOnMapModel onMapModel = null;
     private final String _TAG = this.getClass().getSimpleName();
-    boolean flag = false;
+    //boolean flag = false;
     private int input_id = 0;
     /**
      * method to get object of this class

@@ -25,7 +25,7 @@ public class RegistrationFeatureController implements IEventListener {
 
     private static RegistrationFeatureController _regFeatureController = null;
     private RegisModel _registration = null;
-    private final String _TAG = this.getClass().getSimpleName();
+   // private final String _TAG = this.getClass().getSimpleName();
 
     /**
      * function to get single instance of this class

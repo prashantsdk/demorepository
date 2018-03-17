@@ -39,11 +39,11 @@ public class AcceptRequestController implements IEventListener,AbsListView.OnScr
 
     private AcceptRequestFragment _Fragment;
     private View _View;
-    private final String _TAG = this.getClass().getSimpleName();
+
     private Teacher _teacher;
     private ArrayList<RequestPointModel> _RequestPointlist;
     private String _teacherId, _schoolId;
-    private int _lastInputId = 0;
+
 
 
     /**

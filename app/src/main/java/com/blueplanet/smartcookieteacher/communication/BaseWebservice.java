@@ -21,7 +21,7 @@ import java.util.Map;
 public abstract class BaseWebservice implements IEventListener {
     protected int _requestType = HTTPRequestType.HTTP_POST;
     protected String _requestBody = null;
-    private Map<String, String> _requestHeaders = null;
+
     private String requestUrl = null;
     private boolean _showErrors = false;
 

@@ -27,7 +27,7 @@ public class SearchStudentFeatureController implements IEventListener {
 
     public static SearchStudentFeatureController _searchStudenttFeatureController = null;
     private final String _TAG = this.getClass().getSimpleName();
-    boolean flag = false;
+   // boolean flag = false;
     private ArrayList<SearchStudent> arr_search = null;
     private SearchStudent Search = null;
 

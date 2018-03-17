@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F8F4F3">
@@ -151,22 +152,26 @@
                         android:textStyle="italic" />
 
 
-                    <GridView
+                  <!--  <GridView
                         android:layout_marginTop="25dp"
                         android:id="@+id/lstActivity"
                         android:layout_width="match_parent"
-                        android:layout_height="150dp"
+                        android:layout_height="130dp"
                         android:nestedScrollingEnabled="true"
+                        android:columnWidth="90dp"
+                        android:stretchMode="columnWidth"
                         android:numColumns="2"></GridView>
-
-
-
-
-                    <!--<ListView
+-->
+                    <com.blueplanet.smartcookieteacher.customcomponents.MyGridView
                         android:id="@+id/lstActivity"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:divider="#EDEDED" />-->
+                        android:layout_height="wrap_content"
+                        android:nestedScrollingEnabled="true"
+                        android:layout_marginTop="25dp"
+                        style="@style/Login_title"
+                        android:numColumns="2">
+
+                    </com.blueplanet.smartcookieteacher.customcomponents.MyGridView>
 
                     <RelativeLayout
                         android:id="@+id/rel4Option"
@@ -436,7 +441,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_weight="1"
-                            android:text="Grade                :"
+                            android:text="Grade                   :"
                             android:textColor="#000000"
                             android:textSize="15sp" />
 

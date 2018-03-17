@@ -31,13 +31,12 @@ public class ArtActivityListAdapter extends BaseAdapter {
 
     //private CustomTextView _textView;
     private View _view;
-    private final String _TAG = this.getClass().getSimpleName();
 
 
     private boolean[] itemChecked;
     String activityId = "";
 
-    boolean checkFlag = false;
+
     private RadioButton selected = null;
     private SharedPreferences sp;
 

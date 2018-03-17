@@ -86,6 +86,7 @@ public class TeacherDashboardFragmentController implements IEventListener, AbsLi
     private void _fetchStudentListFromServer(String teacherId, String schoolId, int lastInputId) {
         _studentEventListeners();
         StudentFeatureController.getInstance().getStudentListFromServer(teacherId, schoolId, lastInputId);
+        _teacherDashboardFragment.showOrHideProgressBar(true);
     }
 
     private void _studentEventListeners() {
@@ -250,6 +251,7 @@ public class TeacherDashboardFragmentController implements IEventListener, AbsLi
                     _studentList = StudentFeatureController.getInstance().getStudentList();
                     _teacherDashboardFragment.refreshListview();
                     _teacherDashboardFragment._showDataOnUI();
+                    _teacherDashboardFragment.showOrHideProgressBar(false);
 
 
                 }

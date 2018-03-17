@@ -29,7 +29,7 @@ public class SponsorsFeatureController implements IEventListener {
     private ArrayList<NearBySponsor> arr_nearbySponsor = null;
     private NearBySponsor nearBySponsor = null;
     private final String _TAG = this.getClass().getSimpleName();
-    boolean flag = false;
+    //boolean flag = false;
 
     /**
      * method to get object of this class

@@ -20,7 +20,7 @@ public class SendRequestFeatureController implements IEventListener {
 
     private static SendRequestFeatureController _AcceptFeatureController = null;
 
-    private final String _TAG = this.getClass().getSimpleName();
+    //private final String _TAG = this.getClass().getSimpleName();
 
     public String get_selectColor() {
         return _selectColor;

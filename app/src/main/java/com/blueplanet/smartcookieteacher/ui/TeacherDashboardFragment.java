@@ -13,6 +13,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -55,7 +56,7 @@ public class TeacherDashboardFragment extends Fragment {
     private TeacherDashboardFragmentController _controller;
     private final String _TAG = this.getClass().getSimpleName();
     private StudentListDashboardAdapter _StudentListDashboardAdapter;
-    private RelativeLayout _rlProgressbar;
+    private LinearLayout _rlProgressbar;
     private ProgressBar _progressbar;
     private CustomTextView _tvPleaseWait;
     private Runnable r;
@@ -126,7 +127,7 @@ public class TeacherDashboardFragment extends Fragment {
         _lvStudentList = (ListView) _view.findViewById(R.id.lv_studentDashboard);
         _testpro = (CustomTextView) _view.findViewById(R.id.testproduction);
         _edtCount = (CustomTextView) _view.findViewById(R.id.txt_studentcount);
-        _rlProgressbar = (RelativeLayout) _view
+        _rlProgressbar = (LinearLayout) _view
                 .findViewById(R.id.rl_progressBar);
         _progressbar = (ProgressBar) _view.findViewById(R.id.progressbar);
         _tvPleaseWait = (CustomTextView) _view.findViewById(R.id.tv_please_wait);

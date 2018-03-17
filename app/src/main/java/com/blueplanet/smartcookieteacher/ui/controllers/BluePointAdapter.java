@@ -25,7 +25,7 @@ import java.util.ArrayList;
 public class BluePointAdapter extends BaseAdapter {
 
     private BluePointFragment _blueFragment;
-    private BluePointFragmentController _blueController;
+
     private ArrayList<BlueLog> blueList;
     private final String _TAG = this.getClass().getSimpleName();
     private TextView _txtName, txtDate, _txtActivity, txtPoint, _txtMonth;

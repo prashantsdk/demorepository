@@ -7,6 +7,6 @@ package com.blueplanet.smartcookieteacher.communication;
 public class HTTPRequestType {
     public static final int HTTP_POST = 0;
     public static final int HTTP_GET = 1;
-    public static final int HTTP_PUT = 2;
+    //public static final int HTTP_PUT = 2;
 
 }

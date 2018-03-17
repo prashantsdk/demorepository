@@ -31,9 +31,9 @@ import java.util.Collections;
  */
 public class BuyCouLogFeatureController implements IEventListener {
     private static BuyCouLogFeatureController _buyLog = null;
-    private BuyCoupon _buycoupon = null;
-    private BuyCoupon _selectedCoup = null;
-    private final String _TAG = this.getClass().getSimpleName();
+    //private BuyCoupon _buycoupon = null;
+   // private BuyCoupon _selectedCoup = null;
+    //private final String _TAG = this.getClass().getSimpleName();
 private  Buy_Coupon_log _setbuycoupon;
     private ArrayList<Buy_Coupon_log> _buyCouLog = new ArrayList<>();
 

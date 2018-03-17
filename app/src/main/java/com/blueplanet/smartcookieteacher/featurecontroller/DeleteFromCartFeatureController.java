@@ -25,7 +25,7 @@ import java.util.ArrayList;
 public class DeleteFromCartFeatureController implements IEventListener {
 
     private static DeleteFromCartFeatureController _deleteFromCart = null;
-    private BuyCoupon _buycoupon = null;
+   // private BuyCoupon _buycoupon = null;
 
     private ArrayList<AddCart> _selectedCoupList = new ArrayList<>();
     private AddCart _selectedCoup = null;

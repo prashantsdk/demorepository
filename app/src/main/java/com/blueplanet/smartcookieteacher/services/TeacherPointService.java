@@ -23,11 +23,7 @@ import java.util.ArrayList;
 
 public class TeacherPointService extends Service {
 
-	static final public String BROADCAST_ACTION = "com.blueplanet.smartcookieteacher";
 	public static boolean isServiceRunning=false;
-	private final String _TAG = this.getClass().getSimpleName();
-	private final Handler handler = new Handler();
-	JSONArray allpoints = null;
 	//BroadcastReceiver broadcaster;
 	Intent intent;
 	Thread thread;

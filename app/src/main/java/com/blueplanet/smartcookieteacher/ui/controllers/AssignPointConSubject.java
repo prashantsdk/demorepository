@@ -48,19 +48,15 @@ public class AssignPointConSubject implements View.OnClickListener, IEventListen
     private View _view;
     private Teacher _teacher;
     private ArrayList<TeacherActivity> _activityList;
-    private ArrayList<TeacherSubject> _subList;
-    private ArrayList<Student> _stusubList;
     private String _teacherId, _schoolId;
     private ArrayList<Student> _studentList = null;
 
     //private AssignPointListAdapter1 _adapter = null;
     private AssignPointSubjectwiseAdapter _adapter = null;
     //private AssignPointListAdapter1 _adapter = null;
-    private GridView _grid;
+
     private ListView listView;
-    private AssignPointSubjectAdapter _subAdapter;
-    private SeekBar seekpointsbar;
-    private CustomTextView txtseekPoint;
+   private CustomTextView txtseekPoint;
     private int Seekvalue;
     private String _points = null;
     private final String _TAG = this.getClass().getSimpleName();
@@ -68,10 +64,8 @@ public class AssignPointConSubject implements View.OnClickListener, IEventListen
     private String selectedSubjectId;
     private String _activityType = null;
     private ArrayList<String> a = new ArrayList<String>();
-    private ArrayList<Student> subName;
-    int _txtsubName;
-    private ArrayList<String> stusubList;
-    String selprn;
+
+
     private ArrayList<SubNameCode> _subNameCodeList;
     String prn;
     private TextView txt_point;
@@ -80,7 +74,7 @@ public class AssignPointConSubject implements View.OnClickListener, IEventListen
 
     private ArrayList<TeacherSubject> _subjectList;
     private Spinner spinner, spinner1;
-    String countrycode = "", logintype = "";
+    String  logintype = "";
 
 
     public AssignPointConSubject(AssignPointFragmentsubject assignPointFragment, View view) {

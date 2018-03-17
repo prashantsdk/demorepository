@@ -66,17 +66,15 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
     private ArrayList<Student> _stusubList;
     private String _teacherId, _schoolId;
     private ArrayList<Student> _studentList = null;
+    // private AutoGridView _lvActivities = null;
     private GridView _lvActivities = null;
     //private AssignPointListAdapter _adapter = null;
-    private AssignPointListAdapter1 _adapter = null;
 
     private GeneralActivitListAdapter generalActivitListAdapter = null;
     private SportListAdapter sportListAdapter = null;
     private ArtActivityListAdapter artActivityListAdapter = null;
 
-    private AssignPointSubjectAdapter _subAdapter;
     private AssignPointSubjectAdapter1 _subadapter;
-    private SeekBar seekpointsbar;
     private CustomTextView txtseekPoint;
     private int Seekvalue;
     private String _points = null;
@@ -85,10 +83,6 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
     private String selectedSubjectId;
     private String _activityType = null;
     private ArrayList<String> a = new ArrayList<String>();
-    private ArrayList<Student> subName;
-    int _txtsubName;
-    private ArrayList<String> stusubList;
-    String selprn;
     private ArrayList<SubNameCode> _subNameCodeList;
     String prn;
     String countrycode = "", logintype = "";
@@ -286,7 +280,9 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
     @Override
     public void onClick(final View view) {
         int id = view.getId();
+        // _lvActivities = (AutoGridView) _view.findViewById(R.id.lstActivity);
         _lvActivities = (GridView) _view.findViewById(R.id.lstActivity);
+
         final ImageView imgCircle = (ImageView) _view.findViewById(R.id.imgSelectedOption);
         _rl4Option = (RelativeLayout) _view.findViewById(R.id.rel4Option);
         switch (id) {
@@ -311,6 +307,7 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
 
                         generalActivitListAdapter = new GeneralActivitListAdapter(_assignPointFragment,
                                 AssignPointFragmentController.this, generalActivities);
+
 
 
                         _lvActivities.setAdapter(generalActivitListAdapter);

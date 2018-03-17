@@ -30,7 +30,7 @@ import java.util.ArrayList;
 public class AddToCartFeatureController implements IEventListener {
 
     private static AddToCartFeatureController _addToCart = null;
-    private BuyCoupon _buycoupon = null;
+    //private BuyCoupon _buycoupon = null;
 
     private ArrayList<AddCart> _selectedCoupList = new ArrayList<>();
     private AddCart _selectedCoup = null;

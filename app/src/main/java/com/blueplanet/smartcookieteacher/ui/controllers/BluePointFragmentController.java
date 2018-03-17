@@ -31,7 +31,7 @@ public class BluePointFragmentController implements IEventListener {
     private BluePointFragment _blueFragment;
     private View _view;
     private final String _TAG = this.getClass().getSimpleName();
-    private BlueLog _blueLog;
+    
     private ArrayList<BlueLog> _bluePointList;
     private String _teacherId, _schoolId;
     private Teacher _teacher;

@@ -32,7 +32,7 @@ public class AdminThanqFragmentController implements IEventListener {
     private AdminFragment _fragment;
     private View _view;
     private final String _TAG = this.getClass().getSimpleName();
-    private AdminThankqPoint _adminPointLog;
+
     private ArrayList<AdminThankqPoint> _pointList;
     private String _teacherId, _schoolId;
     private Teacher _teacher;

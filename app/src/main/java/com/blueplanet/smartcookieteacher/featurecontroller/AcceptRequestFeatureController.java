@@ -28,7 +28,7 @@ public class AcceptRequestFeatureController implements IEventListener {
 
     private static AcceptRequestFeatureController _AcceptLogFeatureController = null;
     private ArrayList<RequestPointModel> _PointLogList = new ArrayList<>();
-    private final String _TAG = this.getClass().getSimpleName();
+   // private final String _TAG = this.getClass().getSimpleName();
     private RequestPointModel _selectedRequest = null;
 
     public RequestPointModel get_selectedRequest() {

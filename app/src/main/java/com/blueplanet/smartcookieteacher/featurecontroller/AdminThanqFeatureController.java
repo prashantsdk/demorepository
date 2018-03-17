@@ -23,7 +23,7 @@ public class AdminThanqFeatureController implements IEventListener{
 
     private static AdminThanqFeatureController _adminThanqFeatureController = null;
     private ArrayList<AdminThankqPoint> _adminthanqlist = new ArrayList<>();
-    private final String _TAG = this.getClass().getSimpleName();
+  //  private final String _TAG = this.getClass().getSimpleName();
 
     /**
      * function to get single instance of this class

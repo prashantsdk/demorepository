@@ -124,20 +124,21 @@ public class GenerateCouponFragmentController implements View.OnClickListener, I
                 String point = BalancePointModelClass.get_couValue();
                 logintype = spinner.getSelectedItem().toString();
                 String selectedPoints = etxtpoints.getText().toString();
-                if ((!logintype.equalsIgnoreCase("Select points type"))
+                if ((!logintype.equalsIgnoreCase("Select Points Type"))
                         && (!selectedPoints.equals(""))
                         ) {
 
                     if (!(Integer.parseInt(selectedPoints) > Integer.parseInt(point))) {
 
-                        _fetchGenCoupFromServer(_teacherId, point, logintype, schoolID);
+                        String newLoginType =  logintype.replaceAll("\\s", "");
+                        _fetchGenCoupFromServer(_teacherId, point, newLoginType, schoolID);
 
                     } else {
                         _genFragment.checkPointsValue();
                     }
 
 
-                } else if ((logintype.equalsIgnoreCase("Select points type"))) {
+                } else if ((logintype.equalsIgnoreCase("Select Points Type"))) {
                     _genFragment.selectPointType();
                 } else if (selectedPoints.equals("")) {
                     _genFragment.selectPointsValue();

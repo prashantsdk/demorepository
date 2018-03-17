@@ -61,6 +61,10 @@ public class AssignPointSubjectAdapter1 extends BaseAdapter {
         }
     }
 
+    public AssignPointSubjectAdapter1(ArrayList<SubNameCode> subNameCodelist) {
+        _subList = subNameCodelist;
+    }
+
 
     @Override
     public int getCount() {

@@ -362,9 +362,9 @@
                     android:layout_centerHorizontal="true"
                     android:layout_gravity="center"
                     android:layout_marginTop="10dp"
-                    android:orientation="horizontal"
+                    android:orientation="horizontal">
 
-                    android:visibility="gone">
+                    <!--android:visibility="gone">-->
 
                     <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
                         android:id="@+id/txtproduction"

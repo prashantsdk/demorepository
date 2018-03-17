@@ -89,17 +89,17 @@ public class AfterLoginActivity extends AppCompatActivity implements IEventListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.after_login_activity);
         // Set a Toolbar to replace the ActionBar.
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar =  findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
 
         _teacher = LoginFeatureController.getInstance().getTeacher();
         mTitle = getTitle();
 
-        mDrawerTitle = "Smart Cookie Program";
+        mDrawerTitle = "";
 
 
-        _drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        _drawerLayout = findViewById(R.id.drawer_layout);
 
         _drawerLayout.setDrawerShadow(R.drawable.drawer_shadow,
                 GravityCompat.START);
@@ -132,7 +132,7 @@ public class AfterLoginActivity extends AppCompatActivity implements IEventListe
         this.getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#545da7")));
 
 
-        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView =  findViewById(R.id.nav_view);
         setUpNavigationHome();
 
 
@@ -172,11 +172,8 @@ public class AfterLoginActivity extends AppCompatActivity implements IEventListe
                         .thumbnail(0.5f)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .into(mProfileImage);
-
             }
         }
-
-
     }
 
     public void SelectItem(int possition) {
@@ -680,6 +677,8 @@ public class AfterLoginActivity extends AppCompatActivity implements IEventListe
 
             //  Fragment f = getTopFragment();
             if (getSupportFragmentManager().getBackStackEntryCount() == 1) {
+           /* if ((getSupportFragmentManager().getBackStackEntryCount() == 1) ||
+                    (getSupportFragmentManager().getBackStackEntryAt(getSupportFragmentManager().getBackStackEntryCount()).getName().equals("TeacherDashboardFragment"))) {*/
                 finish();
             } else {
                 getTopFragment();

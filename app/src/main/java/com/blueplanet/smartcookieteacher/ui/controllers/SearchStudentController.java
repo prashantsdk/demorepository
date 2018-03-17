@@ -1,5 +1,6 @@
 package com.blueplanet.smartcookieteacher.ui.controllers;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -15,6 +16,8 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.blueplanet.smartcookieteacher.R;
+import com.blueplanet.smartcookieteacher.communication.ErrorInfo;
+import com.blueplanet.smartcookieteacher.communication.HTTPConstants;
 import com.blueplanet.smartcookieteacher.communication.ServerResponse;
 import com.blueplanet.smartcookieteacher.featurecontroller.DisplaySubjectFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.DrawerFeatureController;
@@ -34,6 +37,8 @@ import com.blueplanet.smartcookieteacher.notification.ListenerPriority;
 import com.blueplanet.smartcookieteacher.notification.NotifierFactory;
 import com.blueplanet.smartcookieteacher.ui.AssignPointFragment;
 import com.blueplanet.smartcookieteacher.ui.DisplaySubjectFragment;
+import com.blueplanet.smartcookieteacher.ui.SearchAssignPointFragment;
+import com.blueplanet.smartcookieteacher.ui.SearchStudentDetailFragment;
 import com.blueplanet.smartcookieteacher.ui.SearchStudentFragment;
 import com.blueplanet.smartcookieteacher.webservices.WebserviceConstants;
 
@@ -59,7 +64,8 @@ public class SearchStudentController implements View.OnClickListener,IEventListe
 
     private String _teacherId, _schoolId;
     private Teacher _teacher;
-
+    private ProgressDialog progressDialog;
+    private SearchStudentAdapter searchStudentAdapter;
 
     /**
      * constructor
@@ -68,10 +74,10 @@ public class SearchStudentController implements View.OnClickListener,IEventListe
      * @param view
      */
 
-    public SearchStudentController(SearchStudentFragment subjectFragment, View view) {
+    public SearchStudentController(SearchStudentFragment subjectFragment, View view, SearchStudentAdapter searchStudentAdapter) {
         _subjectFragment = subjectFragment;
         this.view = view;
-
+        this.searchStudentAdapter =  searchStudentAdapter;
         _initUI();
         _teacher = LoginFeatureController.getInstance().getTeacher();
         if (_teacher != null) {
@@ -87,17 +93,14 @@ public class SearchStudentController implements View.OnClickListener,IEventListe
                 // TODO Auto-generated method stub
                 int l = s.length();
 
-                ArrayList<SearchStudent> array_stud = SearchStudentFeatureController.getInstance().getSearchedTeacher();
+                ArrayList<SearchStudent> array_stud = SearchStudentFeatureController.getInstance().getSearchedStudents();
 
                 if (array_stud != null) {
-
                     _subjectFragment.notifydatasetchanged(s);
-
                 }
 
                 if (maxlenghth < l) {
                     maxlenghth = l;
-
 
                     if (maxlenghth > 0) {
                         if (maxlenghth >= 2) {
@@ -105,47 +108,37 @@ public class SearchStudentController implements View.OnClickListener,IEventListe
                             _schoolId = _teacher.get_tSchool_id();
                             String offset="0";
                             SearchFriends(snamekey,_schoolId,offset);
-
                         }
                         imgCross.setVisibility(View.VISIBLE);
                     } else {
 
-
+                        SearchStudentFeatureController.getInstance().clearArray();
                         imgCross.setVisibility(View.INVISIBLE);
                     }
-
                 }
-
                 if (l == 0) {
                     maxlenghth = 0;
                 }
-
-
             }
 
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count,
                                           int after) {
                 // TODO Auto-generated method stub
-
             }
 
             @Override
             public void afterTextChanged(Editable s) {
                 // TODO Auto-generated method stub
-
             }
         });
-
-
-
     }
 
 
     private void _initUI() {
-        liststudent = (ListView) view.findViewById(R.id.lststudentlist);
-        etxtSearch=(AutoCompleteTextView)view.findViewById(R.id.etxtSearch_new);
-        imgCross=(ImageView)view.findViewById(R.id.imgcross_new);
+        liststudent =  view.findViewById(R.id.lststudentlist);
+        etxtSearch = view.findViewById(R.id.etxtSearch_new);
+        imgCross = view.findViewById(R.id.imgcross_new);
     }
 
     private void LoadMyTeachers(){
@@ -156,10 +149,15 @@ public class SearchStudentController implements View.OnClickListener,IEventListe
     }
 
     private void SearchFriends(String name_key,String schoolId,String offset) {
+
+       /* priyanka changes
+       progressDialog = WebserviceConstants.showProgress(_subjectFragment.getActivity(), "Loading students..");
+        progressDialog.show();*/
+
         _registerEventListeners();
         _registerNetworkListener();
         SearchStudentFeatureController.getInstance().searchStudentFromServer(name_key,schoolId,offset);
-        _subjectFragment.showOrHideLoadingSpinner(true);
+        //_subjectFragment.showOrHideLoadingSpinner(true);
     }
 
 
@@ -184,9 +182,7 @@ public class SearchStudentController implements View.OnClickListener,IEventListe
                 NotifierFactory.getInstance().getNotifier(
                         NotifierFactory.EVENT_NOTIFIER_NETWORK);
         notifierSubscribe.registerListener(this, ListenerPriority.PRIORITY_MEDIUM);
-
     }
-
 
     /**
      * method to do all clearing tasks
@@ -196,15 +192,11 @@ public class SearchStudentController implements View.OnClickListener,IEventListe
         if (_subjectFragment != null) {
             _subjectFragment = null;
         }
-
     }
-
 
     /**
      * webservice to get shop list from server
      */
-
-
 
     @Override
     public void onClick(View v) {
@@ -213,19 +205,21 @@ public class SearchStudentController implements View.OnClickListener,IEventListe
         switch (id) {
             case R.id.imgcross_new:
                 etxtSearch.setText("");
-                maxlenghth=0;
+                maxlenghth = 0;
                 DisplaySubjectFeatureController.getInstance().clearArray();
 
                 DisplaySubjectFeatureController.getInstance().getSearchedTeacher();
+                SearchStudentFeatureController.getInstance().clearArray();
+
+                if(searchStudentAdapter != null) {
+                    searchStudentAdapter.notifyDataSetChanged();
+                }
 
                 break;
             case R.id.parent_layout_friends:
                 _subjectFragment._hidekbd();
 
                 break;
-
-
-
         }
     }
 //sayali
@@ -273,10 +267,13 @@ public class SearchStudentController implements View.OnClickListener,IEventListe
                 EventNotifier eventNotifierlogin =
                         NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_TEACHER);
                 eventNotifierlogin.unRegisterListener(this);
-                _subjectFragment.showOrHideLoadingSpinner(false);
+              //  _subjectFragment.showOrHideLoadingSpinner(false);
                 if (errorCode == WebserviceConstants.SUCCESS) {
 
-                    ArrayList<SearchStudent> array_stud= SearchStudentFeatureController.getInstance().getSearchedTeacher();
+                    if(progressDialog != null){
+                        progressDialog.dismiss();
+                    }
+                    ArrayList<SearchStudent> array_stud= SearchStudentFeatureController.getInstance().getSearchedStudents();
                     _subjectFragment.showMyFriends(array_stud);
 
 
@@ -292,7 +289,10 @@ public class SearchStudentController implements View.OnClickListener,IEventListe
                         NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_TEACHER);
                 eventNotifier5.unRegisterListener(this);
 
-                _subjectFragment.showOrHideLoadingSpinner(false);
+                if(progressDialog != null){
+                    progressDialog.dismiss();
+                }
+             //   _subjectFragment.showOrHideLoadingSpinner(false);
                 _subjectFragment.showFriendisavailable(false);
 
                 break;
@@ -310,7 +310,7 @@ public class SearchStudentController implements View.OnClickListener,IEventListe
                 EventNotifier event =
                         NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_NETWORK);
                 event.unRegisterListener(this);
-                _subjectFragment.showOrHideLoadingSpinner(false);
+              //  _subjectFragment.showOrHideLoadingSpinner(false);
                 _subjectFragment.showNetworkMessage(false);
 
                 break;
@@ -321,14 +321,15 @@ public class SearchStudentController implements View.OnClickListener,IEventListe
                         NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_STUDENT);
                 eventNotifier1.unRegisterListener(this);
 
-                _subjectFragment.showOrHideLoadingSpinner(false);
+             //   _subjectFragment.showOrHideLoadingSpinner(false);
                 _subjectFragment.showbadRequestMessage();
                 break;
+
             case EventTypes.EVENT_UI_UNAUTHORIZED:
                 EventNotifier eventNotifier2 =
                         NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_STUDENT);
                 eventNotifier2.unRegisterListener(this);
-                _subjectFragment.showOrHideLoadingSpinner(false);
+             //   _subjectFragment.showOrHideLoadingSpinner(false);
                 _subjectFragment.showFriendisavailable(false);
                 break;
 
@@ -346,7 +347,7 @@ public class SearchStudentController implements View.OnClickListener,IEventListe
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-        ArrayList<SearchStudent> filteredList = SearchStudentFeatureController.getInstance().getSearchedTeacher();
+        ArrayList<SearchStudent> filteredList = SearchStudentFeatureController.getInstance().getSearchedStudents();
 
         if (filteredList != null && filteredList.size() > 0) {
             SearchStudent s = filteredList.get(position);
@@ -364,10 +365,11 @@ public class SearchStudentController implements View.OnClickListener,IEventListe
         });
         subFeaturecontroller.getInstance()._clearSubjectList();
 
-        AssignPointFragment fragment = new AssignPointFragment();
+        SearchStudentDetailFragment fragment = new SearchStudentDetailFragment();
+       /* AssignPointFragment fragment = new AssignPointFragment();
         Bundle args = new Bundle();
         args.putString("studentlist", "1");
-        fragment.setArguments(args);
+        fragment.setArguments(args);*/
         _loadFragment(R.id.content_frame, fragment);
     }
     private void _loadFragment(int id, Fragment fragment) {
@@ -376,7 +378,8 @@ public class SearchStudentController implements View.OnClickListener,IEventListe
         FragmentManager fm = _subjectFragment.getActivity().getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         ft.replace(id, fragment);
-        ft.addToBackStack("StudentListFragment");
+       // ft.addToBackStack(null);
+        ft.addToBackStack("SearchStudentFragment");
         ft.commit();
     }
 }

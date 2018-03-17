@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.blueplanet.smartcookieteacher.R;
 import com.blueplanet.smartcookieteacher.featurecontroller.DisplaySubjectFeatureController;
+import com.blueplanet.smartcookieteacher.featurecontroller.SearchStudentFeatureController;
 import com.blueplanet.smartcookieteacher.models.DisplayTeacSubjectModel;
 import com.blueplanet.smartcookieteacher.models.SearchStudent;
 import com.blueplanet.smartcookieteacher.ui.controllers.DisplaySujectAdapter;
@@ -32,20 +33,13 @@ public class SearchStudentFragment extends Fragment {
     ListView liststudent;
     AutoCompleteTextView etxtSearch;
     View view;
-    ArrayList<SearchStudent> filterdedarray = new ArrayList<SearchStudent>();
     SearchStudentController fragmentController;
     ArrayList<SearchStudent> arraylist = new ArrayList<SearchStudent>();
-    DisplayTeacSubjectModel friendsModel ;//= new HashMap<String, String>();
     View parent_layout;
     ImageView imgCross;
-    String TeacherName="",SubjectName="",SubjectCode="";
-    String ThanqReason="",ThanqPoints="",ReasonId="",Teacherid="";
-
-    SQLiteDatabase sqt;
-    ProgressDialog mProgressDialog;
     SearchStudentAdapter studentAdapter;
 
-    boolean flag = false,subjectflag=true;
+    boolean flag = false;
     @Override
     @Nullable
     public View onCreateView(LayoutInflater inflater,
@@ -54,7 +48,7 @@ public class SearchStudentFragment extends Fragment {
         view = inflater.inflate(R.layout.display_teacher_subject, container, false);
         _IntitUI();
         getActivity().setTitle("Search All Student");
-        fragmentController = new SearchStudentController(this, view);
+        fragmentController = new SearchStudentController(this, view, studentAdapter);
         _registerUIListeners();
 
 
@@ -90,11 +84,11 @@ public class SearchStudentFragment extends Fragment {
 
 
     public void _IntitUI(){
-        liststudent = (ListView) view.findViewById(R.id.lststudentlist);
-        etxtSearch=(AutoCompleteTextView)view.findViewById(R.id.etxtSearch_new);
-        imgCross=(ImageView)view.findViewById(R.id.imgcross_new);
+        liststudent =  view.findViewById(R.id.lststudentlist);
+        etxtSearch = view.findViewById(R.id.etxtSearch_new);
+        imgCross = view.findViewById(R.id.imgcross_new);
 
-        parent_layout=(View)view.findViewById(R.id.parent_layout_friends);
+        parent_layout = view.findViewById(R.id.parent_layout_friends);
 
     }
     private void _registerUIListeners() {
@@ -110,15 +104,9 @@ public class SearchStudentFragment extends Fragment {
             public void run() {
 
                 if (arr_friends != null && arr_friends.size() > 0) {
-
-                    studentAdapter = new SearchStudentAdapter(
-
-
-                            R.layout.display_subject_adapter, getActivity(), arr_friends);
+                    studentAdapter = new SearchStudentAdapter(R.layout.display_subject_adapter, getActivity(), arr_friends);
                     liststudent.setAdapter(studentAdapter);
-
                 }
-
             }
         });
 
@@ -142,7 +130,7 @@ public class SearchStudentFragment extends Fragment {
 
     }
 
-    public void showOrHideLoadingSpinner(final boolean visibility) {
+   /* public void showOrHideLoadingSpinner(final boolean visibility) {
 
         this.getActivity().runOnUiThread(new Runnable() {
             @Override
@@ -160,7 +148,7 @@ public class SearchStudentFragment extends Fragment {
             }
         });
 
-    }
+    }*/
 
 
 
@@ -171,16 +159,12 @@ public class SearchStudentFragment extends Fragment {
             public void run() {
                 if (visibility) {
 
-
                 } else {
                     Toast.makeText(getActivity(), "Friend list is not available", Toast.LENGTH_SHORT).show();
                 }
             }
         });
-
     }
-
-
 
     public void showNetworkMessage(final boolean visibility) {
 
@@ -196,7 +180,6 @@ public class SearchStudentFragment extends Fragment {
                 }
             }
         });
-
     }
 
     public void showbadRequestMessage() {
@@ -206,7 +189,6 @@ public class SearchStudentFragment extends Fragment {
                 //  Toast.makeText(getActivity(), getActivity().getString(R.string.BadRequest), Toast.LENGTH_SHORT).show();
             }
         });
-
     }
 
     public void _hidekbd() {
@@ -220,11 +202,17 @@ public class SearchStudentFragment extends Fragment {
             }
         }catch (Exception e){
 
-
         }
-
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(etxtSearch.getText().toString().length() == 0){
+            SearchStudentFeatureController.getInstance().clearArray();
+        }else
+            showMyFriends(SearchStudentFeatureController.getInstance().getSearchedStudents());
+    }
 
     public void onDestroy() {
 
@@ -238,7 +226,5 @@ public class SearchStudentFragment extends Fragment {
             studentAdapter=null;
             DisplaySubjectFeatureController.getInstance().clearArray();
         }
-
-
     }
 }

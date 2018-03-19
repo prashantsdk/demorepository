@@ -47,6 +47,7 @@ import com.blueplanet.smartcookieteacher.notification.NotifierFactory;
 import com.blueplanet.smartcookieteacher.ui.ApplicationConstants;
 import com.blueplanet.smartcookieteacher.ui.AssignPointFragment;
 import com.blueplanet.smartcookieteacher.ui.SearchAssignPointFragment;
+import com.blueplanet.smartcookieteacher.utils.CommonFunctions;
 import com.blueplanet.smartcookieteacher.utils.JSONfunctions;
 import com.blueplanet.smartcookieteacher.webservices.WebserviceConstants;
 
@@ -427,6 +428,8 @@ public class SearchAssignPointFragmentController implements OnClickListener, IEv
 
 
               }*/
+
+                CommonFunctions.hideKeyboardFrom(_assignPointFragment.getActivity(),view);
 
                 SearchStudent student = SearchAssignPointFeatureController.getInstance().get_selectedStudent();
                 selectedActivityId = ActivityListFeatureController.getInstance().getSeletedActivityId();

@@ -157,6 +157,7 @@
             android:name=".UpdateProfileActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".AfterLoginActivity"

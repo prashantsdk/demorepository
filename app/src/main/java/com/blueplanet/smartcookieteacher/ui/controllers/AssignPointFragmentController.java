@@ -43,6 +43,7 @@ import com.blueplanet.smartcookieteacher.notification.ListenerPriority;
 import com.blueplanet.smartcookieteacher.notification.NotifierFactory;
 import com.blueplanet.smartcookieteacher.ui.ApplicationConstants;
 import com.blueplanet.smartcookieteacher.ui.AssignPointFragment;
+import com.blueplanet.smartcookieteacher.utils.CommonFunctions;
 import com.blueplanet.smartcookieteacher.utils.JSONfunctions;
 import com.blueplanet.smartcookieteacher.webservices.WebserviceConstants;
 
@@ -452,6 +453,7 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
 
               }*/
 
+                CommonFunctions.hideKeyboardFrom(_assignPointFragment.getActivity(),view);
 
                 Student student = AssignPointFeatureController.getInstance().get_selectedStudent();
                 selectedActivityId = ActivityListFeatureController.getInstance().getSeletedActivityId();

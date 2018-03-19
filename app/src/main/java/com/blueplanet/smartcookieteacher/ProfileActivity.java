@@ -42,6 +42,7 @@ import com.blueplanet.smartcookieteacher.notification.EventTypes;
 import com.blueplanet.smartcookieteacher.notification.IEventListener;
 import com.blueplanet.smartcookieteacher.notification.ListenerPriority;
 import com.blueplanet.smartcookieteacher.notification.NotifierFactory;
+import com.blueplanet.smartcookieteacher.utils.CommonFunctions;
 import com.blueplanet.smartcookieteacher.webservices.WebserviceConstants;
 import com.github.siyamed.shapeimageview.RoundedImageView;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -79,6 +80,7 @@ public class ProfileActivity extends AppCompatActivity implements IEventListener
     private int year;
     private int month;
     private int day;
+    private RelativeLayout pro;
 
     Calendar c = Calendar.getInstance();
     private DatePickerDialog.OnDateSetListener pickerListener =
@@ -144,6 +146,9 @@ public class ProfileActivity extends AppCompatActivity implements IEventListener
         _btnAction =  findViewById(R.id.fab_editable);
         _parentImg =  findViewById(R.id.Sponsor_image2);
         spinner =  findViewById(R.id.register_spin);
+        pro =  findViewById(R.id.rel_abc);
+
+        CommonFunctions.hideKeyboardFrom(this, pro);
     }
 
     private void _InitListeners() {
@@ -171,6 +176,7 @@ public class ProfileActivity extends AppCompatActivity implements IEventListener
             @Override
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(), "Editable", Toast.LENGTH_SHORT).show();
+                CommonFunctions.showKeyboardFrom(ProfileActivity.this, _btnAction);
                 _editableFieldsTrue();
                 _btnUpdate.setEnabled(true);
             }

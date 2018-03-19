@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -32,6 +33,7 @@ import com.blueplanet.smartcookieteacher.models.TeacherDashbordPoint;
 import com.blueplanet.smartcookieteacher.models.TestProduction;
 import com.blueplanet.smartcookieteacher.ui.controllers.StudentListDashboardAdapter;
 import com.blueplanet.smartcookieteacher.ui.controllers.TeacherDashboardFragmentController;
+import com.blueplanet.smartcookieteacher.utils.CommonFunctions;
 import com.blueplanet.smartcookieteacher.utils.IImageLoader;
 import com.blueplanet.smartcookieteacher.utils.SmartCookieImageLoader;
 import com.blueplanet.smartcookieteacher.utils.SmartCookieSharedPreferences;
@@ -187,8 +189,8 @@ public class TeacherDashboardFragment extends Fragment {
                 @Override
                 public void run() {
 
-
-                    _teacherName.setText(_teacher.get_tCompleteName() + "  (Teacher)");
+                   // _teacherName.setText( CommonFunctions.capitalize(_teacher.get_tCompleteName()) + "  (Teacher)");
+                    _teacherName.setText( _teacher.get_tCompleteName() + "  (Teacher)");
                     _teachercolgname.setText(_teacher.get_tCurrent_School_Name());
                     _teacherteacherId.setText(_teacher.get_tId());
                     _testpro.setText(protest);

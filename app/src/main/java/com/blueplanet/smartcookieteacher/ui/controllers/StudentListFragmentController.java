@@ -30,6 +30,7 @@ import com.blueplanet.smartcookieteacher.notification.NotifierFactory;
 import com.blueplanet.smartcookieteacher.ui.AssignPointFragment;
 import com.blueplanet.smartcookieteacher.ui.SearchStudentFragment;
 import com.blueplanet.smartcookieteacher.ui.StudentListFragment;
+import com.blueplanet.smartcookieteacher.utils.CommonFunctions;
 import com.blueplanet.smartcookieteacher.webservices.WebserviceConstants;
 
 import java.util.ArrayList;
@@ -243,6 +244,8 @@ public class StudentListFragmentController implements IEventListener,
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+      //  CommonFunctions.hideKeyboardFrom(_StudentListFragment.getActivity(),view);
 
         ArrayList<Student> filteredList = StudentFeatureController.getInstance().getFilteredList();
 

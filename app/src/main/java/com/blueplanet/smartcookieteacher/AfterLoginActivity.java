@@ -194,7 +194,7 @@ public class AfterLoginActivity extends AppCompatActivity implements IEventListe
                 if (_count < 7) {
                     _count = _count + 1;
                 }
-                _fragmentTagList.add("StudentListFragment");
+                _fragmentTagList.add("SearchStudentFragment");
                 _addtoBackStack = true;
 
 //                             _fragment = new StudentListFragment();

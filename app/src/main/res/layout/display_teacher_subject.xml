@@ -27,7 +27,7 @@
                 android:layout_height="40sp"
                 android:layout_weight="1"
                 android:background="@null"
-                android:drawableLeft="@android:drawable/ic_menu_search"
+                android:drawableLeft="@drawable/places_ic_search"
                 android:hint="Search All Students"
 
                 android:imeOptions="actionDone"
@@ -35,11 +35,20 @@
                 android:textSize="15sp">
 
             </AutoCompleteTextView>
+
+            <ImageView
+                android:id="@+id/searchStudent"
+                android:layout_width="40sp"
+                android:layout_height="40sp"
+                android:padding="8dp"
+                android:layout_marginRight="45dp"
+                android:src="@android:drawable/ic_menu_search"
+                android:tint="@color/black_solid"
+                android:visibility="visible" />
         </LinearLayout>
 
         <ImageView
             android:id="@+id/imgcross_new"
-
             android:layout_width="40sp"
             android:layout_height="40sp"
             android:layout_gravity="right|center_horizontal"

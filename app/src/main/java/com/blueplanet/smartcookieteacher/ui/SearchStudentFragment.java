@@ -36,7 +36,7 @@ public class SearchStudentFragment extends Fragment {
     SearchStudentController fragmentController;
     ArrayList<SearchStudent> arraylist = new ArrayList<SearchStudent>();
     View parent_layout;
-    ImageView imgCross;
+    ImageView imgCross, searchStudent;
     SearchStudentAdapter studentAdapter;
 
     boolean flag = false;
@@ -87,6 +87,7 @@ public class SearchStudentFragment extends Fragment {
         liststudent =  view.findViewById(R.id.lststudentlist);
         etxtSearch = view.findViewById(R.id.etxtSearch_new);
         imgCross = view.findViewById(R.id.imgcross_new);
+        searchStudent = view.findViewById(R.id.searchStudent);
 
         parent_layout = view.findViewById(R.id.parent_layout_friends);
 
@@ -94,6 +95,7 @@ public class SearchStudentFragment extends Fragment {
     private void _registerUIListeners() {
 
         imgCross.setOnClickListener(fragmentController);
+        searchStudent.setOnClickListener(fragmentController);
         parent_layout.setOnClickListener(fragmentController);
         liststudent.setOnItemClickListener(fragmentController);
     }

@@ -25,7 +25,7 @@ import java.util.ArrayList;
 public class subFeaturecontroller implements IEventListener {
 
     private static subFeaturecontroller _subFeaturecontroller = null;
-    private TeacherSubject _teacherSubject = null;
+   // private TeacherSubject _teacherSubject = null;
 
 
     private ArrayList<SubNameCode> _subjList = new ArrayList<>();

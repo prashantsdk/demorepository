@@ -33,7 +33,7 @@ public class LoginFeatureController implements IEventListener {
     private static LoginFeatureController _loginFeatureController = null;
 
     private Teacher _teacher = null;
-    private NewRegistrationModel remodel = null;
+   // private NewRegistrationModel remodel = null;
 
     public boolean is_boolenType() {
         return _boolenType;

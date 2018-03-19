@@ -22,7 +22,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
-                android:text="Student"
+                android:text=""
                 android:textColor="#000000"
                 android:textSize="16sp" />
 
@@ -35,7 +35,6 @@
                 android:layout_marginTop="10dp"
                 android:adjustViewBounds="true"
                 android:scaleType="centerInside"
-                android:background="@drawable/logo"
                 app:siBorderColor="#00ff00"
                 app:siBorderWidth="3dp" />
 
@@ -65,8 +64,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
+<<<<<<< HEAD
                     android:text="Shashikant Ghumbre"
                     android:inputType="textCapWords"
+=======
+                    android:text="Kumar Tester"
+>>>>>>> 6a22681079eeaa3d6946c279629a25d15639f758
                     android:textColor="@color/black_solid"
                     android:textSize="15sp" />
 
@@ -117,6 +120,7 @@
             android:id="@+id/rl_2"
             android:layout_width="match_parent"
             android:layout_height="100dp"
+
             android:layout_below="@+id/rl_1"
             android:weightSum="100">
 
@@ -265,20 +269,19 @@
         <RelativeLayout
             android:id="@+id/rl_3"
             android:layout_width="wrap_content"
-            android:layout_height="20dp"
+            android:layout_height="30dp"
             android:layout_below="@+id/rl_2"
+            android:layout_centerHorizontal="true"
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="3dp"
-            android:layout_centerHorizontal="true"
-            android:orientation="horizontal"
-            android:textSize="10sp">
+            android:layout_marginTop="1dp"
+            android:orientation="horizontal">
 
             <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
                 android:id="@+id/studentlist"
                 style="@style/Login_title"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
                 android:text=" My Student List  : "
 
                 android:textColor="#000000"
@@ -289,7 +292,7 @@
                 style="@style/Login_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-             android:layout_toRightOf="@+id/studentlist"
+                android:layout_toRightOf="@+id/studentlist"
                 android:text=""
                 android:textColor="#000000"
                 android:textSize="17sp" />
@@ -305,37 +308,52 @@
             android:background="@drawable/border"
             android:paddingBottom="8dp" />
 
-    </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/rl_progressBar"
-        android:layout_width="120dp"
-        android:layout_height="50dp"
-        android:layout_centerInParent="true"
-        android:background="#000000"
-        android:visibility="gone">
+        <LinearLayout
+            android:id="@+id/linearlayoutONE"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="300dp"
+            android:orientation="vertical">
 
-        <ProgressBar
-            android:id="@+id/progressbar"
-            style="@android:style/Widget.ProgressBar.Small"
+
+        </LinearLayout>
+
+        <LinearLayout
+
+
+            android:id="@+id/rl_progressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp" />
+            android:layout_below="@+id/linearlayoutONE"
+            android:layout_centerInParent="true"
+            android:background="#000000"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <ProgressBar
+                android:id="@+id/progressbar"
+                style="@android:style/Widget.ProgressBar.Small"
+                android:layout_width="wrap_content"
+                android:layout_margin="2dp"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center" />
 
 
-        <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
-            android:id="@+id/tv_please_wait"
-            style="@style/Login_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="10dp"
-            android:layout_toRightOf="@+id/progressbar"
-            android:text="Please wait..."
-            android:textColor="#ffffff"
-            android:textSize="18sp" />
+            <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                android:id="@+id/tv_please_wait"
+                style="@style/Login_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_margin="2dp"
+                android:layout_toRightOf="@+id/progressbar"
+                android:text="Student List Loading..."
+                android:textColor="#ffffff"
+                android:textSize="18sp" />
+        </LinearLayout>
     </RelativeLayout>
+
 
 </RelativeLayout>

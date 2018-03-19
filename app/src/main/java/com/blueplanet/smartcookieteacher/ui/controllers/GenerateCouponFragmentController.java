@@ -121,10 +121,14 @@ public class GenerateCouponFragmentController implements View.OnClickListener, I
                 imgclearpoints.setVisibility(View.GONE);
                 break;
             case R.id.btn_generate:
+
+
                 String point = BalancePointModelClass.get_couValue();
                 logintype = spinner.getSelectedItem().toString();
                 String selectedPoints = etxtpoints.getText().toString();
+
                 if ((!logintype.equalsIgnoreCase("Select Points Type"))
+
                         && (!selectedPoints.equals(""))
                         ) {
 

@@ -29,10 +29,10 @@ public class MainApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-        AutoErrorReporter.get(this)
+     /*   AutoErrorReporter.get(this)
                 .setEmailAddresses("prashantj@roseland.com")
                 .setEmailSubject("Auto Crash Report")
-                .start();
+                .start();*/
         _context = this;
         NetworkManager.setApplicationContext(this);
         SmartCookieImageLoader.getInstance().initImageLoaderConfiguration(this);

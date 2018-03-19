@@ -43,9 +43,13 @@ public class StudentListDashboardAdapter extends BaseAdapter {
         _tTeacherDashboardFragment = TeacherDashboardFragment;
         _tTeacherDashboardFragmentController = teacherDashboardFragmentController;
         _studentList = StudentFeatureController.getInstance().getStudentList();
+
+        _tTeacherDashboardFragment.showOrHideProgressBar(false);
         Log.i(_TAG, "stList" + _studentList);
         //_studentList = StudentFeatureController.getInstance().getStudentInfoFromDB();
     }
+
+
 
 
     @Override

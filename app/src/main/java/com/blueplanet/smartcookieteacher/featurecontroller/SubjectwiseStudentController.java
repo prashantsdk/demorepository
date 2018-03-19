@@ -31,7 +31,7 @@ public class SubjectwiseStudentController implements IEventListener {
 
     private Subjectwise_student _teacherStudent = null;
 
-    private final String _TAG = this.getClass().getSimpleName();
+
 
     /**
      * function to get single instance of this class

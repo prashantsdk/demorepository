@@ -58,12 +58,12 @@ import java.util.LinkedHashSet;
 public class AcceptRequestAdapter extends BaseAdapter  implements IEventListener {
     private AcceptRequestFragment _fragment;
     private AcceptRequestController _contr;
-    private ArrayList<ShairPointModel> teachrtsharelist;
+
     private final String _TAG = this.getClass().getSimpleName();
-    private TextView _txtName, txtPoints, _txtPoint, txtemail,_txtPDate;
+    private TextView _txtName, txtPoints, _txtPDate;
     private CustomTextView _txtreason;
     private ImageView _ivStudentPhoto;
-    private CustomEditText txtSearch;
+
     private Teacher _teacher;
     private RelativeLayout _rlProgressbar;
     private ProgressBar _progressbar;

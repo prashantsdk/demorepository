@@ -27,10 +27,10 @@ public class SoftRewardFeatureController implements IEventListener {
 
 
     private SoftReward _softReward = null;
-    private final String _TAG = this.getClass().getSimpleName();
+    //private final String _TAG = this.getClass().getSimpleName();
 
     private SoftReward _selectedReward = null;
-    private Student _student1 = null;
+   // private Student _student1 = null;
 
     private ArrayList<SoftReward> _filteredList = new ArrayList<>();
 

@@ -30,7 +30,7 @@ public class SchoolOnMapFeatureController implements IEventListener {
     private ArrayList<SchoolOnMapModel> arr_data = null;
     private SchoolOnMapModel onMapModel = null;
     private final String _TAG = this.getClass().getSimpleName();
-    boolean flag = false;
+    //boolean flag = false;
     private int input_id = 0;
 
     /**

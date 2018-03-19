@@ -25,10 +25,6 @@ public class AllLogFragmentController implements IEventListener, View.OnClickLis
 
     private AllLogFragment _Fragment;
     private View _view;
-    private final String _TAG = this.getClass().getSimpleName();
-    private String _teacherId, _schoolId;
-    private Teacher _teacher;
-    private Button _btnPoint, _btnRewardPoint, _btnallStudent, _btnBuyPoint;
 
     /**
      * constructor

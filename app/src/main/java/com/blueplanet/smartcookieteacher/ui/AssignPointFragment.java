@@ -28,6 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.blueplanet.smartcookieteacher.R;
+import com.blueplanet.smartcookieteacher.customcomponents.AutoGridView;
 import com.blueplanet.smartcookieteacher.customcomponents.CustomButton;
 import com.blueplanet.smartcookieteacher.customcomponents.CustomTextView;
 import com.blueplanet.smartcookieteacher.featurecontroller.AssignPointFeatureController;
@@ -82,8 +83,9 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
     TeacherAllPoints teacherDashbordPoint;
     private String _teacherId, _schoolId;
 
-    private GridView _lvActivities;
+   // private AutoGridView _lvActivities;
 
+    private GridView _lvActivities;
     String fragmentTypeOne = "", fragmentTypeTwo = "";
 
     @Override
@@ -113,8 +115,6 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
         TeacherDashbordPoint point = DashboardFeatureController.getInstance().getTeacherpoint();
 
 
-        //spinnerColor[0] = "Greenpoint " + Integer.toString(point.get_greenpoint());
-        // spinnerColor[1] = "Waterpoint  " + Integer.toString(point.get_waterpoint());
 
         spinnerColor[0] = "Reward Points";
         spinnerColor[1] = "Purchase Points";
@@ -176,6 +176,7 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
         _comment = (EditText) _view.findViewById(R.id.txt_comment);
         _txtMark = (TextView) _view.findViewById(R.id.txt_markPoint);
 
+        //_lvActivities = (AutoGridView) _view.findViewById(R.id.lstActivity);
         _lvActivities = (GridView) _view.findViewById(R.id.lstActivity);
         judgmentMark = _view.findViewById(R.id.txt_point);
 

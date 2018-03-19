@@ -29,7 +29,7 @@ public class RewardPointLogFeatureController implements IEventListener {
 
     private static RewardPointLogFeatureController _rewardPointLogFeatureController = null;
     private ArrayList<RewardPointLog> _rewardPointLogList = new ArrayList<>();
-    private final String _TAG = this.getClass().getSimpleName();
+   // private final String _TAG = this.getClass().getSimpleName();
 
     /**
      * function to get single instance of this class

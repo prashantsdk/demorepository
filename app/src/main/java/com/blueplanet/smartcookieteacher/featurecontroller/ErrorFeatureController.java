@@ -23,7 +23,7 @@ public class ErrorFeatureController implements IEventListener {
 
     private static ErrorFeatureController _errorLogFeatureController = null;
     private ArrayList<RequestPointModel> _PointLogList = new ArrayList<>();
-    private final String _TAG = this.getClass().getSimpleName();
+   // private final String _TAG = this.getClass().getSimpleName();
     private RequestPointModel _selectedRequest = null;
 
     public RequestPointModel get_selectedRequest() {

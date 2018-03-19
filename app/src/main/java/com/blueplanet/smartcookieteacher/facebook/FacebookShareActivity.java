@@ -33,8 +33,8 @@ public class FacebookShareActivity extends AppCompatActivity implements View.OnC
 
 
     String str_share_msg="",str_title="SmartStudent";
-    ShareDialog shareDialog;
-    String str_description="";
+   // ShareDialog shareDialog;
+   // String str_description="";
     private CallbackManager callbackManager;
     private LoginManager loginManager;
 

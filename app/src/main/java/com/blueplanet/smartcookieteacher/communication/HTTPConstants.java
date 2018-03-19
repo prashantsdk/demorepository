@@ -6,7 +6,7 @@ package com.blueplanet.smartcookieteacher.communication;
  */
 public class HTTPConstants {
     public static final int HTTP_COMM_SUCCESS = 200; // OK: Success
-    public static final int HTTP_SUCCESS = 0; // OK: Success in case of forgot password
+
     public static final int HTTP_COM_NO_CONTENT = 204; // No Content
 
     // Bad Request: The web-service request was invalid.
@@ -14,18 +14,16 @@ public class HTTPConstants {
 
     // Unauthorized: Authentication for the web-service request failed.
     // Invalid credentials.
-    public static final int HTTP_COMM_ERR_UNAUTHORIZED = 401;
 
     // Forbidden: Web-service request is requesting a resource that the
     // server does not allow access to.
-    public static final int HTTP_COMM_ERR_FORBIDDEN = 403;
 
     // Not Found: The requested resource is not found.
-    public static final int HTTP_COMM_ERR_NOT_FOUND = 404;
+    //public static final int HTTP_COMM_ERR_NOT_FOUND = 404;
 
     // Internal Server Error: An internal server error occurred while
     // processing the request.
-    public static final int HTTP_COMM_ERR_INTERNAL_SERVER_ERROR = 500;
+   // public static final int HTTP_COMM_ERR_INTERNAL_SERVER_ERROR = 500;
 
     // Bad Gateway: FFCC-FOS Web-service server is not reachable.
     public static final int HTTP_COMM_ERR_BAD_GETWAY = 502;
@@ -37,7 +35,7 @@ public class HTTPConstants {
     // request due to a temporary overloading or maintenance of the server.
     // The implication is that this is a temporary condition which will be
     // alleviated after some delay.
-    public static final int HTTP_COMM_ERR_SERVICE_UNAVAILABLE = 503;
+   // public static final int HTTP_COMM_ERR_SERVICE_UNAVAILABLE = 503;
 
     public static final int HTTP_COMM_ERR_NETWORK_TIMEOUT = 601;
 

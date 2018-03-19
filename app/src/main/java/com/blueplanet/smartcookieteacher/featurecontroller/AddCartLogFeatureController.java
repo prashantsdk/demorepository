@@ -26,8 +26,8 @@ import java.util.ArrayList;
 public class AddCartLogFeatureController implements IEventListener {
 
     private static AddCartLogFeatureController _addToCartlog = null;
-    private ArrayList<Add_To_CartLog> _addCartLog = new ArrayList<>();
-    private BuyCoupon _selectedCoup = null;
+   // private ArrayList<Add_To_CartLog> _addCartLog = new ArrayList<>();
+   // private BuyCoupon _selectedCoup = null;
     private final String _TAG = this.getClass().getSimpleName();
 
     /**

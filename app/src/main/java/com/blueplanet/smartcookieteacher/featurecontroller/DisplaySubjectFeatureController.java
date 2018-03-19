@@ -24,7 +24,7 @@ public class DisplaySubjectFeatureController implements IEventListener {
 
     public static DisplaySubjectFeatureController _searchSubjectFeatureController = null;
     private final String _TAG = this.getClass().getSimpleName();
-    boolean flag = false;
+   //boolean flag = false;
     private ArrayList<DisplayTeacSubjectModel> arr_search = null;
     private DisplayTeacSubjectModel Search = null;
 

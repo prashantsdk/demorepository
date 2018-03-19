@@ -30,8 +30,8 @@ import java.util.Collections;
 public class GenerateCouLogFeatureController implements IEventListener {
 
     private static GenerateCouLogFeatureController _genCoupLog = null;
-    private BuyCoupon _buycoupon = null;
-    private BuyCoupon _selectedCoup = null;
+  //  private BuyCoupon _buycoupon = null;
+   // private BuyCoupon _selectedCoup = null;
 
 
 

@@ -34,12 +34,11 @@ import java.io.IOException;
 
 public class RegistrationIntentService extends IntentService {
 
-    public static final String REG_ID = "regId";
+
     private static final String TAG = "RegIntentService";
     private static final String[] TOPICS = {"global"};
-    private static final String APP_VERSION = "appVersion";
 
-    GoogleCloudMessaging gcm;
+
 
     public RegistrationIntentService() {
         super(TAG);

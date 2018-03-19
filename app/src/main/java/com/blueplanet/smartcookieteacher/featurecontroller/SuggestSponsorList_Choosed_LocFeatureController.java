@@ -28,7 +28,7 @@ public class SuggestSponsorList_Choosed_LocFeatureController implements IEventLi
 
     public static SuggestSponsorList_Choosed_LocFeatureController featureController = null;
     private final String _TAG = this.getClass().getSimpleName();
-    boolean flag = false;
+
     private ArrayList<SuggestedSponsorModel> arr_sponsor = null;
     private SuggestedSponsorModel sponsor = null;
 

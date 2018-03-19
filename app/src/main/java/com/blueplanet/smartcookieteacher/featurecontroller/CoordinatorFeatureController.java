@@ -34,9 +34,9 @@ public class CoordinatorFeatureController  implements IEventListener {
     private static CoordinatorFeatureController _coordinator = null;
     private ArrayList<CoordinatorModel> _coorList = new ArrayList<>();
     private ArrayList<CoordinatorModel> _filteredList = new ArrayList<>();
-    private final String _TAG = this.getClass().getSimpleName();
+   // private final String _TAG = this.getClass().getSimpleName();
     private CoordinatorModel _selectedCoordiStudent = null;
-    private Student _student1 = null;
+   // private Student _student1 = null;
 
     private int _lastInputId = 0;
 

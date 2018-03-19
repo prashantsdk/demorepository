@@ -39,13 +39,9 @@ public class AllSubjectFragmentControlle implements IEventListener, AdapterView.
 
     private AllSubjectFragment _teacherallSubjectFragment;
     private View _view;
-    private final String _TAG = this.getClass().getSimpleName();
-    private TeacherSubject _teacherSubject;
-    private String _teacherId, _schoolId;
+     private String _teacherId, _schoolId;
     private Teacher _teacher;
     private ArrayList<TeacherAllSubject> _subjectList;
-    private ListView _substudentList;
-    private SubjectwiseStudentAdapter _adapter = null;
 
 
     public AllSubjectFragmentControlle(AllSubjectFragment teacherallSubjectFragment,

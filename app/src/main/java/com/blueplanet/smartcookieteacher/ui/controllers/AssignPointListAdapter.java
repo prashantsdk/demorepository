@@ -29,7 +29,7 @@ public class AssignPointListAdapter extends BaseAdapter {
 
     private final String _TAG = this.getClass().getSimpleName();
     private CustomTextView _textView[];
-    private View _view;
+
 
     public AssignPointListAdapter(AssignPointFragment assignPointFragment,
                                   AssignPointFragmentController assignPointFragmentController,

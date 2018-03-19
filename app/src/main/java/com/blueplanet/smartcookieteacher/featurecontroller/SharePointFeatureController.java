@@ -26,10 +26,10 @@ public class SharePointFeatureController implements IEventListener {
 
 
     private ShairPointModel _sharepoint = null;
-    private final String _TAG = this.getClass().getSimpleName();
+    //private final String _TAG = this.getClass().getSimpleName();
 
     private ShairPointModel _selectedteacher = null;
-    private Student _student1 = null;
+    //private Student _student1 = null;
 
     private ArrayList<ShairPointModel> _filteredList = new ArrayList<>();
 

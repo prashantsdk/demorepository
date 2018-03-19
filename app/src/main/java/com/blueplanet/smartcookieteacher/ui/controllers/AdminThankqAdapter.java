@@ -26,7 +26,7 @@ import java.util.ArrayList;
 public class AdminThankqAdapter extends BaseAdapter {
 
     private AdminFragment _adFragment;
-    private AdminThanqFragmentController _contr;
+
     private ArrayList<AdminThankqPoint> adminlist;
     private final String _TAG = this.getClass().getSimpleName();
     private TextView _txtName, txtDate, _txtMonth, _txtActivity, txtPoint;

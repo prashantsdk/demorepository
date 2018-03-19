@@ -47,12 +47,12 @@ public class AddCartAdapter extends BaseAdapter implements IEventListener {
     private AddCartFragmentController _controller;
     private ArrayList<AddCart> _coupDetailList;
     private final String _TAG = this.getClass().getSimpleName();
-    private TextView _couName, _couId, _txtPoint, _txtOff, _txtvalidity;
-    private String _couponPointsOff = null;
+    private TextView _couName, _couId, _txtPoint,  _txtvalidity;
+
     private ImageView _couImg, _couDelete;
     private Teacher _teacher;
     private int _userID;
-    private ProgressBar progressBar;
+
     private ProgressDialog progressDialog;
     private RelativeLayout relativeLayout;
 

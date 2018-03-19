@@ -53,7 +53,7 @@ import javax.net.ssl.X509TrustManager;
 
 public class HTTPCommunication {
 
-    private final static String _TAG = "HTTPCommunication";
+
 
     private DefaultHttpClient _httpClient = null;
 

@@ -413,6 +413,13 @@ public class AfterLoginActivity extends AppCompatActivity implements IEventListe
                     SmartCookieSharedPreferences.setLoginFlag(false);
                     _startLoginActivity();
                 }
+                else{
+
+                    LoginFeatureController.getInstance().logOut();
+
+                    SmartCookieSharedPreferences.setLoginFlag(false);
+                    _startLoginActivity();
+                }
 
               /*  LoginFeatureController.getInstance().logOut();
                 SmartCookieSharedPreferences.setLoginFlag(false);

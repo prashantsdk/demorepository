@@ -248,7 +248,15 @@ public class AssignPointFragment extends Fragment implements AdapterView.OnItemS
         });
 
     }
+    public void zeroValueValidation() {
 
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(getActivity(), "Enter the points greater than zero", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
     private void _setTeacherNameOnUI() {
 

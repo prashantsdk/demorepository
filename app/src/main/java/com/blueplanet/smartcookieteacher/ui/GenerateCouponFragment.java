@@ -264,6 +264,8 @@ public class GenerateCouponFragment extends Fragment implements AdapterView.OnIt
         });
     }
 
+
+
     public void refreshListview() {
         getActivity().runOnUiThread(
                 new Runnable() {

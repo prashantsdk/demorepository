@@ -310,7 +310,6 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
                                 AssignPointFragmentController.this, generalActivities);
 
 
-
                         _lvActivities.setAdapter(generalActivitListAdapter);
                         _lvActivities.setVisibility(View.VISIBLE);
 
@@ -450,7 +449,7 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
 
               }*/
 
-                CommonFunctions.hideKeyboardFrom(_assignPointFragment.getActivity(),view);
+                CommonFunctions.hideKeyboardFrom(_assignPointFragment.getActivity(), view);
 
                 Student student = AssignPointFeatureController.getInstance().get_selectedStudent();
                 selectedActivityId = ActivityListFeatureController.getInstance().getSeletedActivityId();
@@ -473,6 +472,11 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
                 checkFlagStatus = ActivityListFeatureController.getInstance().getSelectedActivityIDOne();
 
 
+         /*       && (!(Integer.parseInt(selectedPoints) < 0)
+        } else if (Integer.parseInt(selectedPoints) == 0) {
+            _genFragment.zeroValueValidation();
+        }
+*/
                 if (checkFlagStatus == true) {
 
                     if (isStudyClicked) {
@@ -527,32 +531,36 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
                                         if (pointtype.equalsIgnoreCase("Greenpoint")) {
 
 
-                                            if (greenPoints > Integer.parseInt(rewardValue)) {
+                                            if ((greenPoints > Integer.parseInt(rewardValue)) && (!(Integer.parseInt(rewardValue) == 0))) {
 
 
                                                 _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
                                                         activityId, selectedSubjectId, rewardValue, date, pointtype, commentPoint);
                                                 clearActivityList();
-                                            } else {
+                                            } else if (!(greenPoints > Integer.parseInt(rewardValue))) {
 
 
                                                 Toast.makeText(_assignPointFragment.getActivity(), "Insufficient Reward Points", Toast.LENGTH_SHORT).show();
 
+                                            } else if (Integer.parseInt(rewardValue) == 0) {
+                                                _assignPointFragment.zeroValueValidation();
                                             }
                                         } else if (pointtype.equalsIgnoreCase("Waterpoint")) {
 
 
-                                            if (waterPoints > Integer.parseInt(rewardValue)) {
+                                            if ((waterPoints > Integer.parseInt(rewardValue)) && (!(Integer.parseInt(rewardValue) == 0))) {
 
 
                                                 _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
                                                         activityId, selectedSubjectId, rewardValue, date, pointtype, commentPoint);
                                                 clearActivityList();
-                                            } else {
+                                            } else if (!(waterPoints > Integer.parseInt(rewardValue))) {
 
 
                                                 Toast.makeText(_assignPointFragment.getActivity(), "Insufficient Purchase Points", Toast.LENGTH_SHORT).show();
 
+                                            } else if (Integer.parseInt(rewardValue) == 0) {
+                                                _assignPointFragment.zeroValueValidation();
                                             }
                                         }
                                     } else {
@@ -685,7 +693,7 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
 
                                         if (finalPointType.equals("Greenpoint")) {
 
-                                            if (greenPoints > Integer.parseInt(rewardValue)) {
+                                            if ((greenPoints > Integer.parseInt(rewardValue)) && (!(Integer.parseInt(rewardValue) == 0))) {
 
 
                                                 _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
@@ -693,10 +701,12 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
                                                 clearActivityList();
 
 
-                                            } else {
+                                            } else if (!(greenPoints > Integer.parseInt(rewardValue))) {
 
                                                 Toast.makeText(_assignPointFragment.getActivity(),
                                                         "Insufficient Reward Points", Toast.LENGTH_SHORT).show();
+                                            } else if ((Integer.parseInt(rewardValue) == 0)) {
+                                                _assignPointFragment.zeroValueValidation();
                                             }
                                         } else if (finalPointType.equals("Sponsor")) {
 
@@ -714,19 +724,22 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
                                             }
                                         } else if (finalPointType.equals("Waterpoint")) {
 
-                                            if (waterPoints > Integer.parseInt(rewardValue)) {
+                                            if ((waterPoints > Integer.parseInt(rewardValue)) && (!(Integer.parseInt(rewardValue) == 0))) {
+
                                                 _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
                                                         selectedActivityId, subjectId, rewardValue, date, finalPointType, commentPoint);
                                                 clearActivityList();
 
 
-                                            } else {
+                                            } else if (!(waterPoints > Integer.parseInt(rewardValue))) {
 
                                                 Toast.makeText(_assignPointFragment.getActivity(),
                                                         "Insufficient Purchase  Points", Toast.LENGTH_SHORT).show();
 
-
+                                            } else if ((Integer.parseInt(rewardValue) == 0)) {
+                                                _assignPointFragment.zeroValueValidation();
                                             }
+
                                         } else {
                                             Toast.makeText(_assignPointFragment.getActivity(), "Method type not selected", Toast.LENGTH_SHORT).show();
                                         }

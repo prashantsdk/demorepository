@@ -134,7 +134,7 @@ public class GenerateCouponFragmentController implements View.OnClickListener, I
 
                     if (!(Integer.parseInt(selectedPoints) > Integer.parseInt(point))) {
 
-                        String newLoginType =  logintype.replaceAll("\\s", "");
+                        String newLoginType = logintype.replaceAll("\\s", "");
                         _fetchGenCoupFromServer(_teacherId, point, newLoginType, schoolID);
 
                     } else {

@@ -4,8 +4,6 @@ import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,20 +19,14 @@ import android.widget.Toast;
 import com.blueplanet.smartcookieteacher.MainApplication;
 import com.blueplanet.smartcookieteacher.R;
 import com.blueplanet.smartcookieteacher.communication.ServerResponse;
-import com.blueplanet.smartcookieteacher.customcomponents.CustomButton;
-import com.blueplanet.smartcookieteacher.customcomponents.CustomEditText;
 import com.blueplanet.smartcookieteacher.customcomponents.CustomTextView;
 import com.blueplanet.smartcookieteacher.featurecontroller.AcceptRequestFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.AcceptRequestStusentFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.DeclineRequestFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.DrawerFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.LoginFeatureController;
-import com.blueplanet.smartcookieteacher.featurecontroller.SharePointFeatureController;
-import com.blueplanet.smartcookieteacher.featurecontroller.SubjectFeatureController;
 import com.blueplanet.smartcookieteacher.models.RequestPointModel;
-import com.blueplanet.smartcookieteacher.models.ShairPointModel;
 import com.blueplanet.smartcookieteacher.models.Teacher;
-import com.blueplanet.smartcookieteacher.models.TeacherSubject;
 import com.blueplanet.smartcookieteacher.notification.EventNotifier;
 import com.blueplanet.smartcookieteacher.notification.EventState;
 import com.blueplanet.smartcookieteacher.notification.EventTypes;
@@ -42,20 +34,16 @@ import com.blueplanet.smartcookieteacher.notification.IEventListener;
 import com.blueplanet.smartcookieteacher.notification.ListenerPriority;
 import com.blueplanet.smartcookieteacher.notification.NotifierFactory;
 import com.blueplanet.smartcookieteacher.ui.AcceptRequestFragment;
-import com.blueplanet.smartcookieteacher.ui.PointShareFragment;
-import com.blueplanet.smartcookieteacher.ui.SharePointFragment;
-import com.blueplanet.smartcookieteacher.ui.SubjectwiseStudentFragment;
 import com.blueplanet.smartcookieteacher.utils.IImageLoader;
 import com.blueplanet.smartcookieteacher.utils.SmartCookieImageLoader;
 import com.blueplanet.smartcookieteacher.webservices.WebserviceConstants;
 
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
 
 /**
  * Created by Sayali on 8/23/2017.
  */
-public class AcceptRequestAdapter extends BaseAdapter  implements IEventListener {
+public class AcceptRequestAdapter extends BaseAdapter implements IEventListener {
     private AcceptRequestFragment _fragment;
     private AcceptRequestController _contr;
 
@@ -70,11 +58,12 @@ public class AcceptRequestAdapter extends BaseAdapter  implements IEventListener
     private CustomTextView _tvPleaseWait;
 
     private boolean _isFiltered = false;
-    private Button _btn_add,_btnDelet;
+    private Button _btn_add, _btnDelet;
     private ArrayList<RequestPointModel> _RequestPointlist;
     private RequestPointModel _request;
     private String _teacherId, _schoolId;
-    public AcceptRequestAdapter(AcceptRequestFragment fragment,View _view
+
+    public AcceptRequestAdapter(AcceptRequestFragment fragment, View _view
     ) {
 
         _fragment = fragment;
@@ -95,6 +84,7 @@ public class AcceptRequestAdapter extends BaseAdapter  implements IEventListener
 
         return 0;
     }
+
     public void showOrHideProgressBar(final boolean visibility) {
         _fragment.getActivity().runOnUiThread(new Runnable() {
             @Override
@@ -112,6 +102,7 @@ public class AcceptRequestAdapter extends BaseAdapter  implements IEventListener
         });
 
     }
+
     @Override
     public Object getItem(int position) {
         return null;
@@ -188,33 +179,32 @@ public class AcceptRequestAdapter extends BaseAdapter  implements IEventListener
                                         _request = AcceptRequestFeatureController.getInstance().get_selectedRequest();
 
 
-
-                                    if (_teacher != null) {
-
-                                        _teacher = LoginFeatureController.getInstance().getTeacher();
-
                                         if (_teacher != null) {
-                                            _teacherId = _teacher.get_tId();
-                                            _schoolId = _teacher.get_tSchool_id();
-                                            String point=_request.get_point();
-                                            String reID=_request.get_reasonID();
-                                            String stuPRN=_request.get_stuprn();
-                                            String type=_request.get_type();
-                                            String reason=_request.get_reason();
 
-                                            _fetchAcceptRequestPointFromServer(_teacherId, _schoolId,point,reID,stuPRN,type,reason);
-                                            _fragment.showOrHideProgressBar(true);
+                                            _teacher = LoginFeatureController.getInstance().getTeacher();
+
+                                            if (_teacher != null) {
+                                                _teacherId = _teacher.get_tId();
+                                                _schoolId = _teacher.get_tSchool_id();
+                                                String point = _request.get_point();
+                                                String reID = _request.get_reasonID();
+                                                String stuPRN = _request.get_stuprn();
+                                                String type = _request.get_type();
+                                                String reason = _request.get_reason();
+
+                                                _fetchAcceptRequestPointFromServer(_teacherId, _schoolId, point, reID, stuPRN, type, reason);
+                                                _fragment.showOrHideProgressBar(true);
+
+                                            }
 
                                         }
-
                                     }
-                                }
                                 }
                             });
                         }
                     });
 
-                    _btnDelet  = (Button) convertView.findViewById(R.id.btn_decline);
+                    _btnDelet = (Button) convertView.findViewById(R.id.btn_decline);
                     _btnDelet.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -289,6 +279,7 @@ public class AcceptRequestAdapter extends BaseAdapter  implements IEventListener
 
 
     }
+
     private void _registerStudentEventListeners() {
 
         EventNotifier eventNotifier =
@@ -321,12 +312,14 @@ public class AcceptRequestAdapter extends BaseAdapter  implements IEventListener
         AcceptRequestStusentFeatureController.getInstance().getAcceptRequestListFromServer(t_id, studentId, point, reaId, studentprn, type, reson);
 
     }
+
     private void _fetchDeclineRequestPointFromServer(String t_id, String studentId, String reaId, String studentprn) {
         _registerStudentEventListeners();
 
         DeclineRequestFeatureController.getInstance().getDeclineRequestListFromServer(t_id, studentId, reaId, studentprn);
 
     }
+
     public void clear() {
         _unRegisterEventListeners();
 
@@ -334,12 +327,14 @@ public class AcceptRequestAdapter extends BaseAdapter  implements IEventListener
             _fragment = null;
         }
     }
+
     public void clearActivityList() {
 
 
         if (_RequestPointlist != null) {
             _RequestPointlist.clear();
-        }}
+        }
+    }
 
     public void showacceptPoint() {
         _fragment.getActivity().runOnUiThread(new Runnable() {
@@ -353,17 +348,28 @@ public class AcceptRequestAdapter extends BaseAdapter  implements IEventListener
         });
 
     }
+
     public void showacceptNotPoint() {
         _fragment.getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
 
                 Toast.makeText(_fragment.getActivity().getApplicationContext(),
-                        _fragment.getActivity().getString(R.string.Request_Accepted),
+                        "Accept Request are not accepted",
                         Toast.LENGTH_LONG).show();
             }
         });
 
+    }
+
+    public void listUpdated() {
+        _fragment.getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+
+                Toast.makeText(_fragment.getActivity(), "List Updated Successfully", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -387,11 +393,44 @@ public class AcceptRequestAdapter extends BaseAdapter  implements IEventListener
                     _fragment.showAcceptRequestPoint();
                     clearActivityList();
 
+
+                    if (_teacher != null) {
+
+                        _teacher = LoginFeatureController.getInstance().getTeacher();
+                        if (_teacher != null) {
+                            _teacherId = _teacher.get_tId();
+                            _schoolId = _teacher.get_tSchool_id();
+                            _fetchRequestPointFromServer(_teacherId, _schoolId);
+                        }
+
+                    }
+
                     /**
                      * get reward list before refreshing listview avoid runtime exception
                      */
 
 
+                    // _rewardPointLog=RewardPointLogFeatureController.getInstance().getRewardPointList();
+                    // RewardPointLogFeatureController.getInstance().saveRewardPointLogIntoDB(_rewardList);
+
+                }
+                break;
+
+            case EventTypes.EVENT_UI_ACCEPT_REQUEST:
+                EventNotifier eventNotifierOne =
+                        NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_TEACHER);
+                eventNotifierOne.unRegisterListener(this);
+
+                if (errorCode == WebserviceConstants.SUCCESS) {
+                    _fragment.showOrHideProgressBar(false);
+                    /**
+                     * get reward list before refreshing listview avoid runtime exception
+                     */
+                    _RequestPointlist = AcceptRequestFeatureController.getInstance().get_PointLogList();
+                    _fragment.setVisibilityOfListView(true);
+                    _fragment.refreshListview();
+
+                    listUpdated();
                     // _rewardPointLog=RewardPointLogFeatureController.getInstance().getRewardPointList();
                     // RewardPointLogFeatureController.getInstance().saveRewardPointLogIntoDB(_rewardList);
 
@@ -420,7 +459,6 @@ public class AcceptRequestAdapter extends BaseAdapter  implements IEventListener
                     /**
                      * get reward list before refreshing listview avoid runtime exception
                      */
-
 
 
                     // _rewardPointLog=RewardPointLogFeatureController.getInstance().getRewardPointList();
@@ -468,6 +506,12 @@ public class AcceptRequestAdapter extends BaseAdapter  implements IEventListener
     }
 
 
+    private void _fetchRequestPointFromServer(String teacherId, String schoolId) {
+        _registerStudentEventListeners();
+
+        AcceptRequestFeatureController.getInstance().getRequestPointListFromServer(teacherId, schoolId);
+        _fragment.showOrHideProgressBar(true);
+    }
 
 
 }

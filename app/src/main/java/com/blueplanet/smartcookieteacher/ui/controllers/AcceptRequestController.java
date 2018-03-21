@@ -163,6 +163,8 @@ public class AcceptRequestController implements IEventListener,AbsListView.OnScr
                     _Fragment.setVisibilityOfListView(true);
                     _Fragment.refreshListview();
 
+
+
                     // _rewardPointLog=RewardPointLogFeatureController.getInstance().getRewardPointList();
                     // RewardPointLogFeatureController.getInstance().saveRewardPointLogIntoDB(_rewardList);
 

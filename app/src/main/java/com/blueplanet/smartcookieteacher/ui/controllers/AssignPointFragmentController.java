@@ -160,6 +160,7 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
             mProgressDialog = new ProgressDialog(_assignPointFragment.getActivity());
             mProgressDialog.setMessage("Loading...");
             mProgressDialog.setIndeterminate(false);
+            mProgressDialog.setCancelable(false);
             mProgressDialog.show();
 
         }
@@ -1435,6 +1436,7 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
             mProgressDialog = new ProgressDialog(_assignPointFragment.getActivity());
             mProgressDialog.setMessage("Loading...");
             mProgressDialog.setIndeterminate(false);
+            mProgressDialog.setCancelable(false);
             mProgressDialog.show();
 
         }

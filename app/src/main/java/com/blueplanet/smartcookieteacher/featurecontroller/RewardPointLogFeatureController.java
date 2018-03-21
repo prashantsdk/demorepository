@@ -6,16 +6,12 @@ import com.blueplanet.smartcookieteacher.DatabaseManager.PersistenceFactory;
 import com.blueplanet.smartcookieteacher.DatabaseManager.SmartTeacherDatabaseMasterTable;
 import com.blueplanet.smartcookieteacher.communication.ServerResponse;
 import com.blueplanet.smartcookieteacher.models.RewardPointLog;
-import com.blueplanet.smartcookieteacher.models.Student;
-import com.blueplanet.smartcookieteacher.models.TeacherSubject;
-import com.blueplanet.smartcookieteacher.models.User;
 import com.blueplanet.smartcookieteacher.notification.EventNotifier;
 import com.blueplanet.smartcookieteacher.notification.EventState;
 import com.blueplanet.smartcookieteacher.notification.EventTypes;
 import com.blueplanet.smartcookieteacher.notification.IEventListener;
 import com.blueplanet.smartcookieteacher.notification.ListenerPriority;
 import com.blueplanet.smartcookieteacher.notification.NotifierFactory;
-import com.blueplanet.smartcookieteacher.storage.RewardPointTabel;
 import com.blueplanet.smartcookieteacher.webservices.GetRewardPointLog;
 import com.blueplanet.smartcookieteacher.webservices.WebserviceConstants;
 
@@ -29,7 +25,7 @@ public class RewardPointLogFeatureController implements IEventListener {
 
     private static RewardPointLogFeatureController _rewardPointLogFeatureController = null;
     private ArrayList<RewardPointLog> _rewardPointLogList = new ArrayList<>();
-   // private final String _TAG = this.getClass().getSimpleName();
+    // private final String _TAG = this.getClass().getSimpleName();
 
     /**
      * function to get single instance of this class
@@ -101,6 +97,10 @@ public class RewardPointLogFeatureController implements IEventListener {
         IPersistence persistObj = PersistenceFactory.get(SmartTeacherDatabaseMasterTable.Tables.REWARD);
 
         persistObj.save(log);
+    }
+
+    public ArrayList<RewardPointLog> get_RewardLogData() {
+        return _rewardPointLogList;
     }
 
     public ArrayList<RewardPointLog> getRewardFromDB() {

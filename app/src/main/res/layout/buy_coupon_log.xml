@@ -40,7 +40,7 @@
             android:layout_marginRight="10dp"
             android:layout_toRightOf="@+id/progressbar"
             android:text="Please wait..."
-            android:textColor="#ffffff"
+            android:textColor="#000"
             android:textSize="15sp" />
     </RelativeLayout>
 

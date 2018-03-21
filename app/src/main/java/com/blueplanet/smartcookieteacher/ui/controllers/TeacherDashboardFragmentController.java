@@ -104,7 +104,7 @@ public class TeacherDashboardFragmentController implements IEventListener, AbsLi
      */
     private void _fetchPointFromServer(String techerId,String studentId) {
         _registerNetworkListeners();
-        _registerEventListeners();
+         _registerEventListeners();
         DashboardFeatureController.getInstance().fetchTeacherPointFromServer(techerId, studentId);
     }
 

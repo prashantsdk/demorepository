@@ -245,7 +245,9 @@ public class GenerateCouponFragmentController implements View.OnClickListener, I
 
                     //   _genFragment.showOrHideProgressBar(false);
                     //_teacherSubjectFragment.setSubjectDataOnUI();
+
                     _couList = GenerateCouponFeatureController.getInstance().get_genCouList();
+                    _genFragment.resetPoints();
                     _genFragment.refreshListview();
                     _genFragment.setBalanceGreenPoint();
                     _genFragment.generateCouponSuccessfullyPoint();

@@ -66,6 +66,7 @@ public class WebserviceConstants {
     public static final String COUPON_ADD_TO_CART_CONFIRM = "cart_confirm_ws.php";
     public static final String BUY_COUPON_LOG = "show_selected_vendor_coupons_ws.php";
     public static final String GENERATE_COUPON_LOG_WEB_SERVICE = "display_couponlist_teacher.php";
+    public static final String TEACHER_COUPONS_DETAILS = "teacher_coupons_details.php";
     public static final String FORGET_PASSWARD_WEB_SERVICE = "forgetpassword_webservice.php";
     public static final String SUBWEBSERVICE = "teacher_ws.php?f=teacher_particular_subjectsforstudent";
     public static final String ADMINTHANKQPOINT_WEB_SERVICE = "school_admin_thanQpoints_log.php";
@@ -418,6 +419,7 @@ public class WebserviceConstants {
     public static final String KEY_COU_BALANCE_POINT = "balance_point";
     public static final String KEY_COU_BALNCE_POINT_TYPE = "used_points";
 
+    public static final String KEY_AMMOUNT = "amount";
 
     //output for
 
@@ -852,14 +854,5 @@ public class WebserviceConstants {
         progressBar.setVisibility(View.GONE);*/     // To Hide ProgressBar
 
         return progressBar;
-    }
-
-    public static void showNetworkMsg(final Activity activity) {
-        activity.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                Toast.makeText(activity, "No internet connection.", Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 }

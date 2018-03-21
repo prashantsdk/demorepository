@@ -29,6 +29,7 @@ import com.blueplanet.smartcookieteacher.models.DisplayTeacSubjectModel;
 import com.blueplanet.smartcookieteacher.models.SearchStudent;
 import com.blueplanet.smartcookieteacher.models.Student;
 import com.blueplanet.smartcookieteacher.models.Teacher;
+import com.blueplanet.smartcookieteacher.network.NetworkManager;
 import com.blueplanet.smartcookieteacher.notification.EventNotifier;
 import com.blueplanet.smartcookieteacher.notification.EventState;
 import com.blueplanet.smartcookieteacher.notification.EventTypes;
@@ -224,6 +225,7 @@ public class SearchStudentController implements View.OnClickListener,IEventListe
             case R.id.imgcross_new:
                 etxtSearch.setText("");
                 maxlenghth = 0;
+            //    CommonFunctions.hideKeyboardFrom(_subjectFragment.getActivity(),v);
                 DisplaySubjectFeatureController.getInstance().clearArray();
 
                 DisplaySubjectFeatureController.getInstance().getSearchedTeacher();
@@ -235,11 +237,22 @@ public class SearchStudentController implements View.OnClickListener,IEventListe
 
                 break;
             case R.id.searchStudent:
-                progressDialog = WebserviceConstants.showProgress(_subjectFragment.getActivity(), "Loading...");
-                progressDialog.show();
-                final String offset="0";
-                SearchFriends(snamekey,_schoolId,offset);
 
+                CommonFunctions.hideKeyboardFrom(_subjectFragment.getActivity(),v);
+
+                final String offset = "0";
+                String name = etxtSearch.getText().toString().trim();
+                if(name.length() > 0) {
+                    progressDialog = WebserviceConstants.showProgress(_subjectFragment.getActivity(), "Loading...");
+                    progressDialog.show();
+
+                    if (NetworkManager.isNetworkAvailable()) {
+                        SearchFriends(name, _schoolId, offset);
+                    } else
+                        CommonFunctions.showNetworkMsg(_subjectFragment.getActivity());
+                }else{
+                    _subjectFragment.searchCriteriaMessage();
+                }
                 break;
 
             case R.id.parent_layout_friends:
@@ -302,10 +315,10 @@ public class SearchStudentController implements View.OnClickListener,IEventListe
                     ArrayList<SearchStudent> array_stud= SearchStudentFeatureController.getInstance().getSearchedStudents();
                     _subjectFragment.showMyFriends(array_stud);
 
-                    _subjectFragment.showFriendisavailable(true);
+                    _subjectFragment.showStudentisavailable(true);
 
                 }else {
-                    _subjectFragment.showFriendisavailable(false);
+                    _subjectFragment.showStudentisavailable(false);
                 }
                 break;
 
@@ -318,7 +331,7 @@ public class SearchStudentController implements View.OnClickListener,IEventListe
                     progressDialog.dismiss();
                 }
              //   _subjectFragment.showOrHideLoadingSpinner(false);
-                _subjectFragment.showFriendisavailable(false);
+                _subjectFragment.showStudentisavailable(false);
 
                 break;
 
@@ -328,6 +341,9 @@ public class SearchStudentController implements View.OnClickListener,IEventListe
                         NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_NETWORK);
                 eventNotifiernetwork.unRegisterListener(this);
 
+                if(progressDialog != null){
+                    progressDialog.dismiss();
+                }
                 _subjectFragment.showNetworkMessage(true);
                 break;
 
@@ -347,6 +363,9 @@ public class SearchStudentController implements View.OnClickListener,IEventListe
                 eventNotifier1.unRegisterListener(this);
 
              //   _subjectFragment.showOrHideLoadingSpinner(false);
+                if(progressDialog != null){
+                    progressDialog.dismiss();
+                }
                 _subjectFragment.showbadRequestMessage();
                 break;
 
@@ -355,7 +374,10 @@ public class SearchStudentController implements View.OnClickListener,IEventListe
                         NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_STUDENT);
                 eventNotifier2.unRegisterListener(this);
              //   _subjectFragment.showOrHideLoadingSpinner(false);
-                _subjectFragment.showFriendisavailable(false);
+                if(progressDialog != null){
+                    progressDialog.dismiss();
+                }
+                _subjectFragment.showStudentisavailable(false);
                 break;
 
             default:
@@ -372,7 +394,7 @@ public class SearchStudentController implements View.OnClickListener,IEventListe
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-        CommonFunctions.hideKeyboardFrom(_subjectFragment.getActivity(),view);
+
 
         ArrayList<SearchStudent> filteredList = SearchStudentFeatureController.getInstance().getSearchedStudents();
 

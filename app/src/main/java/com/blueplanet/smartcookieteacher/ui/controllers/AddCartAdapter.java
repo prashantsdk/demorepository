@@ -32,6 +32,7 @@ import com.blueplanet.smartcookieteacher.notification.IEventListener;
 import com.blueplanet.smartcookieteacher.notification.ListenerPriority;
 import com.blueplanet.smartcookieteacher.notification.NotifierFactory;
 import com.blueplanet.smartcookieteacher.ui.AddCartFragment;
+import com.blueplanet.smartcookieteacher.utils.CommonFunctions;
 import com.blueplanet.smartcookieteacher.utils.IImageLoader;
 import com.blueplanet.smartcookieteacher.utils.SmartCookieImageLoader;
 import com.blueplanet.smartcookieteacher.webservices.WebserviceConstants;
@@ -71,7 +72,7 @@ public class AddCartAdapter extends BaseAdapter implements IEventListener {
         if (NetworkManager.isNetworkAvailable()) {
             _fetchMyCartFromServer(String.valueOf(_userID), entity);
         } else {
-            WebserviceConstants.showNetworkMsg(_addFragment.getActivity());
+            CommonFunctions.showNetworkMsg(_addFragment.getActivity());
         }
     }
 
@@ -168,7 +169,7 @@ public class AddCartAdapter extends BaseAdapter implements IEventListener {
                                     if(NetworkManager.isNetworkAvailable()) {
                                         _fetchDeleteFromCartFromServer(_coupDetailList.get(position).get_selId(), _coupDetailList.get(position).get_couId());
                                     }else{
-                                        WebserviceConstants.showNetworkMsg(_addFragment.getActivity());
+                                        CommonFunctions.showNetworkMsg(_addFragment.getActivity());
                                     }
                                     dialog.cancel();
                                 }

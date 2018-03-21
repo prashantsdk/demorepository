@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Toast;
 
 /**
  * Created by Priyanka on 3/19/2018.
@@ -22,6 +23,15 @@ public class CommonFunctions {
         InputMethodManager keyboard = (InputMethodManager)
                 context.getSystemService(Context.INPUT_METHOD_SERVICE);
         keyboard.showSoftInput(view, 0);
+    }
+
+    public static void showNetworkMsg(final Activity activity) {
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(activity, "No internet connection.", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     public static String capitalize(String input) {

@@ -274,6 +274,17 @@ public class GenerateCouponFragment extends Fragment implements AdapterView.OnIt
                 });
     }
 
+    public void resetPoints(){
+        getActivity().runOnUiThread(
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        etxtpoints.setText("");
+                        spinner.setSelection(0);
+                    }
+                });
+    }
+
     public void showTypeColor(int position) {
         spinner.setSelection(position);
         spinner.setSelection(position);

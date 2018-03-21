@@ -153,6 +153,7 @@ public class SearchAssignPointFragmentController implements OnClickListener, IEv
             mProgressDialog = new ProgressDialog(_assignPointFragment.getActivity());
             mProgressDialog.setMessage("Loading...");
             mProgressDialog.setIndeterminate(false);
+            mProgressDialog.setCanceledOnTouchOutside(false);
             mProgressDialog.show();
 
         }

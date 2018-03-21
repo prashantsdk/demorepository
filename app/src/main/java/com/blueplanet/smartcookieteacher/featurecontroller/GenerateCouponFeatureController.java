@@ -16,6 +16,7 @@ import com.blueplanet.smartcookieteacher.notification.IEventListener;
 import com.blueplanet.smartcookieteacher.notification.ListenerPriority;
 import com.blueplanet.smartcookieteacher.notification.NotifierFactory;
 import com.blueplanet.smartcookieteacher.webservices.GetGenerateCoupon;
+import com.blueplanet.smartcookieteacher.webservices.ReedemCoupon;
 import com.blueplanet.smartcookieteacher.webservices.WebserviceConstants;
 
 import java.util.ArrayList;
@@ -72,6 +73,17 @@ public class GenerateCouponFeatureController implements IEventListener {
 
         GetGenerateCoupon generateCoupon = new GetGenerateCoupon(_tId, _couPoint, option, studentId);
         generateCoupon.send();
+
+    }
+
+    public void fetchReedemCouponFromServer(String _tId, String studentId, String couponId) {
+
+        EventNotifier eventNotifier =
+                NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_COUPON);
+        eventNotifier.registerListener(this, ListenerPriority.PRIORITY_MEDIUM);
+
+        ReedemCoupon reedemCoupon = new ReedemCoupon(_tId, studentId, couponId);
+        reedemCoupon.send();
 
     }
 
@@ -226,7 +238,54 @@ public class GenerateCouponFeatureController implements IEventListener {
                     }
                 }
                 break;
+            case EventTypes.EVENT_REEDEM_COUPON_RECEVIED:
 
+                if (errorCode == WebserviceConstants.SUCCESS) {
+
+                    ArrayList<GenerateCoupon> list = (ArrayList<GenerateCoupon>) responseObject;
+                   // Collections.reverse(list);
+
+                    if (list != null && list.size() > 0) {
+                       /* GenerateCoupon generateCoupon = list.get(0);
+                        String coupBalancePoints = generateCoupon.get_couBalancePoint();
+                        String coupPoints = generateCoupon.get_couPoint();
+*/
+                        _genCoun = list.get(0);
+                       // saveRecentlyGeneratedCoupon(list.get(0));
+                    }
+
+                    eventNotifierUI =
+                            NotifierFactory.getInstance().getNotifier(
+                                    NotifierFactory.EVENT_NOTIFIER_COUPON);
+                    eventNotifierUI.eventNotifyOnThread(EventTypes.EVENT_UI_REEDEM_COUPON_SUCCESS,
+                            serverResponse);
+                } else {
+                    ErrorInfo errorInfo = (ErrorInfo) responseObject;
+                    int statusCode = errorInfo.getErrorCode();
+
+                    if (statusCode == HTTPConstants.HTTP_COM_NO_CONTENT) {
+                        eventNotifierUI =
+                                NotifierFactory.getInstance().getNotifier(
+                                        NotifierFactory.EVENT_NOTIFIER_COUPON);
+                        eventNotifierUI.eventNotifyOnThread(EventTypes.EVENT_UI_NOT_REEDEM_COUPON_SUCCESS,
+                                serverResponse);
+
+                    } else if (statusCode == HTTPConstants.HTTP_COMM_ERR_BAD_REQUEST) {
+                        eventNotifierUI =
+                                NotifierFactory.getInstance().getNotifier(
+                                        NotifierFactory.EVENT_NOTIFIER_COUPON);
+                        eventNotifierUI.eventNotifyOnThread(EventTypes.EVENT_UI_BAD_REQUEST,
+                                serverResponse);
+
+                    } else {
+                        eventNotifierUI =
+                                NotifierFactory.getInstance().getNotifier(
+                                        NotifierFactory.EVENT_NOTIFIER_COUPON);
+                        eventNotifierUI.eventNotifyOnThread(EventTypes.EVENT_UI_UNAUTHORIZED,
+                                serverResponse);
+                    }
+                }
+                break;
 
             default:
                 eventState = EventState.EVENT_IGNORED;

@@ -40,6 +40,7 @@ import com.blueplanet.smartcookieteacher.ui.CouponDetailForBuyFragment;
 import com.blueplanet.smartcookieteacher.ui.DisplayCategorieFragment;
 import com.blueplanet.smartcookieteacher.ui.GPSTracker;
 import com.blueplanet.smartcookieteacher.ui.MapActivity;
+import com.blueplanet.smartcookieteacher.utils.CommonFunctions;
 import com.blueplanet.smartcookieteacher.utils.HelperClass;
 import com.blueplanet.smartcookieteacher.webservices.WebserviceConstants;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -108,7 +109,7 @@ public class DisplayCategorieFragmentController implements IEventListener, Adapt
             if (NetworkManager.isNetworkAvailable()) {
                 _fetchDisplayCategorirListFromServer(ab_key);
             } else {
-                WebserviceConstants.showNetworkMsg(_disCategorieFragment.getActivity());
+                CommonFunctions.showNetworkMsg(_disCategorieFragment.getActivity());
             }
         }
         if (_categoryList != null && _categoryList.size() > 0) {
@@ -325,7 +326,7 @@ public class DisplayCategorieFragmentController implements IEventListener, Adapt
                                 if (NetworkManager.isNetworkAvailable()) {
                                     _fetchDisplayCouponListFromServer(catId, distance, latitude, longitude);
                                 } else {
-                                    WebserviceConstants.showNetworkMsg(_disCategorieFragment.getActivity());
+                                    CommonFunctions.showNetworkMsg(_disCategorieFragment.getActivity());
                                 }
 
 
@@ -407,7 +408,7 @@ public class DisplayCategorieFragmentController implements IEventListener, Adapt
                 if (NetworkManager.isNetworkAvailable()) {
                     _showCategorieListDialog();
                 } else {
-                    WebserviceConstants.showNetworkMsg(_disCategorieFragment.getActivity());
+                    CommonFunctions.showNetworkMsg(_disCategorieFragment.getActivity());
                 }
                 break;
             default:

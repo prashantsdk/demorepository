@@ -152,9 +152,16 @@ public class SearchStudentFragment extends Fragment {
 
     }*/
 
+    public void searchCriteriaMessage(){
+        this.getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(getActivity(), "Please enter search criteria", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
-
-    public void showFriendisavailable(final boolean visibility) {
+    public void showStudentisavailable(final boolean visibility) {
 
         this.getActivity().runOnUiThread(new Runnable() {
             @Override
@@ -162,7 +169,7 @@ public class SearchStudentFragment extends Fragment {
                 if (visibility) {
 
                 } else {
-                    Toast.makeText(getActivity(), "Friend list is not available", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Student not available", Toast.LENGTH_SHORT).show();
                 }
             }
         });

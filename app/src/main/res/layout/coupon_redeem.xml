@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/swipe_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -48,12 +52,26 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textCoupCode"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="COUPON CODE"
-                android:textColor="#000000"/>
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Coupon code : "
+                    android:textSize="14sp"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:id="@+id/textCoupCode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="COUPON CODE"
+                    android:textSize="14sp"
+                    android:textColor="#000000"/>
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -64,8 +82,8 @@
                     android:id="@+id/txtcouponexpiryda"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Valid till :"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="          Valid till :"
+                    android:textSize="14sp"
                     android:textColor="#000000" />
 
                 <TextView
@@ -73,9 +91,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-
                     android:text="Valid till :"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textSize="14sp"
                     android:textColor="#000000" />
 
             </LinearLayout>
@@ -101,8 +118,8 @@
                 <ImageView
 
                     android:id="@+id/imgbarcode"
-                    android:layout_width="2in"
-                    android:layout_height="2in"
+                    android:layout_width="250dp"
+                    android:layout_height="250dp"
                     android:padding="5dp"/>
 
                 <Button
@@ -129,3 +146,4 @@
     </LinearLayout>
 
 </RelativeLayout>
+</android.support.v4.widget.SwipeRefreshLayout>

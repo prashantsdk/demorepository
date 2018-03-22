@@ -22,9 +22,9 @@ import java.util.ArrayList;
 /**
  * Created by Priyanka on 20-03-2018.
  */
-public class ReedemCoupon extends SmartCookieTeacherService {
+public class RecentlyGenCoupon extends SmartCookieTeacherService {
 
-    private String _t_id, couponId,_studentId;
+    private String _t_id, _studentId;
     private int _inputId = -1;
     private final String _TAG = this.getClass().getSimpleName();
 
@@ -34,9 +34,8 @@ public class ReedemCoupon extends SmartCookieTeacherService {
      *
      * @param tid,schoolid
      */
-    public ReedemCoupon(String tid,  String studentId, String couponId) {
+    public RecentlyGenCoupon(String tid, String studentId) {
         _t_id = tid;
-        this.couponId = couponId;
         _studentId = studentId;
 
     }
@@ -54,7 +53,6 @@ public class ReedemCoupon extends SmartCookieTeacherService {
         try {
             requestBody.put(WebserviceConstants.KEY_TID, _t_id);
             requestBody.put(WebserviceConstants.KEY_SCHOOLID, _studentId);
-            requestBody.put(WebserviceConstants.KEY_COUPON_ID, couponId);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -95,7 +93,7 @@ public class ReedemCoupon extends SmartCookieTeacherService {
                     _genCoupon = new GenerateCoupon(couID, couPoint, couIssueDate, couValidityDate, couBalancePoint,balancePointType);
                     genCouList.add(_genCoupon);
                 }
-                responseObject = new ServerResponse(errorCode, genCouList.get(0));
+                responseObject = new ServerResponse(errorCode, genCouList);
 
             } else {
                 // failure
@@ -126,6 +124,6 @@ public class ReedemCoupon extends SmartCookieTeacherService {
 
         EventNotifier notifier =
                 NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_COUPON);
-        notifier.eventNotify(EventTypes.EVENT_REEDEM_COUPON_RECEVIED, eventObject);
+        notifier.eventNotify(EventTypes.EVENT_RECENTLY_GEN_COUPON_RECEVIED, eventObject);
     }
 }

@@ -42,7 +42,8 @@ public class GenerateCouponAdapter extends BaseAdapter {
                                  View _view) {
         _genFragment = genFragment;
         _genCouponController = genCouponController;
-        _genCouList = GenerateCouponFeatureController.getInstance().get_genCouList();
+      //  _genCouList = GenerateCouponFeatureController.getInstance().get_genCouList();
+        _genCouList = GenerateCouponFeatureController.getInstance().getServerCouponList();
 
     }
 
@@ -131,6 +132,7 @@ public class GenerateCouponAdapter extends BaseAdapter {
 
     public void notifyDataSetChanged() {
         super.notifyDataSetChanged();
-        _genCouList = GenerateCouponFeatureController.getInstance().get_genCouList();
+     //   _genCouList = GenerateCouponFeatureController.getInstance().get_genCouList();
+        _genCouList = GenerateCouponFeatureController.getInstance().getServerCouponList();
     }
 }

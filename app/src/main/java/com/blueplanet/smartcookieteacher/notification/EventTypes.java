@@ -173,6 +173,10 @@ public class EventTypes {
     public static final int EVENT_UI_REEDEM_COUPON_SUCCESS = 1070;
     public static final int EVENT_UI_NOT_REEDEM_COUPON_SUCCESS = 1071;
 
+    public static final int EVENT_RECENTLY_GEN_COUPON_RECEVIED = 1072;
+    public static final int EVENT_UI_RECENTLY_GEN_COUPON_SUCCESS = 1073;
+    public static final int EVENT_UI_NOT_RECENTLY_GEN_COUPON_SUCCESS = 1074;
+
     public static final int EVENT_GCM_RESPONCE_RECIEVED = 241;
     public static final int EVENT_UI_GCM_RESPONCE_RECIEVED= 242;
     public static final int EVENT_UI_NO_GCM_RESPONCE_RECIEVED = 243;

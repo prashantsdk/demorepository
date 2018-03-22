@@ -249,6 +249,16 @@ public class SearchAssignPointFragment extends Fragment implements AdapterView.O
 
     }
 
+    public void zeroValueValidation() {
+
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(getActivity(), "Enter the points greater than zero", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
     public void showOrHideRl4Option(final boolean visibility) {
 
         getActivity().runOnUiThread(new Runnable() {

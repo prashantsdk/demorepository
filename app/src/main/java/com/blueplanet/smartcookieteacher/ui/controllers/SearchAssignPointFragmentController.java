@@ -505,34 +505,27 @@ public class SearchAssignPointFragmentController implements OnClickListener, IEv
                                         methodID = "1";
 
                                         if (pointtype.equalsIgnoreCase("Greenpoint")) {
-
-
-                                            if (greenPoints > Integer.parseInt(rewardValue)) {
-
-
+                                            if (greenPoints > Integer.parseInt(rewardValue) && (!(Integer.parseInt(rewardValue) == 0))) {
                                                 _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
                                                         activityId, selectedSubjectId, rewardValue, date, pointtype, commentPoint);
                                                 clearActivityList();
-                                            } else {
-
-
+                                            } else if (!(greenPoints > Integer.parseInt(rewardValue))) {
                                                 Toast.makeText(_assignPointFragment.getActivity(), "Insufficient Reward Points", Toast.LENGTH_SHORT).show();
-
+                                            }else if (Integer.parseInt(rewardValue) == 0) {
+                                                _assignPointFragment.zeroValueValidation();
                                             }
                                         } else if (pointtype.equalsIgnoreCase("Waterpoint")) {
-
-
-                                            if (waterPoints > Integer.parseInt(rewardValue)) {
-
+                                            if (waterPoints > Integer.parseInt(rewardValue)&& (!(Integer.parseInt(rewardValue) == 0))) {
 
                                                 _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
                                                         activityId, selectedSubjectId, rewardValue, date, pointtype, commentPoint);
                                                 clearActivityList();
-                                            } else {
-
+                                            }if (!(waterPoints > Integer.parseInt(rewardValue))) {
 
                                                 Toast.makeText(_assignPointFragment.getActivity(), "Insufficient Purchase Points", Toast.LENGTH_SHORT).show();
 
+                                            } else if (Integer.parseInt(rewardValue) == 0) {
+                                                _assignPointFragment.zeroValueValidation();
                                             }
                                         }
                                     } else {
@@ -657,24 +650,23 @@ public class SearchAssignPointFragmentController implements OnClickListener, IEv
 
                                 if (logintype.equals(WebserviceConstants.VAL_USER_TYPE_GUGMENT)) {
                                     methodID = "1";
-                                    if ((selectedActivityId != null) &&
-                                            (!rewardValue.isEmpty())) {
+                                    if ((selectedActivityId != null) && (!rewardValue.isEmpty())) {
 
 
                                         if (finalPointType.equals("Greenpoint")) {
 
-                                            if (greenPoints > Integer.parseInt(rewardValue)) {
-
+                                            if ((greenPoints > Integer.parseInt(rewardValue)) && (!(Integer.parseInt(rewardValue) == 0))) {
 
                                                 _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
                                                         selectedActivityId, subjectId, rewardValue, date, finalPointType, commentPoint);
                                                 clearActivityList();
 
-
-                                            } else {
+                                            } else if (!(greenPoints > Integer.parseInt(rewardValue))) {
 
                                                 Toast.makeText(_assignPointFragment.getActivity(),
                                                         "Insufficient Reward Points", Toast.LENGTH_SHORT).show();
+                                            } else if ((Integer.parseInt(rewardValue) == 0)) {
+                                                _assignPointFragment.zeroValueValidation();
                                             }
                                         } else if (finalPointType.equals("Sponsor")) {
 
@@ -692,18 +684,19 @@ public class SearchAssignPointFragmentController implements OnClickListener, IEv
                                             }
                                         } else if (finalPointType.equals("Waterpoint")) {
 
-                                            if (waterPoints > Integer.parseInt(rewardValue)) {
+                                            if (waterPoints > Integer.parseInt(rewardValue)&& (!(Integer.parseInt(rewardValue) == 0))) {
                                                 _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
                                                         selectedActivityId, subjectId, rewardValue, date, finalPointType, commentPoint);
                                                 clearActivityList();
 
 
-                                            } else {
+                                            } else if (!(waterPoints > Integer.parseInt(rewardValue))) {
 
                                                 Toast.makeText(_assignPointFragment.getActivity(),
                                                         "Insufficient Purchase  Points", Toast.LENGTH_SHORT).show();
 
-
+                                            } else if ((Integer.parseInt(rewardValue) == 0)) {
+                                                _assignPointFragment.zeroValueValidation();
                                             }
                                         } else {
                                             Toast.makeText(_assignPointFragment.getActivity(), "Method type not selected", Toast.LENGTH_SHORT).show();

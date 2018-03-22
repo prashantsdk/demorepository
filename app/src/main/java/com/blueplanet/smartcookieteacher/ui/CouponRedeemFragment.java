@@ -19,6 +19,7 @@ import com.blueplanet.smartcookieteacher.featurecontroller.GenerateCouponFeature
 import com.blueplanet.smartcookieteacher.featurecontroller.LoginFeatureController;
 import com.blueplanet.smartcookieteacher.models.GenerateCoupon;
 import com.blueplanet.smartcookieteacher.models.Teacher;
+import com.blueplanet.smartcookieteacher.network.NetworkManager;
 import com.blueplanet.smartcookieteacher.notification.EventNotifier;
 import com.blueplanet.smartcookieteacher.notification.EventState;
 import com.blueplanet.smartcookieteacher.notification.EventTypes;
@@ -26,6 +27,7 @@ import com.blueplanet.smartcookieteacher.notification.IEventListener;
 import com.blueplanet.smartcookieteacher.notification.ListenerPriority;
 import com.blueplanet.smartcookieteacher.notification.NotifierFactory;
 import com.blueplanet.smartcookieteacher.ui.controllers.CouponReedemFragmentController;
+import com.blueplanet.smartcookieteacher.utils.CommonFunctions;
 import com.blueplanet.smartcookieteacher.webservices.WebserviceConstants;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
@@ -287,6 +289,10 @@ public class CouponRedeemFragment extends Fragment implements IEventListener, Sw
     public void onRefresh() {
         Teacher _teacher = LoginFeatureController.getInstance().getTeacher();
         GenerateCoupon generateCoupon = GenerateCouponFeatureController.getInstance().getGeneratedCoupon();
-        _fetchReedemCoupFromServer(_teacher.get_tId(), _teacher.get_tSchool_id(),generateCoupon.get_couID());
+        if(NetworkManager.isNetworkAvailable()) {
+            _fetchReedemCoupFromServer(_teacher.get_tId(), _teacher.get_tSchool_id(), generateCoupon.get_couID());
+        }else{
+            CommonFunctions.showNetworkMsg(getActivity());
+        }
     }
 }

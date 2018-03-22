@@ -518,7 +518,6 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
                                 String rewardValue = txt_point.getText().toString();
                                 String rewardValue1 = txt_mark.getText().toString();
                                 String rewardValue2 = txt_point2.getText().toString();
-
                                 String markPoint = txtMark.getText().toString();
 
                                 String commentPoint = _comment.getText().toString();

@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.util.Log;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -52,28 +53,22 @@ public class GenerateCouponFragmentController implements View.OnClickListener, I
         _genFragment = genFragment;
         _view = view;
 
-
-        etxtpoints = (EditText) _view.findViewById(R.id.etxtpoints);
-        imgclearpoints = (ImageView) _view.findViewById(R.id.imgclearpoints);
+        etxtpoints =  _view.findViewById(R.id.etxtpoints);
+        imgclearpoints =  _view.findViewById(R.id.imgclearpoints);
         _couList = GenerateCouponFeatureController.getInstance().get_genCouList();
-        spinner = (Spinner) _view.findViewById(R.id.spinner);
+        spinner =  _view.findViewById(R.id.spinner);
 
         _teacher = LoginFeatureController.getInstance().getTeacher();
         if (_teacher != null) {
             _teacherId = _teacher.get_tId();
             schoolID = _teacher.get_tSchool_id();
-
-
         }
-
     }
-
 
     private void _unRegisterEventListeners() {
         EventNotifier eventNotifier =
                 NotifierFactory.getInstance().getNotifier
                         (NotifierFactory.EVENT_NOTIFIER_COUPON);
-
 
         eventNotifier.unRegisterListener(this);
 
@@ -90,7 +85,6 @@ public class GenerateCouponFragmentController implements View.OnClickListener, I
             _genFragment = null;
         }
     }
-
     /**
      * webservice call to fetch coupon from server
      *
@@ -122,15 +116,11 @@ public class GenerateCouponFragmentController implements View.OnClickListener, I
                 break;
             case R.id.btn_generate:
 
-
                 String point = BalancePointModelClass.get_couValue();
                 logintype = spinner.getSelectedItem().toString();
                 String selectedPoints = etxtpoints.getText().toString();
 
-                if ((!logintype.equalsIgnoreCase("Select Points Type"))
-
-                        && (!selectedPoints.equals(""))
-                        ) {
+                if ((!logintype.equalsIgnoreCase("Select Points Type")) && (!selectedPoints.equals(""))) {
 
                     if (!(Integer.parseInt(selectedPoints) > Integer.parseInt(point))) {
 
@@ -140,20 +130,16 @@ public class GenerateCouponFragmentController implements View.OnClickListener, I
                     } else {
                         _genFragment.checkPointsValue();
                     }
-
-
                 } else if ((logintype.equalsIgnoreCase("Select Points Type"))) {
                     _genFragment.selectPointType();
                 } else if (selectedPoints.equals("")) {
                     _genFragment.selectPointsValue();
                 }
 
-
                 break;
             default:
                 break;
         }
-
     }
 
    /* private void _showData(){
@@ -218,9 +204,7 @@ public class GenerateCouponFragmentController implements View.OnClickListener, I
                 builder3.show();
             }
         });
-
     }
-
 
     @Override
     public int eventNotify(int eventType, Object eventObject) {
@@ -231,7 +215,6 @@ public class GenerateCouponFragmentController implements View.OnClickListener, I
 
         if (serverResponse != null) {
             errorCode = serverResponse.getErrorCode();
-
         }
 
         switch (eventType) {
@@ -245,14 +228,12 @@ public class GenerateCouponFragmentController implements View.OnClickListener, I
 
                     //   _genFragment.showOrHideProgressBar(false);
                     //_teacherSubjectFragment.setSubjectDataOnUI();
-
-                    _couList = GenerateCouponFeatureController.getInstance().get_genCouList();
+                    //_couList = GenerateCouponFeatureController.getInstance().get_genCouList();
+                    _couList = GenerateCouponFeatureController.getInstance().getServerCouponList();
                     _genFragment.resetPoints();
                     _genFragment.refreshListview();
                     _genFragment.setBalanceGreenPoint();
                     _genFragment.generateCouponSuccessfullyPoint();
-
-
                 }
                 break;
             case EventTypes.EVENT_UI_NOT_GENERATE_COUPON_SUCCESS:
@@ -263,7 +244,6 @@ public class GenerateCouponFragmentController implements View.OnClickListener, I
 
                 //   _genFragment.showNoStudentListMessage(false);
                 _genFragment.showNotEnoughPoint();
-
                 break;
             // say
 
@@ -286,8 +266,9 @@ public class GenerateCouponFragmentController implements View.OnClickListener, I
             default:
                 eventState = EventState.EVENT_IGNORED;
                 break;
-
         }
         return EventState.EVENT_PROCESSED;
     }
+
+
 }

@@ -64,12 +64,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-<<<<<<< HEAD
-                    android:text="Kumar Tester"
-=======
                     android:text="Shashikant Ghumbre"
                     android:inputType="textCapWords"
->>>>>>> c48aa69c27bdee5c4848b8d62b3dbf61b0af0f08
                     android:textColor="@color/black_solid"
                     android:textSize="15sp" />
 

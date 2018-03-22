@@ -74,7 +74,7 @@ public class WebserviceConstants {
     public static final String STUDENT_COORDINATOR_WEB_SERVICE = "getStudent_coord_Info.php";
     public static final String SPONSOR_LOCATION_URL = "display_sponsor_bydistance.php";
     //public static final String MAP_SERVICE_API = "map_service_API.php";
-    public static final String MAP_SERVICE_API = "map_service_API_V2.php";
+    public static final String MAP_SERVICE_API = "map_service_API_V3.php";
     // public static final String MAP_SERVICE_API = "get_sponsors_location.php";
     public static final String ALL_SUBJECT_WEB_SERVICE = "teacher_ws.php?f=teacherallsubjects";
     public static final String LOGOUT_WEB_SERVICE = "logout_teacher_API.php";

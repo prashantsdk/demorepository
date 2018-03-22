@@ -155,6 +155,11 @@ public class CustomSponsorGoogleMapAdapter extends BaseAdapter {
 
                 if (holder.splat.getText().toString().equals("") || holder.splat.getText().toString().equals("null")) {
 
+                    String tempone = holder.splat.getText().toString();
+                    String temotwo =tempone;
+
+                    tempone = holder.splat.getText().toString();
+                    temotwo = tempone;
                     Toast.makeText(context, "Getting Invalid Latitude ", Toast.LENGTH_SHORT).show();
                     return;
                 } else {

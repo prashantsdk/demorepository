@@ -44,9 +44,9 @@ public class SponsorLogs extends Fragment {
     String distance = "2";
     ProgressDialog mProgressDialog;
 
-    private String mlatitude, mlongitude, entity_type="SPONSOR", place_name="", loc_type="CURRENT", range_type="0";
+    private String mlatitude, mlongitude, entity_type = "SPONSOR", place_name = "", loc_type = "CURRENT", range_type = "0";
     private String _TAG = this.getClass().getSimpleName();
-    private String input_id ="0";
+    private String input_id = "0";
 
     JSONArray sponsorLogs = null;
     boolean flag = false;
@@ -64,6 +64,7 @@ public class SponsorLogs extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         _view = inflater.inflate(R.layout.fragment_sponsor_logs, container, false);
+        getActivity().setTitle("Sponsor List");
         initFindViewByIds();
 
 
@@ -137,6 +138,7 @@ public class SponsorLogs extends Fragment {
             mProgressDialog = new ProgressDialog(getActivity());
             mProgressDialog.setMessage("Loading...");
             mProgressDialog.setIndeterminate(false);
+            mProgressDialog.setCancelable(false);
             mProgressDialog.show();
 
 
@@ -147,7 +149,7 @@ public class SponsorLogs extends Fragment {
 
 
             JSONObject jsonObjSend = new JSONObject();
-        arr_Sponsorlist = new ArrayList();
+            arr_Sponsorlist = new ArrayList();
             SponsorOnMapModel sponsorOnMapModel = null;
 
             try {
@@ -216,11 +218,11 @@ public class SponsorLogs extends Fragment {
 
 
             if (flag == false) {
-                Toast.makeText(getActivity(),"Sponsor are not available",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Sponsor are not available", Toast.LENGTH_SHORT).show();
             }
             if (flag == true) {
 
-                customSponsorGoogleMapAdapter = new CustomSponsorGoogleMapAdapter(getActivity(),arr_Sponsorlist);
+                customSponsorGoogleMapAdapter = new CustomSponsorGoogleMapAdapter(getActivity(), arr_Sponsorlist);
                 mSponsorMapListView.setAdapter(customSponsorGoogleMapAdapter);
 
 

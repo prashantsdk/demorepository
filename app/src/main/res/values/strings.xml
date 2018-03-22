@@ -27,23 +27,23 @@
     <string name="select_valid_point">Select Valid Point</string>
     <string name="point_assign_successfully">Points successfully assigned</string>
     <string name="point_is_not_avaliable">You do not have point to assign</string>
-    <string name="no_activites_available">No Activites available</string>
+    <string name="no_activites_available">No Activities available</string>
     <string name="pointsno">insufficient points to assign</string>
-    <string name="coupon_buy">Coupon Buy successfully</string>
+    <string name="coupon_buy">Coupon bought successfully</string>
     <string name="coupon_add">Coupon Added to cart successfully</string>
     <string name="coupon_delete">Coupon deleted successfully</string>
     <string name="coupon_buy_unsuccessful">Sorry.You do not have sufficient points to buy coupon!</string>
     <string name="no_coupon">Sorry.Their is no coupon for buy!</string>
 
-    <string name="coupon_add_confirm">Coupon Buy Successfully</string>
-    <string name="coupon_confirm">Coupon Buy not Successfulyl</string>
+    <string name="coupon_add_confirm">Coupon bought Successfully</string>
+    <string name="coupon_confirm">Sorry. Unable to buy coupon</string>
     <string name="map_toast">Under Development</string>
     <string name="invalid_input"> Please Fill All The Fields..!!</string>
-    <string name="no_point_to_asign">You do not have sufficient point to assign...! </string>
+    <string name="no_point_to_asign">You do not have sufficient point to assign. </string>
 
     <string name="str_no_login_response">Some problem occured during logging in. Please check username and password.</string>
     <string name="add_to_cart">Coupon Added To Cart</string>
-    <string name="pointshare">Point Share Successfully..!!</string>
+    <string name="pointshare">Point Share Successfully.</string>
     <string name="generate_coupon">You Do not have sufficient point to generate coupon..!!</string>
     <string name="less_green_point">You Do not have sufficient point to assign..!!</string>
     <string name="generate_generated_coupon">Coupon Generated successfully..!!</string>
@@ -59,7 +59,7 @@
     <string name="Request_Accepted">Request Accepted..!!</string>
     <string name="Request_notAccepted">insufficient points..!!</string>
 
-    <string name="Request_send_invalid_input">invalid input Please check it"..!!</string>
+    <string name="Request_send_invalid_input">Invalid input Please check it..!!</string>
 
     <string name="Login_Conflict_Occur">Login conflict occur</string>
 

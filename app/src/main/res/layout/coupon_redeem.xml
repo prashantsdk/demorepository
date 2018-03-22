@@ -1,131 +1,149 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/swipe_container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <LinearLayout
+    android:layout_height="match_parent" >
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="5dp"
-        android:background="@drawable/black_rectangle"
-        android:orientation="vertical"
-        android:padding="5dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/imageView1"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_gravity="center"
-                android:src="@drawable/logo" />
-
-            <TextView
-                android:id="@+id/textView1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="SMART COOKIE COUPON" />
-
-
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="5dp"
-                android:background="@android:color/darker_gray" />
-        </LinearLayout>
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/textCoupCode"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="COUPON CODE"
-                android:textColor="#000000"/>
+            android:layout_margin="5dp"
+            android:background="@drawable/black_rectangle"
+            android:orientation="vertical"
+            android:padding="5dp">
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/txtcouponexpiryda"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Valid till :"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="#000000" />
-
-                <TextView
-                    android:id="@+id/txtcouponexpirydate"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-
-                    android:text="Valid till :"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="#000000" />
-
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/txtcouponpoints"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:gravity="center"
-                android:text="500 Points"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="#000000" />
-
-
-            <LinearLayout
-                android:id="@+id/linearLayout2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/border"
-                android:gravity="center_horizontal"
                 android:orientation="vertical">
 
                 <ImageView
+                    android:id="@+id/imageView1"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/logo" />
 
-                    android:id="@+id/imgbarcode"
-                    android:layout_width="2in"
-                    android:layout_height="2in"
-                    android:padding="5dp"/>
-
-                <Button
-                    android:id="@+id/btnswitchQr"
+                <TextView
+                    android:id="@+id/textView1"
                     android:layout_width="wrap_content"
-                    android:layout_height="25dp"
-                    android:layout_gravity="right"
-                    android:layout_margin="2dp"
-                    android:background="@drawable/greenbuttonshape"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="SMART COOKIE COUPON" />
+
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@android:color/darker_gray" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Coupon code : "
+                        android:textSize="14sp"
+                        android:textColor="#000000" />
+
+                    <TextView
+                        android:id="@+id/textCoupCode"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="COUPON CODE"
+                        android:textSize="14sp"
+                        android:textColor="#000000"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/txtcouponexpiryda"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="          Valid till :"
+                        android:textSize="14sp"
+                        android:textColor="#000000" />
+
+                    <TextView
+                        android:id="@+id/txtcouponexpirydate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="Valid till :"
+                        android:textSize="14sp"
+                        android:textColor="#000000" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/txtcouponpoints"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
                     android:gravity="center"
-                    android:padding="5dp"
-                    android:text="Switch to Qr Code"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="#ffffff"
-                    android:textSize="12sp"
-                    android:visibility="gone" />
+                    android:text="500 Points"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="#000000" />
+
+
+                <LinearLayout
+                    android:id="@+id/linearLayout2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <ImageView
+
+                        android:id="@+id/imgbarcode"
+                        android:layout_width="250dp"
+                        android:layout_height="250dp"
+                        android:padding="5dp"/>
+
+                    <Button
+                        android:id="@+id/btnswitchQr"
+                        android:layout_width="wrap_content"
+                        android:layout_height="25dp"
+                        android:layout_gravity="right"
+                        android:layout_margin="2dp"
+                        android:background="@drawable/greenbuttonshape"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:text="Switch to Qr Code"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="#ffffff"
+                        android:textSize="12sp"
+                        android:visibility="gone" />
+
+                </LinearLayout>
+
 
             </LinearLayout>
 
 
         </LinearLayout>
 
-
-    </LinearLayout>
-
-</RelativeLayout>
+    </RelativeLayout>
+</android.support.v4.widget.SwipeRefreshLayout>

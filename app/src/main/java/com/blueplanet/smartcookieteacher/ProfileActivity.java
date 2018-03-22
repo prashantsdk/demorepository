@@ -114,7 +114,7 @@ public class ProfileActivity extends AppCompatActivity implements IEventListener
         if (NetworkManager.isNetworkAvailable()) {
             fetchUserProfileFromServer();
         } else {
-            WebserviceConstants.showNetworkMsg(this);
+            CommonFunctions.showNetworkMsg(this);
         }
         _editableFieldsFalse();
         handleButtonClick();

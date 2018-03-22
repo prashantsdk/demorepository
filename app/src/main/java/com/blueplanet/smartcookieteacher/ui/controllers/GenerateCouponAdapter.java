@@ -40,10 +40,10 @@ public class GenerateCouponAdapter extends BaseAdapter {
     public GenerateCouponAdapter(GenerateCouponFragment genFragment,
                                  GenerateCouponFragmentController genCouponController,
                                  View _view) {
-
         _genFragment = genFragment;
         _genCouponController = genCouponController;
-        _genCouList = GenerateCouponFeatureController.getInstance().get_genCouList();
+      //  _genCouList = GenerateCouponFeatureController.getInstance().get_genCouList();
+        _genCouList = GenerateCouponFeatureController.getInstance().getServerCouponList();
 
     }
 
@@ -85,7 +85,6 @@ public class GenerateCouponAdapter extends BaseAdapter {
                 GenerateCoupon couponPoint = _genCouList.get(position);
                 GenerateCouponFeatureController.getInstance().set_genpoint(couponPoint);
 
-
                 _txtiessueDate = (TextView) convertView.findViewById(R.id.txt_issue_Date);
                 _txtiessueDate.setText(_genCouList.get(position).get_couIssueDate());
 
@@ -93,9 +92,6 @@ public class GenerateCouponAdapter extends BaseAdapter {
                 txtvalidityDate.setText(_genCouList.get(position).get_couValidityDate());
                 GenerateCoupon couponValidity = _genCouList.get(position);
                 GenerateCouponFeatureController.getInstance().set_genValidity(couponValidity);
-
-
-
 
                 _btnredeem = (CustomButton) convertView.findViewById(R.id.btn_generate);
                 _btnredeem.setOnClickListener(new View.OnClickListener() {
@@ -110,15 +106,10 @@ public class GenerateCouponAdapter extends BaseAdapter {
                                 _loadFragment(R.id.content_frame, new CouponRedeemFragment());
                             }
                         });
-
-
                     }
                 });
-
             }
-
         }
-
         return convertView;
     }
 
@@ -141,6 +132,7 @@ public class GenerateCouponAdapter extends BaseAdapter {
 
     public void notifyDataSetChanged() {
         super.notifyDataSetChanged();
-        _genCouList = GenerateCouponFeatureController.getInstance().get_genCouList();
+     //   _genCouList = GenerateCouponFeatureController.getInstance().get_genCouList();
+        _genCouList = GenerateCouponFeatureController.getInstance().getServerCouponList();
     }
 }

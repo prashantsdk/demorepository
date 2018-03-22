@@ -64,7 +64,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:text="Kumar Tester"
+                    android:text="Shashikant Ghumbre"
+                    android:inputType="textCapWords"
                     android:textColor="@color/black_solid"
                     android:textSize="15sp" />
 

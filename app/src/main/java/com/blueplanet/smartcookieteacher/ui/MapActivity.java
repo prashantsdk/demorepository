@@ -130,7 +130,7 @@ public class MapActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map_new);
         init_toolbar();
-        setTitle("Sponsor/College Map");
+        setTitle("Sponsors/Colleges Map");
 
         setNavigationDrawer();
         teacher = LoginFeatureController.getInstance().getTeacher();
@@ -341,9 +341,9 @@ public class MapActivity extends AppCompatActivity
 
     private void Setentitytype() {
         if (entity_type == true) {
-            getSupportActionBar().setTitle("College");
+            getSupportActionBar().setTitle("Colleges");
         } else if (entity_type == false) {
-            getSupportActionBar().setTitle("Sponsor");
+            getSupportActionBar().setTitle("Sponsors");
         }
     }
 
@@ -599,8 +599,9 @@ public class MapActivity extends AppCompatActivity
             }
 
 
-            String name = "Shop Name :"+sponsor.getSPONSOR_NAME() + '\n' +"Shop Address :"+ sponsor.getSPONSOR_ADDRESS()+'\n'+
-                    "Shop Contact :";
+            String name = "Shop Name :"+sponsor.getSPONSOR_NAME() + '\n' +"Address :"+ sponsor.getSPONSOR_ADDRESS()+'\n'+
+                    "Phone No. :"+'\n'+"Upto % Discount";
+
 
             MarkerOptions marker = null;
             marker = new MarkerOptions().position(
@@ -662,8 +663,8 @@ public class MapActivity extends AppCompatActivity
             SchoolOnMapModel school = arrayList.get(j);
             double lat = Double.parseDouble(school.getSCHOOL_LAT());
             double lon = Double.parseDouble(school.getSCHOOL_LONG());
-            String name = "School Name :"+school.getSCHOOL_NAME() + '\n' +"School Address :"+ school.getSCHOOL_ADDRESS()
-                  +'\n'+"School Phone :";
+            String name = "School Name :"+school.getSCHOOL_NAME() + '\n' +"Address :"+ school.getSCHOOL_ADDRESS()
+                  +'\n'+"Phone No. :";
 
             MarkerOptions marker = null;
             marker = new MarkerOptions().position(
@@ -825,7 +826,7 @@ public class MapActivity extends AppCompatActivity
 
                         double lat = Double.parseDouble(sponsor.getSPONSOR_LAT());
                         double lon = Double.parseDouble(sponsor.getSPONSOR_LONG());
-                        String name = "Shop Name :"+sponsor.getSPONSOR_NAME() +'\n'+"Shop Address "+ sponsor.getSPONSOR_ADDRESS()+'\n'+"Shop Contact :";
+                        String name = "Shop Name :"+sponsor.getSPONSOR_NAME() +'\n'+"Address "+ sponsor.getSPONSOR_ADDRESS()+'\n'+"Phone No. :";
 
                         MarkerOptions marker = null;
                         marker = new MarkerOptions().position(
@@ -1117,6 +1118,7 @@ public class MapActivity extends AppCompatActivity
             loc_type = 1;
             layout_serch.setVisibility(View.VISIBLE);
         } else if (id == R.id.action_current_loc) {
+
             loc_type = 0;
             layout_serch.setVisibility(View.GONE);
 

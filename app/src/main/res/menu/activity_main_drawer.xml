@@ -10,7 +10,7 @@
         <item
             android:id="@+id/nav_studentlist"
             android:icon="@drawable/profile"
-            android:title="All Student List" />
+            android:title="All Students List" />
         <item
             android:id="@+id/nav_teacher_subject"
             android:icon="@drawable/my_subject"
@@ -77,13 +77,13 @@
         <item
             android:id="@+id/nav_sponsor_logs"
             android:icon="@drawable/find_sponsor"
-            android:title="Sponsor List" />
+            android:title="Sponsors List" />
 
 
         <item
             android:id="@+id/nav_college_map"
             android:icon="@drawable/coupon"
-            android:title="College Map" />
+            android:title="Sponsors/Colleges Map" />
 
         <item
             android:id="@+id/nav_logout"

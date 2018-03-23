@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -46,7 +47,7 @@ import java.util.ArrayList;
 /**
  * Created by 1311 on 14-12-2015.
  */
-public class TeacherDashboardFragment extends Fragment {
+public class TeacherDashboardFragment extends Fragment{
 
     private View _view;
     private CustomTextView _teacherName, _teachercolgname, _teacherteacherId, _teagreenpoint, _testpro;
@@ -116,6 +117,8 @@ public class TeacherDashboardFragment extends Fragment {
     }
 
     private void _initUI() {
+
+
         _teacherName = (CustomTextView) _view.findViewById(R.id.text_name);
         _teachercolgname = (CustomTextView) _view.findViewById(R.id.txt_colgname);
         _teacherteacherId = (CustomTextView) _view.findViewById(R.id.txt_teacher_id);
@@ -153,6 +156,7 @@ public class TeacherDashboardFragment extends Fragment {
         _lvStudentList.setOnItemClickListener(_controller);
         _teagreenpoint.setOnClickListener(_controller);
         _teabluepoint.setOnClickListener(_controller);
+
 
     }
 
@@ -348,5 +352,6 @@ public class TeacherDashboardFragment extends Fragment {
 
         ft.commit();
     }
+
 
 }

@@ -3,13 +3,13 @@ package com.blueplanet.smartcookieteacher.ui.controllers;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
-
 
 import com.blueplanet.smartcookieteacher.R;
 import com.blueplanet.smartcookieteacher.communication.ServerResponse;
@@ -28,8 +28,6 @@ import com.blueplanet.smartcookieteacher.notification.EventTypes;
 import com.blueplanet.smartcookieteacher.notification.IEventListener;
 import com.blueplanet.smartcookieteacher.notification.ListenerPriority;
 import com.blueplanet.smartcookieteacher.notification.NotifierFactory;
-import com.blueplanet.smartcookieteacher.ui.BluePointFragment;
-import com.blueplanet.smartcookieteacher.ui.RewardPointFragment;
 import com.blueplanet.smartcookieteacher.ui.StudentDetailFragment;
 import com.blueplanet.smartcookieteacher.ui.TeacherDashboardFragment;
 import com.blueplanet.smartcookieteacher.webservices.WebserviceConstants;
@@ -47,24 +45,37 @@ public class TeacherDashboardFragmentController implements IEventListener, AbsLi
     private Teacher _teacher;
     private ArrayList<Student> _studentList = null;
     private String _teacherId, _schoolId;
-    private  Student stu;
+    private Student stu;
 
+    SwipeRefreshLayout swipeRefreshLayout;
 
     public TeacherDashboardFragmentController(TeacherDashboardFragment teacherFragment,
                                               View view) {
         _teacherDashboardFragment = teacherFragment;
         _view = view;
-        _teacher = LoginFeatureController.getInstance().getTeacher();
 
-        if (_teacher != null && NetworkManager.isNetworkAvailable()) {
-            _teacherId = _teacher.get_tId();
-            _schoolId = _teacher.get_tSchool_id();
-            String id = _teacher.get_tId();
-            _fetchPointFromServer(_teacherId,_schoolId);
+  /*      swipeRefreshLayout = _view.findViewById(R.id.swipe_container);
 
-        } else {
-            _teacherDashboardFragment.setDashboardDataOnUI();
-        }
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                _teacher = LoginFeatureController.getInstance().getTeacher();
+
+
+                if (_teacher != null && NetworkManager.isNetworkAvailable()) {
+                    _teacherId = _teacher.get_tId();
+                    _schoolId = _teacher.get_tSchool_id();
+                    String id = _teacher.get_tId();
+
+                    _fetchPointFromServer(_teacherId, _schoolId);
+
+                } else {
+                    _teacherDashboardFragment.setDashboardDataOnUI();
+                }
+            }
+        });*/
+
 
     }
 
@@ -102,9 +113,9 @@ public class TeacherDashboardFragmentController implements IEventListener, AbsLi
      *
      * @param techerId
      */
-    private void _fetchPointFromServer(String techerId,String studentId) {
+    private void _fetchPointFromServer(String techerId, String studentId) {
         _registerNetworkListeners();
-         _registerEventListeners();
+        _registerEventListeners();
         DashboardFeatureController.getInstance().fetchTeacherPointFromServer(techerId, studentId);
     }
 
@@ -147,13 +158,14 @@ public class TeacherDashboardFragmentController implements IEventListener, AbsLi
         }
         return false;
     }
-    private void _ErrorWev(String t_id,String studentId,String type,String description,String date,String datetime,String usertype,String name,String phone,String email,
-                           String appname,String subroutinename, String line,String status,String webmethodname,String webservice,String proname) {
+
+    private void _ErrorWev(String t_id, String studentId, String type, String description, String date, String datetime, String usertype, String name, String phone, String email,
+                           String appname, String subroutinename, String line, String status, String webmethodname, String webservice, String proname) {
         _registerEventListeners();
         _registerNetworkListeners();
-      //  _loginFragment.showOrHideProgressBar(true);
+        //  _loginFragment.showOrHideProgressBar(true);
         ErrorFeatureController.getInstance().getErrorListFromServer(t_id, studentId, type, description, date, datetime, usertype, name, phone, email,
-                appname, subroutinename,  line, status, webmethodname, webservice, proname);
+                appname, subroutinename, line, status, webmethodname, webservice, proname);
     }
 
     @Override
@@ -211,8 +223,11 @@ public class TeacherDashboardFragmentController implements IEventListener, AbsLi
 
                     }*/
 
-                   int id = StudentFeatureController.getInstance().getLastInputId();
+                    int id = StudentFeatureController.getInstance().getLastInputId();
 
+                    if (swipeRefreshLayout.isRefreshing()) {
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
                     _studentList = StudentFeatureController.getInstance().getStudentList();
 
 
@@ -251,6 +266,7 @@ public class TeacherDashboardFragmentController implements IEventListener, AbsLi
                     _studentList = StudentFeatureController.getInstance().getStudentList();
                     _teacherDashboardFragment.refreshListview();
                     _teacherDashboardFragment._showDataOnUI();
+
                     _teacherDashboardFragment.showOrHideProgressBar(false);
 
 
@@ -264,7 +280,6 @@ public class TeacherDashboardFragmentController implements IEventListener, AbsLi
                 event1.unRegisterListener(this);
                 _teacherDashboardFragment.showOrHideProgressBar(false);
                 _teacherDashboardFragment.showNoStudentListMessage(false);
-
 
 
                 break;
@@ -322,7 +337,7 @@ public class TeacherDashboardFragmentController implements IEventListener, AbsLi
     private void _loadFragment(int id, Fragment fragment) {
 
         DrawerFeatureController.getInstance().setIsFragmentOpenedFromDrawer(false);
-         //DrawerFeatureController.getInstance().setIsFragmentOpenedFromDrawer(true);
+        //DrawerFeatureController.getInstance().setIsFragmentOpenedFromDrawer(true);
         FragmentManager fm = _teacherDashboardFragment.getActivity().getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         ft.replace(id, fragment);
@@ -363,9 +378,9 @@ public class TeacherDashboardFragmentController implements IEventListener, AbsLi
         int id = v.getId();
         switch (id) {
             case R.id.greenpoint:
-               // _loadFragmentGreenPoint(R.id.content_frame, new RewardPointFragment());
+                // _loadFragmentGreenPoint(R.id.content_frame, new RewardPointFragment());
             case R.id.bluepoint:
-             //   _loadFragmentGreenPoint(R.id.content_frame, new BluePointFragment());
+                //   _loadFragmentGreenPoint(R.id.content_frame, new BluePointFragment());
             default:
                 break;
         }

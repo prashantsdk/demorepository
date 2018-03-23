@@ -263,14 +263,7 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
                                 LoginFeatureController.getInstance().setPassword(password);
                                 String collgcode = etprn.getText().toString();
                                 LoginFeatureController.getInstance().setColgcode(collgcode);
-                     /*   SmartCookieSharedPreferences.setUserNameInSharedPreference(userName);
-                        SmartCookieSharedPreferences.setPasswordInSharedPreference(password);
-                        SmartCookieSharedPreferences.setUserIDInSharedPreference(collgcode);*/
 
-
-                                //String selStatephone = (String) spinner.getSelectedItem();
-                                // LoginFeatureController.getInstance().set_userName(username);
-                                //LoginFeatureController.getInstance().set_pasword(password);
 
                                 if ((!TextUtils.isEmpty(userName)) && (!TextUtils.isEmpty(password)) && (!TextUtils.isEmpty(usertype)) && (!TextUtils.isEmpty(collgcode))) {
                                     //  SmartCookieSharedPreferences.setLoginFlag(true);
@@ -280,9 +273,7 @@ public class LoginFragmentController implements OnClickListener, IEventListener,
                                     Toast.makeText(MainApplication.getContext(),
                                             "Please enter your all login credentials",
                                             Toast.LENGTH_SHORT).show();
-                          /*  SmartCookieSharedPreferences.setUserNameInSharedPreference("");
-                            SmartCookieSharedPreferences.setPasswordInSharedPreference("");
-                            SmartCookieSharedPreferences.setUserIDInSharedPreference("");*/
+
                                 }
 
 

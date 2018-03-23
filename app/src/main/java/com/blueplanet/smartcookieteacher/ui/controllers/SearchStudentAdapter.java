@@ -98,13 +98,13 @@ public class SearchStudentAdapter  extends BaseAdapter implements Filterable,IEv
 
             //row = inflater.inflate(layoutResID, parent, false);
             holder = new SpinnerHolder();
-            holder.linlaystuddetails = (LinearLayout) row.findViewById(R.id.linlaystuditem);
+            holder.linlaystuddetails =  row.findViewById(R.id.linlaystuditem);
             //  holder.userImage = (ImageView) row.findViewById(R.id.student_imag);
-            holder.txtmyprn = (TextView) row.findViewById(R.id.txt_stuprn);
-            holder.txtbranch = (TextView) row.findViewById(R.id.txt_branch);
-            holder.txtdepart = (TextView) row.findViewById(R.id.txt_department);
+            holder.txtmyprn =  row.findViewById(R.id.txt_stuprn);
+            holder.txtbranch =  row.findViewById(R.id.txt_branch);
+            holder.txtdepart =  row.findViewById(R.id.txt_department);
            // holder._btn_add = (Button) row.findViewById(R.id.btn_add);
-            holder.name = (TextView) row.findViewById(R.id.txt_studentFullName);
+            holder.name =  row.findViewById(R.id.txt_studentFullName);
          /*   holder.txtsemes  = (TextView) row.findViewById(R.id.txt_stuprn);
             holder.txtcourse = (TextView) row.findViewById(R.id.txtcourse);
             holder.txtyear = (TextView) row.findViewById(R.id.txtyear);;
@@ -228,8 +228,15 @@ public class SearchStudentAdapter  extends BaseAdapter implements Filterable,IEv
         protected void publishResults(CharSequence constraint,
                                       FilterResults results) {
             // TODO Auto-generated method stub
-            data = (ArrayList<SearchStudent>) results.values;
-            notifyDataSetChanged();
+            if (results != null && results.count > 0) {
+                data = (ArrayList<SearchStudent>) results.values;
+                notifyDataSetChanged();
+            } else {
+                notifyDataSetInvalidated();
+            }
+
+           /* data = (ArrayList<SearchStudent>) results.values;
+            notifyDataSetChanged();*/
         }
     }
     @Override

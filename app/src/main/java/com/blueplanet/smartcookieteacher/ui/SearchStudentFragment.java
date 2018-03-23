@@ -9,9 +9,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.blueplanet.smartcookieteacher.R;
@@ -23,6 +25,7 @@ import com.blueplanet.smartcookieteacher.ui.controllers.DisplaySujectAdapter;
 import com.blueplanet.smartcookieteacher.ui.controllers.Display_subject_controller;
 import com.blueplanet.smartcookieteacher.ui.controllers.SearchStudentAdapter;
 import com.blueplanet.smartcookieteacher.ui.controllers.SearchStudentController;
+import com.blueplanet.smartcookieteacher.utils.DelayAutoCompleteTextView;
 
 import java.util.ArrayList;
 
@@ -31,13 +34,14 @@ import java.util.ArrayList;
  */
 public class SearchStudentFragment extends Fragment {
     ListView liststudent;
-    AutoCompleteTextView etxtSearch;
+    DelayAutoCompleteTextView etxtSearch;
     View view;
     SearchStudentController fragmentController;
     ArrayList<SearchStudent> arraylist = new ArrayList<SearchStudent>();
     View parent_layout;
     ImageView imgCross, searchStudent;
     SearchStudentAdapter studentAdapter;
+    ProgressBar indicator;
 
     boolean flag = false;
     @Override
@@ -51,6 +55,17 @@ public class SearchStudentFragment extends Fragment {
         fragmentController = new SearchStudentController(this, view, studentAdapter);
         _registerUIListeners();
 
+
+        etxtSearch.setThreshold(1);
+        etxtSearch.setAdapter(studentAdapter); // 'this' is Activity instance
+        etxtSearch.setLoadingIndicator(indicator);
+       /* etxtSearch.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                Book book = (Book) adapterView.getItemAtPosition(position);
+                bookTitle.setText(book.getTitle());
+            }
+        });*/
 
       /*  liststudent.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -87,7 +102,8 @@ public class SearchStudentFragment extends Fragment {
         liststudent =  view.findViewById(R.id.lststudentlist);
         etxtSearch = view.findViewById(R.id.etxtSearch_new);
         imgCross = view.findViewById(R.id.imgcross_new);
-        searchStudent = view.findViewById(R.id.searchStudent);
+        indicator = view.findViewById(R.id.pb_loading_indicator);
+       // searchStudent = view.findViewById(R.id.searchStudent);
 
         parent_layout = view.findViewById(R.id.parent_layout_friends);
 
@@ -95,7 +111,8 @@ public class SearchStudentFragment extends Fragment {
     private void _registerUIListeners() {
 
         imgCross.setOnClickListener(fragmentController);
-        searchStudent.setOnClickListener(fragmentController);
+       // searchStudent.setOnClickListener(fragmentController);
+        etxtSearch.setOnClickListener(fragmentController);
         parent_layout.setOnClickListener(fragmentController);
         liststudent.setOnItemClickListener(fragmentController);
     }

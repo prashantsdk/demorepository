@@ -43,7 +43,7 @@
 
     <string name="str_no_login_response">Some problem occured during logging in. Please check username and password.</string>
     <string name="add_to_cart">Coupon Added To Cart</string>
-    <string name="pointshare">Point Share Successfully.</string>
+    <string name="pointshare">Point Shared Successfully.</string>
     <string name="generate_coupon">You Do not have sufficient point to generate coupon..!!</string>
     <string name="less_green_point">You Do not have sufficient point to assign..!!</string>
     <string name="generate_generated_coupon">Coupon Generated successfully..!!</string>

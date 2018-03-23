@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.blueplanet.smartcookieteacher.R;
@@ -42,6 +43,7 @@ import com.blueplanet.smartcookieteacher.ui.SearchAssignPointFragment;
 import com.blueplanet.smartcookieteacher.ui.SearchStudentDetailFragment;
 import com.blueplanet.smartcookieteacher.ui.SearchStudentFragment;
 import com.blueplanet.smartcookieteacher.utils.CommonFunctions;
+import com.blueplanet.smartcookieteacher.utils.DelayAutoCompleteTextView;
 import com.blueplanet.smartcookieteacher.webservices.WebserviceConstants;
 
 import java.util.ArrayList;
@@ -58,17 +60,14 @@ public class SearchStudentController implements View.OnClickListener,IEventListe
     private final String _TAG = this.getClass().getSimpleName();
     ListView liststudent;
     ImageView imgCross;
-    AutoCompleteTextView etxtSearch;
+    DelayAutoCompleteTextView etxtSearch;
     String snamekey="";
     private SearchStudentFragment _subjectFragment = null;
 
     private View view;
-    private Student student=null;
-    // private ArrayList<Teachers> arr_teacher = null;
-
     private String _teacherId, _schoolId;
     private Teacher _teacher;
-    private ProgressDialog progressDialog;
+    private ProgressBar indicator;
     private SearchStudentAdapter searchStudentAdapter;
 
     /**
@@ -113,12 +112,11 @@ public class SearchStudentController implements View.OnClickListener,IEventListe
                            /* if(maxlenghth >= 3){
                                 progressDialog = WebserviceConstants.showProgress(_subjectFragment.getActivity(), "Loading...");
                                 progressDialog.show();
-                            }
-                            SearchFriends(snamekey,_schoolId,offset);*/
+                            }*/
+                           // SearchFriends(snamekey,_schoolId,"0");
                         }
                         imgCross.setVisibility(View.VISIBLE);
                     } else {
-
                         SearchStudentFeatureController.getInstance().clearArray();
                         imgCross.setVisibility(View.INVISIBLE);
                     }
@@ -147,6 +145,10 @@ public class SearchStudentController implements View.OnClickListener,IEventListe
                     if (searchStudentAdapter != null) {
                         searchStudentAdapter.notifyDataSetChanged();
                     }
+                }else if(s.length() > 0){
+                    SearchStudentFeatureController.getInstance().clearArray();
+                    indicator.setVisibility(View.VISIBLE);
+                    SearchFriends(s.toString(),_schoolId,"0");
                 }
             }
         });
@@ -157,6 +159,7 @@ public class SearchStudentController implements View.OnClickListener,IEventListe
         liststudent =  view.findViewById(R.id.lststudentlist);
         etxtSearch = view.findViewById(R.id.etxtSearch_new);
         imgCross = view.findViewById(R.id.imgcross_new);
+        indicator = view.findViewById(R.id.pb_loading_indicator);
     }
 
     private void LoadMyTeachers(){
@@ -236,7 +239,7 @@ public class SearchStudentController implements View.OnClickListener,IEventListe
                 }
 
                 break;
-            case R.id.searchStudent:
+            /*case R.id.searchStudent:
 
                 CommonFunctions.hideKeyboardFrom(_subjectFragment.getActivity(),v);
 
@@ -253,7 +256,7 @@ public class SearchStudentController implements View.OnClickListener,IEventListe
                 }else{
                     _subjectFragment.searchCriteriaMessage();
                 }
-                break;
+                break;*/
 
             case R.id.parent_layout_friends:
                 _subjectFragment._hidekbd();
@@ -309,8 +312,13 @@ public class SearchStudentController implements View.OnClickListener,IEventListe
               //  _subjectFragment.showOrHideLoadingSpinner(false);
                 if (errorCode == WebserviceConstants.SUCCESS) {
 
-                    if(progressDialog != null){
-                        progressDialog.dismiss();
+                    if(indicator != null){
+                        _subjectFragment.getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                indicator.setVisibility(View.GONE);
+                            }
+                        });
                     }
                     ArrayList<SearchStudent> array_stud= SearchStudentFeatureController.getInstance().getSearchedStudents();
                     _subjectFragment.showMyFriends(array_stud);
@@ -327,10 +335,14 @@ public class SearchStudentController implements View.OnClickListener,IEventListe
                         NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_TEACHER);
                 eventNotifier5.unRegisterListener(this);
 
-                if(progressDialog != null){
-                    progressDialog.dismiss();
+                if(indicator != null){
+                    _subjectFragment.getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            indicator.setVisibility(View.GONE);
+                        }
+                    });
                 }
-             //   _subjectFragment.showOrHideLoadingSpinner(false);
                 _subjectFragment.showStudentisavailable(false);
 
                 break;
@@ -341,9 +353,6 @@ public class SearchStudentController implements View.OnClickListener,IEventListe
                         NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_NETWORK);
                 eventNotifiernetwork.unRegisterListener(this);
 
-                if(progressDialog != null){
-                    progressDialog.dismiss();
-                }
                 _subjectFragment.showNetworkMessage(true);
                 break;
 
@@ -363,9 +372,7 @@ public class SearchStudentController implements View.OnClickListener,IEventListe
                 eventNotifier1.unRegisterListener(this);
 
              //   _subjectFragment.showOrHideLoadingSpinner(false);
-                if(progressDialog != null){
-                    progressDialog.dismiss();
-                }
+
                 _subjectFragment.showbadRequestMessage();
                 break;
 
@@ -374,9 +381,7 @@ public class SearchStudentController implements View.OnClickListener,IEventListe
                         NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_STUDENT);
                 eventNotifier2.unRegisterListener(this);
              //   _subjectFragment.showOrHideLoadingSpinner(false);
-                if(progressDialog != null){
-                    progressDialog.dismiss();
-                }
+
                 _subjectFragment.showStudentisavailable(false);
                 break;
 
@@ -394,7 +399,7 @@ public class SearchStudentController implements View.OnClickListener,IEventListe
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-
+        CommonFunctions.hideKeyboardFrom(_subjectFragment.getActivity(),view);
 
         ArrayList<SearchStudent> filteredList = SearchStudentFeatureController.getInstance().getSearchedStudents();
 

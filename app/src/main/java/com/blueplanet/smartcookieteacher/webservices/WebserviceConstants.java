@@ -485,6 +485,8 @@ public class WebserviceConstants {
     public static final String KEY_DISTANCE1 = "distance";
     public static final String KEY_POST = "posts";
 
+
+
     public static final String KEY_SPONSOR_ID = "id";
     public static final String KEY_SPONSOR_NAME = "sp_name";
     public static final String KEY_SPONSOR_ADDRESS = "sp_address";

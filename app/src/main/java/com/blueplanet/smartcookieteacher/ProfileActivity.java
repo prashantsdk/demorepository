@@ -68,7 +68,10 @@ public class ProfileActivity extends AppCompatActivity implements IEventListener
     private Teacher _teacher;
     private String tId;
     private String userChoosenTask;
-    String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+    //String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+    String emailPattern = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+            + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+
     byte[] bb = null;
     private Bitmap bm;
     private final String _TAG = getClass().getSimpleName();
@@ -310,6 +313,7 @@ public class ProfileActivity extends AppCompatActivity implements IEventListener
                   //  regmodel = UpdateProfileFeatureController.getInstance().getRemodel();
                   //  setTeacherInfo(regmodel);
 
+
                     showProfileUpdateMsg(true);
 
                     runOnUiThread(new Runnable() {
@@ -345,6 +349,7 @@ public class ProfileActivity extends AppCompatActivity implements IEventListener
                         progressDialog.dismiss();
 
                     _teacher = LoginFeatureController.getInstance().getTeacher();
+                    LoginFeatureController.getInstance().updateUserDataIntoDB(_teacher);
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {

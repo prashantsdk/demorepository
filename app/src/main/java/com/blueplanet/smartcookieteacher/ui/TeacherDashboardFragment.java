@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -23,6 +25,7 @@ import android.widget.Toast;
 import com.blueplanet.smartcookieteacher.ProfileActivity;
 import com.blueplanet.smartcookieteacher.R;
 import com.blueplanet.smartcookieteacher.UpdateProfileActivity;
+import com.blueplanet.smartcookieteacher.communication.ServerResponse;
 import com.blueplanet.smartcookieteacher.customcomponents.CustomTextView;
 import com.blueplanet.smartcookieteacher.featurecontroller.DashboardFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.DrawerFeatureController;
@@ -32,6 +35,13 @@ import com.blueplanet.smartcookieteacher.models.Student;
 import com.blueplanet.smartcookieteacher.models.Teacher;
 import com.blueplanet.smartcookieteacher.models.TeacherDashbordPoint;
 import com.blueplanet.smartcookieteacher.models.TestProduction;
+import com.blueplanet.smartcookieteacher.network.NetworkManager;
+import com.blueplanet.smartcookieteacher.notification.EventNotifier;
+import com.blueplanet.smartcookieteacher.notification.EventState;
+import com.blueplanet.smartcookieteacher.notification.EventTypes;
+import com.blueplanet.smartcookieteacher.notification.IEventListener;
+import com.blueplanet.smartcookieteacher.notification.ListenerPriority;
+import com.blueplanet.smartcookieteacher.notification.NotifierFactory;
 import com.blueplanet.smartcookieteacher.ui.controllers.StudentListDashboardAdapter;
 import com.blueplanet.smartcookieteacher.ui.controllers.TeacherDashboardFragmentController;
 import com.blueplanet.smartcookieteacher.utils.CommonFunctions;
@@ -46,7 +56,7 @@ import java.util.ArrayList;
 /**
  * Created by 1311 on 14-12-2015.
  */
-public class TeacherDashboardFragment extends Fragment {
+public class TeacherDashboardFragment extends Fragment implements IEventListener, SwipeRefreshLayout.OnRefreshListener{
 
     private View _view;
     private CustomTextView _teacherName, _teachercolgname, _teacherteacherId, _teagreenpoint, _testpro;
@@ -66,7 +76,7 @@ public class TeacherDashboardFragment extends Fragment {
     private ArrayList<Student> _studentList = null;
     private CustomTextView _edtCount;
     private Student stu = null;
-
+    private SwipeRefreshLayout swipeLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -111,30 +121,50 @@ public class TeacherDashboardFragment extends Fragment {
 
 
         //        getActivity().getActionBar().setTitle("Dashboard");
+        //Priyanka changes
+        _lvStudentList.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                int topRowVerticalPosition =
+                        (_lvStudentList == null || _lvStudentList.getChildCount() == 0) ?
+                                0 : _lvStudentList.getChildAt(0).getTop();
+                swipeLayout.setEnabled(firstVisibleItem == 0 && topRowVerticalPosition >= 0);
+            }
+        });
 
         return _view;
     }
 
     private void _initUI() {
-        _teacherName = (CustomTextView) _view.findViewById(R.id.text_name);
-        _teachercolgname = (CustomTextView) _view.findViewById(R.id.txt_colgname);
-        _teacherteacherId = (CustomTextView) _view.findViewById(R.id.txt_teacher_id);
-        _teacherImage = (HexagonImageView) _view.findViewById(R.id.teacher_img);
-        _teagreenpoint = (CustomTextView) _view.findViewById(R.id.greenpoint);
+        _teacherName =  _view.findViewById(R.id.text_name);
+        _teachercolgname =  _view.findViewById(R.id.txt_colgname);
+        _teacherteacherId =  _view.findViewById(R.id.txt_teacher_id);
+        _teacherImage =  _view.findViewById(R.id.teacher_img);
+        _teagreenpoint =  _view.findViewById(R.id.greenpoint);
 
-        _teabluepoint = (CustomTextView) _view.findViewById(R.id.bluepoint);
-        _teabrownpoint = (CustomTextView) _view.findViewById(R.id.brownpoint);
-        _teawaterpoint = (CustomTextView) _view.findViewById(R.id.waterpoint);
+        _teabluepoint =  _view.findViewById(R.id.bluepoint);
+        _teabrownpoint =  _view.findViewById(R.id.brownpoint);
+        _teawaterpoint =  _view.findViewById(R.id.waterpoint);
 
-        _lvStudentList = (ListView) _view.findViewById(R.id.lv_studentDashboard);
-        _testpro = (CustomTextView) _view.findViewById(R.id.testproduction);
-        _edtCount = (CustomTextView) _view.findViewById(R.id.txt_studentcount);
-        _rlProgressbar = (LinearLayout) _view
+        _lvStudentList =  _view.findViewById(R.id.lv_studentDashboard);
+        _testpro =  _view.findViewById(R.id.testproduction);
+        _edtCount =  _view.findViewById(R.id.txt_studentcount);
+        _rlProgressbar =  _view
                 .findViewById(R.id.rl_progressBar);
-        _progressbar = (ProgressBar) _view.findViewById(R.id.progressbar);
-        _tvPleaseWait = (CustomTextView) _view.findViewById(R.id.tv_please_wait);
+        _progressbar =  _view.findViewById(R.id.progressbar);
+        _tvPleaseWait =  _view.findViewById(R.id.tv_please_wait);
 
-
+        swipeLayout =  _view.findViewById(R.id.swipe_container);
+        swipeLayout.setOnRefreshListener(this);
+        swipeLayout.setColorSchemeColors(getResources().getColor(android.R.color.holo_green_dark),
+                getResources().getColor(android.R.color.holo_red_dark),
+                getResources().getColor(android.R.color.holo_blue_dark),
+                getResources().getColor(android.R.color.holo_orange_dark));
     }
 
     @Override
@@ -179,6 +209,7 @@ public class TeacherDashboardFragment extends Fragment {
 
         _teacher = LoginFeatureController.getInstance().getTeacher();
 
+       // _teacher = LoginFeatureController.getInstance().getServerTeacher();
 
         TestProduction testproduction = new TestProduction();
         final String protest = testproduction.get_production();
@@ -349,4 +380,102 @@ public class TeacherDashboardFragment extends Fragment {
         ft.commit();
     }
 
+
+    //Priyanka changes
+    @Override
+    public int eventNotify(int eventType, Object eventObject) {
+        int eventState = EventState.EVENT_PROCESSED;
+        ServerResponse serverResponse = (ServerResponse) eventObject;
+        int errorCode = -1;
+        if (serverResponse != null) {
+            errorCode = serverResponse.getErrorCode();
+        }
+        Log.i(_TAG, "" + eventType);
+        switch (eventType) {
+
+            case EventTypes.EVENT_TEACHER_UI_DISPLAY_PROFILE:
+                EventNotifier eventprofile =
+                        NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_TEACHER);
+                eventprofile.unRegisterListener(this);
+                if (errorCode == WebserviceConstants.SUCCESS) {
+
+                    _teacher = LoginFeatureController.getInstance().getTeacher();
+                   // LoginFeatureController.getInstance().saveUserDataIntoDB(_teacher);
+                    // _teacher = LoginFeatureController.getInstance().getServerTeacher();
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            swipeLayout.setRefreshing(false);
+                            _setTeacherDetailsOnUI();
+                        }
+                    });
+                }
+                break;
+
+            case EventTypes.EVENT_TEACHER_UI_NOT_DISPLAY_PROFILE:
+                EventNotifier eventNotDisplay =
+                        NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_TEACHER);
+                eventNotDisplay.unRegisterListener(this);
+
+                break;
+
+            case EventTypes.EVENT_NETWORK_AVAILABLE:
+                EventNotifier eventNotifiernetwork =
+                        NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_NETWORK);
+                eventNotifiernetwork.unRegisterListener(this);
+
+                break;
+
+            case EventTypes.EVENT_NETWORK_UNAVAILABLE:
+                EventNotifier event =
+                        NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_NETWORK);
+                event.unRegisterListener(this);
+
+                break;
+            case EventTypes.EVENT_UI_BAD_REQUEST:
+                EventNotifier eventNotifier1 =
+                        NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_LOGIN);
+                eventNotifier1.unRegisterListener(this);
+                break;
+            case EventTypes.EVENT_UI_UNAUTHORIZED:
+                EventNotifier eventNotifier2 =
+                        NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_LOGIN);
+                eventNotifier2.unRegisterListener(this);
+                break;
+            default:
+                eventState = EventState.EVENT_IGNORED;
+                break;
+        }
+        return EventState.EVENT_PROCESSED;
+    }
+
+    private void _registerListeners() {
+
+        EventNotifier eventNotifier =
+                NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_TEACHER);
+        eventNotifier.registerListener(this, ListenerPriority.PRIORITY_MEDIUM);
+
+        EventNotifier notifierSubscribe =
+                NotifierFactory.getInstance().getNotifier(
+                        NotifierFactory.EVENT_NOTIFIER_NETWORK);
+        notifierSubscribe.registerListener(this, ListenerPriority.PRIORITY_MEDIUM);
+    }
+
+    private void fetchUserProfileFromServer() {
+        _registerListeners();
+
+        _teacher = LoginFeatureController.getInstance().getTeacher();
+       // _teacher = LoginFeatureController.getInstance().getServerTeacher();
+        LoginFeatureController.getInstance().FetchUserProfile(String.valueOf(_teacher.get_tId()), _teacher.get_tSchool_id());
+    }
+
+    @Override
+    public void onRefresh() {
+
+        if (NetworkManager.isNetworkAvailable()) {
+            fetchUserProfileFromServer();
+        } else {
+            CommonFunctions.showNetworkMsg(getActivity());
+        }
+    }
 }

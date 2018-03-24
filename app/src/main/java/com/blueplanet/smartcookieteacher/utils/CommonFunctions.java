@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
+import java.io.File;
+
 /**
  * Created by Priyanka on 3/19/2018.
  */
@@ -50,4 +52,5 @@ public class CommonFunctions {
         }
         return builder.toString();
     }
+
 }

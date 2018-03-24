@@ -199,7 +199,6 @@ public class DisplayProfile extends SmartCookieTeacherService {
                     }
                     String tDOB = jsonObject.optString(WebserviceConstants.KEY_TDOB);
 
-
                     int tAge = jsonObject.optInt(WebserviceConstants.KEY_TAGE);
                     String tGender = jsonObject.optString(WebserviceConstants.KEY_GENDER);
                     String tCountry = jsonObject.optString(WebserviceConstants.KEY_TCOUNTRY);
@@ -237,9 +236,7 @@ public class DisplayProfile extends SmartCookieTeacherService {
                     String tPerTaluka = jsonObject.optString(WebserviceConstants.KEY_PERMANENT_TALUKA);
                     if (TextUtils.isEmpty(tPerTaluka)) {
                         tPerTaluka = null;
-
                     }
-
                     String tPerDistrict = jsonObject.optString(WebserviceConstants.KEY_PERMANENT_DISTRICT);
                     if (TextUtils.isEmpty(tPerDistrict)) {
                         tPerDistrict = null;
@@ -250,15 +247,11 @@ public class DisplayProfile extends SmartCookieTeacherService {
 
                     if (TextUtils.isEmpty(tDotAppoinment)) {
                         tDotAppoinment = null;
-
                     }
-
                     String tAppoinmentPid = jsonObject.optString(WebserviceConstants.KEYAPPOINTMENT_TYPE_PID);
                     if (TextUtils.isEmpty(tAppoinmentPid)) {
                         tAppoinmentPid = null;
-
                     }
-
                     String tEmpTypeId = jsonObject.optString(WebserviceConstants.KEY_EMP_TYPE_PID);
                     String CollageMnemonic = jsonObject.optString(WebserviceConstants.KEY_COLLAGE_MNEMONIC);
 
@@ -272,7 +265,6 @@ public class DisplayProfile extends SmartCookieTeacherService {
 
                    // LoginFeatureController.setTeacher(teacher);
                     SmartCookieSharedPreferences.setUserID(tid);
-
                 }
                 responseObject = new ServerResponse(errorCode, teacher);
             } else {
@@ -289,8 +281,6 @@ public class DisplayProfile extends SmartCookieTeacherService {
         } catch (Exception exception) {
             exception.printStackTrace();
         }
-
-
     }
 
     @Override

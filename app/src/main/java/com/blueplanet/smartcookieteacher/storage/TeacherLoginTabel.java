@@ -203,6 +203,7 @@ public class TeacherLoginTabel extends TableOperations implements IPersistence {
 
     @Override
     public void update(Object object) {
-
+        ContentValues conValues=prepare(object);
+        updateRecords(SmartTeacherDatabaseMasterTable.Tables.TEACHER,conValues,null,null);
     }
 }

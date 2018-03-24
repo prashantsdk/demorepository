@@ -84,7 +84,7 @@ public class TeacherPointTable extends TableOperations implements IPersistence {
             }
         }
 
-        cursor.close();
+        //cursor.close();
         return teaPoint;
     }
 

@@ -45,37 +45,24 @@ public class TeacherDashboardFragmentController implements IEventListener, AbsLi
     private Teacher _teacher;
     private ArrayList<Student> _studentList = null;
     private String _teacherId, _schoolId;
-    private Student stu;
-
-    SwipeRefreshLayout swipeRefreshLayout;
 
     public TeacherDashboardFragmentController(TeacherDashboardFragment teacherFragment,
                                               View view) {
         _teacherDashboardFragment = teacherFragment;
         _view = view;
 
-  /*      swipeRefreshLayout = _view.findViewById(R.id.swipe_container);
 
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
+        _teacher = LoginFeatureController.getInstance().getTeacher();
 
-                _teacher = LoginFeatureController.getInstance().getTeacher();
+        if (_teacher != null && NetworkManager.isNetworkAvailable()) {
+            _teacherId = _teacher.get_tId();
+            _schoolId = _teacher.get_tSchool_id();
+            String id = _teacher.get_tId();
+            _fetchPointFromServer(_teacherId, _schoolId);
 
-
-                if (_teacher != null && NetworkManager.isNetworkAvailable()) {
-                    _teacherId = _teacher.get_tId();
-                    _schoolId = _teacher.get_tSchool_id();
-                    String id = _teacher.get_tId();
-
-                    _fetchPointFromServer(_teacherId, _schoolId);
-
-                } else {
-                    _teacherDashboardFragment.setDashboardDataOnUI();
-                }
-            }
-        });*/
-
+        } else {
+            _teacherDashboardFragment.setDashboardDataOnUI();
+        }
 
     }
 
@@ -225,9 +212,7 @@ public class TeacherDashboardFragmentController implements IEventListener, AbsLi
 
                     int id = StudentFeatureController.getInstance().getLastInputId();
 
-                    if (swipeRefreshLayout.isRefreshing()) {
-                        swipeRefreshLayout.setRefreshing(false);
-                    }
+
                     _studentList = StudentFeatureController.getInstance().getStudentList();
 
 

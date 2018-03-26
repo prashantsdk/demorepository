@@ -42,6 +42,7 @@ public class RewardPointFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         _view = inflater.inflate(R.layout.reaward_point_log, null);
+        getActivity().setTitle("Reward Points Log");
         _initUI();
         _rewardPointFragmentController = new RewardPointFragmentController(this, _view);
         _rewardAdapter = new RewardPointLogAdapter(this);

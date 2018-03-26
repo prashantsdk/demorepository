@@ -599,8 +599,8 @@ public class MapActivity extends AppCompatActivity
             }
 
 
-            String name = "Shop Name :"+sponsor.getSPONSOR_NAME() + '\n' +"Address :"+ sponsor.getSPONSOR_ADDRESS()+'\n'+
-                    "Phone No. :"+sponsor.getShopPhoneNo()+'\n'+"Upto % Discount :"+sponsor.getShopMaxDiscount();
+            String name = "Sponsor-" + sponsor.getSPONSOR_NAME() + '\n' + "Address-" + sponsor.getSPONSOR_ADDRESS() + '\n' +
+                    "Phone No.-" + sponsor.getShopPhoneNo() + '\n' + "Upto " + sponsor.getShopMaxDiscount() + "% Discount";
 
 
             MarkerOptions marker = null;
@@ -628,7 +628,7 @@ public class MapActivity extends AppCompatActivity
 
                     TextView title = new TextView(MapActivity.this);
                     title.setTextColor(Color.BLACK);
-                    title.setGravity(Gravity.CENTER);
+                    title.setGravity(Gravity.CENTER_VERTICAL);
                     title.setTypeface(null, Typeface.BOLD);
                     title.setText(marker.getTitle());
 
@@ -663,8 +663,8 @@ public class MapActivity extends AppCompatActivity
             SchoolOnMapModel school = arrayList.get(j);
             double lat = Double.parseDouble(school.getSCHOOL_LAT());
             double lon = Double.parseDouble(school.getSCHOOL_LONG());
-            String name = "School Name :"+school.getSCHOOL_NAME() + '\n' +"Address :"+ school.getSCHOOL_ADDRESS()
-                  +'\n'+"Phone No. :";
+            String name = "School Name :" + school.getSCHOOL_NAME() + '\n' + "Address :" + school.getSCHOOL_ADDRESS()
+                    + '\n' + "Phone No. :";
 
             MarkerOptions marker = null;
             marker = new MarkerOptions().position(
@@ -676,7 +676,6 @@ public class MapActivity extends AppCompatActivity
             marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_college));
 
             mMap.addMarker(marker);
-
 
 
             mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
@@ -826,7 +825,7 @@ public class MapActivity extends AppCompatActivity
 
                         double lat = Double.parseDouble(sponsor.getSPONSOR_LAT());
                         double lon = Double.parseDouble(sponsor.getSPONSOR_LONG());
-                        String name = "Shop Name :"+sponsor.getSPONSOR_NAME() +'\n'+"Address "+ sponsor.getSPONSOR_ADDRESS()+'\n'+"Phone No. :";
+                        String name = "Shop Name :" + sponsor.getSPONSOR_NAME() + '\n' + "Address " + sponsor.getSPONSOR_ADDRESS() + '\n' + "Phone No. :";
 
                         MarkerOptions marker = null;
                         marker = new MarkerOptions().position(

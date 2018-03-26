@@ -355,11 +355,23 @@ public class AcceptRequestAdapter extends BaseAdapter implements IEventListener 
             public void run() {
 
                 Toast.makeText(_fragment.getActivity().getApplicationContext(),
-                        "Accept Request are not accepted",
+                        "Point request  are not accepted",
                         Toast.LENGTH_LONG).show();
             }
         });
 
+    }
+
+    public void showDeclineMessageNotAccepted() {
+
+        _fragment.getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+
+                Toast.makeText(_fragment.getActivity().getApplicationContext(), "Point Request are not Decline ",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     public void listUpdated() {
@@ -456,6 +468,19 @@ public class AcceptRequestAdapter extends BaseAdapter implements IEventListener 
                 if (errorCode == WebserviceConstants.SUCCESS) {
                     _fragment.showDeclineRequestPoint();
                     clearActivityList();
+
+
+                    if (_teacher != null) {
+
+                        _teacher = LoginFeatureController.getInstance().getTeacher();
+                        if (_teacher != null) {
+                            _teacherId = _teacher.get_tId();
+                            _schoolId = _teacher.get_tSchool_id();
+                            _fetchRequestPointFromServer(_teacherId, _schoolId);
+                        }
+
+                    }
+
                     /**
                      * get reward list before refreshing listview avoid runtime exception
                      */

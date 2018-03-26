@@ -111,8 +111,6 @@ public class TeacherDashboardFragment extends Fragment{
         handler.postDelayed(r, 300);
 
 
-        //        getActivity().getActionBar().setTitle("Dashboard");
-
         return _view;
     }
 

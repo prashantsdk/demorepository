@@ -600,7 +600,7 @@ public class MapActivity extends AppCompatActivity
 
 
             String name = "Shop Name :"+sponsor.getSPONSOR_NAME() + '\n' +"Address :"+ sponsor.getSPONSOR_ADDRESS()+'\n'+
-                    "Phone No. :"+'\n'+"Upto % Discount";
+                    "Phone No. :"+sponsor.getShopPhoneNo()+'\n'+"Upto % Discount :"+sponsor.getShopMaxDiscount();
 
 
             MarkerOptions marker = null;

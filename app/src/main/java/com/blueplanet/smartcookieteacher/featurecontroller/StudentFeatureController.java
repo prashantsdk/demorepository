@@ -194,6 +194,8 @@ public class StudentFeatureController implements IEventListener {
                         Log.i(_TAG, "List size from webservice :" + list.size());
                         _studentList.addAll(list);
 
+
+
                         for (int i = 0; i < list.size(); i++) {
                             _saveStudentListIntoDB(list.get(i));
                             Log.i(_TAG, "Student db list size is:" + list.size());

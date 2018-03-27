@@ -188,10 +188,10 @@ public class SponsorLogs extends Fragment {
                         String KEY_SPONSOR_IMG_PATH = posts.optString(WebserviceConstants.KEY_SPONSOR_IMG_PATHH);
 
 
-                        sponsorOnMapModel = new SponsorOnMapModel(KEY_SPONSOR_ID, SPONSOR_NAME, SPONSOR_ADDRESS, SPONSOR_CITY, SPONSOR_COUNTRY,
+                        /*sponsorOnMapModel = new SponsorOnMapModel(KEY_SPONSOR_ID, SPONSOR_NAME, SPONSOR_ADDRESS, SPONSOR_CITY, SPONSOR_COUNTRY,
                                 SPONSOR_LAT, SPONSOR_LONG, SPONSOR_DISTANCE, KEY_SPONSOR_CATEGORY, KEY_SPONSOR_IMG_PATH);
                         arr_Sponsorlist.add(sponsorOnMapModel);
-
+*/
 
                     }
 

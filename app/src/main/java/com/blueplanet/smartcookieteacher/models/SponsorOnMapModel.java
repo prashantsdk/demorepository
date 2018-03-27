@@ -22,21 +22,8 @@ public class SponsorOnMapModel {
     private String shopMaxDiscount = "";
 
 
-    public SponsorOnMapModel(int id, String SPONSOR_NAME, String SPONSOR_ADDRESS, String SPONSOR_CITY, String SPONSOR_COUNTRY,
-                             String SPONSOR_LAT, String SPONSOR_LONG, String SPONSOR_DISTANCE) {
 
-        this.id = id;
-        this.SPONSOR_NAME = SPONSOR_NAME;
-        this.SPONSOR_ADDRESS = SPONSOR_ADDRESS;
-        this.SPONSOR_CITY = SPONSOR_CITY;
-        this.SPONSOR_COUNTRY = SPONSOR_COUNTRY;
-        this.SPONSOR_LAT = SPONSOR_LAT;
-        this.SPONSOR_LONG = SPONSOR_LONG;
-        this.SPONSOR_DISTANCE = SPONSOR_DISTANCE;
-
-    }
-
-    public SponsorOnMapModel(String SPONSOR_ID, String SPONSOR_NAME, String SPONSOR_ADDRESS, String SPONSOR_CITY, String SPONSOR_COUNTRY,
+    /*public SponsorOnMapModel(String SPONSOR_ID, String SPONSOR_NAME, String SPONSOR_ADDRESS, String SPONSOR_CITY, String SPONSOR_COUNTRY,
                              String SPONSOR_LAT, String SPONSOR_LONG, String SPONSOR_DISTANCE, String SPONSOR_CATEGORY, String SPONSOR_IMG) {
 
 
@@ -51,7 +38,7 @@ public class SponsorOnMapModel {
         this.SPONSOR_CATEGORY = SPONSOR_CATEGORY;
         this.SPONSOR_IMG = SPONSOR_IMG;
     }
-
+*/
 
     public SponsorOnMapModel(String SPONSOR_ID, String SPONSOR_NAME, String SPONSOR_ADDRESS, String SPONSOR_CITY, String SPONSOR_COUNTRY, String SPONSOR_LAT, String SPONSOR_LONG, String SPONSOR_DISTANCE, String SPONSOR_CATEGORY, String SPONSOR_IMG, String shopName, String shopPhoneNo, String shopMaxDiscount) {
         this.SPONSOR_ID = SPONSOR_ID;

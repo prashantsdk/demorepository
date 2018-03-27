@@ -5,6 +5,7 @@
         android:id="@+id/action_drawer"
         android:orderInCategory="4"
         tools:showAsAction="always"
+        android:visible="false"
         android:icon="@drawable/ic_dehaze_white_24dp"
         android:title="More">
 

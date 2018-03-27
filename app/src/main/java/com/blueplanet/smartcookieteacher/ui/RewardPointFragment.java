@@ -107,6 +107,8 @@ public class RewardPointFragment extends Fragment {
         });
 
     }*/
+
+
     private void _setTeacherNameOnUI(){
 
         _teacher = LoginFeatureController.getInstance().getTeacher();

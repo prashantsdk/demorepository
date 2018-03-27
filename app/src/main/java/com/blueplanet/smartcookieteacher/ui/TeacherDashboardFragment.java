@@ -100,6 +100,8 @@ public class TeacherDashboardFragment extends Fragment{
         _registerUIListeners();
         //_showDataOnUI();
 
+
+
         handler = new Handler();
         r = new Runnable() {
             public void run() {

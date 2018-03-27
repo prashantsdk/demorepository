@@ -22,7 +22,6 @@ import com.blueplanet.smartcookieteacher.R;
 import com.blueplanet.smartcookieteacher.communication.ServerResponse;
 import com.blueplanet.smartcookieteacher.customcomponents.CustomTextView;
 import com.blueplanet.smartcookieteacher.featurecontroller.ActivityListFeatureController;
-import com.blueplanet.smartcookieteacher.featurecontroller.AssignPointFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.DashboardFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.LoginFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.SearchAssignPointFeatureController;
@@ -33,11 +32,10 @@ import com.blueplanet.smartcookieteacher.models.GeneralActivity;
 import com.blueplanet.smartcookieteacher.models.SearchStudent;
 import com.blueplanet.smartcookieteacher.models.SportActivity;
 import com.blueplanet.smartcookieteacher.models.Student;
-import com.blueplanet.smartcookieteacher.models.SubNameCode;
+import com.blueplanet.smartcookieteacher.models.StudyActivity;
 import com.blueplanet.smartcookieteacher.models.Teacher;
 import com.blueplanet.smartcookieteacher.models.TeacherActivity;
 import com.blueplanet.smartcookieteacher.models.TeacherDashbordPoint;
-import com.blueplanet.smartcookieteacher.models.TeacherSubject;
 import com.blueplanet.smartcookieteacher.notification.EventNotifier;
 import com.blueplanet.smartcookieteacher.notification.EventState;
 import com.blueplanet.smartcookieteacher.notification.EventTypes;
@@ -45,7 +43,6 @@ import com.blueplanet.smartcookieteacher.notification.IEventListener;
 import com.blueplanet.smartcookieteacher.notification.ListenerPriority;
 import com.blueplanet.smartcookieteacher.notification.NotifierFactory;
 import com.blueplanet.smartcookieteacher.ui.ApplicationConstants;
-import com.blueplanet.smartcookieteacher.ui.AssignPointFragment;
 import com.blueplanet.smartcookieteacher.ui.SearchAssignPointFragment;
 import com.blueplanet.smartcookieteacher.utils.CommonFunctions;
 import com.blueplanet.smartcookieteacher.utils.JSONfunctions;
@@ -71,11 +68,11 @@ public class SearchAssignPointFragmentController implements OnClickListener, IEv
     private ArrayList<SearchStudent> _studentList = null;
     private GridView _lvActivities = null;
 
-    private GeneralActivitListAdapter generalActivitListAdapter = null;
+    private GeneralActivityListAdapter generalActivityListAdapter = null;
     private SportListAdapter sportListAdapter = null;
     private ArtActivityListAdapter artActivityListAdapter = null;
+    private StudyActivityListAdapter studyActivityListAdapter = null;
 
-    private AssignPointSubjectAdapter1 _subadapter;
     private CustomTextView txtseekPoint;
     private int Seekvalue;
     private String _points = null;
@@ -99,15 +96,13 @@ public class SearchAssignPointFragmentController implements OnClickListener, IEv
     RelativeLayout _rl4Option;
     ProgressDialog mProgressDialog;
 
-    boolean resultFlag = false;
     boolean activityResultFlag = false;
-    SubNameCode _namesub = null;
     boolean checkFlagStatus;
-    ArrayList<SubNameCode> subNameCodelist = new ArrayList<>();
 
     private ArrayList<ArtActivity> artActivities = new ArrayList<>();
     private ArrayList<GeneralActivity> generalActivities = new ArrayList<>();
     private ArrayList<SportActivity> sportActivities = new ArrayList<>();
+    private ArrayList<StudyActivity> studyActivities = new ArrayList<>();
 
 
     public SearchAssignPointFragmentController(SearchAssignPointFragment assignPointFragment, View view) {
@@ -117,47 +112,33 @@ public class SearchAssignPointFragmentController implements OnClickListener, IEv
         spinner =  _view.findViewById(R.id.spinner);
         spinner1 =  _view.findViewById(R.id.spinner2);
         spinnercolr =  _view.findViewById(R.id.spinnercolor);
-
         txt_point =  _view.findViewById(R.id.txt_point);
         txt_mark =  _view.findViewById(R.id.txt_point1);
         _comment =  _view.findViewById(R.id.txt_comment);
-
         txtMark =  _view.findViewById(R.id.txt_markPoint);
         txt_point2 =  _view.findViewById(R.id.txt_point2);
         _studentList = SearchStudentFeatureController.getInstance().getSearchedStudents();
         txtbackbutton =  _view.findViewById(R.id.txtbackbutton);
-
         _teacher = LoginFeatureController.getInstance().getTeacher();
         txtseekPoint =  _view.findViewById(R.id.txtassignedPoints);
-
 
         if (_teacher != null) {
             _teacherId = _teacher.get_tId();
             _schoolId = _teacher.get_tSchool_id();
-            String id = _teacher.get_tId();
-            // _fetchActivityListFromServer(_schoolId);
-
-            new FetachActivityListFromServer().execute();
-
+            new FetchActivityListFromServer().execute();
         }
-
     }
 
-    private class FetachActivityListFromServer extends AsyncTask<Void, Void, Void> {
-
+    private class FetchActivityListFromServer extends AsyncTask<Void, Void, Void> {
 
         protected void onPreExecute() {
             super.onPreExecute();
-
-
             mProgressDialog = new ProgressDialog(_assignPointFragment.getActivity());
             mProgressDialog.setMessage("Loading...");
             mProgressDialog.setIndeterminate(false);
             mProgressDialog.setCanceledOnTouchOutside(false);
             mProgressDialog.show();
-
         }
-
 
         @Override
         protected Void doInBackground(Void... voids) {
@@ -165,12 +146,11 @@ public class SearchAssignPointFragmentController implements OnClickListener, IEv
             artActivities.clear();
             sportActivities.clear();
             generalActivities.clear();
+            studyActivities.clear();
 
             if (_teacher != null) {
                 _teacherId = _teacher.get_tId();
                 _schoolId = _teacher.get_tSchool_id();
-                String id = _teacher.get_tId();
-                // _fetchActivityListFromServer(_schoolId);
 
                 JSONObject jsonObjSend = new JSONObject();
                 try {
@@ -203,31 +183,26 @@ public class SearchAssignPointFragmentController implements OnClickListener, IEv
                                     SportActivity sportActivity = new SportActivity(sc_id, sc_list);
                                     sportActivities.add(sportActivity);
                                 }
-
                                 if (activityType.equals("General Activity")) {
                                     GeneralActivity generalActivity = new GeneralActivity(sc_id, sc_list);
                                     generalActivities.add(generalActivity);
                                 }
-
-
+                                if (activityType.equals("Study")) {
+                                    StudyActivity studyActivity = new StudyActivity(sc_id, sc_list);
+                                    studyActivities.add(studyActivity);
+                                }
                             }
                             activityResultFlag = true;
-
                         } else {
                             activityResultFlag = false;
                         }
-
                     } else {
                         activityResultFlag = false;
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
-
             }
-
-
             return null;
         }
 
@@ -237,24 +212,9 @@ public class SearchAssignPointFragmentController implements OnClickListener, IEv
 
             mProgressDialog.dismiss();
 
-
             if (activityResultFlag == false) {
-
                 Toast.makeText(_assignPointFragment.getActivity(), "Activity List not available", Toast.LENGTH_SHORT).show();
-
             }
-           /* if (artActivities.size() < 0) {
-
-                Toast.makeText(_assignPointFragment.getActivity(),"Art Activity list is empty",Toast.LENGTH_SHORT).show();
-            }
-            if (sportActivities.size() < 0) {
-
-            }
-            if (generalActivities.size() < 0) {
-
-            }*/
-
-
         }
     }
 
@@ -287,23 +247,12 @@ public class SearchAssignPointFragmentController implements OnClickListener, IEv
                 _assignPointFragment.getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+
                         txtbackbutton.setVisibility((View.VISIBLE));
-
-
                         _rl4Option.setVisibility(View.GONE);
-
-                     /*   _adapter = new AssignPointListAdapter1(_assignPointFragment,
-                                AssignPointFragmentController.this, _activityList);
-*/
-
-                        // _lvActivities.setAdapter(_adapter);
-
-                        generalActivitListAdapter = new GeneralActivitListAdapter(generalActivities);
-
-
-                        _lvActivities.setAdapter(generalActivitListAdapter);
+                        generalActivityListAdapter = new GeneralActivityListAdapter(generalActivities);
+                        _lvActivities.setAdapter(generalActivityListAdapter);
                         _lvActivities.setVisibility(View.VISIBLE);
-
                     }
                 });
 
@@ -316,21 +265,11 @@ public class SearchAssignPointFragmentController implements OnClickListener, IEv
                 _assignPointFragment.getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+
                         txtbackbutton.setVisibility((View.VISIBLE));
-
-
                         _rl4Option.setVisibility(View.GONE);
-
-
-                     /*   _adapter = new AssignPointListAdapter1(_assignPointFragment,
-                                AssignPointFragmentController.this, _activityList);
-
-                        _lvActivities.setAdapter(_adapter);
-                        */
                         sportListAdapter = new SportListAdapter( sportActivities);
-
                         _lvActivities.setAdapter(sportListAdapter);
-
                         _lvActivities.setVisibility(View.VISIBLE);
 
                     }
@@ -347,53 +286,35 @@ public class SearchAssignPointFragmentController implements OnClickListener, IEv
                     public void run() {
 
                         txtbackbutton.setVisibility((View.VISIBLE));
-
                         _rl4Option.setVisibility(View.GONE);
-
-                       /* _adapter = new AssignPointListAdapter1(_assignPointFragment,
-
-                                AssignPointFragmentController.this, _activityList);
-
-                        _lvActivities.setAdapter(_adapter);
-                        */
                         artActivityListAdapter = new ArtActivityListAdapter( artActivities);
-
                         _lvActivities.setAdapter(artActivityListAdapter);
-
                         _lvActivities.setVisibility(View.VISIBLE);
-
                     }
                 });
 
                 break;
+
             case R.id.txtStudyAssignPoints:
-                SearchAssignPointFeatureController.getInstance().setIsStudyClicked(true);
 
-
+                _activityType = ApplicationConstants.KEY_STUDY;
+                _activityList = ActivityListFeatureController.getInstance().getActivitylistInfoFromDB(_activityType);
+                SearchAssignPointFeatureController.getInstance().setIsStudyClicked(false);
                 _assignPointFragment.getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
 
-
-                        new FetchStudentStudySubject().execute();
-
-
-/*
-
-                        _adapter = new AssignPointListAdapter1(_assignPointFragment,
-
-                                AssignPointFragmentController.this, _activityList);
-
-                        _lvActivities.setAdapter(_adapter);
+                        txtbackbutton.setVisibility((View.VISIBLE));
+                        _rl4Option.setVisibility(View.GONE);
+                        studyActivityListAdapter = new StudyActivityListAdapter( studyActivities);
+                        _lvActivities.setAdapter(studyActivityListAdapter);
                         _lvActivities.setVisibility(View.VISIBLE);
-                        // _lvActivities.setOnItemClickListener(AssignPointFragmentController.this);
-*/
-
 
                     }
                 });
+
                 break;
-            //txtoptionselected
+
             case R.id.txtbackbutton:
                 _assignPointFragment.getActivity().runOnUiThread(new Runnable() {
                     @Override
@@ -416,28 +337,11 @@ public class SearchAssignPointFragmentController implements OnClickListener, IEv
 
             case R.id.btnsubmitassignpoints:
 
-              /*  if (Seekvalue == 0 || Seekvalue >= 101) {
-
-                    _assignPointFragment.showpointSelected(false);
-                }*/
-                /*else
-                if(selectedSubjectId==null) {
-
-                    _assignPointFragment.ShowValidMesaage();
-
-
-
-
-              }*/
-
                 CommonFunctions.hideKeyboardFrom(_assignPointFragment.getActivity(),view);
 
                 SearchStudent student = SearchAssignPointFeatureController.getInstance().get_selectedStudent();
                 selectedActivityId = ActivityListFeatureController.getInstance().getSeletedActivityId();
-                ////selectedSubjectId = SubjectFeatureController.getInstance().get_seletedSubjectId();
-
                 selectedSubjectId = SearchAssignPointFeatureController.getInstance().get_seletedSubjectId();
-
 
                 TeacherDashbordPoint point = DashboardFeatureController.getInstance().getTeacherpoint();
 
@@ -445,13 +349,9 @@ public class SearchAssignPointFragmentController implements OnClickListener, IEv
                 int brownPoints = point.get_brownpoint();
                 int waterPoints = point.get_waterpoint();
 
-
                 Log.i(_TAG, "Selected subject is : " + selectedSubjectId);
                 boolean isStudyClicked = SearchAssignPointFeatureController.getInstance().isStudyClicked();
-
-
                 checkFlagStatus = ActivityListFeatureController.getInstance().getSelectedActivityIDOne();
-
 
                 if (checkFlagStatus == true) {
 
@@ -459,46 +359,29 @@ public class SearchAssignPointFragmentController implements OnClickListener, IEv
                         if (student != null /*&& !(TextUtils.isEmpty(selectedSubjectId)*/
                                 ) {
                             if (selectedSubjectId != null) {
-
-
                                 ActivityListFeatureController.getInstance().setSeletedActivityIDOne(false);
 
                                 String prnNO = student.get_searchPrn();
-                                Log.i(_TAG, "Value of prn is: " + prnNO);
                                 String methodID = "1";
                                 String activityId = "";
-                                //  String rewardValue = _points;
-                                Log.i(_TAG, "Value of points is: " + _points);
-
                                 String date = getDate();
-                                Log.i(_TAG, "Value of date is: " + date);
                                 String grade = spinner1.getSelectedItem().toString();
 
-                                //  String temp = spinnercolr.getSelectedItem().toString();
                                 int pointTypePosition = spinnercolr.getSelectedItemPosition();
-
                                 logintype = spinner.getSelectedItem().toString();
-
-
-                                //String[] pointTypeArray = temp.split(" ");
 
                                 String pointtype = "";
                                 if (pointTypePosition == 0) {
-
                                     pointtype = "Greenpoint";
                                 } else if (pointTypePosition == 1) {
                                     pointtype = "Waterpoint";
                                 }
 
-
                                 String rewardValue = txt_point.getText().toString();
                                 String rewardValue1 = txt_mark.getText().toString();
                                 String rewardValue2 = txt_point2.getText().toString();
 
-                                String markPoint = txtMark.getText().toString();
-
                                 String commentPoint = _comment.getText().toString();
-
 
                                 if (logintype.equals(WebserviceConstants.VAL_USER_TYPE_GUGMENT)) {
                                     if (!rewardValue.isEmpty()) {
@@ -530,20 +413,11 @@ public class SearchAssignPointFragmentController implements OnClickListener, IEv
                                         }
                                     } else {
 
-
-                                  /*  Toast.makeText(_assignPointFragment.getActivity().getApplicationContext(),
-                                            _assignPointFragment.getActivity().getString(R.string.select_activity),
-                                            Toast.LENGTH_LONG).show();  */
-
                                         ActivityListFeatureController.getInstance().setSeletedActivityIDOne(true);
-
                                         Toast.makeText(_assignPointFragment.getActivity(), "Enter the points", Toast.LENGTH_SHORT).show();
                                     }
                                 } else if (logintype.equals(WebserviceConstants.VAL_USER_TYPE_MARK)) {
                                     if (45 > Integer.parseInt(rewardValue1) && Integer.parseInt(rewardValue1) > 35) {
-
-
-                                        //rewardValue1=Integer.parseInt("30");
 
                                         initListener();
                                         methodID = "2";
@@ -583,7 +457,6 @@ public class SearchAssignPointFragmentController implements OnClickListener, IEv
                                                 activityId, selectedSubjectId, rewardValue3, date, pointtype, commentPoint);
                                         clearActivityList();
                                     }
-
                                 } else if (logintype.equals(WebserviceConstants.VAL_USER_TYPE_PERSENTILE)) {
                                     methodID = "4";
                                     _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
@@ -599,7 +472,6 @@ public class SearchAssignPointFragmentController implements OnClickListener, IEv
                                         Toast.LENGTH_LONG).show();
                                 ActivityListFeatureController.getInstance().setSeletedActivityIDOne(true);
                             }
-
                         }
                     } else {
                         if (student != null) {
@@ -607,15 +479,10 @@ public class SearchAssignPointFragmentController implements OnClickListener, IEv
                             if (selectedActivityId != null) {
 
                                 ActivityListFeatureController.getInstance().setSeletedActivityIDOne(false);
-
-
                                 String pointtype = spinnercolr.getSelectedItem().toString();
                                 int poinTypePosition = spinnercolr.getSelectedItemPosition();
 
-                                String[] pointTypeArray = pointtype.split(" ");
-
                                 String finalPointType = "";
-
 
                                 if (poinTypePosition == 0) {
 
@@ -624,34 +491,22 @@ public class SearchAssignPointFragmentController implements OnClickListener, IEv
                                     finalPointType = "Waterpoint";
                                 }
 
-
                                 String prnNO = student.get_searchPrn();
 
-                                Log.i(_TAG, "Value of prn is: " + prnNO);
                                 String methodID = "1";
-                                //String activityID = selectedActivityName;
-                                Log.i(_TAG, "Value of activity id is: " + selectedActivityId);
                                 String subjectId = "0";
-                                //String activityId = "0";
-                                // String rewardValue = _points;
-                                Log.i(_TAG, "Value of points is: " + _points);
                                 String date = getDate();
-                                Log.i(_TAG, "Value of date is: " + date);
-
                                 String grade = spinner1.getSelectedItem().toString();
                                 logintype = spinner.getSelectedItem().toString();
                                 String rewardValue = txt_point.getText().toString();
                                 String rewardValue1 = txt_mark.getText().toString();
                                 String rewardValue2 = txt_point2.getText().toString();
-
                                 String markValue = txtMark.getText().toString();
                                 String commentPoint = _comment.getText().toString();
-
 
                                 if (logintype.equals(WebserviceConstants.VAL_USER_TYPE_GUGMENT)) {
                                     methodID = "1";
                                     if ((selectedActivityId != null) && (!rewardValue.isEmpty())) {
-
 
                                         if (finalPointType.equals("Greenpoint")) {
 
@@ -672,15 +527,12 @@ public class SearchAssignPointFragmentController implements OnClickListener, IEv
 
                                             if (brownPoints > Integer.parseInt(rewardValue)) {
 
-
                                                 _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
                                                         selectedActivityId, subjectId, rewardValue, date, finalPointType, commentPoint);
                                                 clearActivityList();
                                             } else {
                                                 Toast.makeText(_assignPointFragment.getActivity(),
                                                         "Insufficient brown  points", Toast.LENGTH_SHORT).show();
-
-
                                             }
                                         } else if (finalPointType.equals("Waterpoint")) {
 
@@ -688,7 +540,6 @@ public class SearchAssignPointFragmentController implements OnClickListener, IEv
                                                 _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
                                                         selectedActivityId, subjectId, rewardValue, date, finalPointType, commentPoint);
                                                 clearActivityList();
-
 
                                             } else if (!(waterPoints > Integer.parseInt(rewardValue))) {
 
@@ -711,16 +562,13 @@ public class SearchAssignPointFragmentController implements OnClickListener, IEv
 
                                         Toast.makeText(_assignPointFragment.getActivity(), "Enter the points", Toast.LENGTH_SHORT).show();
                                         ActivityListFeatureController.getInstance().setSeletedActivityIDOne(true);
-
                                     }
 
                                 } else if (logintype.equals(WebserviceConstants.VAL_USER_TYPE_MARK)) {
 
                                     methodID = "2";
-                                    if ((selectedActivityId != null)
-                                            && (!rewardValue1.isEmpty())
+                                    if ((selectedActivityId != null) && (!rewardValue1.isEmpty())
                                             && (!markValue.isEmpty())) {
-
 
                                         if (finalPointType.equals("Greenpoint")) {
 
@@ -729,9 +577,7 @@ public class SearchAssignPointFragmentController implements OnClickListener, IEv
                                                 _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
                                                         selectedActivityId, subjectId, markValue, date, finalPointType, commentPoint);
                                                 clearActivityList();
-
                                             } else {
-
                                                 Toast.makeText(_assignPointFragment.getActivity(), "Insufficent Reward Points", Toast.LENGTH_SHORT).show();
                                             }
 
@@ -742,9 +588,7 @@ public class SearchAssignPointFragmentController implements OnClickListener, IEv
                                                 _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
                                                         selectedActivityId, subjectId, markValue, date, finalPointType, commentPoint);
                                                 clearActivityList();
-
                                             } else {
-
                                                 Toast.makeText(_assignPointFragment.getActivity(), "Insufficient brown points", Toast.LENGTH_SHORT).show();
                                             }
 
@@ -755,9 +599,7 @@ public class SearchAssignPointFragmentController implements OnClickListener, IEv
                                                 _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
                                                         selectedActivityId, subjectId, markValue, date, finalPointType, commentPoint);
                                                 clearActivityList();
-
                                             } else {
-
                                                 Toast.makeText(_assignPointFragment.getActivity(), "Insufficent Purchase Point", Toast.LENGTH_SHORT).show();
                                             }
                                         }
@@ -766,21 +608,16 @@ public class SearchAssignPointFragmentController implements OnClickListener, IEv
                                         Toast.makeText(_assignPointFragment.getActivity().getApplicationContext(),
                                                 _assignPointFragment.getActivity().getString(R.string.select_activity),
                                                 Toast.LENGTH_LONG).show();
-
                                     } else if (rewardValue1.isEmpty()) {
-
                                         Toast.makeText(_assignPointFragment.getActivity(), "Enter the marks", Toast.LENGTH_SHORT).show();
-
                                     } else if (markValue.isEmpty()) {
                                         Toast.makeText(_assignPointFragment.getActivity(), "Enter the Points", Toast.LENGTH_SHORT).show();
                                     }
-
                                 } else if (logintype.equals(WebserviceConstants.VAL_USER_TYPE_GRADE)) {
 
                                     if (grade.equals(WebserviceConstants.VAL_USER_TYPE_GRADE_A)) {
 
                                         if ((selectedActivityId != null)) {
-
                                             methodID = "3";
                                             String rewardValue3 = "60";
 
@@ -803,7 +640,6 @@ public class SearchAssignPointFragmentController implements OnClickListener, IEv
                                                             selectedActivityId, subjectId, rewardValue3, date, finalPointType, commentPoint);
                                                     clearActivityList();
                                                 } else {
-
                                                     Toast.makeText(_assignPointFragment.getActivity(), "Insufficent browen points", Toast.LENGTH_SHORT).show();
                                                 }
 
@@ -816,7 +652,6 @@ public class SearchAssignPointFragmentController implements OnClickListener, IEv
                                                     clearActivityList();
 
                                                 } else {
-
                                                     Toast.makeText(_assignPointFragment.getActivity(), "Insuffient Purchase Points", Toast.LENGTH_SHORT).show();
                                                 }
                                             }
@@ -826,8 +661,6 @@ public class SearchAssignPointFragmentController implements OnClickListener, IEv
                                             Toast.makeText(_assignPointFragment.getActivity().getApplicationContext(),
                                                     _assignPointFragment.getActivity().getString(R.string.select_activity),
                                                     Toast.LENGTH_LONG).show();
-
-
                                         }
 
                                     } else if (grade.equals(WebserviceConstants.VAL_USER_TYPE_GRADE_B)) {
@@ -836,7 +669,6 @@ public class SearchAssignPointFragmentController implements OnClickListener, IEv
                                         String rewardValue3 = "50";
 
                                         if (selectedActivityId != null) {
-
 
                                             if (finalPointType.equals("Greenpoint")) {
 
@@ -858,7 +690,6 @@ public class SearchAssignPointFragmentController implements OnClickListener, IEv
                                                     clearActivityList();
 
                                                 } else {
-
                                                     Toast.makeText(_assignPointFragment.getActivity(), "Insufficent browen points", Toast.LENGTH_SHORT).show();
                                                 }
 
@@ -872,17 +703,13 @@ public class SearchAssignPointFragmentController implements OnClickListener, IEv
                                                     clearActivityList();
 
                                                 } else {
-
                                                     Toast.makeText(_assignPointFragment.getActivity(), "Insuffient Purchase Point", Toast.LENGTH_SHORT).show();
                                                 }
                                             }
-
-
                                         } else {
                                             Toast.makeText(_assignPointFragment.getActivity().getApplicationContext(),
                                                     _assignPointFragment.getActivity().getString(R.string.select_activity),
                                                     Toast.LENGTH_LONG).show();
-
                                         }
                                     } else if (grade.equals(WebserviceConstants.VAL_USER_TYPE_GRADE_C)) {
 
@@ -911,7 +738,6 @@ public class SearchAssignPointFragmentController implements OnClickListener, IEv
                                                     clearActivityList();
 
                                                 } else {
-
                                                     Toast.makeText(_assignPointFragment.getActivity(), "Insufficent browen points", Toast.LENGTH_SHORT).show();
                                                 }
 
@@ -924,7 +750,6 @@ public class SearchAssignPointFragmentController implements OnClickListener, IEv
                                                     clearActivityList();
 
                                                 } else {
-
                                                     Toast.makeText(_assignPointFragment.getActivity(), "Insuffient Puchase Point", Toast.LENGTH_SHORT).show();
                                                 }
                                             }
@@ -948,7 +773,6 @@ public class SearchAssignPointFragmentController implements OnClickListener, IEv
                                                     _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
                                                             selectedActivityId, subjectId, rewardValue3, date, finalPointType, commentPoint);
                                                     clearActivityList();
-
                                                 } else {
                                                     Toast.makeText(_assignPointFragment.getActivity(), "Insufficent Reward Points", Toast.LENGTH_SHORT).show();
                                                 }
@@ -959,9 +783,7 @@ public class SearchAssignPointFragmentController implements OnClickListener, IEv
                                                     _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
                                                             selectedActivityId, subjectId, rewardValue3, date, finalPointType, commentPoint);
                                                     clearActivityList();
-
                                                 } else {
-
                                                     Toast.makeText(_assignPointFragment.getActivity(), "Insufficent browen points", Toast.LENGTH_SHORT).show();
                                                 }
 
@@ -972,9 +794,7 @@ public class SearchAssignPointFragmentController implements OnClickListener, IEv
                                                     _fetchSubmitPointFromServer(_teacherId, _schoolId, prnNO, methodID,
                                                             selectedActivityId, subjectId, rewardValue3, date, finalPointType, commentPoint);
                                                     clearActivityList();
-
                                                 } else {
-
                                                     Toast.makeText(_assignPointFragment.getActivity(), "Insuffient Purchase Point", Toast.LENGTH_SHORT).show();
                                                 }
                                             }
@@ -995,20 +815,15 @@ public class SearchAssignPointFragmentController implements OnClickListener, IEv
                                                 selectedActivityId, subjectId, rewardValue2, date, finalPointType, commentPoint);
                                         clearActivityList();
 
-
                                     } else {
                                         Toast.makeText(_assignPointFragment.getActivity().getApplicationContext(),
                                                 _assignPointFragment.getActivity().getString(R.string.select_activity),
                                                 Toast.LENGTH_LONG).show();
                                     }
                                 }
-                                //  ActivityListFeatureController.getInstance().
-                                //  setSeletedActivityId(null);
-
                             } else {
 
                                 ActivityListFeatureController.getInstance().setSeletedActivityIDOne(true);
-
                                 Toast.makeText(_assignPointFragment.getActivity().getApplicationContext(),
                                         _assignPointFragment.getActivity().getString(R.string.select_subject),
                                         Toast.LENGTH_LONG).show();
@@ -1017,33 +832,25 @@ public class SearchAssignPointFragmentController implements OnClickListener, IEv
                     }
 
                 } else {
-
                     Toast.makeText(_assignPointFragment.getActivity(), "Please Select the subject", Toast.LENGTH_SHORT).show();
                 }
-
                 break;
             default:
                 break;
-
         }
-
     }
 
     private void initListener() {
         txtMark.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
-
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                // HelperClass.Is_Valid_Email(txtMark);
                 txt_point.setText("30");
             }
         });
@@ -1054,16 +861,6 @@ public class SearchAssignPointFragmentController implements OnClickListener, IEv
             return true;
         }
         return false;
-
-    }
-
-
-    private void _studentEventListeners() {
-
-        EventNotifier eventNotifier =
-                NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_STUDENT);
-        eventNotifier.registerListener(this, ListenerPriority.PRIORITY_MEDIUM);
-
     }
 
     /**
@@ -1092,7 +889,7 @@ public class SearchAssignPointFragmentController implements OnClickListener, IEv
         eventNotifier.registerListener(this, ListenerPriority.PRIORITY_MEDIUM);
 
         _registerNetworkListeners();
-        AssignPointFeatureController.getInstance().getSubmitPointFromServer(teacherId, schoolId, stPRN, methodId, activityId,
+        SearchAssignPointFeatureController.getInstance().getSubmitPointFromServer(teacherId, schoolId, stPRN, methodId, activityId,
                 subjectId, rewardValue, date, pointtype, comment);
 
         _assignPointFragment.showOrHideProgressBar(true);
@@ -1183,9 +980,6 @@ public class SearchAssignPointFragmentController implements OnClickListener, IEv
                 if (errorCode == WebserviceConstants.SUCCESS) {
 
                     Student s = StudentFeatureController.getInstance().getSelectedStudent();
-
-                    //  prn = s.get_stdPRN();
-                    // subFeaturecontroller.getInstance().fetchSubjectFromServer(_teacherId, _schoolId, prn);
                 }
                 break;
 
@@ -1226,7 +1020,6 @@ public class SearchAssignPointFragmentController implements OnClickListener, IEv
                     _assignPointFragment.showOrHideProgressBar(false);
                     _assignPointFragment.showpoinSubmitSucessfully(true);
                 }
-
                 break;
 
             case EventTypes.EVENT_TEACHER_SUBJECT_RULE_ENGINE_NOT_DEFINE:
@@ -1235,19 +1028,15 @@ public class SearchAssignPointFragmentController implements OnClickListener, IEv
                 eventNotifier5.unRegisterListener(this);
                 _assignPointFragment.showOrHideProgressBar(false);
                 _assignPointFragment.ruleEngineNotDefined();
-
                 break;
-
 
             case EventTypes.EVENT_UI_NO_TEACHER_ASSIGN_POINT_RECEIVED:
                 EventNotifier event4 =
                         NotifierFactory.getInstance().getNotifier
                                 (NotifierFactory.EVENT_NOTIFIER_TEACHER);
                 event4.unRegisterListener(this);
-
                 _assignPointFragment.showOrHideProgressBar(false);
                 _assignPointFragment.showNoAListMessage(false);
-
 
                 break;
             default:
@@ -1274,17 +1063,9 @@ public class SearchAssignPointFragmentController implements OnClickListener, IEv
         if (_studentList != null && _studentList.size() > 0) {
             SearchStudent student = _studentList.get(position);
             if (student != null) {
-
                 String name = student.get_studentname();
-              /*  String txtsubName = student.get_stdsubname();
-                String stuPRN = student.get_searchPrn();
-                String subCode = student.get_stdsubcode();
-                a.add(txtsubName);
-                a.add(subCode);*/
-
                 _assignPointFragment.setStudentNameOnUI(name);
                 SearchAssignPointFeatureController.getInstance().set_selectedStudent(student);
-              //  SearchAssignPointFeatureController.getInstance().set_selectedSubjsct(a);
             }
         }
     }
@@ -1298,21 +1079,17 @@ public class SearchAssignPointFragmentController implements OnClickListener, IEv
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-
     }
 
     @Override
     public void onProgressChanged(final SeekBar seekBar, int progress, boolean fromUser) {
         txtseekPoint =  _view.findViewById(R.id.txtassignedPoints);
-
         _assignPointFragment.getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
 
                 Seekvalue = seekBar.getProgress();
                 _points = String.valueOf(Seekvalue); // this is the string
-                // that will be put
-                // above the slider
                 txtseekPoint.setText(_points + " Points");
             }
         });
@@ -1320,85 +1097,9 @@ public class SearchAssignPointFragmentController implements OnClickListener, IEv
 
     @Override
     public void onStartTrackingTouch(SeekBar seekBar) {
-
     }
 
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
-
-    }
-
-    private class FetchStudentStudySubject extends AsyncTask<Void, Void, Void> {
-
-        protected void onPreExecute() {
-            super.onPreExecute();
-
-            mProgressDialog = new ProgressDialog(_assignPointFragment.getActivity());
-            mProgressDialog.setMessage("Loading...");
-            mProgressDialog.setIndeterminate(false);
-            mProgressDialog.show();
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-
-            subNameCodelist.clear();
-            if (_teacher != null) {
-                _teacherId = _teacher.get_tId();
-                _schoolId = _teacher.get_tSchool_id();
-
-                SearchStudent s = SearchAssignPointFeatureController.getInstance().get_selectedStudent();
-                String prn = s.get_searchPrn();
-
-                JSONObject jsonObjSend = new JSONObject();
-                try {
-                    jsonObjSend.put("t_id", _teacherId);
-                    jsonObjSend.put("school_id", _schoolId);
-                    jsonObjSend.put("std_PRN", prn);
-
-                    String response = js.getJSONfromURL(
-                            WebserviceConstants.HTTP_BASE_URL +
-                                    WebserviceConstants.BASE_URL + WebserviceConstants.SUBWEBSERVICE, jsonObjSend);
-                    if (response != null) {
-                        JSONObject json = new JSONObject(response);
-                        JSONArray responseData = null;
-                        responseData = json.optJSONArray(WebserviceConstants.KEY_POSTS);
-                        if (responseData != null) {
-
-                            for (int i = 0; i < responseData.length(); i++) {
-                                JSONObject jsonObject = responseData.optJSONObject(i);
-                                String subname = jsonObject.optString(WebserviceConstants.SUBNAME);
-                                String subcode = jsonObject.optString(WebserviceConstants.SUBCODE);
-
-                                _namesub = new SubNameCode(subname, subcode);
-                                subNameCodelist.add(_namesub);
-                                resultFlag = true;
-                            }
-                        } else {
-                            resultFlag = false;
-                        }
-                    }
-                } catch (JSONException e) {
-                    resultFlag = false;
-                }
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            mProgressDialog.dismiss();
-
-            if (resultFlag == true) {
-                txtbackbutton.setVisibility(View.VISIBLE);
-                _rl4Option.setVisibility(View.GONE);
-                _subadapter = new AssignPointSubjectAdapter1(subNameCodelist);
-                _lvActivities.setAdapter(_subadapter);
-                _lvActivities.setVisibility(View.VISIBLE);
-            }
-            if (resultFlag == false) {
-                Toast.makeText(_assignPointFragment.getActivity(), "Study subject list not available", Toast.LENGTH_LONG).show();
-            }
-        }
     }
 }

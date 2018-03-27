@@ -84,7 +84,7 @@ public class GenerateCouponFragment extends Fragment implements AdapterView.OnIt
 
         Teacher _teacher = LoginFeatureController.getInstance().getTeacher();
         if(NetworkManager.isNetworkAvailable()) {
-            progressDialog = WebserviceConstants.showProgress(getActivity(), "Loading Coupons...");
+            progressDialog = CommonFunctions.showProgress(getActivity(), "Loading Coupons...");
             progressDialog.show();
             _fetchRecentlyGenCoupFromServer(_teacher.get_tId(), _teacher.get_tSchool_id());
         }else{

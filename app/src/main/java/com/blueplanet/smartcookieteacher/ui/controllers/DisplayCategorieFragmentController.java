@@ -174,7 +174,7 @@ public class DisplayCategorieFragmentController implements IEventListener, Adapt
     private void _fetchDisplayCouponListFromServer(String cat_id, String distance, double lat, double log) {
         _registerEventListeners();
 
-        progressDialog = WebserviceConstants.showProgress(_disCategorieFragment.getActivity(), "Loading coupons...");
+        progressDialog = CommonFunctions.showProgress(_disCategorieFragment.getActivity(), "Loading coupons...");
         progressDialog.show();
         DisplayCouponFeatureController.getInstance().getcouponListFromServer(cat_id, distance, lat, log);
         // _disCategorieFragment.showOrHideProgressBar(true);

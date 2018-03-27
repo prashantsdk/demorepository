@@ -835,16 +835,6 @@ public class WebserviceConstants {
     public static final String KEY_USER_REG_IMGNAME = "User_Image_Name";
 
 
-    public static ProgressDialog showProgress(Context context, String message) {
-        ProgressDialog mProgressDialog;
-        mProgressDialog = new ProgressDialog(context);
-        //  mProgressDialog.setContentView(R.layout.progressview);
-        mProgressDialog.setMessage(message);
-        mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        mProgressDialog.setCancelable(false);
-
-        return mProgressDialog;
-    }
 
     public static ProgressBar showProgress(Context context, RelativeLayout layout) {
         ProgressBar progressBar;

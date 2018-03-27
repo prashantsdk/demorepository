@@ -292,7 +292,7 @@ public class AfterLoginActivity extends AppCompatActivity implements IEventListe
                 _fragment = new SharePointFragment();
 
                 break;
-            case R.id.nav_add_teacher_subjects:
+           /* case R.id.nav_add_teacher_subjects:
                 DrawerFeatureController.getInstance().setIsFragmentOpenedFromDrawer(true);
                 if (_count < 7) {
                     _count = _count + 1;
@@ -306,7 +306,7 @@ public class AfterLoginActivity extends AppCompatActivity implements IEventListe
                 _fragment = new SearchStudentFragment();
                 // _fragment = new SoftRewardFragment();
 
-                break;
+                break;*/
             case R.id.nav_soft_rewards:
                 DrawerFeatureController.getInstance().setIsFragmentOpenedFromDrawer(true);
                 if (_count < 7) {

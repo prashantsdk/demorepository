@@ -1,10 +1,13 @@
 package com.blueplanet.smartcookieteacher.utils;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
+
+import java.io.File;
 
 /**
  * Created by Priyanka on 3/19/2018.
@@ -34,6 +37,17 @@ public class CommonFunctions {
         });
     }
 
+    public static ProgressDialog showProgress(Context context, String message) {
+        ProgressDialog mProgressDialog;
+        mProgressDialog = new ProgressDialog(context);
+        //  mProgressDialog.setContentView(R.layout.progressview);
+        mProgressDialog.setMessage(message);
+        mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        mProgressDialog.setCancelable(false);
+
+        return mProgressDialog;
+    }
+
     public static String capitalize(String input) {
 
         String[] words = input.toLowerCase().split(" ");
@@ -50,4 +64,5 @@ public class CommonFunctions {
         }
         return builder.toString();
     }
+
 }

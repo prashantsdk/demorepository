@@ -8,5 +8,6 @@ public class ApplicationConstants {
     public static final String KEY_GENERAL_ACTIVITY = "General Activity";
     public static final String KEY_SPORTS = "Sports";
     public static final String KEY_ART = "Arts";
+    public static final String KEY_STUDY = "Study";
 
 }

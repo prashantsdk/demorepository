@@ -25,11 +25,13 @@ import com.blueplanet.smartcookieteacher.featurecontroller.ActivityListFeatureCo
 import com.blueplanet.smartcookieteacher.featurecontroller.AssignPointFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.DashboardFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.LoginFeatureController;
+import com.blueplanet.smartcookieteacher.featurecontroller.SearchAssignPointFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.StudentFeatureController;
 import com.blueplanet.smartcookieteacher.models.ArtActivity;
 import com.blueplanet.smartcookieteacher.models.GeneralActivity;
 import com.blueplanet.smartcookieteacher.models.SportActivity;
 import com.blueplanet.smartcookieteacher.models.Student;
+import com.blueplanet.smartcookieteacher.models.StudyActivity;
 import com.blueplanet.smartcookieteacher.models.SubNameCode;
 import com.blueplanet.smartcookieteacher.models.Teacher;
 import com.blueplanet.smartcookieteacher.models.TeacherActivity;
@@ -71,9 +73,10 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
     private GridView _lvActivities = null;
     //private AssignPointListAdapter _adapter = null;
 
-    private GeneralActivitListAdapter generalActivitListAdapter = null;
+    private GeneralActivityListAdapter generalActivityListAdapter = null;
     private SportListAdapter sportListAdapter = null;
     private ArtActivityListAdapter artActivityListAdapter = null;
+    private StudyActivityListAdapter studyActivityListAdapter = null;
 
     private AssignPointSubjectAdapter1 _subadapter;
     private CustomTextView txtseekPoint;
@@ -114,7 +117,7 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
     private ArrayList<ArtActivity> artActivities = new ArrayList<>();
     private ArrayList<GeneralActivity> generalActivities = new ArrayList<>();
     private ArrayList<SportActivity> sportActivities = new ArrayList<>();
-
+    private ArrayList<StudyActivity> studyActivities = new ArrayList<>();
 
     public AssignPointFragmentController(AssignPointFragment assignPointFragment, View view) {
 
@@ -172,6 +175,7 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
             artActivities.clear();
             sportActivities.clear();
             generalActivities.clear();
+            studyActivities.clear();
 
             if (_teacher != null) {
                 _teacherId = _teacher.get_tId();
@@ -215,7 +219,10 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
                                     GeneralActivity generalActivity = new GeneralActivity(sc_id, sc_list);
                                     generalActivities.add(generalActivity);
                                 }
-
+                                if (activityType.equals("Study")) {
+                                    StudyActivity studyActivity = new StudyActivity(sc_id, sc_list);
+                                    studyActivities.add(studyActivity);
+                                }
 
                             }
                             activityResultFlag = true;
@@ -307,11 +314,11 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
 
                         // _lvActivities.setAdapter(_adapter);
 
-                        generalActivitListAdapter = new GeneralActivitListAdapter(_assignPointFragment,
+                        generalActivityListAdapter = new GeneralActivityListAdapter(_assignPointFragment,
                                 AssignPointFragmentController.this, generalActivities);
 
 
-                        _lvActivities.setAdapter(generalActivitListAdapter);
+                        _lvActivities.setAdapter(generalActivityListAdapter);
                         _lvActivities.setVisibility(View.VISIBLE);
 
                     }
@@ -387,6 +394,30 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
 
                 break;
             case R.id.txtStudyAssignPoints:
+
+                _activityType = ApplicationConstants.KEY_STUDY;
+                _activityList = ActivityListFeatureController.getInstance().getActivitylistInfoFromDB(_activityType);
+                SearchAssignPointFeatureController.getInstance().setIsStudyClicked(false);
+                _assignPointFragment.getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        txtbackbutton.setVisibility((View.VISIBLE));
+
+                        _rl4Option.setVisibility(View.GONE);
+
+                        studyActivityListAdapter = new StudyActivityListAdapter(_assignPointFragment,
+                                AssignPointFragmentController.this, studyActivities);
+
+                        _lvActivities.setAdapter(studyActivityListAdapter);
+
+                        _lvActivities.setVisibility(View.VISIBLE);
+
+                    }
+                });
+
+                break;
+           /* case R.id.txtStudyAssignPoints:
                 AssignPointFeatureController.getInstance().setIsStudyClicked(true);
 
 
@@ -398,7 +429,7 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
                         new FetchStudentStudySubject().execute();
 
 
-/*
+*//*
 
                         _adapter = new AssignPointListAdapter1(_assignPointFragment,
 
@@ -407,12 +438,12 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
                         _lvActivities.setAdapter(_adapter);
                         _lvActivities.setVisibility(View.VISIBLE);
                         // _lvActivities.setOnItemClickListener(AssignPointFragmentController.this);
-*/
+*//*
 
 
                     }
                 });
-                break;
+                break;*/
             //txtoptionselected
             case R.id.txtbackbutton:
                 _assignPointFragment.getActivity().runOnUiThread(new Runnable() {

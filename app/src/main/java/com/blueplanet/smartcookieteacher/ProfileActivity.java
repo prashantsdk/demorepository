@@ -54,6 +54,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Calendar;
 
+/**
+ * Created by Priyanka on 3/26/2018.
+ */
+
 public class ProfileActivity extends AppCompatActivity implements IEventListener, View.OnClickListener{
 
     private CustomEditText _firstName, _middle, _lastName, _dob, _gender, _email, _add, _country, _city, _phone, _pasword;
@@ -68,7 +72,15 @@ public class ProfileActivity extends AppCompatActivity implements IEventListener
     private Teacher _teacher;
     private String tId;
     private String userChoosenTask;
-    String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+   // String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+   /* String emailPattern = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+            + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";*/
+
+    //String emailPattern = " ^([\\w-]|(?<!\\.)\\.)+[a-zA-Z0-9]@[a-zA-Z0-9]([a-zA-Z0-9\\-]+)((\\.([a-zA-Z]){2,9}){0,2})$";
+    //String emailPattern = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+    String emailPattern = "^[A-Za-z0-9._%+\\-]+@[A-Za-z0-9.\\-]+\\.[A-Za-z]{2,4}$";
+
+
     byte[] bb = null;
     private Bitmap bm;
     private final String _TAG = getClass().getSimpleName();
@@ -122,7 +134,7 @@ public class ProfileActivity extends AppCompatActivity implements IEventListener
 
     private void fetchUserProfileFromServer() {
         _registerListeners();
-        progressDialog = WebserviceConstants.showProgress(this, "Please wait...");
+        progressDialog = CommonFunctions.showProgress(this, "Please wait...");
         progressDialog.show();
         _teacher = LoginFeatureController.getInstance().getTeacher();
         LoginFeatureController.getInstance().FetchUserProfile(String.valueOf(_teacher.get_tId()), _teacher.get_tSchool_id());
@@ -259,7 +271,8 @@ public class ProfileActivity extends AppCompatActivity implements IEventListener
         _registerListeners();
         //sayali
         // onClick of button perform this simplest code.
-        if (email.matches(emailPattern)) {
+        //if (email.matches(emailPattern)) {
+        if (isEmailValid(email)) {
             if(phone.length() == 10) {
                 UpdateProfileFeatureController.getInstance().updateProfileInfo(tId, email, fname, mname, lname, dob, add, city, country, gender, pas, phone, state, _schoolId,
                         countrycode, _PhoneCode, Key, img);
@@ -310,6 +323,7 @@ public class ProfileActivity extends AppCompatActivity implements IEventListener
                   //  regmodel = UpdateProfileFeatureController.getInstance().getRemodel();
                   //  setTeacherInfo(regmodel);
 
+
                     showProfileUpdateMsg(true);
 
                     runOnUiThread(new Runnable() {
@@ -345,6 +359,7 @@ public class ProfileActivity extends AppCompatActivity implements IEventListener
                         progressDialog.dismiss();
 
                     _teacher = LoginFeatureController.getInstance().getTeacher();
+                    LoginFeatureController.getInstance().updateUserDataIntoDB(_teacher);
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -690,5 +705,10 @@ public class ProfileActivity extends AppCompatActivity implements IEventListener
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select File"), SELECT_FILE);
+    }
+
+    boolean isEmailValid(CharSequence email) {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email)
+                .matches();
     }
 }

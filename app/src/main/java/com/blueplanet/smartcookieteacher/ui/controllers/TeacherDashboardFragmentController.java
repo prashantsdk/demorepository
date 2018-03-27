@@ -45,14 +45,12 @@ public class TeacherDashboardFragmentController implements IEventListener, AbsLi
     private Teacher _teacher;
     private ArrayList<Student> _studentList = null;
     private String _teacherId, _schoolId;
-    private Student stu;
-
-    SwipeRefreshLayout swipeRefreshLayout;
 
     public TeacherDashboardFragmentController(TeacherDashboardFragment teacherFragment,
                                               View view) {
         _teacherDashboardFragment = teacherFragment;
         _view = view;
+
 
 
         _teacher = LoginFeatureController.getInstance().getTeacher();
@@ -70,6 +68,7 @@ public class TeacherDashboardFragmentController implements IEventListener, AbsLi
             _teacherDashboardFragment.setDashboardDataOnUI();
 
             _teacherDashboardFragment._showDataOnUI();
+
         }
 
     }

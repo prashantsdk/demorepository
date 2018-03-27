@@ -50,10 +50,10 @@
             android:title="Share Blue Point" />
 
 
-        <item
+       <!-- <item
             android:id="@+id/nav_add_teacher_subjects"
             android:icon="@drawable/coupon"
-            android:title="Add Teacher Subject" />
+            android:title="Add Teacher Subject" />-->
         <item
             android:id="@+id/nav_soft_rewards"
             android:icon="@drawable/coupon"

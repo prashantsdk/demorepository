@@ -11,6 +11,7 @@ import com.blueplanet.smartcookieteacher.featurecontroller.LoginFeatureControlle
 import com.blueplanet.smartcookieteacher.featurecontroller.SubjectFeatureController;
 import com.blueplanet.smartcookieteacher.models.Teacher;
 import com.blueplanet.smartcookieteacher.models.TeacherSubject;
+import com.blueplanet.smartcookieteacher.utils.CommonFunctions;
 import com.blueplanet.smartcookieteacher.utils.SmartCookieSharedPreferences;
 import com.blueplanet.smartcookieteacher.webservices.*;
 
@@ -52,6 +53,4 @@ public class BaseActivity extends Activity {
         startActivity(intent);
         this.finish();
     }
-
-
 }

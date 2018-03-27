@@ -51,6 +51,7 @@ import com.blueplanet.smartcookieteacher.ui.SugestSponserFragment;
 import com.blueplanet.smartcookieteacher.ui.SyncFragment;
 import com.blueplanet.smartcookieteacher.ui.TeacherDashboardFragment;
 import com.blueplanet.smartcookieteacher.ui.TeacherSubjectFragment;
+import com.blueplanet.smartcookieteacher.utils.CommonFunctions;
 import com.blueplanet.smartcookieteacher.utils.SmartCookieSharedPreferences;
 import com.blueplanet.smartcookieteacher.webservices.WebserviceConstants;
 import com.bumptech.glide.Glide;
@@ -92,18 +93,23 @@ public class AfterLoginActivity extends AppCompatActivity implements IEventListe
         toolbar =  findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
         _teacher = LoginFeatureController.getInstance().getTeacher();
+      //  _teacher = LoginFeatureController.getInstance().getServerTeacher();
+
         mTitle = getTitle();
 
         mDrawerTitle = "";
 
-
         _drawerLayout = findViewById(R.id.drawer_layout);
+        navigationView =  findViewById(R.id.nav_view);
+
+        navHeader = navigationView.getHeaderView(0);
+
+        mTeacherName = navHeader.findViewById(R.id.drawer_userName);
+        mProfileImage = navHeader.findViewById(R.id.user_icon);
 
         _drawerLayout.setDrawerShadow(R.drawable.drawer_shadow,
                 GravityCompat.START);
-
 
         _drawerToggle = new ActionBarDrawerToggle(this, _drawerLayout,
                 toolbar, R.string.drawer_open,
@@ -123,6 +129,9 @@ public class AfterLoginActivity extends AppCompatActivity implements IEventListe
 
                 invalidateOptionsMenu(); // creates call to
                 // onPrepareOptionsMenu()
+
+                _teacher = LoginFeatureController.getInstance().getTeacher();
+                setUpNavigationHome();
             }
         };
         _drawerLayout.setDrawerListener(_drawerToggle);
@@ -131,10 +140,7 @@ public class AfterLoginActivity extends AppCompatActivity implements IEventListe
         this.getSupportActionBar().setHomeButtonEnabled(true);
         this.getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#545da7")));
 
-
-        navigationView =  findViewById(R.id.nav_view);
-        setUpNavigationHome();
-
+        //setUpNavigationHome();
 
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -143,10 +149,7 @@ public class AfterLoginActivity extends AppCompatActivity implements IEventListe
 
     private void setUpNavigationHome() {
 
-        navHeader = navigationView.getHeaderView(0);
 
-        mTeacherName = navHeader.findViewById(R.id.drawer_userName);
-        mProfileImage = navHeader.findViewById(R.id.user_icon);
 
         // _teacher = LoginFeatureController.getInstance().getTeacher();
 
@@ -289,7 +292,7 @@ public class AfterLoginActivity extends AppCompatActivity implements IEventListe
                 _fragment = new SharePointFragment();
 
                 break;
-            case R.id.nav_add_teacher_subjects:
+           /* case R.id.nav_add_teacher_subjects:
                 DrawerFeatureController.getInstance().setIsFragmentOpenedFromDrawer(true);
                 if (_count < 7) {
                     _count = _count + 1;
@@ -303,7 +306,7 @@ public class AfterLoginActivity extends AppCompatActivity implements IEventListe
                 _fragment = new SearchStudentFragment();
                 // _fragment = new SoftRewardFragment();
 
-                break;
+                break;*/
             case R.id.nav_soft_rewards:
                 DrawerFeatureController.getInstance().setIsFragmentOpenedFromDrawer(true);
                 if (_count < 7) {
@@ -806,4 +809,5 @@ public class AfterLoginActivity extends AppCompatActivity implements IEventListe
 
         }
     }
+
 }

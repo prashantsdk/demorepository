@@ -33,6 +33,7 @@ public class LoginFeatureController implements IEventListener {
     private static LoginFeatureController _loginFeatureController = null;
 
     private Teacher _teacher = null;
+    private Teacher _serverTeacher = null;
    // private NewRegistrationModel remodel = null;
 
     public boolean is_boolenType() {
@@ -255,6 +256,14 @@ public class LoginFeatureController implements IEventListener {
         return _teacher;
     }
 
+    public Teacher getServerTeacher(){
+
+        return _serverTeacher;
+    }
+
+    public void setServerTeacher(Teacher teacher){
+        _teacher = teacher;
+    }
 
     public User getUserInfoFromDB() {
         Object object =
@@ -278,6 +287,11 @@ public class LoginFeatureController implements IEventListener {
     public void saveUserDataIntoDB(Teacher teacher) {
         IPersistence persistObj = PersistenceFactory.get(SmartTeacherDatabaseMasterTable.Tables.TEACHER);
         persistObj.save(teacher);
+    }
+
+    public void updateUserDataIntoDB(Teacher teacher) {
+        IPersistence persistObj = PersistenceFactory.get(SmartTeacherDatabaseMasterTable.Tables.TEACHER);
+        persistObj.update(teacher);
     }
 
     public void deleteUserFromDB(String teaID) {
@@ -319,6 +333,9 @@ public class LoginFeatureController implements IEventListener {
 
                     if (errorCode == WebserviceConstants.SUCCESS) {
                         _teacher = (Teacher) responseObject;
+                        setServerTeacher(_teacher);
+                        saveUserDataIntoDB(_teacher);
+
                         Log.e("TEACHEROBJECT", _teacher.get_tName());
                         SmartCookieSharedPreferences.setLoginFlag(true);
 
@@ -381,6 +398,7 @@ public class LoginFeatureController implements IEventListener {
 
                 if (errorCode == WebserviceConstants.SUCCESS) {
                     _teacher = (Teacher) responseObject;
+                    updateUserDataIntoDB(_teacher);
                     SmartCookieSharedPreferences.setLoginFlag(true);
 
                     eventNotifierUI =
@@ -408,6 +426,8 @@ public class LoginFeatureController implements IEventListener {
                 if (errorCode == WebserviceConstants.SUCCESS) {
 
                     _teacher = (Teacher) responseObject;
+                    setServerTeacher(_teacher);
+                    updateUserDataIntoDB(_teacher);
 
                     Log.i("InLoginFearute", _teacher.toString());
                     eventNotifierUI =

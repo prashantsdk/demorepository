@@ -15,6 +15,7 @@ import com.blueplanet.smartcookieteacher.notification.EventTypes;
 import com.blueplanet.smartcookieteacher.notification.IEventListener;
 import com.blueplanet.smartcookieteacher.notification.ListenerPriority;
 import com.blueplanet.smartcookieteacher.notification.NotifierFactory;
+import com.blueplanet.smartcookieteacher.utils.CommonFunctions;
 import com.blueplanet.smartcookieteacher.webservices.GetDisplayCategorie;
 import com.blueplanet.smartcookieteacher.webservices.WebserviceConstants;
 
@@ -69,7 +70,7 @@ public class CategoriesFeatureController implements IEventListener {
 
     public void getDisplayCategorieFromServer(final Context context, String ab_key) {
 
-        progressDialog = WebserviceConstants.showProgress(context, "Loading categories...");
+        progressDialog = CommonFunctions.showProgress(context, "Loading categories...");
         progressDialog.show();
 
         EventNotifier eventNotifier =

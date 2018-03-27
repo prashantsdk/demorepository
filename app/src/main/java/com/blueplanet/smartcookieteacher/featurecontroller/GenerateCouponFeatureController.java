@@ -310,8 +310,14 @@ public class GenerateCouponFeatureController implements IEventListener {
                     if (list != null && list.size() > 0) {
 
                         getServerCouponList().clear();
-                        for (int i = 0; i < 5; i++) {
-                            getServerCouponList().add(list.get(i));
+                        if(list.size() < 5){
+                            for (int i = 0; i < list.size(); i++) {
+                                getServerCouponList().add(list.get(i));
+                            }
+                        }else {
+                            for (int i = 0; i < 5; i++) {
+                                getServerCouponList().add(list.get(i));
+                            }
                         }
                     }
                     eventNotifierUI =

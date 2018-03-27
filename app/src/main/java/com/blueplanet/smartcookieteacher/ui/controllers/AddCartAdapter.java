@@ -220,7 +220,7 @@ public class AddCartAdapter extends BaseAdapter implements IEventListener {
         /*progressBar = WebserviceConstants.showProgress(_addFragment.getActivity(), relativeLayout);
         progressBar.setVisibility(View.VISIBLE);*/
 
-        progressDialog = WebserviceConstants.showProgress(_addFragment.getActivity(), "Loading coupons...");
+        progressDialog = CommonFunctions.showProgress(_addFragment.getActivity(), "Loading coupons...");
         progressDialog.show();
 
         Log.i("1fetchMyCartFromServer", user_id + " " + entity_id);

@@ -3,8 +3,9 @@
     xmlns:tools="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/action_drawer"
-        android:orderInCategory="3"
+        android:orderInCategory="4"
         tools:showAsAction="always"
+        android:visible="false"
         android:icon="@drawable/ic_dehaze_white_24dp"
         android:title="More">
 
@@ -19,8 +20,8 @@
 
     <item
         android:id="@+id/action_current_loc"
-        android:orderInCategory="1"
-        tools:showAsAction="always"
         android:icon="@drawable/ic_my_location_white_24dp"
-        android:title="Refresh"/>
+        android:orderInCategory="3"
+        android:title="Refresh"
+        tools:showAsAction="always" />
 </menu>

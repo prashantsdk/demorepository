@@ -19,7 +19,6 @@ package com.blueplanet.smartcookieteacher.ui;
 import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -51,12 +50,14 @@ import android.widget.Toast;
 
 import com.blueplanet.smartcookieteacher.MainApplication;
 import com.blueplanet.smartcookieteacher.R;
+import com.blueplanet.smartcookieteacher.communication.HTTPConstants;
 import com.blueplanet.smartcookieteacher.communication.ServerResponse;
 import com.blueplanet.smartcookieteacher.featurecontroller.LoginFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.SchoolOnMapFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.SponsorsFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.SponsorsOnMapFeatureController;
 import com.blueplanet.smartcookieteacher.models.CustomPlaceModel;
+import com.blueplanet.smartcookieteacher.models.GoogelMapSponsor;
 import com.blueplanet.smartcookieteacher.models.NearBySponsor;
 import com.blueplanet.smartcookieteacher.models.SchoolOnMapModel;
 import com.blueplanet.smartcookieteacher.models.SponsorOnMapModel;
@@ -68,12 +69,12 @@ import com.blueplanet.smartcookieteacher.notification.IEventListener;
 import com.blueplanet.smartcookieteacher.notification.ListenerPriority;
 import com.blueplanet.smartcookieteacher.notification.NotifierFactory;
 import com.blueplanet.smartcookieteacher.utils.HelperClass;
+import com.blueplanet.smartcookieteacher.utils.JSONfunctions;
 import com.blueplanet.smartcookieteacher.webservices.WebserviceConstants;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
@@ -82,9 +83,11 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.VisibleRegion;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import JsonWebService.WebRequest;
 
@@ -99,18 +102,16 @@ public class MapActivity extends AppCompatActivity
 
     private final String _TAG = this.getClass().getSimpleName();
     GPSTracker gpsTracker;
-    private GoogleMap mMap;
-    private LatLng latLng, latlongOne;
+    public GoogleMap mMap;
+    private LatLng latLng;
     SupportMapFragment mapFragment;
-    private TextView txtkmunit;
-    private VerticalSeekBar seekunitbar;
-    private ImageView imgexpandseek;
+
+
     double latitude = 0.0, longitude = 0.0;
     double current_latitude = 0.0, current_longitude = 0.0;
-    String distance = "5";
+    String distance = "3";
     Teacher teacher;
-    boolean expandseek = false;
-    private ArrayList<SponsorOnMapModel> arr_sponsor = null;
+
     private ArrayList<NearBySponsor> arr_sponsor_old = null;
     private ArrayList<SchoolOnMapModel> arr_school = null;
     LinearLayout layout_serch;
@@ -124,6 +125,15 @@ public class MapActivity extends AppCompatActivity
     Button btn_map_list, btn_search_area;
     public static final int PERMISSION_REQUEST_CODE = 23;
     ProgressDialog progress;
+    JSONfunctions js = new JSONfunctions();
+    boolean flag = false;
+
+    ArrayList<GoogelMapSponsor> arr_Sponsorlist = new ArrayList();
+
+
+    ArrayList<HashMap<String, String>> sponsorDetails = new ArrayList<HashMap<String, String>>();
+    ArrayList<HashMap<String, Double>> sponsorLocations = new ArrayList<HashMap<String, Double>>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -158,8 +168,6 @@ public class MapActivity extends AppCompatActivity
 
                         loc_type = 1;
                         new GetLatLong().execute(custom_place_name);
-         /* getSponsorFromServer(SponsorsOnMapFeatureController.getInstance().getInput_id(), "", "", WebserviceConstants.VAL_SPONSOR_ENTITY,
-                        custom_place_name, WebserviceConstants.VAL_LOC_CUSTOM, distance, WebserviceConstants.VAL_RANGE_KM);*/
 
                     }
                     return true;
@@ -227,47 +235,13 @@ public class MapActivity extends AppCompatActivity
         mMap.getUiSettings().setZoomControlsEnabled(true);
 
 
-        Intent intent = getIntent();
-        double slat = intent.getDoubleExtra("S_LAT", 0.0);
-        double slong = intent.getDoubleExtra("S_LONG", 0.0);
-        String s_name = intent.getStringExtra("S_NAME");
+        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
+                latitude = latLng.latitude;
+                longitude = latLng.longitude;
 
-
-        if (slat != 0.0 && slong != 0.0) {
-
-
-            mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-            UiSettings mapSettings = mMap.getUiSettings();
-            mapSettings.setZoomControlsEnabled(true);
-
-            latlongOne = new LatLng(slat, slong);
-
-            CameraPosition cameraPosition = new CameraPosition.Builder()
-                    .target(latlongOne).zoom(15).build();//bearing(70).tilt(25).build();
-            mMap.animateCamera(CameraUpdateFactory
-                    .newCameraPosition(cameraPosition));
-
-
-            MarkerOptions marker = null;
-            marker = new MarkerOptions().position(
-                    new LatLng(slat, slong))
-                    .title(s_name);//.snippet(address);
-            marker.icon(BitmapDescriptorFactory
-                    .defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
-
-
-            mMap.addMarker(marker);
-
-
-        } else {
-
-
-            mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-                @Override
-                public void onMapClick(LatLng latLng) {
-                    latitude = latLng.latitude;
-                    longitude = latLng.longitude;
-                    //   getnearbySponsorFromServer(String.valueOf(latitude), String.valueOf(longitude), distance);
+                //   getnearbySponsorFromServer(String.valueOf(latitude), String.valueOf(longitude), distance);
 
                /* if (currentZoom>=GlobalInterface.ZOOM_LEVEL_BUILDING){
                     distance="2";
@@ -282,33 +256,31 @@ public class MapActivity extends AppCompatActivity
                         custom_place_name, WebserviceConstants.VAL_LOC_CURRENT, distance, WebserviceConstants.VAL_RANGE_KM);
                 getnearbySponsorFromServer(String.valueOf(latitude), String.valueOf(longitude), distance);
 */
+            }
+        });
+
+        mMap.setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener() {
+
+
+            @Override
+            public void onCameraChange(CameraPosition pos) {
+
+                try {
+                    // distance = String.valueOf(getRadius());
+                } catch (Exception e) {
+
                 }
-            });
+                //    btn_search_area.setVisibility(View.VISIBLE);
+                layout_serch.setVisibility(View.GONE);
+                if (pos.zoom != currentZoom) {
+                    currentZoom = pos.zoom;
+                    loc_type = 2;
 
-            mMap.setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener() {
-
-
-                @Override
-                public void onCameraChange(CameraPosition pos) {
-
-                    try {
-                        distance = String.valueOf(getRadius());
-                    } catch (Exception e) {
-
-                    }
-                    //    btn_search_area.setVisibility(View.VISIBLE);
-                    layout_serch.setVisibility(View.GONE);
-                    if (pos.zoom != currentZoom) {
-                        currentZoom = pos.zoom;
-                        loc_type = 2;
-
-                        // do you action here
-                        //  PutSponsorsOnMap_New(currentZoom, true);    // true for zooming  activity
-                    }
+                    // do you action here
+                    //  PutSponsorsOnMap_New(currentZoom, true);    // true for zooming  activity
                 }
-            });
-
-        }
+            }
+        });
 
 
     }
@@ -407,22 +379,10 @@ public class MapActivity extends AppCompatActivity
             current_longitude = longitude;
 
             SetCurrentLoc();
-            if (entity_type == false) {
-                getSponsorFromServer(SponsorsOnMapFeatureController.getInstance().getInput_id(), String.valueOf(latitude), String.valueOf(longitude), WebserviceConstants.VAL_SPONSOR_ENTITY,
-                        "", WebserviceConstants.VAL_LOC_CURRENT, distance, WebserviceConstants.VAL_RANGE_KM);
 
-                progress.setCancelable(false);
-                progress.setTitle("Loading");
-                progress.setMessage("Wait while loading");
-                progress.show();
-            } else if (entity_type == true) {
-                getSchoolFromServer(SchoolOnMapFeatureController.getInstance().getInput_id(), String.valueOf(latitude), String.valueOf(longitude), WebserviceConstants.VAL_SCHOOL_ENTITY,
-                        "", WebserviceConstants.VAL_LOC_CURRENT, distance, WebserviceConstants.VAL_RANGE_KM);
-                progress.setCancelable(false);
-                progress.setTitle("Loading");
-                progress.setMessage("Wait while loading");
-                progress.show();
-            }
+            new getSponsorFromServer().execute();
+
+
         } else {
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(0.0, 0.0), 10));
         }
@@ -433,25 +393,10 @@ public class MapActivity extends AppCompatActivity
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.btn_search_area) {
-            // btn_search_area.setVisibility(View.GONE);
 
-            if (entity_type == false) {
-                getSponsorFromServer(SponsorsOnMapFeatureController.getInstance().getInput_id(), String.valueOf(latitude), String.valueOf(longitude), WebserviceConstants.VAL_SPONSOR_ENTITY,
-                        "", WebserviceConstants.VAL_LOC_CURRENT, distance, WebserviceConstants.VAL_RANGE_KM);
+            new getSponsorFromServer().execute();
 
-                progress.setCancelable(false);
-                progress.setTitle("Loading");
-                progress.setMessage("Wait while loading");
-                progress.show();
-            } else if (entity_type == true) {
-                getSchoolFromServer(SchoolOnMapFeatureController.getInstance().getInput_id(), String.valueOf(latitude), String.valueOf(longitude), WebserviceConstants.VAL_SCHOOL_ENTITY,
-                        "", WebserviceConstants.VAL_LOC_CURRENT, distance, WebserviceConstants.VAL_RANGE_KM);
 
-                progress.setCancelable(false);
-                progress.setTitle("Loading");
-                progress.setMessage("Wait while loading");
-                progress.show();
-            }
         } else if (id == R.id.img_search_place) {
             btn_search_area.setVisibility(View.VISIBLE);
             custom_place_name = etxt_search_place.getText().toString().trim();
@@ -459,15 +404,11 @@ public class MapActivity extends AppCompatActivity
 
                 loc_type = 1;
                 new GetLatLong().execute(custom_place_name);
-             /*  getSponsorFromServer(SponsorsOnMapFeatureController.getInstance().getInput_id(), "", "", WebserviceConstants.VAL_SPONSOR_ENTITY,
-                       custom_place_name, WebserviceConstants.VAL_LOC_CUSTOM, distance, WebserviceConstants.VAL_RANGE_KM);
-            */
+
+
             }
         } else if (id == R.id.btn_map_list) {
 
-            /*Intent intent=new Intent(NewMapActivity.this,MapListActivity.class);
-
-            startActivity(intent);*/
 
         }
     }
@@ -486,10 +427,11 @@ public class MapActivity extends AppCompatActivity
 
                 ArrayList<SponsorOnMapModel> arr = new ArrayList<SponsorOnMapModel>();
 
-                arr_sponsor = SponsorsOnMapFeatureController.getInstance().getSponsors();
-                if (arr_sponsor != null && arr_sponsor.size() >= 1) {
-                    drawSponsorMarker_new(arr_sponsor);
-
+                arr.clear();
+                arr = SponsorsOnMapFeatureController.getInstance().getSponsors();
+                if (arr != null && arr.size() >= 1) {
+                    //drawSponsorMarker_new();
+                    arr.clear();
                 }
 
             }
@@ -576,43 +518,50 @@ public class MapActivity extends AppCompatActivity
 
     }
 
-    private void drawSponsorMarker_new(final ArrayList<SponsorOnMapModel> arrayList) {
+    private void drawSponsorMarker_new() {
 
-        mMap.clear();
+
         if (loc_type == 0) {
             SetCurrentLoc();
         }
 
-
-        for (int j = 0; j < arrayList.size(); j++) {
-
-
-            SponsorOnMapModel sponsor = arrayList.get(j);
+        mMap.clear();
+        if (arr_Sponsorlist != null && arr_Sponsorlist.size() >= 1) {
 
 
-            double lat = 0.0, lon = 0.0;
-            if (!(sponsor.getSPONSOR_LAT().equals("") || sponsor.getSPONSOR_LAT().equals(null))) {
-                lat = Double.parseDouble(sponsor.getSPONSOR_LAT());
+            for (int j = 0; j < arr_Sponsorlist.size(); j++) {
+
+
+                GoogelMapSponsor sponsor = arr_Sponsorlist.get(j);
+
+                String s = sponsor.getShopPhoneNo();
+
+                double lat = 0.0, lon = 0.0;
+                if (!(sponsor.getSPONSOR_LAT().equals("") || sponsor.getSPONSOR_LAT().equals(null))) {
+                    lat = Double.parseDouble(sponsor.getSPONSOR_LAT());
+                }
+                if (!(sponsor.getSPONSOR_LONG().equals("") || sponsor.getSPONSOR_LONG().equals(null))) {
+                    lon = Double.parseDouble(sponsor.getSPONSOR_LONG());
+                }
+
+
+                String name = "Sponsor-" + sponsor.getSPONSOR_NAME() + '\n' + "Address-" + sponsor.getSPONSOR_ADDRESS() + '\n' +
+                        "Phone No.-" + sponsor.getShopPhoneNo() + '\n' + "Upto " + sponsor.getShopMaxDiscount() + "% Discount";
+
+
+                MarkerOptions marker = null;
+                marker = new MarkerOptions().position(
+                        new LatLng(lat, lon))
+                        .title(name);//.snippet(address);
+
+
+                marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.loc_red));
+
+
+                mMap.addMarker(marker);
+
+
             }
-            if (!(sponsor.getSPONSOR_LONG().equals("") || sponsor.getSPONSOR_LONG().equals(null))) {
-                lon = Double.parseDouble(sponsor.getSPONSOR_LONG());
-            }
-
-
-            String name = "Shop Name :"+sponsor.getSPONSOR_NAME() + '\n' +"Address :"+ sponsor.getSPONSOR_ADDRESS()+'\n'+
-                    "Phone No. :"+'\n'+"Upto % Discount";
-
-
-            MarkerOptions marker = null;
-            marker = new MarkerOptions().position(
-                    new LatLng(lat, lon))
-                    .title(name);//.snippet(address);
-
-            //   int Result = r.nextInt(High-Low);
-
-            marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.loc_red));
-
-            mMap.addMarker(marker);
 
 
             mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
@@ -628,7 +577,7 @@ public class MapActivity extends AppCompatActivity
 
                     TextView title = new TextView(MapActivity.this);
                     title.setTextColor(Color.BLACK);
-                    title.setGravity(Gravity.CENTER);
+                    title.setGravity(Gravity.CENTER_VERTICAL);
                     title.setTypeface(null, Typeface.BOLD);
                     title.setText(marker.getTitle());
 
@@ -643,11 +592,11 @@ public class MapActivity extends AppCompatActivity
                 }
             });
 
-
-            CameraPosition cameraPosition = new CameraPosition.Builder().target(new LatLng(lat, lon)).zoom(getZoomLevel()).build();
+            CameraPosition cameraPosition = new CameraPosition.Builder().target(new LatLng(latitude, longitude)).zoom(getZoomLevel()).build();
 
             mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
         }
+
     }
 
     private void drawSchoolMarker_new(final ArrayList<SchoolOnMapModel> arrayList) {
@@ -663,8 +612,8 @@ public class MapActivity extends AppCompatActivity
             SchoolOnMapModel school = arrayList.get(j);
             double lat = Double.parseDouble(school.getSCHOOL_LAT());
             double lon = Double.parseDouble(school.getSCHOOL_LONG());
-            String name = "School Name :"+school.getSCHOOL_NAME() + '\n' +"Address :"+ school.getSCHOOL_ADDRESS()
-                  +'\n'+"Phone No. :";
+            String name = "School Name :" + school.getSCHOOL_NAME() + '\n' + "Address :" + school.getSCHOOL_ADDRESS()
+                    + '\n' + "Phone No. :";
 
             MarkerOptions marker = null;
             marker = new MarkerOptions().position(
@@ -676,7 +625,6 @@ public class MapActivity extends AppCompatActivity
             marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_college));
 
             mMap.addMarker(marker);
-
 
 
             mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
@@ -826,7 +774,7 @@ public class MapActivity extends AppCompatActivity
 
                         double lat = Double.parseDouble(sponsor.getSPONSOR_LAT());
                         double lon = Double.parseDouble(sponsor.getSPONSOR_LONG());
-                        String name = "Shop Name :"+sponsor.getSPONSOR_NAME() +'\n'+"Address "+ sponsor.getSPONSOR_ADDRESS()+'\n'+"Phone No. :";
+                        String name = "Shop Name :" + sponsor.getSPONSOR_NAME() + '\n' + "Address " + sponsor.getSPONSOR_ADDRESS() + '\n' + "Phone No. :";
 
                         MarkerOptions marker = null;
                         marker = new MarkerOptions().position(
@@ -932,16 +880,16 @@ public class MapActivity extends AppCompatActivity
                     progress.dismiss();
 
                     if (loc_type == 2) {
-                        PutSponsorsOnMap_New(currentZoom, false);
+                        //PutSponsorsOnMap_New(currentZoom, false);
                     } else if (loc_type == 1) {
                         if (custom_place_name.contains(" ") || custom_place_name.contains(",")) {
-                            PutSponsorsOnMap_New(WebserviceConstants.ZOOM_LEVEL_STREETS, false);
+                            //  PutSponsorsOnMap_New(WebserviceConstants.ZOOM_LEVEL_STREETS, false);
                         } else {
-                            PutSponsorsOnMap_New(WebserviceConstants.ZOOM_LEVEL_CITY, false);
+                            // PutSponsorsOnMap_New(WebserviceConstants.ZOOM_LEVEL_CITY, false);
                         }
 
                     } else if (loc_type == 0) {
-                        PutSponsorsOnMap_New(WebserviceConstants.ZOOM_LEVEL_BUILDING, false);
+                        // PutSponsorsOnMap_New(WebserviceConstants.ZOOM_LEVEL_BUILDING, false);
                     }
                 } else {
                     //     _homeFragment.showsponsorsisavailable(false);
@@ -966,16 +914,16 @@ public class MapActivity extends AppCompatActivity
 
                     progress.dismiss();
                     if (loc_type == 2) {
-                        PutSponsorMarkerOnMap(currentZoom, false);
+                        //PutSponsorMarkerOnMap(currentZoom, false);
                     } else if (loc_type == 1) {
                         if (custom_place_name.contains(" ") || custom_place_name.contains(",")) {
-                            PutSponsorMarkerOnMap(WebserviceConstants.ZOOM_LEVEL_STREETS, false);
+                            //  PutSponsorMarkerOnMap(WebserviceConstants.ZOOM_LEVEL_STREETS, false);
                         } else {
-                            PutSponsorMarkerOnMap(WebserviceConstants.ZOOM_LEVEL_CITY, false);
+                            // PutSponsorMarkerOnMap(WebserviceConstants.ZOOM_LEVEL_CITY, false);
                         }
 
                     } else if (loc_type == 0) {
-                        PutSponsorMarkerOnMap(WebserviceConstants.ZOOM_LEVEL_BUILDING, false);
+                        //PutSponsorMarkerOnMap(WebserviceConstants.ZOOM_LEVEL_BUILDING, false);
                         ;
                     }
                     //     _homeFragment.showsponsorsisavailable(true);
@@ -1203,9 +1151,7 @@ public class MapActivity extends AppCompatActivity
                 longitude = Double.parseDouble(lng_helper);
 
 
-           /*     getSponsorFromServer(SponsorsOnMapFeatureController.getInstance().getInput_id(), lat_helper, lng_helper, WebserviceConstants.VAL_SPONSOR_ENTITY,
-                        "", WebserviceConstants.VAL_LOC_CURRENT, distance, WebserviceConstants.VAL_RANGE_KM);
-           */
+                new getSponsorFromServer().execute();
             } catch (Exception e) {
 
                 e.printStackTrace();
@@ -1295,6 +1241,187 @@ public class MapActivity extends AppCompatActivity
 
                 }
                 break;
+        }
+    }
+
+
+    private class getSponsorFromServer extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progress.setCancelable(false);
+            progress.setTitle("Loading");
+            progress.setMessage("Wait while loading");
+            progress.show();
+
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+
+            arr_Sponsorlist.clear();
+            JSONObject requestBody = new JSONObject();
+            try {
+                requestBody.put(WebserviceConstants.KEY_MAP_IP_ID, "0");
+                requestBody.put(WebserviceConstants.KEY_LATT, String.valueOf(latitude));
+                requestBody.put(WebserviceConstants.KEY_LONGG, String.valueOf(longitude));
+                requestBody.put(WebserviceConstants.KEY_ENTITY_TYPE, WebserviceConstants.VAL_SPONSOR_ENTITY);
+                requestBody.put(WebserviceConstants.KEY_PLACE_NAME, custom_place_name);
+                requestBody.put(WebserviceConstants.KEY_LOC_TYPE, WebserviceConstants.VAL_LOC_CURRENT);
+                requestBody.put(WebserviceConstants.KEY_DISTANCEE, distance);
+                requestBody.put(WebserviceConstants.KEY_DISTANCE_TYPE, WebserviceConstants.VAL_RANGE_KM);
+
+                custom_place_name = "";
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            String response = js.getJSONfromURL(
+                    WebserviceConstants.HTTP_BASE_URL +
+                            WebserviceConstants.BASE_URL + WebserviceConstants.MAP_SERVICE_API, requestBody);
+
+
+            JSONObject objResponseJSON;
+            int statusCode = -1;
+
+
+            try {
+                objResponseJSON = new JSONObject(response);
+
+                statusCode = objResponseJSON.getInt(WebserviceConstants.KEY_STATUS_CODE);
+
+
+                if (statusCode == HTTPConstants.HTTP_COMM_SUCCESS) {
+
+
+                    sponsorDetails.clear();
+                    sponsorLocations.clear();
+                    // success
+                    JSONArray responseData = objResponseJSON.optJSONArray(WebserviceConstants.KEY_POSTS);
+                    for (int i = 0; i < responseData.length(); i++) {
+                        JSONObject jsonObject = responseData.optJSONObject(i);
+
+                        JSONObject jsonObject1 = jsonObject.getJSONObject("post");
+
+
+                        HashMap<String, String> map = new HashMap<String, String>();
+                        HashMap<String, Double> map1 = new HashMap<String, Double>();
+
+                        map.put(WebserviceConstants.KEY_SPONSOR_SHOP_NAME, jsonObject1.optString(WebserviceConstants.KEY_SPONSOR_SHOP_NAME));
+                        map.put(WebserviceConstants.KEY_SPONSOR_ADDRESSS, jsonObject1.optString(WebserviceConstants.KEY_SPONSOR_ADDRESSS));
+                        map.put(WebserviceConstants.KEY_SPONSOR_SHOP_PHONE, jsonObject1.optString(WebserviceConstants.KEY_SPONSOR_SHOP_PHONE));
+
+                        map.put(WebserviceConstants.KEY_SPONSOR_SHOP_MAX_DISCOUNT, jsonObject1.optString(WebserviceConstants.KEY_SPONSOR_SHOP_MAX_DISCOUNT));
+
+
+                        sponsorDetails.add(map);
+
+                        map1.put(WebserviceConstants.KEY_SPONSOR_LATT, Double.parseDouble(jsonObject1.optString(WebserviceConstants.KEY_SPONSOR_LATT)));
+                        map1.put(WebserviceConstants.KEY_SPONSOR_LONGG, Double.parseDouble(jsonObject1.optString(WebserviceConstants.KEY_SPONSOR_LONGG)));
+
+                        sponsorLocations.add(map1);
+
+
+                        flag = true;
+
+                    }
+
+                } else {
+                    // failure
+                    flag = false;
+                }
+
+            } catch (JSONException jsonException) {
+                jsonException.printStackTrace();
+            } catch (Exception exception) {
+                exception.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            progress.dismiss();
+
+            if (flag == true) {
+
+
+                if (loc_type == 0) {
+                    SetCurrentLoc();
+                }
+
+                mMap.clear();
+
+
+                for (int j = 0; j < sponsorDetails.size(); j++) {
+
+
+                    double lat = 0.0, lon = 0.0;
+
+
+                    lat = sponsorLocations.get(j).get(WebserviceConstants.KEY_SPONSOR_LATT);
+                    lon = sponsorLocations.get(j).get(WebserviceConstants.KEY_SPONSOR_LONGG);
+
+
+                    String name = "Sponsor-" + sponsorDetails.get(j).get(WebserviceConstants.KEY_SPONSOR_SHOP_NAME) + '\n' + "Address-" + sponsorDetails.get(j).get(WebserviceConstants.KEY_SPONSOR_ADDRESSS) + '\n' +
+                            "Phone No-" + sponsorDetails.get(j).get(WebserviceConstants.KEY_SPONSOR_SHOP_PHONE) + '\n' + "Upto " + sponsorDetails.get(j).get(WebserviceConstants.KEY_SPONSOR_SHOP_MAX_DISCOUNT) + "% Discount";
+
+
+                    MarkerOptions marker = null;
+                    marker = new MarkerOptions().position(
+                            new LatLng(lat, lon))
+                            .title(name);//.snippet(address);
+
+
+                    marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.loc_red));
+
+
+                    mMap.addMarker(marker);
+
+
+                }
+
+
+                mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+                    @Override
+                    public View getInfoWindow(Marker marker) {
+                        return null;
+                    }
+
+                    @Override
+                    public View getInfoContents(Marker marker) {
+                        LinearLayout info = new LinearLayout(MapActivity.this);
+                        info.setOrientation(LinearLayout.VERTICAL);
+
+                        TextView title = new TextView(MapActivity.this);
+                        title.setTextColor(Color.BLACK);
+                        title.setGravity(Gravity.CENTER_VERTICAL);
+                        title.setTypeface(null, Typeface.BOLD);
+                        title.setText(marker.getTitle());
+
+                        TextView snippet = new TextView(MapActivity.this);
+                        snippet.setTextColor(Color.GRAY);
+                        snippet.setText(marker.getSnippet());
+
+                        info.addView(title);
+                        info.addView(snippet);
+
+                        return info;
+                    }
+                });
+
+                CameraPosition cameraPosition = new CameraPosition.Builder().target(new LatLng(latitude, longitude)).zoom(getZoomLevel()).build();
+
+                mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
+
+            } else if (flag == false) {
+
+                Toast.makeText(MapActivity.this, "Sponsors List are not available", Toast.LENGTH_SHORT).show();
+            }
+
         }
     }
 }

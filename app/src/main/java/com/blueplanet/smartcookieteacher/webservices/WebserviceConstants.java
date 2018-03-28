@@ -1,11 +1,9 @@
 package com.blueplanet.smartcookieteacher.webservices;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 /**
  * @author sayali
@@ -486,7 +484,6 @@ public class WebserviceConstants {
     public static final String KEY_POST = "posts";
 
 
-
     public static final String KEY_SPONSOR_ID = "id";
     public static final String KEY_SPONSOR_NAME = "sp_name";
     public static final String KEY_SPONSOR_ADDRESS = "sp_address";
@@ -503,7 +500,7 @@ public class WebserviceConstants {
     public static final String KEY_LATT = "lat";
     public static final String KEY_LONGG = "long";
     public static final String KEY_ENTITY_TYPE = "entity_type";
-    public static final String KEY_PLACE_NAME = "place_name ";
+    public static final String KEY_PLACE_NAME = "place_name";
     public static final String KEY_LOC_TYPE = "loc_type";
     public static final String KEY_DISTANCEE = "range";
     public static final String KEY_DISTANCE_TYPE = "range_type";
@@ -512,6 +509,12 @@ public class WebserviceConstants {
     // o/p
     public static final String KEY_SPONSOR_IDD = "id";
     public static final String KEY_SPONSOR_NAMEE = "sp_name";
+
+    public static final String KEY_SPONSOR_SHOP_NAME = "shop_name";
+    public static final String KEY_SPONSOR_SHOP_PHONE = "sp_phone";
+    public static final String KEY_SPONSOR_SHOP_MAX_DISCOUNT = "max_discount";
+
+
     public static final String KEY_SPONSOR_ADDRESSS = "sp_address";
     public static final String KEY_SPONSOR_CITYY = "sp_city";
     public static final String KEY_SPONSOR_COUNTRYY = "sp_country";

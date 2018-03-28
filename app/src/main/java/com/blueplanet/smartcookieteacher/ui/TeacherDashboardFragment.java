@@ -110,6 +110,8 @@ public class TeacherDashboardFragment extends Fragment implements IEventListener
         _registerUIListeners();
         //_showDataOnUI();
 
+
+
         handler = new Handler();
         r = new Runnable() {
             public void run() {
@@ -119,6 +121,7 @@ public class TeacherDashboardFragment extends Fragment implements IEventListener
             }
         };
         handler.postDelayed(r, 300);
+
 
 
         //        getActivity().getActionBar().setTitle("Dashboard");

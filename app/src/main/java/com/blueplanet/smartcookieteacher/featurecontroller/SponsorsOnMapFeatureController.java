@@ -32,6 +32,7 @@ public class SponsorsOnMapFeatureController implements IEventListener {
     private final String _TAG = this.getClass().getSimpleName();
     //boolean flag = false;
     private int input_id = 0;
+
     /**
      * method to get object of this class
      *
@@ -59,10 +60,10 @@ public class SponsorsOnMapFeatureController implements IEventListener {
         this.input_id = input_id;
     }
 
-    public void getSponsorListFromServer(int ip_id, String slat, String slong,String entity,String place_name,String loc_type,
-                                          String distance,String range_type) {
+    public void getSponsorListFromServer(int ip_id, String slat, String slong, String entity, String place_name, String loc_type,
+                                         String distance, String range_type) {
         _registerEventListeners();
-        SponsorMapService sponsorMapService = new SponsorMapService(ip_id,slat, slong , entity,place_name,loc_type,distance,range_type);
+        SponsorMapService sponsorMapService = new SponsorMapService(ip_id, slat, slong, entity, place_name, loc_type, distance, range_type);
         sponsorMapService.send();
     }
 
@@ -127,10 +128,12 @@ public class SponsorsOnMapFeatureController implements IEventListener {
             case EventTypes.EVENT_SPONSOR_ON_MAP_RESPONCE_RECIEVED:
                 if (errorCode == WebserviceConstants.SUCCESS) {
                     /**success*/
+                    clearSponsorList();
+                    setSelectedSponsorNull();
                     arr_data = (ArrayList<SponsorOnMapModel>) responseObject;
-                    if (arr_data!=null){
+                   /* if (arr_data != null) {
                         setInput_id(arr_data.size());
-                    }
+                    }*/
                     EventNotifier eventNotifier =
                             NotifierFactory.getInstance().getNotifier(
                                     NotifierFactory.EVENT_NOTIFIER_LOCATION);
@@ -138,7 +141,7 @@ public class SponsorsOnMapFeatureController implements IEventListener {
                             serverResponse);
 
 
-                }else{
+                } else {
 
                     ErrorInfo errorInfo = (ErrorInfo) responseObject;
 
@@ -153,7 +156,7 @@ public class SponsorsOnMapFeatureController implements IEventListener {
 
                     } else if (statusCode == HTTPConstants.HTTP_COMM_ERR_BAD_REQUEST) {
 
-                        EventNotifier  eventNotifierUI =
+                        EventNotifier eventNotifierUI =
                                 NotifierFactory.getInstance().getNotifier(
                                         NotifierFactory.EVENT_NOTIFIER_LOCATION);
                         eventNotifierUI.eventNotifyOnThread(EventTypes.EVENT_UI_BAD_REQUEST,
@@ -161,7 +164,7 @@ public class SponsorsOnMapFeatureController implements IEventListener {
 
                     } else {
 
-                        EventNotifier  eventNotifierUI =
+                        EventNotifier eventNotifierUI =
                                 NotifierFactory.getInstance().getNotifier(
                                         NotifierFactory.EVENT_NOTIFIER_LOCATION);
                         eventNotifierUI.eventNotifyOnThread(EventTypes.EVENT_UI_UNAUTHORIZED,

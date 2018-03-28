@@ -6,110 +6,111 @@
 
 
 
-            <LinearLayout
-                android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="2dp"
+        android:id="@+id/li1"
+
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp">
+
+        <RelativeLayout
+            android:id="@+id/linlay_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp">
+
+            <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                android:id="@+id/green_image"
+                style="@style/fontawesome_style"
+                android:layout_width="30dp"
+                android:layout_height="39dp"
+                android:layout_centerInParent="true"
+
+                android:background="@drawable/date" />
+
+            <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                android:id="@+id/tv_month"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
-                android:layout_marginTop="2dp"
-                android:id="@+id/li1"
-
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingBottom="8dp"
-                android:paddingTop="8dp">
-
-                <RelativeLayout
-                    android:id="@+id/linlay_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp">
-
-                    <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
-                        android:id="@+id/green_image"
-                        style="@style/fontawesome_style"
-                        android:layout_width="30dp"
-                        android:layout_height="39dp"
-                        android:layout_centerInParent="true"
-
-                        android:background="@drawable/date" />
-
-                    <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
-                        android:id="@+id/tv_month"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="3dp"
-                        android:text=""
-                        android:textColor="#ffffff"
-                        android:textSize="8sp" />
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="3dp"
+                android:text=""
+                android:textColor="#ffffff"
+                android:textSize="8sp" />
 
 
-                    <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
-                        android:id="@+id/txtDateReward"
-                        style="@style/Login_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/greenp"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="16dp"
-                        android:gravity="center"
-                        android:text=""
-                        android:textColor="#000000"
-                        android:textSize="17dp" />
-                </RelativeLayout>
+            <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                android:id="@+id/txtDateReward"
+                style="@style/Login_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/greenp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:text=""
+                android:textColor="#000000"
+                android:textSize="17dp" />
+        </RelativeLayout>
 
 
-                <TextView
-                    android:id="@+id/txtNameReward"
-                    android:layout_width="110dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="16dp"
-                    android:gravity="center"
-                    android:text=""
-                    android:textColor="#000000"
-                    android:textSize="12sp"
-                    android:textStyle="bold" />
+        <TextView
+            android:id="@+id/txtNameReward"
+            android:layout_width="110dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="16dp"
+            android:gravity="center"
+            android:text=""
+            android:textColor="#000000"
+            android:textSize="12sp"
+            android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/txtActivityReward"
-                    android:layout_width="100dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="16dp"
-                    android:gravity="center"
-                    android:text=""
-                    android:textColor="#000000"
-                    android:textSize="12sp"
-                    android:textStyle="bold" />
-                <TextView
-                    android:id="@+id/txtActivitycomment"
-                    android:layout_width="50dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="16dp"
-                    android:gravity="center"
-                    android:text=""
-                    android:textColor="#000000"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
-                    android:visibility="gone"/>
-                <!--  android:layout_weight="1" -->
-                <!-- android:layout_weight="1" -->
-                <!-- width=100dp  6-1-17-->
-                <TextView
-                    android:id="@+id/txtPointReward"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_gravity="right"
-                    android:layout_marginLeft="18dp"
-                    android:background="@drawable/point"
-                    android:gravity="center"
-                    android:text=""
-                    android:textColor="#000000"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-                <!--  android:layout_weight="1" -->
-                <!-- android:layout_weight="1" -->
+        <TextView
+            android:id="@+id/txtActivityReward"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="16dp"
+            android:gravity="center"
+            android:text=""
+            android:textColor="#000000"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/txtActivitycomment"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="16dp"
+            android:gravity="center"
+            android:text=""
+            android:textColor="#000000"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:visibility="gone"/>
+        <!--  android:layout_weight="1" -->
+        <!-- android:layout_weight="1" -->
+        <!-- width=100dp  6-1-17-->
+        <TextView
+            android:id="@+id/txtPointReward"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="right"
+            android:layout_marginLeft="18dp"
+            android:background="@drawable/point"
+            android:gravity="center"
+            android:text=""
+            android:textColor="#000000"
+            android:textSize="15sp"
+            android:textStyle="bold" />
 
-            </LinearLayout>
+        <!--  android:layout_weight="1" -->
+        <!-- android:layout_weight="1" -->
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/line1"

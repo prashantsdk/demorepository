@@ -52,7 +52,9 @@ public class TeacherDashboardFragmentController implements IEventListener, AbsLi
         _view = view;
 
 
+
         _teacher = LoginFeatureController.getInstance().getTeacher();
+        int idOne = StudentFeatureController.getInstance().getLastInputId();
 
         if (_teacher != null && NetworkManager.isNetworkAvailable()) {
             _teacherId = _teacher.get_tId();
@@ -60,8 +62,13 @@ public class TeacherDashboardFragmentController implements IEventListener, AbsLi
             String id = _teacher.get_tId();
             _fetchPointFromServer(_teacherId, _schoolId);
 
+            _fetchStudentListFromServer(_teacherId, _schoolId, idOne);
+
         } else {
             _teacherDashboardFragment.setDashboardDataOnUI();
+
+            _teacherDashboardFragment._showDataOnUI();
+
         }
 
     }
@@ -245,9 +252,11 @@ public class TeacherDashboardFragmentController implements IEventListener, AbsLi
                 eventNotifier1.unRegisterListener(this);
 
                 if (errorCode == WebserviceConstants.SUCCESS) {
+
                     /**
                      * get student list before refreshing listview avoid runtime exception
                      */
+
                     _studentList = StudentFeatureController.getInstance().getStudentList();
                     _teacherDashboardFragment.refreshListview();
                     _teacherDashboardFragment._showDataOnUI();

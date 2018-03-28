@@ -443,6 +443,7 @@ public class AcceptRequestAdapter extends BaseAdapter implements IEventListener 
                     _fragment.refreshListview();
 
                     listUpdated();
+
                     // _rewardPointLog=RewardPointLogFeatureController.getInstance().getRewardPointList();
                     // RewardPointLogFeatureController.getInstance().saveRewardPointLogIntoDB(_rewardList);
 

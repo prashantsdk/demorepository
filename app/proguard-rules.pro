@@ -15,3 +15,7 @@
 -keepclassmembers class fqcn.of.javascript.interface.for.webview {
    public *;
 }
+
+-keep interface org.kxml2.io.KXmlParser.** { *; }
+
+-keep class com.github.siyamed.shapeimageview.**{ *; }

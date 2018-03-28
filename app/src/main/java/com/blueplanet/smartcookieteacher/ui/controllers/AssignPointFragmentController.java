@@ -393,6 +393,9 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
                 });
 
                 break;
+
+
+/*
             case R.id.txtStudyAssignPoints:
 
                 _activityType = ApplicationConstants.KEY_STUDY;
@@ -416,8 +419,12 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
                     }
                 });
 
-                break;
-           /* case R.id.txtStudyAssignPoints:
+
+
+                break;*/
+
+
+            case R.id.txtStudyAssignPoints:
                 AssignPointFeatureController.getInstance().setIsStudyClicked(true);
 
 
@@ -429,7 +436,7 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
                         new FetchStudentStudySubject().execute();
 
 
-*//*
+/*
 
                         _adapter = new AssignPointListAdapter1(_assignPointFragment,
 
@@ -438,12 +445,14 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
                         _lvActivities.setAdapter(_adapter);
                         _lvActivities.setVisibility(View.VISIBLE);
                         // _lvActivities.setOnItemClickListener(AssignPointFragmentController.this);
-*//*
+*/
 
 
                     }
                 });
-                break;*/
+                break;
+
+
             //txtoptionselected
             case R.id.txtbackbutton:
                 _assignPointFragment.getActivity().runOnUiThread(new Runnable() {

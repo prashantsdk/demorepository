@@ -50,8 +50,11 @@ public class RewardPointFragmentController implements IEventListener {
         _rewardList = RewardPointLogFeatureController.getInstance().get_RewardLogData();
 
 
+
+
+        /*if(_rewardList != null){
         int count = _rewardList.size();
-        int temp =count;
+     */
 
         if ((_isRewardPopulated(_rewardList))) {
             Log.i(_TAG, "Subject list got from DB");

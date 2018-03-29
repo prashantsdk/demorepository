@@ -110,7 +110,7 @@ public class StudyActivityListAdapter extends BaseAdapter {
                     selected.setChecked(false);
                     holder._radioGrup.clearCheck();
                 }
-                holder._textView.setChecked(true);
+                holder._textView.setChecked(false);
                 selected = holder._textView;
                 activityId = _activityList.get(position).getActivityId();
 

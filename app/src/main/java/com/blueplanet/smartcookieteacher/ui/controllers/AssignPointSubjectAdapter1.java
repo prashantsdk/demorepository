@@ -2,7 +2,6 @@ package com.blueplanet.smartcookieteacher.ui.controllers;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,7 +34,6 @@ public class AssignPointSubjectAdapter1 extends BaseAdapter {
     private RadioButton _textView[];
 
 
-
     private boolean[] itemChecked;
     String activityId = "";
 
@@ -52,9 +50,8 @@ public class AssignPointSubjectAdapter1 extends BaseAdapter {
         _assignPointFragment = assignPointFragment;
 
 
-
-       // _subList = subFeaturecontroller.getInstance().get_subjList();
-        _subList =activityList;
+        // _subList = subFeaturecontroller.getInstance().get_subjList();
+        _subList = activityList;
         if (_ActivityListPopulated(_subList)) {
             _textView = new RadioButton[_subList.size()];
             itemChecked = new boolean[_subList.size()];
@@ -117,10 +114,6 @@ public class AssignPointSubjectAdapter1 extends BaseAdapter {
         }
 
 
-
-
-
-
         holder._textView.setText(_subList.get(position).get_subname());
 
 
@@ -136,7 +129,6 @@ public class AssignPointSubjectAdapter1 extends BaseAdapter {
             }
 
         }
-
 
 
         holder._textView.setOnClickListener(new View.OnClickListener() {
@@ -157,8 +149,7 @@ public class AssignPointSubjectAdapter1 extends BaseAdapter {
                 activityId = _subList.get(position).get_subcode();
 
 
-
-                if (activityId != null) {
+                if ((activityId != "")) {
 
                     ActivityListFeatureController.getInstance().setSeletedActivityIDOne(true);
 
@@ -172,6 +163,7 @@ public class AssignPointSubjectAdapter1 extends BaseAdapter {
 
 
         });
+
 
 
         return row;

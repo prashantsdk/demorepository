@@ -2,7 +2,6 @@ package com.blueplanet.smartcookieteacher.ui.controllers;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,8 +34,6 @@ public class SportListAdapter extends BaseAdapter {
     private final String _TAG = this.getClass().getSimpleName();
     private RadioButton _textView[];
     private RadioGroup _radioGrup;
-
-
 
 
     private boolean[] itemChecked;
@@ -119,10 +116,6 @@ public class SportListAdapter extends BaseAdapter {
         }
 
 
-
-
-
-
         holder._textView.setText(_activityList.get(position).getActivityName());
 
 
@@ -141,10 +134,9 @@ public class SportListAdapter extends BaseAdapter {
         }
 
 
-
         holder._textView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view)  {
 
 
                 if (selected != null) {
@@ -161,7 +153,7 @@ public class SportListAdapter extends BaseAdapter {
 
 
 
-                if (activityId != null) {
+                if ((activityId != "")) {
 
                     ActivityListFeatureController.getInstance().setSeletedActivityIDOne(true);
 
@@ -170,11 +162,12 @@ public class SportListAdapter extends BaseAdapter {
 
 
                 }
-
             }
 
 
         });
+
+
 
 
         return row;

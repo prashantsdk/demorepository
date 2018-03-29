@@ -353,7 +353,7 @@ public class SearchAssignPointFragmentController implements OnClickListener, IEv
                 boolean isStudyClicked = SearchAssignPointFeatureController.getInstance().isStudyClicked();
                 checkFlagStatus = ActivityListFeatureController.getInstance().getSelectedActivityIDOne();
 
-                if (checkFlagStatus == true) {
+                //if (checkFlagStatus == true) {
 
                     if (isStudyClicked) {
                         if (student != null /*&& !(TextUtils.isEmpty(selectedSubjectId)*/
@@ -831,9 +831,9 @@ public class SearchAssignPointFragmentController implements OnClickListener, IEv
                         }
                     }
 
-                } else {
+               /* } else {
                     Toast.makeText(_assignPointFragment.getActivity(), "Please Select the subject", Toast.LENGTH_SHORT).show();
-                }
+                }*/
                 break;
             default:
                 break;

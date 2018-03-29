@@ -1,13 +1,13 @@
 package com.blueplanet.smartcookieteacher.ui;
 
 import android.content.Intent;
+import android.net.TrafficStats;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -19,12 +19,11 @@ import android.widget.AbsListView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.blueplanet.smartcookieteacher.ProfileActivity;
 import com.blueplanet.smartcookieteacher.R;
-import com.blueplanet.smartcookieteacher.UpdateProfileActivity;
 import com.blueplanet.smartcookieteacher.communication.ServerResponse;
 import com.blueplanet.smartcookieteacher.customcomponents.CustomTextView;
 import com.blueplanet.smartcookieteacher.featurecontroller.DashboardFeatureController;
@@ -57,7 +56,7 @@ import java.util.ArrayList;
  * Created by 1311 on 14-12-2015.
  */
 
-public class TeacherDashboardFragment extends Fragment implements IEventListener, SwipeRefreshLayout.OnRefreshListener{
+public class TeacherDashboardFragment extends Fragment implements IEventListener, SwipeRefreshLayout.OnRefreshListener {
 
     private View _view;
     private CustomTextView _teacherName, _teachercolgname, _teacherteacherId, _teagreenpoint, _testpro;
@@ -78,6 +77,7 @@ public class TeacherDashboardFragment extends Fragment implements IEventListener
     private CustomTextView _edtCount;
     private Student stu = null;
     private SwipeRefreshLayout swipeLayout;
+    final double[] RXOld = new double[1];
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -103,13 +103,16 @@ public class TeacherDashboardFragment extends Fragment implements IEventListener
 
 
         _controller = new TeacherDashboardFragmentController(this, _view);
-        _StudentListDashboardAdapter = new StudentListDashboardAdapter(this, _controller);
+        _studentList = StudentFeatureController.getInstance().getStudentList();
+        _StudentListDashboardAdapter = new StudentListDashboardAdapter(this, _controller, _studentList);
+        _StudentListDashboardAdapter.notifyDataSetChanged();
+
         getActivity().setTitle("Dashboard");
+
 
         _setTeacherDetailsOnUI();
         _registerUIListeners();
         //_showDataOnUI();
-
 
 
         handler = new Handler();
@@ -123,9 +126,9 @@ public class TeacherDashboardFragment extends Fragment implements IEventListener
         handler.postDelayed(r, 300);
 
 
-
         //        getActivity().getActionBar().setTitle("Dashboard");
         //Priyanka changes
+        _lvStudentList.invalidateViews();
         _lvStudentList.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
@@ -144,25 +147,54 @@ public class TeacherDashboardFragment extends Fragment implements IEventListener
         return _view;
     }
 
+
+    private void checkInternetSpeed() {
+
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+
+
+            @Override
+            public void run() {
+
+
+                ////////////////////////Code to be executed every second////////////////////////////////////////
+
+
+                double overallTraffic = TrafficStats.getMobileRxBytes();
+
+                double currentDataRate = overallTraffic - RXOld[0];
+
+                TextView view1 = null;
+                view1 = (TextView) _view.findViewById(R.id.txt_studentcount);
+                view1.setText("" + currentDataRate);
+
+                RXOld[0] = overallTraffic;
+
+                handler.postDelayed(this, 1000);
+            }
+        }, 1000);
+    }
+
     private void _initUI() {
-        _teacherName =  _view.findViewById(R.id.text_name);
-        _teachercolgname =  _view.findViewById(R.id.txt_colgname);
-        _teacherteacherId =  _view.findViewById(R.id.txt_teacher_id);
-        _teacherImage =  _view.findViewById(R.id.teacher_img);
-        _teagreenpoint =  _view.findViewById(R.id.greenpoint);
+        _teacherName = _view.findViewById(R.id.text_name);
+        _teachercolgname = _view.findViewById(R.id.txt_colgname);
+        _teacherteacherId = _view.findViewById(R.id.txt_teacher_id);
+        _teacherImage = _view.findViewById(R.id.teacher_img);
+        _teagreenpoint = _view.findViewById(R.id.greenpoint);
 
-        _teabluepoint =  _view.findViewById(R.id.bluepoint);
-        _teabrownpoint =  _view.findViewById(R.id.brownpoint);
-        _teawaterpoint =  _view.findViewById(R.id.waterpoint);
+        _teabluepoint = _view.findViewById(R.id.bluepoint);
+        _teabrownpoint = _view.findViewById(R.id.brownpoint);
+        _teawaterpoint = _view.findViewById(R.id.waterpoint);
 
-        _lvStudentList =  _view.findViewById(R.id.lv_studentDashboard);
-        _testpro =  _view.findViewById(R.id.testproduction);
-        _edtCount =  _view.findViewById(R.id.txt_studentcount);
-        _rlProgressbar =  _view.findViewById(R.id.rl_progressBar);
-        _progressbar =  _view.findViewById(R.id.progressbar);
-        _tvPleaseWait =  _view.findViewById(R.id.tv_please_wait);
+        _lvStudentList = _view.findViewById(R.id.lv_studentDashboard);
+        _testpro = _view.findViewById(R.id.testproduction);
+        _edtCount = _view.findViewById(R.id.txt_studentcount);
+        _rlProgressbar = _view.findViewById(R.id.rl_progressBar);
+        _progressbar = _view.findViewById(R.id.progressbar);
+        _tvPleaseWait = _view.findViewById(R.id.tv_please_wait);
 
-        swipeLayout =  _view.findViewById(R.id.swipe_container);
+        swipeLayout = _view.findViewById(R.id.swipe_container);
         swipeLayout.setOnRefreshListener(this);
         swipeLayout.setColorSchemeColors(getResources().getColor(android.R.color.holo_green_dark),
                 getResources().getColor(android.R.color.holo_red_dark),
@@ -192,7 +224,6 @@ public class TeacherDashboardFragment extends Fragment implements IEventListener
 
     public void _showDataOnUI() {
 
-        _studentList = StudentFeatureController.getInstance().getStudentList();
 
         if (_studentList != null && _studentList.size() > 0) {
             getActivity().runOnUiThread(new Runnable() {
@@ -213,7 +244,7 @@ public class TeacherDashboardFragment extends Fragment implements IEventListener
 
         _teacher = LoginFeatureController.getInstance().getTeacher();
 
-       // _teacher = LoginFeatureController.getInstance().getServerTeacher();
+        // _teacher = LoginFeatureController.getInstance().getServerTeacher();
 
         TestProduction testproduction = new TestProduction();
         final String protest = testproduction.get_production();
@@ -225,15 +256,15 @@ public class TeacherDashboardFragment extends Fragment implements IEventListener
                 @Override
                 public void run() {
 
-                   // _teacherName.setText( CommonFunctions.capitalize(_teacher.get_tCompleteName()) + "  (Teacher)");
-                    _teacherName.setText( _teacher.get_tCompleteName() + "  (Teacher)");
+                    // _teacherName.setText( CommonFunctions.capitalize(_teacher.get_tCompleteName()) + "  (Teacher)");
+                    _teacherName.setText(_teacher.get_tCompleteName() + "  (Teacher)");
                     _teachercolgname.setText(_teacher.get_tCurrent_School_Name());
                     _teacherteacherId.setText(_teacher.get_tId());
                     _testpro.setText(protest);
                     String timage = _teacher.get_tPC();
                     if (timage != null && timage.length() > 0) {
 
-                        final String imageName =  timage;
+                        final String imageName = timage;
                         Log.i(_TAG, imageName);
 
                         SmartCookieImageLoader.getInstance().setImageLoaderData(imageName, _teacherImage,
@@ -404,7 +435,7 @@ public class TeacherDashboardFragment extends Fragment implements IEventListener
                 if (errorCode == WebserviceConstants.SUCCESS) {
 
                     _teacher = LoginFeatureController.getInstance().getTeacher();
-                   // LoginFeatureController.getInstance().saveUserDataIntoDB(_teacher);
+                    // LoginFeatureController.getInstance().saveUserDataIntoDB(_teacher);
                     // _teacher = LoginFeatureController.getInstance().getServerTeacher();
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
@@ -469,7 +500,7 @@ public class TeacherDashboardFragment extends Fragment implements IEventListener
         _registerListeners();
 
         _teacher = LoginFeatureController.getInstance().getTeacher();
-       // _teacher = LoginFeatureController.getInstance().getServerTeacher();
+        // _teacher = LoginFeatureController.getInstance().getServerTeacher();
         LoginFeatureController.getInstance().FetchUserProfile(String.valueOf(_teacher.get_tId()), _teacher.get_tSchool_id());
     }
 

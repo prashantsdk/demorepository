@@ -1,6 +1,8 @@
 package com.blueplanet.smartcookieteacher.ui.controllers;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -25,7 +27,6 @@ import com.blueplanet.smartcookieteacher.featurecontroller.ActivityListFeatureCo
 import com.blueplanet.smartcookieteacher.featurecontroller.AssignPointFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.DashboardFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.LoginFeatureController;
-import com.blueplanet.smartcookieteacher.featurecontroller.SearchAssignPointFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.StudentFeatureController;
 import com.blueplanet.smartcookieteacher.models.ArtActivity;
 import com.blueplanet.smartcookieteacher.models.GeneralActivity;
@@ -141,7 +142,119 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
         txtseekPoint = (CustomTextView) _view.findViewById(R.id.txtassignedPoints);
 
 
-        if (_teacher != null) {
+        txt_point.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String x = s.toString();
+
+                if ((x.startsWith("0")) && (x.length() == 1)) {
+                    //Toast.makeText(_assignPointFragment.getActivity(), "Point Should be greater than zero", Toast.LENGTH_SHORT).show();
+                    txt_point.setText("");
+
+                } else {
+
+                    logintype = spinner.getSelectedItem().toString();
+
+                    int pointTypePosition = spinnercolr.getSelectedItemPosition();
+
+                    String pointtype = "";
+                    if (pointTypePosition == 0) {
+
+                        pointtype = "Greenpoint";
+                    } else if (pointTypePosition == 1) {
+                        pointtype = "Waterpoint";
+                    }
+
+                    TeacherDashbordPoint point = DashboardFeatureController.getInstance().getTeacherpoint();
+
+                    int greenPoints = point.get_greenpoint();
+                    int waterPoints = point.get_waterpoint();
+
+                    if (pointtype.equals("Greenpoint")) {
+                        if (!(x.equals(""))) {
+                            if (greenPoints < Integer.parseInt(x)) {
+
+
+                                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(_assignPointFragment.getActivity());
+
+                                // set title
+                                alertDialogBuilder.setTitle("You do not have sufficent points.");
+                                alertDialogBuilder.setMessage("Existing balance is " + greenPoints + ".");
+                                // set dialog message
+                                alertDialogBuilder
+                                        .setCancelable(true)
+
+                                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+
+                                                txt_point.setText("");
+                                                dialog.dismiss();
+
+
+                                            }
+                                        });
+
+
+                                // create alert dialog
+                                AlertDialog alertDialog = alertDialogBuilder.create();
+
+                                // show it
+                                alertDialog.show();
+
+                            }
+                        }
+
+                    } else if (pointtype.equals("Waterpoint")) {
+                        if (!(x.equals(""))) {
+
+                            if (waterPoints < Integer.parseInt(x)) {
+
+                                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(_assignPointFragment.getActivity());
+
+                                // set title
+                                alertDialogBuilder.setTitle("You do not have sufficent points.");
+                                alertDialogBuilder.setMessage("Existing balance is " + waterPoints + ".");
+                                // set dialog message
+                                alertDialogBuilder
+                                        .setCancelable(true)
+                                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+
+                                                txt_point.setText("");
+                                                dialog.dismiss();
+
+
+                                            }
+                                        });
+
+
+                                // create alert dialog
+                                AlertDialog alertDialog = alertDialogBuilder.create();
+
+                                // show it
+                                alertDialog.show();
+
+                            }
+                        }
+                    }
+
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        if (_teacher != null)
+
+        {
             _teacherId = _teacher.get_tId();
             _schoolId = _teacher.get_tSchool_id();
             String id = _teacher.get_tId();
@@ -476,19 +589,6 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
 
             case R.id.btnsubmitassignpoints:
 
-              /*  if (Seekvalue == 0 || Seekvalue >= 101) {
-
-                    _assignPointFragment.showpointSelected(false);
-                }*/
-                /*else
-                if(selectedSubjectId==null) {
-
-                    _assignPointFragment.ShowValidMesaage();
-
-
-
-
-              }*/
 
                 CommonFunctions.hideKeyboardFrom(_assignPointFragment.getActivity(), view);
 
@@ -1101,8 +1201,6 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
                                     }
 
                                 }
-                                //  ActivityListFeatureController.getInstance().
-                                //  setSeletedActivityId(null);
 
 
                             } else {
@@ -1116,7 +1214,6 @@ public class AssignPointFragmentController implements OnClickListener, IEventLis
                             }
                         }
                     }
-
                 } else {
 
                     Toast.makeText(_assignPointFragment.getActivity(), "Please Select the subject", Toast.LENGTH_SHORT).show();

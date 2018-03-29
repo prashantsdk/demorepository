@@ -120,10 +120,6 @@ public class GeneralActivityListAdapter extends BaseAdapter {
         }
 
 
-
-
-
-
         holder._textView.setText(_activityList.get(position).getActivityName());
 
 
@@ -157,20 +153,20 @@ public class GeneralActivityListAdapter extends BaseAdapter {
 
                 }
                 holder._textView.setChecked(true);
+
                 selected = holder._textView;
+
+
 
 
                 activityId = _activityList.get(position).getActivityId();
 
-
-
-                if (activityId != null) {
+                if ((activityId != "")) {
 
                     ActivityListFeatureController.getInstance().setSeletedActivityIDOne(true);
 
                     ActivityListFeatureController.getInstance().
                             setSeletedActivityId(activityId);
-
 
                 }
 
@@ -193,10 +189,11 @@ public class GeneralActivityListAdapter extends BaseAdapter {
         }
         return false;
     }
+
     @Override
     public void notifyDataSetChanged() {
         super.notifyDataSetChanged();
-       // _activityList = ActivityListFeatureController.getInstance().get_teacherActivityList();
+        // _activityList = ActivityListFeatureController.getInstance().get_teacherActivityList();
 
 
     }

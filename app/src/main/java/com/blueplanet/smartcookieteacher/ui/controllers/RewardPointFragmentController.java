@@ -45,16 +45,10 @@ public class RewardPointFragmentController implements IEventListener {
         _rePointFragment = rewardPointFragment;
         _view = view;
         _teacher = LoginFeatureController.getInstance().getTeacher();
-       // _rewardList = RewardPointLogFeatureController.getInstance().getRewardFromDB();
 
         _rewardList = RewardPointLogFeatureController.getInstance().get_RewardLogData();
 
 
-
-
-        /*if(_rewardList != null){
-        int count = _rewardList.size();
-     */
 
         if ((_isRewardPopulated(_rewardList))) {
             Log.i(_TAG, "Subject list got from DB");

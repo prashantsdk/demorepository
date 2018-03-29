@@ -1,6 +1,7 @@
 package com.blueplanet.smartcookieteacher.ui.controllers;
 
 import android.content.Context;
+import android.database.DataSetObserver;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,7 +11,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-
 import com.blueplanet.smartcookieteacher.MainApplication;
 import com.blueplanet.smartcookieteacher.R;
 import com.blueplanet.smartcookieteacher.customcomponents.CustomTextView;
@@ -19,8 +19,6 @@ import com.blueplanet.smartcookieteacher.models.Student;
 import com.blueplanet.smartcookieteacher.ui.TeacherDashboardFragment;
 import com.blueplanet.smartcookieteacher.utils.IImageLoader;
 import com.blueplanet.smartcookieteacher.utils.SmartCookieImageLoader;
-import com.blueplanet.smartcookieteacher.webservices.WebserviceConstants;
-
 
 import java.util.ArrayList;
 
@@ -38,11 +36,11 @@ public class StudentListDashboardAdapter extends BaseAdapter {
     private RelativeLayout _rlDashboard;
 
     public StudentListDashboardAdapter(TeacherDashboardFragment TeacherDashboardFragment,
-                                       TeacherDashboardFragmentController teacherDashboardFragmentController) {
+                                       TeacherDashboardFragmentController teacherDashboardFragmentController,ArrayList<Student> students) {
 
         _tTeacherDashboardFragment = TeacherDashboardFragment;
         _tTeacherDashboardFragmentController = teacherDashboardFragmentController;
-        _studentList = StudentFeatureController.getInstance().getStudentList();
+        _studentList = students;
 
         _tTeacherDashboardFragment.showOrHideProgressBar(false);
         Log.i(_TAG, "stList" + _studentList);
@@ -89,7 +87,6 @@ public class StudentListDashboardAdapter extends BaseAdapter {
 
                 _txtClassName = (CustomTextView) convertView.findViewById(R.id.txt_className);
                 _txtSubect=(CustomTextView) convertView.findViewById(R.id.txt_subject_name);
-                //_txtClassName.setText(_studentList.get(position).get_stdClass());
 
 
                 String className = _studentList.get(position).get_stdClass();
@@ -164,5 +161,13 @@ public class StudentListDashboardAdapter extends BaseAdapter {
         }
     }
 
+    @Override
+    public void registerDataSetObserver(DataSetObserver observer) {
+        super.registerDataSetObserver(observer);
+    }
 
+    @Override
+    public void unregisterDataSetObserver(DataSetObserver observer) {
+        super.unregisterDataSetObserver(observer);
+    }
 }

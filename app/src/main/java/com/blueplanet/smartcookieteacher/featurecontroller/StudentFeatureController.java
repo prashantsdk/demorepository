@@ -76,14 +76,21 @@ public class StudentFeatureController implements IEventListener {
 
     }
 
-
+/*
     public ArrayList<Student> getStudentList() {
 
         if (!(_isStudentListPopulated(_studentList))) {
            _studentList = getStudentInfoFromDB();
         }
         return _studentList;
+    }*/
+
+
+    public ArrayList<Student> getStudentList() {
+
+        return _studentList;
     }
+
 
     private boolean _isStudentListPopulated(ArrayList<Student> list) {
         if (list != null && list.size() > 0) {
@@ -188,18 +195,18 @@ public class StudentFeatureController implements IEventListener {
                 if (errorCode == WebserviceConstants.SUCCESS) {
 
                     ArrayList<Student> list = (ArrayList<Student>) responseObject;
-
+                    _studentList = (ArrayList<Student>) responseObject;
                     if (list != null && list.size() > 0) {
 
                         Log.i(_TAG, "List size from webservice :" + list.size());
-                        _studentList.addAll(list);
+                       // _studentList.addAll(list);
 
 
 
-                        for (int i = 0; i < list.size(); i++) {
+                       /* for (int i = 0; i < list.size(); i++) {
                             _saveStudentListIntoDB(list.get(i));
                             Log.i(_TAG, "Student db list size is:" + list.size());
-                        }
+                        }*/
                     }
 
 

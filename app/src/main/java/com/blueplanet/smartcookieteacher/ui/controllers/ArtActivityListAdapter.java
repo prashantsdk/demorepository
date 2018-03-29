@@ -149,9 +149,7 @@ public class ArtActivityListAdapter extends BaseAdapter {
 
                 activityId = _activityList.get(position).getActivityId();
 
-
-
-                if (activityId != null) {
+                if ( (activityId !="")) {
 
                     ActivityListFeatureController.getInstance().setSeletedActivityIDOne(true);
 
@@ -161,10 +159,15 @@ public class ArtActivityListAdapter extends BaseAdapter {
 
                 }
 
+
+
+
             }
 
 
         });
+
+
 
 
         return row;

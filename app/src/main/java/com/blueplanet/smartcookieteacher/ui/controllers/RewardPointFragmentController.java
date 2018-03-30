@@ -46,17 +46,18 @@ public class RewardPointFragmentController implements IEventListener {
         _view = view;
         _teacher = LoginFeatureController.getInstance().getTeacher();
 
-        _rewardList = RewardPointLogFeatureController.getInstance().get_RewardLogData();
 
 
 
-        if ((_isRewardPopulated(_rewardList))) {
+       /* if ((_isRewardPopulated(_rewardList))) {
             Log.i(_TAG, "Subject list got from DB");
 
             Log.i(_TAG, "Subject list size:" + _rewardList.size());
             _rePointFragment.showOrHideProgressBar(false);
             _rePointFragment.refreshListview();
-        } else {
+        }*/
+
+        //else {
             Log.i(_TAG, "Subject list got from webservice");
             _teacher = LoginFeatureController.getInstance().getTeacher();
             if (_teacher != null) {
@@ -64,8 +65,11 @@ public class RewardPointFragmentController implements IEventListener {
                 _schoolId = _teacher.get_tSchool_id();
                 _fetchRewardListFromServer(_teacherId, _schoolId);
 
+                _rewardList = RewardPointLogFeatureController.getInstance().get_RewardLogData();
+
+
             }
-        }
+        //}
 
     }
 

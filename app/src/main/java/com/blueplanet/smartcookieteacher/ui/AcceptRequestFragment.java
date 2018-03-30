@@ -53,7 +53,7 @@ public class AcceptRequestFragment extends Fragment {
         _initUI();
         getActivity().setTitle("Accept Request");
         _Controller = new AcceptRequestController(this, _view);
-        _adapter = new AcceptRequestAdapter(this,_view);
+        _adapter = new AcceptRequestAdapter(this, _view);
 
 
         _registerUIListeners();
@@ -67,7 +67,7 @@ public class AcceptRequestFragment extends Fragment {
         _progressbar = (ProgressBar) _view.findViewById(R.id.progressbar);
         _tvPleaseWait = (CustomTextView) _view.findViewById(R.id.tv_please_wait);
         lv_request = (ListView) _view.findViewById(R.id.lv_request);
-        _txt_teacherName =(TextView) _view.findViewById(R.id.teacherName);
+        _txt_teacherName = (TextView) _view.findViewById(R.id.teacherName);
 
 
     }
@@ -139,6 +139,18 @@ public class AcceptRequestFragment extends Fragment {
         });
 
     }
+
+    public void pendingRequestForPoints() {
+
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+
+                Toast.makeText(getActivity(), "No Any Pending Request", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
     public void showDeclineRequestPoint() {
         getActivity().runOnUiThread(new Runnable() {
             @Override
@@ -151,7 +163,6 @@ public class AcceptRequestFragment extends Fragment {
         });
 
     }
-
 
 
     public void showNetworkToast(final boolean isNetworkAvailable) {
@@ -194,9 +205,8 @@ public class AcceptRequestFragment extends Fragment {
             _Controller.clear();
             _Controller = null;
         }
-        if(_adapter !=null)
-        {
-            _adapter=null;
+        if (_adapter != null) {
+            _adapter = null;
         }
 
 

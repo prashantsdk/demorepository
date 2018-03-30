@@ -12,7 +12,6 @@ import com.blueplanet.smartcookieteacher.communication.ServerResponse;
 import com.blueplanet.smartcookieteacher.featurecontroller.AcceptRequestFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.DrawerFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.LoginFeatureController;
-import com.blueplanet.smartcookieteacher.featurecontroller.SharePointFeatureController;
 import com.blueplanet.smartcookieteacher.featurecontroller.SubjectFeatureController;
 import com.blueplanet.smartcookieteacher.models.RequestPointModel;
 import com.blueplanet.smartcookieteacher.models.ShairPointModel;
@@ -25,7 +24,6 @@ import com.blueplanet.smartcookieteacher.notification.IEventListener;
 import com.blueplanet.smartcookieteacher.notification.ListenerPriority;
 import com.blueplanet.smartcookieteacher.notification.NotifierFactory;
 import com.blueplanet.smartcookieteacher.ui.AcceptRequestFragment;
-import com.blueplanet.smartcookieteacher.ui.SharePointFragment;
 import com.blueplanet.smartcookieteacher.ui.SubjectwiseStudentFragment;
 import com.blueplanet.smartcookieteacher.webservices.WebserviceConstants;
 
@@ -34,7 +32,7 @@ import java.util.ArrayList;
 /**
  * Created by Sayali on 8/23/2017.
  */
-public class AcceptRequestController implements IEventListener,AbsListView.OnScrollListener, AdapterView.OnItemClickListener  {
+public class AcceptRequestController implements IEventListener, AbsListView.OnScrollListener, AdapterView.OnItemClickListener {
 
 
     private AcceptRequestFragment _Fragment;
@@ -45,11 +43,9 @@ public class AcceptRequestController implements IEventListener,AbsListView.OnScr
     private String _teacherId, _schoolId;
 
 
-
     /**
      * constructur for student list
      */
-
 
 
     public AcceptRequestController(AcceptRequestFragment Fragment, View View) {
@@ -124,6 +120,7 @@ public class AcceptRequestController implements IEventListener,AbsListView.OnScr
             _Fragment = null;
         }
     }
+
     /**
      * webservice call to fetch reward list from server
      *
@@ -164,7 +161,6 @@ public class AcceptRequestController implements IEventListener,AbsListView.OnScr
                     _Fragment.refreshListview();
 
 
-
                     // _rewardPointLog=RewardPointLogFeatureController.getInstance().getRewardPointList();
                     // RewardPointLogFeatureController.getInstance().saveRewardPointLogIntoDB(_rewardList);
 
@@ -179,8 +175,7 @@ public class AcceptRequestController implements IEventListener,AbsListView.OnScr
                 event1.unRegisterListener(this);
 
                 _Fragment.showOrHideProgressBar(false);
-                //    _shairpointFragment.showNotEnoughPoint();
-
+                _Fragment.pendingRequestForPoints();
                 break;
 
             case EventTypes.EVENT_NETWORK_AVAILABLE:
@@ -211,7 +206,6 @@ public class AcceptRequestController implements IEventListener,AbsListView.OnScr
     }
 
 
-
     private void _loadFragment(int id, Fragment fragment) {
 
         DrawerFeatureController.getInstance().setIsFragmentOpenedFromDrawer(false);
@@ -231,6 +225,7 @@ public class AcceptRequestController implements IEventListener,AbsListView.OnScr
     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
 
     }
+
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
@@ -249,4 +244,4 @@ public class AcceptRequestController implements IEventListener,AbsListView.OnScr
 
     }
 
-    }
+}

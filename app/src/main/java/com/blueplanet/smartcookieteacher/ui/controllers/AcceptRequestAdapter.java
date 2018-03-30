@@ -502,6 +502,8 @@ public class AcceptRequestAdapter extends BaseAdapter implements IEventListener 
 
                 //    _shairpointFragment.showNotEnoughPoint();
 
+                showDeclineMessageNotAccepted();
+
                 break;
 
             case EventTypes.EVENT_NETWORK_AVAILABLE:

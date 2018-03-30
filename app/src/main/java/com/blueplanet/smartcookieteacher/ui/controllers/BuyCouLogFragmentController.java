@@ -175,7 +175,7 @@ public class BuyCouLogFragmentController implements IEventListener {
                 event1.unRegisterListener(this);
 
                 _buyFragment.showOrHideProgressBar(false);
-              //  _buyFragment.showNoRewardListMessage(false);
+                _buyFragment.buyCouponLogNotExist();
 
                 break;
 

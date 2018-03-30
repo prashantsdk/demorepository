@@ -1,7 +1,6 @@
 package com.blueplanet.smartcookieteacher.ui;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,15 +8,12 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import com.blueplanet.smartcookieteacher.R;
 import com.blueplanet.smartcookieteacher.customcomponents.CustomTextView;
-import com.blueplanet.smartcookieteacher.ui.controllers.BluePointAdapter;
-import com.blueplanet.smartcookieteacher.ui.controllers.BluePointFragmentController;
 import com.blueplanet.smartcookieteacher.ui.controllers.BuyCouLogFragmentController;
 import com.blueplanet.smartcookieteacher.ui.controllers.BuyCoupLogAdapter;
-import com.blueplanet.smartcookieteacher.ui.controllers.RewardPointLogAdapter;
 
 /**
  * Created by 1311 on 21-03-2016.
@@ -73,6 +69,7 @@ public class BuyCouponLogFragment extends Fragment {
         _listView.setAdapter(_adapter);
 
     }
+
     public void refreshListview() {
         getActivity().runOnUiThread(new Runnable() {
             @Override
@@ -107,10 +104,20 @@ public class BuyCouponLogFragment extends Fragment {
             _buycontroller.clear();
             _buycontroller = null;
         }
-        if(_adapter !=null)
-        {
-            _adapter=null;
+        if (_adapter != null) {
+            _adapter = null;
         }
 
+    }
+
+    public void buyCouponLogNotExist() {
+
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+
+                Toast.makeText(getActivity(), "You have do not buy Coupon Logs", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

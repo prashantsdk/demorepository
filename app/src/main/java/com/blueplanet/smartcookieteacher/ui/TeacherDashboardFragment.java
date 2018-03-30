@@ -257,7 +257,7 @@ public class TeacherDashboardFragment extends Fragment implements IEventListener
                 public void run() {
 
                     // _teacherName.setText( CommonFunctions.capitalize(_teacher.get_tCompleteName()) + "  (Teacher)");
-                    _teacherName.setText(_teacher.get_tCompleteName() + "  (Teacher)");
+                    _teacherName.setText(_teacher.get_tCompleteName()+" (Teacher)");
                     _teachercolgname.setText(_teacher.get_tCurrent_School_Name());
                     _teacherteacherId.setText(_teacher.get_tId());
                     _testpro.setText(protest);

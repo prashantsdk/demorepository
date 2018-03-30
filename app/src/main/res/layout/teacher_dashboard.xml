@@ -14,18 +14,18 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <RelativeLayout
+            <LinearLayout
                 android:id="@+id/rl_1"
                 android:layout_width="match_parent"
-                android:layout_height="100dp">
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:orientation="horizontal">
 
                 <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
                     android:id="@+id/testproduction"
                     style="@style/Login_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginTop="5dp"
                     android:text=""
                     android:textColor="#000000"
                     android:textSize="16sp" />
@@ -34,25 +34,11 @@
                     android:id="@+id/teacher_img"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:layout_below="@+id/testproduction"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="10dp"
                     android:adjustViewBounds="true"
                     android:scaleType="centerInside"
                     app:siBorderColor="#00ff00"
                     app:siBorderWidth="3dp" />
 
-                <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
-                    android:id="@+id/text_wat"
-                    style="@style/Login_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/teacher_img"
-                    android:layout_marginLeft="27dp"
-                    android:layout_marginTop="4dp"
-                    android:text="Teacher"
-                    android:textColor="#000000"
-                    android:textSize="12sp" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -61,23 +47,35 @@
                     android:layout_marginLeft="10dp"
                     android:layout_toRightOf="@+id/teacher_img">
 
-                    <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
-                        android:id="@+id/text_name"
-                        style="@style/TeacherName_title"
-                        android:layout_width="wrap_content"
+
+                    <LinearLayout
+                        android:id="@+id/namelayout"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:inputType="textCapWords"
-                        android:text="Shashikant Ghumbre"
-                        android:textColor="@color/black_solid"
-                        android:textSize="15sp" />
+
+                        android:orientation="horizontal">
+
+                        <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
+                            android:id="@+id/text_name"
+                            style="@style/TeacherName_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:inputType="textMultiLine"
+                            android:singleLine="false"
+                            android:text="Shashikant Purushottam Ghumbre (Teacher)"
+                            android:textColor="@color/black_solid"
+                            android:textSize="15sp" />
+
+
+                    </LinearLayout>
 
                     <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
                         android:id="@+id/txt_colgname"
                         style="@style/Login_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/text_name"
+                        android:layout_below="@+id/namelayout"
                         android:layout_marginLeft="10dp"
                         android:layout_marginTop="4dp"
                         android:text="collage of Engineering,Pune" />
@@ -109,14 +107,15 @@
                             android:textSize="12sp" />
                     </LinearLayout>
                 </RelativeLayout>
-            </RelativeLayout>
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/rl_2"
+                android:layout_marginLeft="10dp"
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/rl_1"
-                android:gravity="center_horizontal"
                 android:weightSum="4">
 
                 <LinearLayout
@@ -154,8 +153,8 @@
                     android:id="@+id/relay_image"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_margin="3dp"
+                    android:layout_weight="1"
                     android:orientation="vertical">
 
                     <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
@@ -186,8 +185,8 @@
                     android:id="@+id/rela_image"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_margin="3dp"
+                    android:layout_weight="1"
                     android:orientation="vertical">
 
                     <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
@@ -218,8 +217,8 @@
                     android:id="@+id/rel_image"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_margin="3dp"
+                    android:layout_weight="1"
                     android:orientation="vertical">
 
                     <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView
@@ -279,10 +278,10 @@
 
                 <TextView
                     android:id="@+id/speed"
-                    android:layout_alignLeft="@+id/txt_studentcount"
-
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/txt_studentcount" />
             </RelativeLayout>
 
             <ListView

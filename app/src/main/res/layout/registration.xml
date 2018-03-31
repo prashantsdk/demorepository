@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-
+android:layout_marginTop="-200dp"
     android:layout_height="match_parent">
 
 
@@ -117,10 +117,9 @@
                     <Spinner
                         android:id="@+id/spinnerPhone"
                         android:layout_width="70dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center_horizontal"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center"
                         android:layout_marginLeft="8dp"
-
                         android:background="@drawable/oval_white"
                         android:visibility="visible" />
 
@@ -206,20 +205,45 @@
                     android:textSize="20sp"
                     android:visibility="gone" />
 
-
-                <com.blueplanet.smartcookieteacher.customcomponents.CustomButton
-                    android:id="@+id/btn_register"
-                    style="@style/login_button_style"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                <LinearLayout
                     android:layout_below="@+id/edt_password"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:background="@drawable/login_button_selector"
-                    android:gravity="center"
-                    android:text="REGISTER"
-                    android:textColor="#ffffff"
-                    android:textSize="25sp" />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="2"
+                    android:layout_margin="15dp"
+                    android:orientation="horizontal">
+
+
+                    <com.blueplanet.smartcookieteacher.customcomponents.CustomButton
+                        android:id="@+id/btn_register"
+                        style="@style/login_button_style"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:background="@drawable/login_button_selector"
+                        android:text="REGISTER"
+                        android:textColor="#ffffff"
+                        android:layout_weight="1"
+                        android:textSize="25sp" />
+
+
+
+                    <com.blueplanet.smartcookieteacher.customcomponents.CustomButton
+                        android:id="@+id/btn_clear"
+                        style="@style/login_button_style"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:background="@drawable/login_button_selector"
+                        android:text="CLEAR"
+                        android:textColor="#ffffff"
+                        android:layout_below="@+id/edt_password"
+                        android:layout_weight="1"
+                        android:textSize="25sp" />
+
+
+                </LinearLayout>
+
+
+
 
 
                 <com.blueplanet.smartcookieteacher.customcomponents.CustomTextView

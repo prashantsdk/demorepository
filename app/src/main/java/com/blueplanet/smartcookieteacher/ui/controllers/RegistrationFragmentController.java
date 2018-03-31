@@ -40,7 +40,9 @@ public class RegistrationFragmentController implements IEventListener, View.OnCl
     private final String _TAG = this.getClass().getSimpleName();
     private RegisModel _register;
     private EditText email;
-    private Spinner  spinnerPhone;
+    private Spinner spinnerPhone;
+
+
     /**
      * constructur for reward list
      */
@@ -68,12 +70,12 @@ public class RegistrationFragmentController implements IEventListener, View.OnCl
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+                HelperClass.Is_Valid_Email(email);
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                HelperClass.Is_Valid_Email(email);
+
             }
         });
     }
@@ -147,6 +149,7 @@ public class RegistrationFragmentController implements IEventListener, View.OnCl
                 // _regFragment.hideSoftKeyboard();
 
                 if (NetworkManager.isNetworkAvailable()) {
+
                     EditText fname = (EditText) _view.findViewById(R.id.edt_firstname);
                     EditText lname = (EditText) _view.findViewById(R.id.edt_lastName);
                     EditText email = (EditText) _view.findViewById(R.id.edt_emailId);
@@ -168,7 +171,6 @@ public class RegistrationFragmentController implements IEventListener, View.OnCl
                     String countrycode = spinnerPhone.getSelectedItem().toString();
 
 
-
                     if ((!TextUtils.isEmpty(Fname)) &&
                             (!TextUtils.isEmpty(middlename)) &&
                             (!TextUtils.isEmpty(Lname)) &&
@@ -176,9 +178,9 @@ public class RegistrationFragmentController implements IEventListener, View.OnCl
                             (!TextUtils.isEmpty(Email)) &&
                             (!TextUtils.isEmpty(countrycode)) &&
                             (!TextUtils.isEmpty(password)) &&
-                            (checkPhoneNoLenght(Phone))&&
-                            (checkPasswordLenth(password))&&
-                            (phoneNoShouldNotStartWithZero(Phone,countrycode))) {
+                            (checkPhoneNoLenght(Phone)) &&
+                            (checkPasswordLenth(password)) &&
+                            (phoneNoShouldNotStartWithZero(Phone, countrycode))) {
 
                         if (HelperClass.Is_Valid_Email(email)) {
 
@@ -187,56 +189,54 @@ public class RegistrationFragmentController implements IEventListener, View.OnCl
 
                         } else {
 
-                            Toast.makeText(MainApplication.getContext(),"Invalid Email",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainApplication.getContext(), "Invalid Email", Toast.LENGTH_SHORT).show();
                         }
 
                     } else if (TextUtils.isEmpty(Fname)) {
                         Toast.makeText(MainApplication.getContext(),
                                 "Please enter your First Name",
                                 Toast.LENGTH_SHORT).show();
-                    } else if(TextUtils.isEmpty(middlename)){
+                    } else if (TextUtils.isEmpty(middlename)) {
                         Toast.makeText(MainApplication.getContext(),
                                 "Please enter your Middle Name",
                                 Toast.LENGTH_SHORT).show();
-                    } else if(TextUtils.isEmpty(Lname)){
+                    } else if (TextUtils.isEmpty(Lname)) {
 
                         Toast.makeText(MainApplication.getContext(),
                                 "Please enter your Last Name",
                                 Toast.LENGTH_SHORT).show();
-                    }else if(TextUtils.isEmpty(Phone)){
+                    } else if (TextUtils.isEmpty(Phone)) {
 
                         Toast.makeText(MainApplication.getContext(),
                                 "Please enter your Mobile No.",
                                 Toast.LENGTH_SHORT).show();
-                    }
-                    else if(TextUtils.isEmpty(Email)){
+                    } else if (TextUtils.isEmpty(Email)) {
                         Toast.makeText(MainApplication.getContext(),
                                 "Please enter your Email id",
                                 Toast.LENGTH_SHORT).show();
 
-                    }
-                    else if(TextUtils.isEmpty(countrycode)){
+                    } else if (TextUtils.isEmpty(countrycode)) {
                         Toast.makeText(MainApplication.getContext(),
                                 "Please enter your Country code",
                                 Toast.LENGTH_SHORT).show();
 
-                    } else if(TextUtils.isEmpty(password)){
+                    } else if (TextUtils.isEmpty(password)) {
                         Toast.makeText(MainApplication.getContext(),
                                 "Please enter your Password",
                                 Toast.LENGTH_SHORT).show();
 
-                    } else if((!checkPhoneNoLenght(Phone))){
+                    } else if ((!checkPhoneNoLenght(Phone))) {
                         Toast.makeText(MainApplication.getContext(),
                                 "Mobile number must be 10 digits",
                                 Toast.LENGTH_SHORT).show();
 
-                    } else if((!checkPasswordLenth(password))){
+                    } else if ((!checkPasswordLenth(password))) {
 
                         Toast.makeText(MainApplication.getContext(),
                                 "Password length must be greater than 7",
                                 Toast.LENGTH_SHORT).show();
 
-                    } else if((!phoneNoShouldNotStartWithZero(Phone, countrycode))){
+                    } else if ((!phoneNoShouldNotStartWithZero(Phone, countrycode))) {
                         if (countrycode.equals("+91")) {
                             Toast.makeText(MainApplication.getContext(),
                                     "Mobile No.Should not start 0 to 5 digits", Toast.LENGTH_SHORT).show();
@@ -246,7 +246,8 @@ public class RegistrationFragmentController implements IEventListener, View.OnCl
                             Toast.makeText(MainApplication.getContext(),
                                     "Mobile No.Should not start 0 to 1 digits", Toast.LENGTH_SHORT).show();
 
-                        }  }
+                        }
+                    }
 
 
                 } else {
@@ -265,6 +266,26 @@ public class RegistrationFragmentController implements IEventListener, View.OnCl
                 });
 
                 break;
+
+
+            case R.id.btn_clear:
+
+                EditText fname = (EditText) _view.findViewById(R.id.edt_firstname);
+                EditText lname = (EditText) _view.findViewById(R.id.edt_lastName);
+                EditText email = (EditText) _view.findViewById(R.id.edt_emailId);
+                EditText tpassword = (EditText) _view.findViewById(R.id.edt_password);
+                EditText phone = (EditText) _view.findViewById(R.id.edtPhone);
+                EditText middle = (EditText) _view.findViewById(R.id.edt_middleName);
+
+
+                fname.setText("");
+                lname.setText("");
+                email.setText("");
+                tpassword.setText("");
+                phone.setText("");
+                middle.setText("");
+
+
             default:
                 break;
 
@@ -279,9 +300,9 @@ public class RegistrationFragmentController implements IEventListener, View.OnCl
         return true;
     }
 
-    private boolean checkPasswordLenth(String mPassword){
+    private boolean checkPasswordLenth(String mPassword) {
 
-        if(mPassword.length()<8){
+        if (mPassword.length() < 8) {
             return false;
         }
         return true;

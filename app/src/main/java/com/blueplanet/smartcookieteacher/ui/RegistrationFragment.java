@@ -28,8 +28,8 @@ import com.blueplanet.smartcookieteacher.ui.controllers.RegistrationFragmentCont
  */
 public class RegistrationFragment extends Fragment implements AdapterView.OnItemSelectedListener {
     private View _view;
-    private CustomEditText edtfirst,edtlast,edtplone,_edtEmail, _edtPassword,txtphone,txtmiddlename;
-    private CustomButton _btnRegister;
+    private CustomEditText edtfirst, edtlast, edtplone, _edtEmail, _edtPassword, txtphone, txtmiddlename;
+    private CustomButton _btnRegister, mClearData;
     private RegistrationFragmentController _fragController = null;
     private RelativeLayout _rlProgressbar;
     private ProgressBar _progressbar;
@@ -37,6 +37,7 @@ public class RegistrationFragment extends Fragment implements AdapterView.OnItem
     private Spinner spinner, spinnerPhone;
     String[] userOption = {"Select Login Type", "Email", "Mobile-No", "EmployeeID", "MemberID"};
     String[] numberOptn = {"+91", "+1"};
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         _view = inflater.inflate(R.layout.registration, null);
@@ -59,6 +60,8 @@ public class RegistrationFragment extends Fragment implements AdapterView.OnItem
 
         edtplone = (CustomEditText) _view.findViewById(R.id.edtPhone);
         _btnRegister = (CustomButton) _view.findViewById(R.id.btn_register);
+
+        mClearData = _view.findViewById(R.id.btn_clear);
         _rlProgressbar = (RelativeLayout) _view
                 .findViewById(R.id.rl_progressBar);
         _progressbar = (ProgressBar) _view.findViewById(R.id.progressbar);
@@ -69,6 +72,7 @@ public class RegistrationFragment extends Fragment implements AdapterView.OnItem
 
     private void _registerUIListner() {
         _btnRegister.setOnClickListener(_fragController);
+        mClearData.setOnClickListener(_fragController);
         _tvMemberLogin.setOnClickListener(_fragController);
         spinnerPhone.setOnItemSelectedListener(this);
 
@@ -108,6 +112,7 @@ public class RegistrationFragment extends Fragment implements AdapterView.OnItem
         });
 
     }
+
     public void invalidinputMessage(final boolean flag) {
         getActivity().runOnUiThread(new Runnable() {
             @Override
@@ -122,6 +127,7 @@ public class RegistrationFragment extends Fragment implements AdapterView.OnItem
 
 
     }
+
     /**
      * function to show or hide loading spinner
      *
@@ -146,6 +152,7 @@ public class RegistrationFragment extends Fragment implements AdapterView.OnItem
         });
 
     }
+
     public void showTypePhone(final int position) {
 
         spinnerPhone.setSelection(position);
@@ -162,6 +169,7 @@ public class RegistrationFragment extends Fragment implements AdapterView.OnItem
             //   LoginFeatureController.getInstance().setUserEmailType(false);
         }
     }
+
     @Override
     public void onDestroy() {
         super.onDestroy();

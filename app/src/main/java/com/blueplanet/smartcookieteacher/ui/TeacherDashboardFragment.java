@@ -513,4 +513,5 @@ public class TeacherDashboardFragment extends Fragment implements IEventListener
             CommonFunctions.showNetworkMsg(getActivity());
         }
     }
+
 }

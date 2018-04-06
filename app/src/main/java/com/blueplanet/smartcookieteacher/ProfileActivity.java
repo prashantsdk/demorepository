@@ -72,13 +72,7 @@ public class ProfileActivity extends AppCompatActivity implements IEventListener
     private Teacher _teacher;
     private String tId;
     private String userChoosenTask;
-   // String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
-   /* String emailPattern = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
-            + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";*/
 
-    //String emailPattern = " ^([\\w-]|(?<!\\.)\\.)+[a-zA-Z0-9]@[a-zA-Z0-9]([a-zA-Z0-9\\-]+)((\\.([a-zA-Z]){2,9}){0,2})$";
-    //String emailPattern = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-    String emailPattern = "^[A-Za-z0-9._%+\\-]+@[A-Za-z0-9.\\-]+\\.[A-Za-z]{2,4}$";
 
 
     byte[] bb = null;
@@ -269,9 +263,11 @@ public class ProfileActivity extends AppCompatActivity implements IEventListener
         String _PhoneCode = String.valueOf(memberID);
         String Key = "member-id";
         _registerListeners();
+
         //sayali
         // onClick of button perform this simplest code.
         //if (email.matches(emailPattern)) {
+
         if (isEmailValid(email)) {
             if(phone.length() == 10) {
                 UpdateProfileFeatureController.getInstance().updateProfileInfo(tId, email, fname, mname, lname, dob, add, city, country, gender, pas, phone, state, _schoolId,
@@ -319,9 +315,6 @@ public class ProfileActivity extends AppCompatActivity implements IEventListener
                         NotifierFactory.getInstance().getNotifier(NotifierFactory.EVENT_NOTIFIER_TEACHER);
                 eventsponsorlist.unRegisterListener(this);
                 if (errorCode == WebserviceConstants.SUCCESS) {
-
-                  //  regmodel = UpdateProfileFeatureController.getInstance().getRemodel();
-                  //  setTeacherInfo(regmodel);
 
 
                     showProfileUpdateMsg(true);
@@ -514,6 +507,7 @@ public class ProfileActivity extends AppCompatActivity implements IEventListener
             _pasword.setText("");
         } else {
             _pasword.setText(passw);
+
                 /*for(int i = 1; i<=passw.length();i++) {
                     _pasword.setText(_pasword.getText().toString()+" *");
                 }*/

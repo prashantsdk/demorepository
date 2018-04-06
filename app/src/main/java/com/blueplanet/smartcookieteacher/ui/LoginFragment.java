@@ -471,7 +471,7 @@ public class LoginFragment extends Fragment implements AdapterView.OnItemSelecte
 
         } else if (selState.equalsIgnoreCase("MemberID")) {
             ll_prn.setVisibility(View.INVISIBLE);
-            ll_ID.setVisibility(View.VISIBLE);
+            ll_ID.setVisibility(View.GONE);
             ll_userphone.setVisibility(View.INVISIBLE);
             ll_phone.setVisibility(View.INVISIBLE);
             _l1memberID.setVisibility(View.VISIBLE);

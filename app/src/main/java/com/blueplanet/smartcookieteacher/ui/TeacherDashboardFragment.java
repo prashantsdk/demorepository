@@ -48,6 +48,8 @@ import com.blueplanet.smartcookieteacher.utils.IImageLoader;
 import com.blueplanet.smartcookieteacher.utils.SmartCookieImageLoader;
 import com.blueplanet.smartcookieteacher.utils.SmartCookieSharedPreferences;
 import com.blueplanet.smartcookieteacher.webservices.WebserviceConstants;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.github.siyamed.shapeimageview.HexagonImageView;
 
 import java.util.ArrayList;
@@ -256,7 +258,6 @@ public class TeacherDashboardFragment extends Fragment implements IEventListener
                 @Override
                 public void run() {
 
-                    // _teacherName.setText( CommonFunctions.capitalize(_teacher.get_tCompleteName()) + "  (Teacher)");
                     _teacherName.setText(_teacher.get_tCompleteName()+" (Teacher)");
                     _teachercolgname.setText(_teacher.get_tCurrent_School_Name());
                     _teacherteacherId.setText(_teacher.get_tId());
@@ -264,14 +265,14 @@ public class TeacherDashboardFragment extends Fragment implements IEventListener
                     String timage = _teacher.get_tPC();
                     if (timage != null && timage.length() > 0) {
 
-                        final String imageName = timage;
-                        Log.i(_TAG, imageName);
 
-                        SmartCookieImageLoader.getInstance().setImageLoaderData(imageName, _teacherImage,
-                                IImageLoader.NORMAL_POSTER);
-
-                        SmartCookieImageLoader.getInstance().display();
-
+                      Glide.with(getActivity())
+                              .load(timage)
+                              .thumbnail(0.5f)
+                              .crossFade()
+                              .diskCacheStrategy(DiskCacheStrategy.NONE)
+                              .skipMemoryCache(true)
+                              .into(_teacherImage);
 
                     }
 

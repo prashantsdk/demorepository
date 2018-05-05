@@ -62,7 +62,7 @@ import java.util.ArrayList;
 
 
 /**
- * Created by 1311 on 25-11-2015.
+ * Just adding the comment in the existing project
  */
 public class AfterLoginActivity extends AppCompatActivity implements IEventListener, NavigationView.OnNavigationItemSelectedListener {
 
